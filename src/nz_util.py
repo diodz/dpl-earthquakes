@@ -2,6 +2,27 @@ import pandas as pd
 import warnings
 warnings.filterwarnings("ignore", message="Print area cannot be set to Defined name")
 
+SECTOR_COLUMNS = ['Agriculture', 'Administrative and Support Services', 'Construction', 
+                        'Education and Training', 'Financial and Insurance Services', 
+                        'Food and beverage services', 'Health Care and Social Assistance', 
+                        'Information Media, Telecommunications and Other Services', 
+                        'Manufacturing', 'Professional, Scientific, and Technical Services', 
+                        'Public Administration and Safety', 'Rental, Hiring and Real Estate Services', 
+                        'Retail Trade', 'Transport, Postal and Warehousing', 'Wholesale Trade']
+
+
+def clean_data_for_synthetic_control():
+    df = read_and_clean_nz_data()
+    pop = read_and_clean_nz_population_data()    
+    df_wide = pd.pivot_table(df, index=['Period', 'Region'], columns='Industry', values='value').reset_index()
+    df_wide.rename(columns={'Period': 'Year'}, inplace=True)
+    merged_df = pd.merge(df_wide, pop, on=['Year', 'Region'], how='outer')
+    merged_df.drop(columns=['Total All Industries'], inplace=True)
+    merged_df.rename(columns={'Total': 'GDP per capita'}, inplace=True)
+    rv = order_data_and_calculate_per_capita(merged_df)
+    rv = add_tertiary_education_data(rv)
+    return rv
+
 
 def read_and_clean_nz_data():
     file_path = '../data/regional-gross-domestic-product-year-ended-march-2023.csv'
@@ -56,33 +77,17 @@ def read_and_clean_nz_population_data():
     population_data_cleaned['Year'] = population_data_cleaned['Year'].astype(int)
     return population_data_cleaned
 
-def process_and_merge_data():
-    df = read_and_clean_nz_data()
-    pop = read_and_clean_nz_population_data()    
-    df_wide = pd.pivot_table(df, index=['Period', 'Region'], columns='Industry', values='value').reset_index()
-    df_wide.rename(columns={'Period': 'Year'}, inplace=True)
-    merged_df = pd.merge(df_wide, pop, on=['Year', 'Region'], how='outer')
-    merged_df.drop(columns=['Total All Industries'], inplace=True)
-    merged_df.rename(columns={'Total': 'GDP per capita'}, inplace=True)
-    rv = order_data_and_calculate_per_capita(merged_df)
-    return rv
 
 def order_data_and_calculate_per_capita(df):
     # Select the columns related to the specific sectors mentioned
-    selected_columns = ['Agriculture', 'Administrative and Support Services', 'Construction', 
-                        'Education and Training', 'Financial and Insurance Services', 
-                        'Food and beverage services', 'Health Care and Social Assistance', 
-                        'Information Media, Telecommunications and Other Services', 
-                        'Manufacturing', 'Professional, Scientific, and Technical Services', 
-                        'Public Administration and Safety', 'Rental, Hiring and Real Estate Services', 
-                        'Retail Trade', 'Transport, Postal and Warehousing', 'Wholesale Trade']
+    
 
     # Rearrange the columns so that the selected columns are at the end
-    reordered_columns = ['Year', 'Region', 'Gross Domestic Product', 'GDP per capita', 'Population'] + selected_columns
+    reordered_columns = ['Year', 'Region', 'Gross Domestic Product', 'GDP per capita', 'Population'] + SECTOR_COLUMNS
 
     # Create the reordered dataframe
     df_reordered = df[reordered_columns].copy(deep=True)
-    df_reordered[selected_columns] = df_reordered[selected_columns].div(df_reordered['Gross Domestic Product'], axis=0)
+    df_reordered[SECTOR_COLUMNS] = df_reordered[SECTOR_COLUMNS].div(df_reordered['Gross Domestic Product'], axis=0)
     return df_reordered
 
 def read_and_process_tertiary_education_data():
@@ -106,6 +111,12 @@ def read_and_process_tertiary_education_data():
         'southland': 'Southland'
     }
 
-    # Map the region names to be consistent with df
     ter['Region'] = ter['Region'].map(region_mapping)
     return ter
+
+def add_tertiary_education_data(data):
+    ter = read_and_process_tertiary_education_data()
+    df = data.merge(ter.drop('regioncode', axis=1), on=['Region', 'Year'], how='left')
+    regioncodes = ter[['regioncode', 'Region']].drop_duplicates().copy(deep=True)
+    df = df.merge(regioncodes, on='Region', how='left')
+    return df
