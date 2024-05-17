@@ -84,3 +84,28 @@ def order_data_and_calculate_per_capita(df):
     df_reordered = df[reordered_columns].copy(deep=True)
     df_reordered[selected_columns] = df_reordered[selected_columns].div(df_reordered['Gross Domestic Product'], axis=0)
     return df_reordered
+
+def read_and_process_tertiary_education_data():
+    # Define the region mapping
+    ter = pd.read_csv('../data/nz_tertiary_attainment.csv')
+    region_mapping = {
+        'northland': 'Northland',
+        'auckland': 'Auckland',
+        'waikato': 'Waikato',
+        'bayofplenty': 'Bay of Plenty',
+        'gisborne': 'Gisborne',
+        'hawke\'sbay': 'Hawke\'s Bay',
+        'taranaki': 'Taranaki',
+        'Manawatu-Wanganui': 'Manawatu-Whanganui',
+        'wellington': 'Wellington',
+        'tasmannelson': 'Tasman/Nelson',
+        'Marlborough': 'Marlborough',
+        'westcoast': 'West Coast',
+        'canterbury': 'Canterbury',
+        'otago': 'Otago',
+        'southland': 'Southland'
+    }
+
+    # Map the region names to be consistent with df
+    ter['regionname'] = ter['regionname'].map(region_mapping)
+    return ter
