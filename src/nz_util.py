@@ -107,5 +107,5 @@ def read_and_process_tertiary_education_data():
     }
 
     # Map the region names to be consistent with df
-    ter['regionname'] = ter['regionname'].map(region_mapping)
+    ter['Region'] = ter['Region'].map(region_mapping)
     return ter
