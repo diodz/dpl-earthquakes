@@ -5,3 +5,4 @@ torch==2.3.0
 torchvision==0.18.0
 tqdm==4.66.4
 pysyncon==1.5.0
+openpyxl==3.1.2
