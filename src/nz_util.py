@@ -64,4 +64,23 @@ def process_and_merge_data():
     merged_df = pd.merge(df_wide, pop, on=['Year', 'Region'], how='outer')
     merged_df.drop(columns=['Total All Industries'], inplace=True)
     merged_df.rename(columns={'Total': 'GDP per capita'}, inplace=True)
-    return merged_df
+    rv = order_data_and_calculate_per_capita(merged_df)
+    return rv
+
+def order_data_and_calculate_per_capita(df):
+    # Select the columns related to the specific sectors mentioned
+    selected_columns = ['Agriculture', 'Administrative and Support Services', 'Construction', 
+                        'Education and Training', 'Financial and Insurance Services', 
+                        'Food and beverage services', 'Health Care and Social Assistance', 
+                        'Information Media, Telecommunications and Other Services', 
+                        'Manufacturing', 'Professional, Scientific, and Technical Services', 
+                        'Public Administration and Safety', 'Rental, Hiring and Real Estate Services', 
+                        'Retail Trade', 'Transport, Postal and Warehousing', 'Wholesale Trade']
+
+    # Rearrange the columns so that the selected columns are at the end
+    reordered_columns = ['Year', 'Region', 'Gross Domestic Product', 'GDP per capita', 'Population'] + selected_columns
+
+    # Create the reordered dataframe
+    df_reordered = df[reordered_columns].copy(deep=True)
+    df_reordered[selected_columns] = df_reordered[selected_columns].div(df_reordered['Gross Domestic Product'], axis=0)
+    return df_reordered
