@@ -2,7 +2,7 @@ import pandas as pd
 import warnings
 warnings.filterwarnings("ignore", message="Print area cannot be set to Defined name")
 
-SECTOR_COLUMNS = ['Agriculture', 'Administrative and Support Services', 'Construction', 
+SECTORIAL_GDP_VARIABLES = ['Agriculture', 'Administrative and Support Services', 'Construction', 
                         'Education and Training', 'Financial and Insurance Services', 
                         'Food and beverage services', 'Health Care and Social Assistance', 
                         'Information Media, Telecommunications and Other Services', 
@@ -83,11 +83,11 @@ def order_data_and_calculate_per_capita(df):
     
 
     # Rearrange the columns so that the selected columns are at the end
-    reordered_columns = ['Year', 'Region', 'Gross Domestic Product', 'GDP per capita', 'Population'] + SECTOR_COLUMNS
+    reordered_columns = ['Year', 'Region', 'Gross Domestic Product', 'GDP per capita', 'Population'] + SECTORIAL_GDP_VARIABLES
 
     # Create the reordered dataframe
     df_reordered = df[reordered_columns].copy(deep=True)
-    df_reordered[SECTOR_COLUMNS] = df_reordered[SECTOR_COLUMNS].div(df_reordered['Gross Domestic Product'], axis=0)
+    df_reordered[SECTORIAL_GDP_VARIABLES] = df_reordered[SECTORIAL_GDP_VARIABLES].div(df_reordered['Gross Domestic Product'], axis=0)
     return df_reordered
 
 def read_and_process_tertiary_education_data():
