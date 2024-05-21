@@ -55,7 +55,7 @@ def read_and_clean_nz_population_data():
     regions_to_keep = [
         'Northland', 'Auckland', 'Waikato', 'Bay of Plenty', 'Gisborne', "Hawke's Bay",
         'Taranaki', 'Manawatū-Whanganui', 'Wellington' ,'Total North Island',
-        'Tasman / Nelson(2)', 'Marlborough', 'West Coast', 'Canterbury(3)', 'Otago'
+        'Tasman / Nelson(2)', 'Marlborough', 'West Coast', 'Canterbury(3)', 'Otago',
         'Southland', 'Total South Island', 'Total New Zealand'
     ]
     # Filter the dataframe
