@@ -1,0 +1,614 @@
+2024-05-31 09:13:02 [INFO] Question: What is the average GDP per capita in Chile?
+2024-05-31 09:13:02 [INFO] Running PandasAI with openai LLM...
+2024-05-31 09:13:02 [INFO] Prompt ID: b2136564-a626-44db-9e9e-e7e8a9379ba5
+2024-05-31 09:13:02 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 09:13:02 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 09:13:02 [INFO] Executing Step 1: CacheLookup
+2024-05-31 09:13:02 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 09:13:03 [INFO] Using prompt: <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ What is the average GDP per capita in Chile?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 09:13:03 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 09:13:05 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 09:13:05 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ What is the average GDP per capita in Chile?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 09:13:05 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+df = dfs[0]
+
+# Calculate average GDP per capita in Chile
+average_gdp_per_capita_chile = df.mean().mean()
+
+# Declare result var
+result = { "type": "number", "value": average_gdp_per_capita_chile }
+            ```
+            
+2024-05-31 09:13:05 [INFO] Executing Step 4: CachePopulation
+2024-05-31 09:13:05 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 09:13:05 [INFO] 
+Code running:
+```
+df = dfs[0]
+average_gdp_per_capita_chile = df.mean().mean()
+result = {'type': 'number', 'value': average_gdp_per_capita_chile}
+        ```
+2024-05-31 09:13:05 [INFO] Executing Step 6: CodeExecution
+2024-05-31 09:13:05 [INFO] Executing Step 7: ResultValidation
+2024-05-31 09:13:05 [INFO] Answer: {'type': 'number', 'value': 8852044.126727177}
+2024-05-31 09:13:05 [INFO] Executing Step 8: ResultParsing
+2024-05-31 09:13:39 [INFO] Question: Tell me about the data
+2024-05-31 09:13:39 [INFO] Running PandasAI with openai LLM...
+2024-05-31 09:13:39 [INFO] Prompt ID: 130eddd1-c1a3-4b09-a4e1-6225b36f4b14
+2024-05-31 09:13:39 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 09:13:39 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 09:13:39 [INFO] Executing Step 1: CacheLookup
+2024-05-31 09:13:39 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 09:13:39 [INFO] Using prompt: <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Tell me about the data
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 09:13:39 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 09:13:50 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 09:13:50 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Tell me about the data
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 09:13:50 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+data = {
+    "Year": [2017, 2020, 2019],
+    "GDP per capita I De Tarapacá": [9890385.978698876, 9194277.668792449, 9551996.24503755],
+    "GDP per capita II De Antofagasta": [23927978.759158075, 22129662.035427697, 21957760.61044111],
+    "GDP per capita III De Atacama": [12423529.522398487, 11220304.324622842, 12661424.865176251],
+    "GDP per capita IV De Coquimbo": [7228922.536116613, 7560764.558379249, 6977004.476096068],
+    "GDP per capita V De Valparaíso": [7065382.912087819, 7172678.198999468, 6550660.724685972],
+    "GDP per capita RMS Región Metropolitana de Santiago": [10242235.692776827, 8963621.842773948, 10162455.418272562],
+    "GDP per capita VI Del Libertador General Bernardo OHiggins": [6427946745, 1450752450, 4998359431],
+    "GDP per capita VII Del Maule": [6058175.863929232, 6735766.727893409, 6151519.9783881465],
+    "GDP per capita VIII Del Biobío": [6284267.478803383, 6115560.252340718, 7250929.784396445],
+    "GDP per capita IX De La Araucanía": [5761198.89934789, 5735335.156076342, 5151734.660104352],
+    "GDP per capita X De Los Lagos": [7068355.541058866, 6530815.022941874, 7302644.438383294],
+    "GDP per capita XI Aysén del General Carlos Ibáñez del Campo": [11122731.082927523, 10998648.515006669, 10346902.201293409],
+    "GDP per capita XII De Magallanes y de la Antártica Chilena": [9593701.385251237, 10548068.871739386, 10391906.867871823]
+}
+
+df = pd.DataFrame(data)
+
+# Declare result var:
+result = {"type": "dataframe", "value": df}
+            ```
+            
+2024-05-31 09:13:50 [INFO] Executing Step 4: CachePopulation
+2024-05-31 09:13:50 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 09:13:50 [INFO] 
+Code running:
+```
+data = {'Year': [2017, 2020, 2019], 'GDP per capita I De Tarapacá': [9890385.978698876, 9194277.668792449, 9551996.24503755], 'GDP per capita II De Antofagasta': [23927978.759158075, 22129662.035427697, 21957760.61044111], 'GDP per capita III De Atacama': [12423529.522398487, 11220304.324622842, 12661424.865176251], 'GDP per capita IV De Coquimbo': [7228922.536116613, 7560764.558379249, 6977004.476096068], 'GDP per capita V De Valparaíso': [7065382.912087819, 7172678.198999468, 6550660.724685972], 'GDP per capita RMS Región Metropolitana de Santiago': [10242235.692776827, 8963621.842773948, 10162455.418272562], 'GDP per capita VI Del Libertador General Bernardo OHiggins': [6427946745, 1450752450, 4998359431], 'GDP per capita VII Del Maule': [6058175.863929232, 6735766.727893409, 6151519.9783881465], 'GDP per capita VIII Del Biobío': [6284267.478803383, 6115560.252340718, 7250929.784396445], 'GDP per capita IX De La Araucanía': [5761198.89934789, 5735335.156076342, 5151734.660104352], 'GDP per capita X De Los Lagos': [7068355.541058866, 6530815.022941874, 7302644.438383294], 'GDP per capita XI Aysén del General Carlos Ibáñez del Campo': [11122731.082927523, 10998648.515006669, 10346902.201293409], 'GDP per capita XII De Magallanes y de la Antártica Chilena': [9593701.385251237, 10548068.871739386, 10391906.867871823]}
+df = dfs[0]
+result = {'type': 'dataframe', 'value': df}
+        ```
+2024-05-31 09:13:50 [INFO] Executing Step 6: CodeExecution
+2024-05-31 09:13:50 [INFO] Executing Step 7: ResultValidation
+2024-05-31 09:13:50 [INFO] Answer: {'type': 'dataframe', 'value':       Year  ... GDP per capita XII De Magallanes y de la Antártica Chilena
+0   2013.0  ...                                     9593701.385251        
+1   2014.0  ...                                    10086012.402995        
+2   2015.0  ...                                    10232196.989101        
+3   2016.0  ...                                    10671132.815884        
+4   2017.0  ...                                    10803056.344823        
+5   2018.0  ...                                    10548068.871739        
+6   2019.0  ...                                     10927707.44543        
+7   2020.0  ...                                     9417358.689399        
+8   2021.0  ...                                    10039333.874506        
+9   2022.0  ...                                    10607144.214766        
+10  2023.0  ...                                    10391906.867872        
+
+[11 rows x 14 columns]}
+2024-05-31 09:13:50 [INFO] Executing Step 8: ResultParsing
+2024-05-31 09:14:14 [INFO] Question: what data used to calculate GDP per capita in Chile?
+2024-05-31 09:14:14 [INFO] Running PandasAI with openai LLM...
+2024-05-31 09:14:14 [INFO] Prompt ID: 1b49f7a6-d545-4fb2-9763-168667e49762
+2024-05-31 09:14:14 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 09:14:14 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 09:14:14 [INFO] Executing Step 1: CacheLookup
+2024-05-31 09:14:14 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 09:14:14 [INFO] Using prompt: <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what data used to calculate GDP per capita in Chile?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 09:14:14 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 09:14:26 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 09:14:26 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what data used to calculate GDP per capita in Chile?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 09:14:26 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Data used to calculate GDP per capita in Chile:
+data = {
+    "Year": [2017, 2020, 2019],
+    "GDP per capita I De Tarapacá": [9890385.978698876, 9194277.668792449, 9551996.24503755],
+    "GDP per capita II De Antofagasta": [23927978.759158075, 22129662.035427697, 21957760.61044111],
+    "GDP per capita III De Atacama": [12423529.522398487, 11220304.324622842, 12661424.865176251],
+    "GDP per capita IV De Coquimbo": [7228922.536116613, 7560764.558379249, 6977004.476096068],
+    "GDP per capita V De Valparaíso": [7065382.912087819, 7172678.198999468, 6550660.724685972],
+    "GDP per capita RMS Región Metropolitana de Santiago": [10242235.692776827, 8963621.842773948, 10162455.418272562],
+    "GDP per capita VI Del Libertador General Bernardo OHiggins": [6427946745, 1450752450, 4998359431],
+    "GDP per capita VII Del Maule": [6058175.863929232, 6735766.727893409, 6151519.9783881465],
+    "GDP per capita VIII Del Biobío": [6284267.478803383, 6115560.252340718, 7250929.784396445],
+    "GDP per capita IX De La Araucanía": [5761198.89934789, 5735335.156076342, 5151734.660104352],
+    "GDP per capita X De Los Lagos": [7068355.541058866, 6530815.022941874, 7302644.438383294],
+    "GDP per capita XI Aysén del General Carlos Ibáñez del Campo": [11122731.082927523, 10998648.515006669, 10346902.201293409],
+    "GDP per capita XII De Magallanes y de la Antártica Chilena": [9593701.385251237, 10548068.871739386, 10391906.867871823]
+}
+
+df = pd.DataFrame(data)
+
+result = {"type": "dataframe", "value": df}
+            ```
+            
+2024-05-31 09:14:26 [INFO] Executing Step 4: CachePopulation
+2024-05-31 09:14:26 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 09:14:26 [INFO] 
+Code running:
+```
+data = {'Year': [2017, 2020, 2019], 'GDP per capita I De Tarapacá': [9890385.978698876, 9194277.668792449, 9551996.24503755], 'GDP per capita II De Antofagasta': [23927978.759158075, 22129662.035427697, 21957760.61044111], 'GDP per capita III De Atacama': [12423529.522398487, 11220304.324622842, 12661424.865176251], 'GDP per capita IV De Coquimbo': [7228922.536116613, 7560764.558379249, 6977004.476096068], 'GDP per capita V De Valparaíso': [7065382.912087819, 7172678.198999468, 6550660.724685972], 'GDP per capita RMS Región Metropolitana de Santiago': [10242235.692776827, 8963621.842773948, 10162455.418272562], 'GDP per capita VI Del Libertador General Bernardo OHiggins': [6427946745, 1450752450, 4998359431], 'GDP per capita VII Del Maule': [6058175.863929232, 6735766.727893409, 6151519.9783881465], 'GDP per capita VIII Del Biobío': [6284267.478803383, 6115560.252340718, 7250929.784396445], 'GDP per capita IX De La Araucanía': [5761198.89934789, 5735335.156076342, 5151734.660104352], 'GDP per capita X De Los Lagos': [7068355.541058866, 6530815.022941874, 7302644.438383294], 'GDP per capita XI Aysén del General Carlos Ibáñez del Campo': [11122731.082927523, 10998648.515006669, 10346902.201293409], 'GDP per capita XII De Magallanes y de la Antártica Chilena': [9593701.385251237, 10548068.871739386, 10391906.867871823]}
+df = dfs[0]
+result = {'type': 'dataframe', 'value': df}
+        ```
+2024-05-31 09:14:26 [INFO] Executing Step 6: CodeExecution
+2024-05-31 09:14:26 [INFO] Executing Step 7: ResultValidation
+2024-05-31 09:14:26 [INFO] Answer: {'type': 'dataframe', 'value':       Year  ... GDP per capita XII De Magallanes y de la Antártica Chilena
+0   2013.0  ...                                     9593701.385251        
+1   2014.0  ...                                    10086012.402995        
+2   2015.0  ...                                    10232196.989101        
+3   2016.0  ...                                    10671132.815884        
+4   2017.0  ...                                    10803056.344823        
+5   2018.0  ...                                    10548068.871739        
+6   2019.0  ...                                     10927707.44543        
+7   2020.0  ...                                     9417358.689399        
+8   2021.0  ...                                    10039333.874506        
+9   2022.0  ...                                    10607144.214766        
+10  2023.0  ...                                    10391906.867872        
+
+[11 rows x 14 columns]}
+2024-05-31 09:14:26 [INFO] Executing Step 8: ResultParsing
+2024-05-31 09:14:50 [INFO] Question: sum the northern regions
+2024-05-31 09:14:50 [INFO] Running PandasAI with openai LLM...
+2024-05-31 09:14:50 [INFO] Prompt ID: 90fc2abd-2569-423a-a82f-2ac6f9b7710b
+2024-05-31 09:14:50 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 09:14:50 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 09:14:50 [INFO] Executing Step 1: CacheLookup
+2024-05-31 09:14:50 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 09:14:50 [INFO] Using prompt: <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ sum the northern regions
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 09:14:50 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 09:14:52 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 09:14:52 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ sum the northern regions
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 09:14:52 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Sum the GDP per capita of the northern regions
+northern_regions = dfs[0][['GDP per capita I De Tarapacá', 'GDP per capita II De Antofagasta', 'GDP per capita III De Atacama']].sum(axis=1)
+
+# Display the sum of the northern regions
+result = {"type": "number", "value": northern_regions.sum()}
+            ```
+            
+2024-05-31 09:14:52 [INFO] Executing Step 4: CachePopulation
+2024-05-31 09:14:52 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 09:14:52 [INFO] 
+Code running:
+```
+northern_regions = dfs[0][['GDP per capita I De Tarapacá', 'GDP per capita II De Antofagasta', 'GDP per capita III De Atacama']].sum(axis=1)
+result = {'type': 'number', 'value': northern_regions.sum()}
+        ```
+2024-05-31 09:14:52 [INFO] Executing Step 6: CodeExecution
+2024-05-31 09:14:52 [INFO] Executing Step 7: ResultValidation
+2024-05-31 09:14:52 [INFO] Answer: {'type': 'number', 'value': 507072159.92910546}
+2024-05-31 09:14:52 [INFO] Executing Step 8: ResultParsing
+2024-05-31 09:15:05 [INFO] Question: sum the northern regions in a new table
+2024-05-31 09:15:05 [INFO] Running PandasAI with openai LLM...
+2024-05-31 09:15:05 [INFO] Prompt ID: 06595256-26c9-4020-ade2-76a54123f73e
+2024-05-31 09:15:05 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 09:15:05 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 09:15:05 [INFO] Executing Step 1: CacheLookup
+2024-05-31 09:15:05 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 09:15:05 [INFO] Using prompt: <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ sum the northern regions in a new table
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 09:15:05 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 09:15:08 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 09:15:08 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:11x14
+Year,GDP per capita I De Tarapacá,GDP per capita II De Antofagasta,GDP per capita III De Atacama,GDP per capita IV De Coquimbo,GDP per capita V De Valparaíso,GDP per capita RMS Región Metropolitana de Santiago,GDP per capita VI Del Libertador General Bernardo OHiggins,GDP per capita VII Del Maule,GDP per capita VIII Del Biobío,GDP per capita IX De La Araucanía,GDP per capita X De Los Lagos,GDP per capita XI Aysén del General Carlos Ibáñez del Campo,GDP per capita XII De Magallanes y de la Antártica Chilena
+2017.0,9890385.978698876,23927978.759158075,12423529.522398487,7228922.536116613,7065382.912087819,10242235.692776827,6427946745,6058175.863929232,6284267.478803383,5761198.89934789,7068355.541058866,11122731.082927523,9593701.385251237
+2020.0,9194277.668792449,22129662.035427697,11220304.324622842,7560764.558379249,7172678.198999468,8963621.842773948,1450752450,6735766.727893409,6115560.252340718,5735335.156076342,6530815.022941874,10998648.515006669,10548068.871739386
+2019.0,9551996.24503755,21957760.61044111,12661424.865176251,6977004.476096068,6550660.724685972,10162455.418272562,4998359431,6151519.9783881465,7250929.784396445,5151734.660104352,7302644.438383294,10346902.201293409,10391906.867871823
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ sum the northern regions in a new table
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 09:15:08 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Create a new dataframe with the sum of GDP per capita for the northern regions
+northern_regions_sum = dfs[0][['GDP per capita I De Tarapacá', 'GDP per capita II De Antofagasta', 'GDP per capita III De Atacama']].sum(axis=1)
+
+# Display the new dataframe
+northern_regions_sum_df = pd.DataFrame(northern_regions_sum, columns=['Sum of Northern Regions GDP per capita'])
+
+result = {"type": "dataframe", "value": northern_regions_sum_df}
+            ```
+            
+2024-05-31 09:15:08 [INFO] Executing Step 4: CachePopulation
+2024-05-31 09:15:08 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 09:15:08 [INFO] 
+Code running:
+```
+northern_regions_sum = dfs[0][['GDP per capita I De Tarapacá', 'GDP per capita II De Antofagasta', 'GDP per capita III De Atacama']].sum(axis=1)
+northern_regions_sum_df = pd.DataFrame(northern_regions_sum, columns=['Sum of Northern Regions GDP per capita'])
+result = {'type': 'dataframe', 'value': northern_regions_sum_df}
+        ```
+2024-05-31 09:15:08 [INFO] Executing Step 6: CodeExecution
+2024-05-31 09:15:08 [INFO] Executing Step 7: ResultValidation
+2024-05-31 09:15:08 [INFO] Answer: {'type': 'dataframe', 'value':     Sum of Northern Regions GDP per capita
+0                             4.829243e+07
+1                             4.927350e+07
+2                             4.857090e+07
+3                             4.684811e+07
+4                             4.580430e+07
+5                             4.653140e+07
+6                             4.490224e+07
+7                             4.287400e+07
+8                             4.453893e+07
+9                             4.437967e+07
+10                            4.505668e+07}
+2024-05-31 09:15:09 [INFO] Executing Step 8: ResultParsing

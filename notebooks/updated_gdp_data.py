@@ -109,3 +109,10 @@ def calculate_gdp_per_capita():
         gdp_per_capita['GDP per capita ' + region] = merged_df[region + "_gdp"] * 10E8 / merged_df[region + "_pop"]
     return gdp_per_capita
 
+def calculate_growth_rates():
+    ch = calculate_gdp_per_capita()
+    for col in ch.columns[1:]:
+        ch[f'{col} Growth Rate'] = ch[col].pct_change() * 100
+    gr = ch.filter(like='Growth').dropna()
+    gr['year'] = range(2014, 2024)
+    return gr
