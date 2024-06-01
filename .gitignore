@@ -1,4 +1,4 @@
-notebooks/data
 notebooks/cifar_net.pth
 .ipynb_checkpoints/
 notebooks/PandasAI playground.ipynb
+intercache/cache_db_0.10.db.wal

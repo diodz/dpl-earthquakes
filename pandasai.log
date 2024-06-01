@@ -612,3 +612,2657 @@ result = {'type': 'dataframe', 'value': northern_regions_sum_df}
 9                             4.437967e+07
 10                            4.505668e+07}
 2024-05-31 09:15:09 [INFO] Executing Step 8: ResultParsing
+2024-05-31 11:43:59 [INFO] Question: Plot gdp_cap for each region
+2024-05-31 11:44:00 [INFO] Running PandasAI with openai LLM...
+2024-05-31 11:44:00 [INFO] Prompt ID: c2d426a1-4402-4d61-8856-8105719e1061
+2024-05-31 11:44:00 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 11:44:00 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 11:44:00 [INFO] Executing Step 1: CacheLookup
+2024-05-31 11:44:00 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 11:44:00 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap for each region
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 11:44:00 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 11:44:04 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:04 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap for each region
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 11:44:04 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Plot gdp_cap for each region
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+result = {"type": "plot", "value": "gdp_cap_per_region.png"}
+            ```
+            
+2024-05-31 11:44:04 [INFO] Executing Step 4: CachePopulation
+2024-05-31 11:44:05 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 11:44:05 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 11:44:05 [INFO] 
+Code running:
+```
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 11:44:05 [INFO] Executing Step 6: CodeExecution
+2024-05-31 11:44:06 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+2024-05-31 11:44:06 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-05-31 11:44:06 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:44:06 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:44:06 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap for each region
+
+You generated this python code:
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:44:06 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:44:09 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:09 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap for each region
+
+You generated this python code:
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:44:09 [INFO] Code generated:
+            ```
+            import matplotlib.pyplot as plt
+
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+            ```
+            
+2024-05-31 11:44:09 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:44:09 [INFO] 
+Code running:
+```
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+        ```
+2024-05-31 11:44:10 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 11:44:10 [WARNING] Failed to execute code retrying with a correction framework [retry number: 2]
+2024-05-31 11:44:10 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:44:10 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:44:10 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap for each region
+
+You generated this python code:
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:44:10 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:44:12 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:12 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap for each region
+
+You generated this python code:
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:44:12 [INFO] Code generated:
+            ```
+            import matplotlib.pyplot as plt
+
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+            ```
+            
+2024-05-31 11:44:12 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:44:12 [INFO] 
+Code running:
+```
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+        ```
+2024-05-31 11:44:14 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 11:44:14 [WARNING] Failed to execute code retrying with a correction framework [retry number: 3]
+2024-05-31 11:44:14 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:44:14 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:44:14 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap for each region
+
+You generated this python code:
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:44:14 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:44:16 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:16 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2009,IV De Coquimbo,13654594.957301578,698018.0,,0.043776479,0.030769994,0.026773394,,0.328437081,0.029931319,0.107053351,0.061504785,0.06745094,0.078173261,,,0.046982959,11.0
+1991,VII Del Maule,1677514.176,2048993.0,26980.0,,,0.000114798,0.109907036,,,,,0.091795249,0.096820159,0.052083062,0.080477505,0.045292478,
+2000,I De Tarapacá,3040334.167,,77062.0,0.030060423,0.12219171,,0.080307322,0.022821075,0.111209536,0.10832866,0.053178596,,,0.043987374,0.080621823,,3.0
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap for each region
+
+You generated this python code:
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:44:16 [INFO] Code generated:
+            ```
+            import matplotlib.pyplot as plt
+
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+            ```
+            
+2024-05-31 11:44:16 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:44:16 [INFO] 
+Code running:
+```
+for df in dfs:
+    plt.figure(figsize=(12, 6))
+    plt.bar(df['region_name'], df['gdp_cap'])
+    plt.xlabel('Region')
+    plt.ylabel('GDP per Capita')
+    plt.title('GDP per Capita for Each Region')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+        ```
+2024-05-31 11:44:17 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 11:44:17 [ERROR] Pipeline failed on step 6: No result returned
+2024-05-31 11:44:39 [INFO] Question: Plot gdp_cap in time for each region in a single plot
+2024-05-31 11:44:39 [INFO] Running PandasAI with openai LLM...
+2024-05-31 11:44:39 [INFO] Prompt ID: 397b2613-ee46-45f0-983c-a04c270b4c6d
+2024-05-31 11:44:39 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 11:44:39 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 11:44:39 [INFO] Executing Step 1: CacheLookup
+2024-05-31 11:44:39 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 11:44:39 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 11:44:39 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 11:44:43 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:43 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 11:44:43 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Concatenate all dataframes in dfs list
+df = pd.concat(dfs)
+
+# Convert 'year' column to datetime type
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+
+# Plot gdp_cap in time for each region in a single plot
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Save the plot as a PNG file
+plt.savefig('gdp_cap_over_time.png')
+
+# Declare result var
+result = {"type": "plot", "value": "gdp_cap_over_time.png"}
+            ```
+            
+2024-05-31 11:44:43 [INFO] Executing Step 4: CachePopulation
+2024-05-31 11:44:43 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 11:44:44 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 11:44:44 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 11:44:44 [INFO] Executing Step 6: CodeExecution
+2024-05-31 11:44:44 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+2024-05-31 11:44:44 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-05-31 11:44:44 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:44:44 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:44:44 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:44:44 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:44:48 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:48 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:44:48 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Concatenate the dataframes
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+
+# Plotting
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Save the plot
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+
+result = {'type': 'plot', 'value': plt}  # Return the plot object instead of a string path
+            ```
+            
+2024-05-31 11:44:48 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:44:48 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 11:44:48 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': plt}
+        ```
+2024-05-31 11:44:49 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'module'> must match with type plot
+
+2024-05-31 11:44:49 [WARNING] Failed to execute code retrying with a correction framework [retry number: 2]
+2024-05-31 11:44:49 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:44:49 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:44:49 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': plt}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'module'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:44:49 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:44:52 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:52 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': plt}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'module'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:44:52 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+dfs = [df0]  # Assuming df0 is the dataframe provided in the question
+
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+            ```
+            
+2024-05-31 11:44:52 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:44:52 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+        ```
+2024-05-31 11:44:54 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 11:44:54 [WARNING] Failed to execute code retrying with a correction framework [retry number: 3]
+2024-05-31 11:44:54 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:44:54 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:44:54 [INFO] Using prompt: <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:44:54 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:44:58 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:44:58 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x19
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id
+2016,RMS Región Metropolitana de Santiago,15982998.01112926,1023686.0,36331.0,0.045703552,0.098200517,0.022930615,0.19037149,,0.040095833,,,0.088427153,0.068950548,,0.115157008,0.154599659,2.0
+2008,II De Antofagasta,3027451.061,106885.0,,0.047178464,,,,0.172655645,,0.126884882,0.070641774,,0.053617583,0.078552874,,0.063242009,5.0
+1988,X De Los Lagos,1216277.43,,30558.0,,0.074354438,0.01376219,0.003471814,0.122913002,0.014903101,0.092177487,0.052525293,0.081715336,,0.06512132,0.138435932,,
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:44:58 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of dataframes
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+            ```
+            
+2024-05-31 11:44:58 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:44:58 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+        ```
+2024-05-31 11:44:58 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 11:44:58 [ERROR] Pipeline failed on step 6: No result returned
+2024-05-31 11:59:20 [INFO] Question: Plot gdp_cap in time for each region in a single plot
+2024-05-31 11:59:20 [INFO] Running PandasAI with openai LLM...
+2024-05-31 11:59:20 [INFO] Prompt ID: 58a20772-d0e9-4437-848c-84a7ec5a2e53
+2024-05-31 11:59:20 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 11:59:20 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 11:59:20 [INFO] Executing Step 1: CacheLookup
+2024-05-31 11:59:20 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 11:59:20 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 11:59:20 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 11:59:25 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:59:25 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 11:59:25 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Concatenate all dataframes in dfs list
+df = pd.concat(dfs)
+
+# Convert 'year' column to datetime type
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+
+# Plot gdp_cap in time for each region in a single plot
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Save the plot as a PNG file
+plt.savefig('gdp_cap_over_time.png')
+
+# Declare result variable as a dictionary
+result = {"type": "plot", "value": "gdp_cap_over_time.png"}
+            ```
+            
+2024-05-31 11:59:25 [INFO] Executing Step 4: CachePopulation
+2024-05-31 11:59:25 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 11:59:25 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 11:59:25 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 11:59:25 [INFO] Executing Step 6: CodeExecution
+2024-05-31 11:59:26 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+2024-05-31 11:59:26 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-05-31 11:59:26 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:59:26 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:59:26 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:59:26 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:59:29 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:59:29 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:59:29 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Concatenate the dataframes
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+
+# Plotting
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Save the plot
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+
+result = {'type': 'plot', 'value': plt}  # Return the plot object instead of a string path
+            ```
+            
+2024-05-31 11:59:29 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:59:29 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 11:59:29 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': plt}
+        ```
+2024-05-31 11:59:30 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'module'> must match with type plot
+
+2024-05-31 11:59:30 [WARNING] Failed to execute code retrying with a correction framework [retry number: 2]
+2024-05-31 11:59:30 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:59:30 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:59:30 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': plt}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'module'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:59:30 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:59:34 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:59:34 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': plt}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'module'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:59:34 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Concatenate the dataframes
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+
+# Plotting
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+            ```
+            
+2024-05-31 11:59:34 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:59:34 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+        ```
+2024-05-31 11:59:35 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 11:59:35 [WARNING] Failed to execute code retrying with a correction framework [retry number: 3]
+2024-05-31 11:59:35 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 11:59:35 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 11:59:35 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+2024-05-31 11:59:36 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 11:59:39 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 11:59:39 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2018,II De Antofagasta,2849220.423,,,0.061204088,0.084121974,,0.008262106,0.042180962,0.015512704,0.043677292,0.134493879,0.060433052,0.063472464,0.079346296,0.200051506,0.083947256,12.0,
+2006,VII Del Maule,2200720.16,1204023.0,40685.0,,,0.01434904,,0.057321036,,,,,,,0.163841279,,13.0,-3.6050737573147806
+2001,VIII Del Biobío,6859709.53,1031622.0,529671.0,0.060294493,0.060092513,0.005997417,0.540409187,,0.021757597,0.167073994,0.044015187,0.083160274,0.2498698,0.053612123,,0.064990525,,6.815045679132603
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for each region in a single plot
+
+You generated this python code:
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 11:59:39 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Concatenate the dataframes
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+
+# Plotting
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+            ```
+            
+2024-05-31 11:59:39 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 11:59:39 [INFO] 
+Code running:
+```
+df = pd.concat(dfs)
+df['year'] = pd.to_datetime(df['year'], format='%Y')
+plt.figure(figsize=(12, 6))
+for region, data in df.groupby('region_name'):
+    plt.plot(data['year'], data['gdp_cap'], label=region)
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.title('GDP per Capita over Time for Each Region')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+        ```
+2024-05-31 11:59:39 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 11:59:39 [ERROR] Pipeline failed on step 6: No result returned
+2024-05-31 12:00:25 [INFO] Question: Plot gdp_cap in time for the RMS region
+2024-05-31 12:00:25 [INFO] Running PandasAI with openai LLM...
+2024-05-31 12:00:25 [INFO] Prompt ID: aacea19d-73b5-4522-97b5-154008994962
+2024-05-31 12:00:25 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 12:00:25 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 12:00:25 [INFO] Executing Step 1: CacheLookup
+2024-05-31 12:00:25 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 12:00:25 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-05-31 12:00:25 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 12:00:33 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 12:00:33 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-05-31 12:00:33 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Extracting data for the RMS region
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+
+# Creating a DataFrame for the RMS region
+rms_df = pd.DataFrame(rms_data)
+
+# Plotting gdp_cap in time for the RMS region
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Save the plot as a PNG file
+plt.savefig('gdp_cap_rms_region.png')
+
+# Declare result variable as a dictionary
+result = {"type": "plot", "value": "gdp_cap_rms_region.png"}
+            ```
+            
+2024-05-31 12:00:33 [INFO] Executing Step 4: CachePopulation
+2024-05-31 12:00:33 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 12:00:33 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 12:00:33 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 12:00:33 [INFO] Executing Step 6: CodeExecution
+2024-05-31 12:00:33 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+2024-05-31 12:00:33 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-05-31 12:00:33 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 12:00:33 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 12:00:33 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+2024-05-31 12:00:33 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 12:00:37 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 12:00:37 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 12:00:37 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is the list of dataframes containing the data
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+            ```
+            
+2024-05-31 12:00:37 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 12:00:37 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 12:00:37 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 12:00:37 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+2024-05-31 12:00:37 [WARNING] Failed to execute code retrying with a correction framework [retry number: 2]
+2024-05-31 12:00:37 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 12:00:37 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 12:00:37 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+2024-05-31 12:00:37 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 12:00:41 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 12:00:41 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 12:00:41 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is the list of dataframes containing the data
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+            ```
+            
+2024-05-31 12:00:41 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 12:00:41 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 12:00:41 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 12:00:41 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+2024-05-31 12:00:41 [WARNING] Failed to execute code retrying with a correction framework [retry number: 3]
+2024-05-31 12:00:41 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 12:00:41 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 12:00:41 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+2024-05-31 12:00:41 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 12:00:45 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 12:00:45 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+2017,VI Del Libertador General Bernardo OHiggins,3485424.826,,57132.0,,0.0114117,,0.584998844,0.067986586,,,0.112661009,0.044265702,,0.066605055,,0.082037122,,
+2018,XII De Magallanes y de la Antártica Chilena,4691652.608,521158.0,62808.0,0.052537184,,0.001590888,0.025026252,,0.014028627,0.115833983,0.094064845,0.101731765,0.092071143,0.045664765,0.134458014,,10.0,11.836398723887665
+2006,X De Los Lagos,7257532.36,1031622.0,,0.030147772,0.129836213,0.019281634,,0.214556204,0.017836292,0.097167913,,,0.110242146,,0.064807558,0.039441432,1.0,-4.9786632094653065
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 12:00:45 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is the list of dataframes containing the data
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+            ```
+            
+2024-05-31 12:00:45 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 12:00:45 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 12:00:45 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 12:00:45 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+2024-05-31 12:00:45 [ERROR] Pipeline failed on step 6: 'year'
+2024-05-31 12:02:22 [INFO] Question: Plot gdp_cap in time for the RMS region
+2024-05-31 12:02:22 [INFO] Running PandasAI with openai LLM...
+2024-05-31 12:02:22 [INFO] Prompt ID: 0a6b3258-49de-4292-810e-31be0456fc40
+2024-05-31 12:02:22 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-05-31 12:02:22 [INFO] Executing Step 0: ValidatePipelineInput
+2024-05-31 12:02:22 [INFO] Executing Step 1: CacheLookup
+2024-05-31 12:02:22 [INFO] Using cached response
+2024-05-31 12:02:22 [INFO] Executing Step 2: PromptGeneration
+2024-05-31 12:02:22 [INFO] Executing Step 2: Skipping...
+2024-05-31 12:02:22 [INFO] Executing Step 3: CodeGenerator
+2024-05-31 12:02:22 [INFO] Executing Step 3: Skipping...
+2024-05-31 12:02:22 [INFO] Executing Step 4: CachePopulation
+2024-05-31 12:02:22 [INFO] Executing Step 4: Skipping...
+2024-05-31 12:02:22 [INFO] Executing Step 5: CodeCleaning
+2024-05-31 12:02:22 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 12:02:22 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+        ```
+2024-05-31 12:02:22 [INFO] Executing Step 6: CodeExecution
+2024-05-31 12:02:22 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+2024-05-31 12:02:22 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-05-31 12:02:22 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 12:02:22 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 12:02:22 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+1993,VII Del Maule,5757294.301,159154.0,36331.0,0.030060423,0.010570506,0.000927189,0.007666847,,,,,,0.040265963,0.05649511,,,6.0,
+1995,VIII Del Biobío,1679193.27,,26608.0,0.063525839,0.00506575,0.030593151,0.587117723,0.187855012,0.014833078,0.082541747,0.136871289,0.063585961,,0.093722347,0.139714638,0.078355516,,-6.4499931829753
+1997,IV De Coquimbo,877330.2076,1250056.0,,,,,,0.060239717,0.033843737,0.070270871,0.059638838,0.05578437,0.105809248,,0.113913861,0.089592002,12.0,0.7685296420394838
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+2024-05-31 12:02:23 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 12:02:38 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 12:02:38 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+1993,VII Del Maule,5757294.301,159154.0,36331.0,0.030060423,0.010570506,0.000927189,0.007666847,,,,,,0.040265963,0.05649511,,,6.0,
+1995,VIII Del Biobío,1679193.27,,26608.0,0.063525839,0.00506575,0.030593151,0.587117723,0.187855012,0.014833078,0.082541747,0.136871289,0.063585961,,0.093722347,0.139714638,0.078355516,,-6.4499931829753
+1997,IV De Coquimbo,877330.2076,1250056.0,,,,,,0.060239717,0.033843737,0.070270871,0.059638838,0.05578437,0.105809248,,0.113913861,0.089592002,12.0,0.7685296420394838
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)])
+rms_df = pd.DataFrame(rms_data)
+plt.figure(figsize=(12, 6))
+plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+plt.title('GDP per Capita over Time for the RMS Region')
+plt.xlabel('Year')
+plt.ylabel('GDP per Capita')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 6, in <module>
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "c:\Users\diego\anaconda3\envs\playenv\lib\site-packages\pandas\core\indexes\range.py", line 395, in get_loc
+    raise KeyError(key)
+KeyError: 'year'
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 12:02:38 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of DataFrames
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+    result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+else:
+    result = {'type': 'error', 'value': 'No data available for the RMS region'}
+
+result
+            ```
+            
+2024-05-31 12:02:38 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 12:02:38 [INFO] Saving charts to g:\Mi unidad\Research\dpl-earthquakes\exports\charts\temp_chart.png
+2024-05-31 12:02:38 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+    result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+else:
+    result = {'type': 'error', 'value': 'No data available for the RMS region'}
+result
+        ```
+2024-05-31 12:02:38 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+2024-05-31 12:02:38 [WARNING] Failed to execute code retrying with a correction framework [retry number: 2]
+2024-05-31 12:02:38 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 12:02:38 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 12:02:38 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+1993,VII Del Maule,5757294.301,159154.0,36331.0,0.030060423,0.010570506,0.000927189,0.007666847,,,,,,0.040265963,0.05649511,,,6.0,
+1995,VIII Del Biobío,1679193.27,,26608.0,0.063525839,0.00506575,0.030593151,0.587117723,0.187855012,0.014833078,0.082541747,0.136871289,0.063585961,,0.093722347,0.139714638,0.078355516,,-6.4499931829753
+1997,IV De Coquimbo,877330.2076,1250056.0,,,,,,0.060239717,0.033843737,0.070270871,0.059638838,0.05578437,0.105809248,,0.113913861,0.089592002,12.0,0.7685296420394838
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+    result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+else:
+    result = {'type': 'error', 'value': 'No data available for the RMS region'}
+result
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+2024-05-31 12:02:38 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 12:02:47 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 12:02:47 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+1993,VII Del Maule,5757294.301,159154.0,36331.0,0.030060423,0.010570506,0.000927189,0.007666847,,,,,,0.040265963,0.05649511,,,6.0,
+1995,VIII Del Biobío,1679193.27,,26608.0,0.063525839,0.00506575,0.030593151,0.587117723,0.187855012,0.014833078,0.082541747,0.136871289,0.063585961,,0.093722347,0.139714638,0.078355516,,-6.4499931829753
+1997,IV De Coquimbo,877330.2076,1250056.0,,,,,,0.060239717,0.033843737,0.070270871,0.059638838,0.05578437,0.105809248,,0.113913861,0.089592002,12.0,0.7685296420394838
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png')
+    result = {'type': 'plot', 'value': 'g:/Mi unidad/Research/dpl-earthquakes/exports/charts/temp_chart.png'}
+else:
+    result = {'type': 'error', 'value': 'No data available for the RMS region'}
+result
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 97, in execute
+    raise InvalidOutputValueMismatch(
+pandasai.exceptions.InvalidOutputValueMismatch: Value type <class 'str'> must match with type plot
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 12:02:47 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of DataFrames
+dfs = [pd.DataFrame({
+    'year': [1993, 1995, 1997],
+    'region_name': ['VII Del Maule', 'VIII Del Biobío', 'IV De Coquimbo'],
+    'gdp_cap': [5757294.301, 1679193.27, 877330.2076]
+})]
+
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+else:
+    print('No data available for the RMS region')
+            ```
+            
+2024-05-31 12:02:47 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 12:02:47 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+else:
+    print('No data available for the RMS region')
+        ```
+2024-05-31 12:02:48 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 12:02:48 [WARNING] Failed to execute code retrying with a correction framework [retry number: 3]
+2024-05-31 12:02:48 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-05-31 12:02:48 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-05-31 12:02:48 [INFO] Using prompt: <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+1993,VII Del Maule,5757294.301,159154.0,36331.0,0.030060423,0.010570506,0.000927189,0.007666847,,,,,,0.040265963,0.05649511,,,6.0,
+1995,VIII Del Biobío,1679193.27,,26608.0,0.063525839,0.00506575,0.030593151,0.587117723,0.187855012,0.014833078,0.082541747,0.136871289,0.063585961,,0.093722347,0.139714638,0.078355516,,-6.4499931829753
+1997,IV De Coquimbo,877330.2076,1250056.0,,,,,,0.060239717,0.033843737,0.070270871,0.059638838,0.05578437,0.105809248,,0.113913861,0.089592002,12.0,0.7685296420394838
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+else:
+    print('No data available for the RMS region')
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+2024-05-31 12:02:48 [INFO] Executing Step 1: CodeGenerator
+2024-05-31 12:03:04 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-05-31 12:03:04 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:507x20
+year,region_name,gdp_cap,population,ed_superior,ed_superior_cap,agropecuario,pesca,mineria,industria_m,electricidad,construccion,comercio,transporte,servicios_financieros,vivienda,personales,publica,id,growth_rate
+1993,VII Del Maule,5757294.301,159154.0,36331.0,0.030060423,0.010570506,0.000927189,0.007666847,,,,,,0.040265963,0.05649511,,,6.0,
+1995,VIII Del Biobío,1679193.27,,26608.0,0.063525839,0.00506575,0.030593151,0.587117723,0.187855012,0.014833078,0.082541747,0.136871289,0.063585961,,0.093722347,0.139714638,0.078355516,,-6.4499931829753
+1997,IV De Coquimbo,877330.2076,1250056.0,,,,,,0.060239717,0.033843737,0.070270871,0.059638838,0.05578437,0.105809248,,0.113913861,0.089592002,12.0,0.7685296420394838
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Plot gdp_cap in time for the RMS region
+
+You generated this python code:
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+else:
+    print('No data available for the RMS region')
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+
+Fix the python code above and return the new python code:
+            
+2024-05-31 12:03:05 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of DataFrames
+dfs = [pd.DataFrame({
+    'year': [1993, 1995, 1997],
+    'region_name': ['VII Del Maule', 'VIII Del Biobío', 'IV De Coquimbo'],
+    'gdp_cap': [5757294.301, 1679193.27, 877330.2076],
+    'population': [159154.0, None, 1250056.0],
+    'ed_superior': [36331.0, 26608.0, None],
+    'ed_superior_cap': [0.030060423, 0.063525839, None],
+    'agropecuario': [0.010570506, 0.00506575, None],
+    'pesca': [0.000927189, 0.030593151, None],
+    'mineria': [0.007666847, 0.587117723, 0.060239717],
+    'industria_m': [None, 0.187855012, 0.033843737],
+    'electricidad': [None, 0.014833078, 0.070270871],
+    'construccion': [None, 0.082541747, 0.059638838],
+    'comercio': [None, 0.136871289, 0.05578437],
+    'transporte': [None, 0.063585961, 0.105809248],
+    'servicios_financieros': [0.040265963, None, None],
+    'vivienda': [0.05649511, 0.093722347, 0.113913861],
+    'personales': [None, 0.139714638, 0.089592002],
+    'publica': [None, 0.078355516, None],
+    'id': [6.0, None, 12.0],
+    'growth_rate': [None, -6.4499931829753, 0.7685296420394838]
+})]
+
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+else:
+    print('No data available for the RMS region')
+            ```
+            
+2024-05-31 12:03:05 [INFO] Executing Step 2: CodeCleaning
+2024-05-31 12:03:05 [INFO] 
+Code running:
+```
+rms_data = []
+for df in dfs:
+    if 'region_name' in df.columns and 'year' in df.columns and 'gdp_cap' in df.columns:
+        rms_data.extend(df[df['region_name'].str.contains('RMS', case=False, na=False)].to_dict('records'))
+if rms_data:
+    rms_df = pd.DataFrame(rms_data)
+    plt.figure(figsize=(12, 6))
+    plt.plot(rms_df['year'], rms_df['gdp_cap'], marker='o', color='b')
+    plt.title('GDP per Capita over Time for the RMS Region')
+    plt.xlabel('Year')
+    plt.ylabel('GDP per Capita')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+else:
+    print('No data available for the RMS region')
+        ```
+2024-05-31 12:03:05 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\diego\AppData\Roaming\Python\Python310\site-packages\pandasai\pipelines\chat\code_execution.py", line 175, in execute_code
+    raise NoResultFoundError("No result returned")
+pandasai.exceptions.NoResultFoundError: No result returned
+
+2024-05-31 12:03:05 [ERROR] Pipeline failed on step 6: No result returned
