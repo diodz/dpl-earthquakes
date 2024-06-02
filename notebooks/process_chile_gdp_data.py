@@ -125,6 +125,7 @@ def calculate_gdp_per_capita():
         gdp_per_capita['GDP per capita ' + region] = merged_df[region + "_gdp"] * 10E8 / merged_df[region + "_pop"]
     return gdp_per_capita
 
+
 def calculate_growth_rates():
     ch = calculate_gdp_per_capita()
     for col in ch.columns[1:]:
@@ -134,11 +135,8 @@ def calculate_growth_rates():
     return gr
 
 
-
-
 def fix_encoding(text):
     return text.encode('latin1').decode('utf-8')
-
 
 
 def process_data_for_synth():
