@@ -24,7 +24,7 @@ def synth_plot(synth, time_period, treatment_time) -> None:
         plt.show()
 
 
-def synth_plot_nz(synth, time_period, treatment_time) -> None:
+def synth_plot_nz(synth, time_period, treatment_time, filename=None) -> None:
         """Plot the outcome variable over time for the treated unit and the
         synthetic control.
         """
@@ -42,12 +42,14 @@ def synth_plot_nz(synth, time_period, treatment_time) -> None:
         if treatment_time:
             plt.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
         plt.legend()
+        if filename:
+            plt.savefig(f"../output/{filename}")
         plt.show()
         rv = pd.concat([ts_synthetic, Z1], axis=1).rename(columns={0: 'Synthetic Control'})
         return rv
 
 
-def synth_plot_chile(synth, time_period, treatment_time) -> None:
+def synth_plot_chile(synth, time_period, treatment_time, filename=None) -> None:
         """Plot the outcome variable over time for the treated unit and the
         synthetic control.
         """
@@ -65,6 +67,8 @@ def synth_plot_chile(synth, time_period, treatment_time) -> None:
         if treatment_time:
             plt.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
         plt.legend()
+        if filename:
+            plt.savefig(f"../output/{filename}")
         plt.show()
         rv = pd.concat([ts_synthetic, Z1], axis=1).rename(columns={0: 'Synthetic Control'})
         return rv
