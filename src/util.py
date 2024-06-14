@@ -82,7 +82,9 @@ def placebo_plot(
         treatment_time: Optional[int] = None,
         mspe_threshold: Optional[float] = None,
         exclude_units: Optional[list] = None,
+        divide_by: Optional[int] = 1000,
         y_axis_label: Optional[str] = None,
+        y_axis_limit: Optional[int] = 10,
         filename: Optional[str] = None
     ):
         """Plot the gaps between the treated unit and the synthetic control
@@ -128,15 +130,13 @@ def placebo_plot(
             placebo_gaps = gaps[gaps.index.isin(time_period)][keep]
         else:
             placebo_gaps = gaps[gaps.index.isin(time_period)]
-
-        divide_by = 1000
         plt.plot(placebo_gaps/divide_by, color="black", alpha=0.1)
-        plt.plot(placebo.treated_gap/divide_by, color="red", alpha=1.0)
+        plt.plot(placebo.treated_gap[placebo.treated_gap.index.isin(time_period)]/divide_by, color="red", alpha=1.0)
         if treatment_time:
             plt.axvline(x=treatment_time, ymin=0.05, ymax=0.95, color='black', linestyle="dashed")
         plt.axhline(y=0, color="black")
         plt.grid(grid)
-        plt.ylim(-10, 10)
+        plt.ylim(-y_axis_limit, y_axis_limit)
         plt.ylabel(y_axis_label)
         if filename:
             plt.savefig(f"../output/{filename}")
