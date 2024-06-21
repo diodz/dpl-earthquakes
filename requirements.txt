@@ -4,5 +4,5 @@ pandas==2.2.2
 tqdm==4.66.4
 pysyncon==1.5.0
 openpyxl==3.1.2
-pandasai==2.1
+#pandasai==2.1
 geopandas==0.14.4
