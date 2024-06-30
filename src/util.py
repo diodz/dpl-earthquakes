@@ -63,7 +63,7 @@ def synth_plot_sector(synth, time_period, treatment_time, filename=None, sector=
     Z1_percent = Z1 * 100
     ts_synthetic_percent = ts_synthetic * 100
     
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(8, 6))
     ax.plot(Z1_percent, color="red", linewidth=1.5, label=Z1.name)
     ax.plot(
         ts_synthetic_percent,
