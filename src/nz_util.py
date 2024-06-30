@@ -80,11 +80,8 @@ def read_and_clean_nz_population_data():
 
 def order_data_and_calculate_per_capita(df):
     # Select the columns related to the specific sectors mentioned
-    
-
     # Rearrange the columns so that the selected columns are at the end
     reordered_columns = ['Year', 'Region', 'Gross Domestic Product', 'GDP per capita', 'Population'] + SECTORIAL_GDP_VARIABLES
-
     # Create the reordered dataframe
     df_reordered = df[reordered_columns].copy(deep=True)
     df_reordered[SECTORIAL_GDP_VARIABLES] = df_reordered[SECTORIAL_GDP_VARIABLES].div(df_reordered['Gross Domestic Product'], axis=0)
