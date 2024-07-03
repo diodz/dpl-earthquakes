@@ -1,9 +1,6 @@
 ipywidgets==8.1.2
 matplotlib==3.8.4
 pandas==2.2.2
-tqdm==4.66.4
 pysyncon==1.5.0
 openpyxl==3.1.2
-#pandasai==2.1
-geopandas==0.14.4
 xlsxwriter==3.2.0
