@@ -141,7 +141,7 @@ def fix_encoding(text):
 
 def process_data_for_synth():
     df = pd.read_excel('../data/scm_chile_2010.xlsx')
-    # Apply the function to the column
+    # Apply the function to the column with apply
     df['region_name'] = df['region_name'].apply(fix_encoding)
     ch = calculate_growth_rates()
     # Melt the DataFrame to long format
