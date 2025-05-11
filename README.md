@@ -8,5 +8,5 @@ Replicates our results in DPL. To replicate out results run the following notebo
 
 3 - Additional Figures.ipynb
 
-We are using the Synthetic Control Method from: https://sdfordham.github.io/pysyncon/
+We apply the Synthetic Control Method from pysyncon: https://sdfordham.github.io/pysyncon/
 
