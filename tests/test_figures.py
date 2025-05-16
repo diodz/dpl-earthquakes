@@ -16,3 +16,4 @@ output_dir = os.path.join(os.path.dirname(__file__), '..', 'output')
 def test_output_file_exists(file_name):
     file_path = os.path.join(output_dir, file_name)
     assert os.path.exists(file_path), f"{file_name} does not exist in the output directory"
+    assert os.path.getsize(file_path) > 0, f"{file_name} is empty"
