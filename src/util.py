@@ -140,7 +140,7 @@ def placebo_plot(
             is the time period over which the optimisation happens, by default
             None
         grid : bool, optional
-            Whether or not to plot a grid, by default True
+            Whether or not to plot a grid, by default False
         treatment_time : int, optional
             If supplied, plot a vertical line at the time period that the
             treatment time occurred, by default None
@@ -156,7 +156,7 @@ def placebo_plot(
         ValueError
             if no placebo test has been run yet
         ValueError
-            if `mspe_threshold` is supplied but `treatment_year` is not.
+            if `mspe_threshold` is supplied but `treatment_time` is not.
         """
         if placebo.gaps is None:
             raise ValueError("No gaps available; run a placebo test first.")
