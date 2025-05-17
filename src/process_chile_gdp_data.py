@@ -102,9 +102,10 @@ def read_updated_population_chile():
 
 
 def read_and_clean_data():
-    # Read the datasets
+    """Return cleaned GDP and population data for Chile."""
     gdp = read_updated_gdp_chile()
     pop = read_updated_population_chile()
+    return gdp, pop
 
 def clean_gdp_column_names(df):
     df = df.rename(columns=GDP_COLUMNS_MAPPING)
