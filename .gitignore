@@ -5,3 +5,14 @@ intercache/cache_db_0.10.db.wal
 data/cl_shp
 data/nz_shp
 .history
+venv/
+.devcontainer/
+.vscode/
+.DS_Store
+.ipynb_checkpoints/
+.history
+.venv/
+.env
+.env.local
+.env.development.local
+.env.test.local
