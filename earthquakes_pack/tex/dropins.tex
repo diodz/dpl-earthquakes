@@ -1,0 +1,27 @@
+\section{Where the new content plugs into your paper}
+
+Add a label to your methods section so cross-references compile:
+\begin{verbatim}
+\section{Data and Methodology}\label{sec:data_method}
+\end{verbatim}
+
+In your Results section (Section 4), right after the first two baseline figures, add:
+\begin{verbatim}
+\input{tex/inference_additions.tex}
+\end{verbatim}
+
+After Section 4 (or as Section 4.4), add:
+\begin{verbatim}
+\input{tex/robustness.tex}
+\end{verbatim}
+
+In the Appendix, add at the end:
+\begin{verbatim}
+\input{tex/appendix_placebos.tex}
+\end{verbatim}
+
+Replace any placeholder figure paths with the produced files, e.g.:
+\begin{verbatim}
+\includegraphics[width=0.8\textwidth]{figures/fig_maule_scm.pdf}
+\includegraphics[width=0.8\textwidth]{figures/fig_canterbury_scm.pdf}
+\end{verbatim}

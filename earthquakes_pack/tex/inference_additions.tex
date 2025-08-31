@@ -1,0 +1,45 @@
+\section{Inference Enhancements}\label{sec:inference}
+We complement permutation-based inference with summary diagnostics that are standard in SCM applications:
+\begin{itemize}
+  \item \textbf{Pre/Post RMSPE and Ratios:} Tables~\ref{tab:fit_canterbury}--\ref{tab:fit_maule} report pre- and post-treatment RMSPE and their ratios, highlighting Canterbury's sharp post-treatment deviation relative to its excellent pre-fit.
+  \item \textbf{Confidence Sets via Placebo Inversion:} For each post-year, we compute the empirical distribution of placebo gaps (restricted to donors with good pre-fit) and report the central 90\% range as a conservative confidence band for the treatment effect. Zero lies outside this band for Canterbury in mid-decade years, but not for Maule.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Fit diagnostics: Canterbury}
+\label{tab:fit_canterbury}
+\input{tables/table_fit_canterbury.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Fit diagnostics: Maule}
+\label{tab:fit_maule}
+\input{tables/table_fit_maule.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{SCM donor weights (Canterbury)}
+\label{tab:weights_canterbury}
+\input{tables/table_weights_canterbury.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{SCM donor weights (Maule)}
+\label{tab:weights_maule}
+\input{tables/table_weights_maule.tex}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Permutation-based pseudo $p$-values (RMSPE ratio)}
+\label{tab:pvalues}
+\input{tables/table_pvalues_nz.tex}
+
+\medskip
+\input{tables/table_pvalues_maule.tex}
+\end{table}
