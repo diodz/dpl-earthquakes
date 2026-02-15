@@ -1,17 +1,21 @@
 import os
 import pytest
 
-output_dir = os.path.join(os.path.dirname(__file__), '..', 'output')
+output_dir = os.path.join(os.path.dirname(__file__), '..', 'article_assets')
 
 @pytest.mark.parametrize("file_name", [
-    "chile_scm.png",
-    "nz_scm.png",
-    "chile_placebo.png",
-    "nz_placebo.png",
+    "Maule_map.png",
+    "Canterbury_map.png",
+    "maule_gdp_paths.png",
+    "nz_gdp_paths.png",
+    "maule_gap.png",
+    "nz_gap.png",
+    "maule_placebos.png",
+    "nz_placebos.png",
+    "nz_scm_Construction.png",
+    "nz_scm_Other_Sectors.png",
     "chile_jacknife.png",
     "nz_jacknife.png",
-    "chile_regions_gdp.png",
-    "nz_regions_gdp.png"
 ])
 def test_output_file_exists(file_name):
     file_path = os.path.join(output_dir, file_name)

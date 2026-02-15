@@ -1,7 +1,14 @@
+import os
+
 import pandas as pd
 from matplotlib import pyplot as plt
 from typing import Optional
 import matplotlib.ticker as mtick
+
+# Project root and canonical figures output directory (used by main.tex)
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FIGURES_DIR = os.path.join(_PROJECT_ROOT, "article_assets")
+os.makedirs(FIGURES_DIR, exist_ok=True)
 
 
 def synth_plot(synth, time_period, treatment_time) -> None:
@@ -45,7 +52,7 @@ def synth_plot_nz(synth, time_period, treatment_time, filename=None) -> None:
             plt.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
         plt.legend()
         if filename:
-            plt.savefig(f"../output/{filename}")
+            plt.savefig(os.path.join(FIGURES_DIR, filename))
         plt.show()
         rv = pd.concat([ts_synthetic, Z1], axis=1).rename(columns={0: 'Synthetic Control'})
         return rv
@@ -86,7 +93,7 @@ def synth_plot_sector(synth, time_period, treatment_time, filename=None, sector=
     #ax.set_title(f'Sectoral Share of GDP for {sector}')
     
     if filename:
-        plt.savefig(f"../output/{filename}")
+        plt.savefig(os.path.join(FIGURES_DIR, filename))
     
     plt.show()
     
@@ -112,10 +119,32 @@ def synth_plot_chile(synth, time_period, treatment_time, filename=None) -> None:
             plt.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
         plt.legend()
         if filename:
-            plt.savefig(f"../output/{filename}")
+            plt.savefig(os.path.join(FIGURES_DIR, filename))
         plt.show()
         rv = pd.concat([ts_synthetic, Z1], axis=1).rename(columns={0: 'Synthetic Control'})
         return rv
+
+
+def gap_plot(
+    synth,
+    time_period,
+    treatment_time: Optional[int] = None,
+    filename: Optional[str] = None,
+) -> None:
+    """Plot the percent gap (actual - synthetic) / synthetic * 100 for the treated unit only."""
+    Z0, Z1 = synth.dataprep.make_outcome_mats(time_period=time_period)
+    ts_synthetic = synth._synthetic(Z0=Z0)
+    gap_pct = (Z1 - ts_synthetic) / ts_synthetic * 100
+    gap_pct = gap_pct[gap_pct.index.isin(time_period)]
+    plt.plot(gap_pct, color="red", linewidth=1.5, label="Gap (%)")
+    if treatment_time:
+        plt.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
+    plt.axhline(y=0, color="black")
+    plt.ylabel("Gap (%)")
+    plt.legend()
+    if filename:
+        plt.savefig(os.path.join(FIGURES_DIR, filename))
+    plt.show()
 
 
 def placebo_plot(
@@ -182,5 +211,5 @@ def placebo_plot(
         plt.ylim(-y_axis_limit, y_axis_limit)
         plt.ylabel(y_axis_label)
         if filename:
-            plt.savefig(f"../output/{filename}")
+            plt.savefig(os.path.join(FIGURES_DIR, filename))
         plt.show()

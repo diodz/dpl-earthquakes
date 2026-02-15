@@ -6,9 +6,10 @@ import matplotlib.patheffects as pe
 from shapely.geometry import Polygon, MultiPolygon
 from shapely.ops import unary_union
 
-# Output directory (notebooks/output when run from project root or notebooks/)
+# Output directory: article_assets (canonical location for main.tex)
 _script_dir = os.path.dirname(os.path.abspath(__file__))
-output_dir = os.path.join(_script_dir, "output")
+_project_root = os.path.dirname(_script_dir)
+output_dir = os.path.join(_project_root, "article_assets")
 os.makedirs(output_dir, exist_ok=True)
 
 # Load Natural Earth Admin 1 (states/provinces) — country and region boundaries
@@ -51,7 +52,7 @@ def plot_country_highlight(world, country_col, region_col,
                            exclude_region_substrings=None,
                            epsg=None, figsize=(6, 10),
                            label_text=None, label_fontsize=LABEL_FONTSIZE,
-                           dpi=600, also_pdf=True):
+                           dpi=600, also_pdf=False):
     import numpy as np
     import matplotlib as mpl
 
