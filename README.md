@@ -1,6 +1,6 @@
 # GitHub Codespaces
 
-Replicates our results in DPL. To replicate out results run the following notebooks:
+Replicates our results in DPL. Run the following notebooks:
 
 1 - Maule SCM.ipynb
 
