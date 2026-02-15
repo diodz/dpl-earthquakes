@@ -1,15 +1,23 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 # Helper functions
 
 def compute_covariates(df, region, pre_years, covar_cols, outcome_col='GDP_per_capita'):
     sub = df[(df['Region'] == region) & (df['Year'].isin(pre_years))]
-    covars = [sub[outcome_col].mean()]
+
+    def _mean_with_fallback(column):
+        local_mean = sub[column].astype(float).mean(skipna=True)
+        if pd.isna(local_mean):
+            return float(df[column].astype(float).mean(skipna=True))
+        return float(local_mean)
+
+    covars = [_mean_with_fallback(outcome_col)]
     for col in covar_cols:
-        covars.append(sub[col].mean())
-    return np.array(covars)
+        covars.append(_mean_with_fallback(col))
+    return np.array(covars, dtype=float)
 
 def select_donors(df, treated, pre_years, covar_cols, num_donors=5):
     regions = df['Region'].dropna().unique().tolist()
@@ -37,6 +45,193 @@ def synthetic_series(df, treated, selected, weights, outcome_col='GDP_per_capita
     for i, region in enumerate(selected):
         y_synth += weights[i] * series[region]
     return years, y_treated, y_synth
+
+
+def _safe_inverse_distances(selected, distances):
+    adjusted = []
+    for region in selected:
+        distance = distances[region]
+        adjusted.append(1.0 / max(distance, 1e-8))
+    inv = np.array(adjusted)
+    return inv / inv.sum()
+
+
+def run_in_time_placebo_inference(
+    df,
+    treated,
+    actual_treatment_year,
+    placebo_years,
+    covar_cols,
+    outcome_col,
+    baseline_start_year,
+    country_label,
+    output_dir='article_assets',
+    max_donors=5,
+):
+    """Run in-time placebo inference by shifting treatment timing through the pre-period.
+
+    For each candidate treatment year, SCM is re-estimated using data from
+    baseline_start_year up to the year before the candidate treatment year.
+    The function exports a tidy CSV (post-treatment gaps + RMSPE statistics)
+    and a compact two-panel figure contrasting placebo distributions with the
+    actual treatment-year estimate.
+    """
+    work_df = df.copy()
+    years = sorted(work_df['Year'].dropna().unique())
+    regions = work_df['Region'].dropna().unique().tolist()
+
+    if treated not in regions:
+        raise ValueError(f'Treated region {treated} not found in Region column.')
+
+    donors_all = [region for region in regions if region != treated]
+    y_treated = (
+        work_df[work_df['Region'] == treated]
+        .set_index('Year')
+        .reindex(years)[outcome_col]
+        .astype(float)
+        .values
+    )
+
+    records = []
+    effect_rows = []
+    candidate_years = sorted(set(placebo_years + [actual_treatment_year]))
+
+    for candidate_year in candidate_years:
+        pre_years = [y for y in years if baseline_start_year <= y < candidate_year]
+        if not pre_years:
+            continue
+
+        cov_treated = compute_covariates(work_df, treated, pre_years, covar_cols, outcome_col=outcome_col)
+        distances = {}
+        for donor in donors_all:
+            donor_cov = compute_covariates(work_df, donor, pre_years, covar_cols, outcome_col=outcome_col)
+            distances[donor] = np.linalg.norm(donor_cov - cov_treated)
+
+        selected = sorted(distances, key=lambda region: distances[region])[:min(max_donors, len(distances))]
+        weights = _safe_inverse_distances(selected, distances)
+
+        y_synth = np.zeros(len(years), dtype=float)
+        for idx, donor in enumerate(selected):
+            donor_series = (
+                work_df[work_df['Region'] == donor]
+                .set_index('Year')
+                .reindex(years)[outcome_col]
+                .astype(float)
+                .values
+            )
+            y_synth += weights[idx] * donor_series
+
+        gap = y_treated - y_synth
+        pre_idx = [i for i, y in enumerate(years) if y in pre_years]
+        post_idx = [i for i, y in enumerate(years) if y >= candidate_year]
+
+        rmspe_pre = float(np.sqrt(np.mean(np.square(gap[pre_idx])))) if pre_idx else np.nan
+        rmspe_post = float(np.sqrt(np.mean(np.square(gap[post_idx])))) if post_idx else np.nan
+        rmspe_ratio = rmspe_post / rmspe_pre if rmspe_pre and not np.isclose(rmspe_pre, 0.0) else np.nan
+        mean_post_gap = float(np.mean(gap[post_idx])) if post_idx else np.nan
+
+        analysis_type = 'actual' if candidate_year == actual_treatment_year else 'placebo'
+        effect_rows.append(
+            {
+                'Country': country_label,
+                'AnalysisType': analysis_type,
+                'CandidateTreatmentYear': candidate_year,
+                'MeanPostGap': mean_post_gap,
+                'RMSPE_Pre': rmspe_pre,
+                'RMSPE_Post': rmspe_post,
+                'RMSPE_Ratio': rmspe_ratio,
+                'NumPreYears': len(pre_years),
+            }
+        )
+
+        for i in post_idx:
+            records.append(
+                {
+                    'Country': country_label,
+                    'AnalysisType': analysis_type,
+                    'CandidateTreatmentYear': candidate_year,
+                    'Year': years[i],
+                    'Gap': float(gap[i]),
+                    'RMSPE_Pre': rmspe_pre,
+                    'RMSPE_Post': rmspe_post,
+                    'RMSPE_Ratio': rmspe_ratio,
+                }
+            )
+
+    tidy_df = pd.DataFrame(records)
+    effect_df = pd.DataFrame(effect_rows)
+
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    csv_path = output_path / f'{country_label.lower()}_in_time_placebo_summary.csv'
+    fig_path = output_path / f'{country_label.lower()}_in_time_placebo_compact.png'
+
+    tidy_df.to_csv(csv_path, index=False)
+
+    placebo_effects = effect_df[effect_df['AnalysisType'] == 'placebo']
+    actual_effect = effect_df[effect_df['AnalysisType'] == 'actual'].iloc[0]
+
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4.2))
+
+    axes[0].hist(placebo_effects['MeanPostGap'].dropna(), bins=10, color='lightgray', edgecolor='black')
+    axes[0].axvline(actual_effect['MeanPostGap'], color='red', linestyle='--', linewidth=1.5, label='Actual treatment year')
+    axes[0].set_title('Post-gap distribution')
+    axes[0].set_xlabel('Average post-treatment gap')
+    axes[0].legend(loc='best', fontsize=8)
+
+    axes[1].hist(placebo_effects['RMSPE_Ratio'].replace([np.inf, -np.inf], np.nan).dropna(), bins=10, color='lightgray', edgecolor='black')
+    axes[1].axvline(actual_effect['RMSPE_Ratio'], color='red', linestyle='--', linewidth=1.5, label='Actual treatment year')
+    axes[1].set_title('RMSPE ratio distribution')
+    axes[1].set_xlabel('Post/Pre RMSPE')
+    axes[1].legend(loc='best', fontsize=8)
+
+    fig.suptitle(f'In-time placebo inference: {country_label}')
+    fig.tight_layout()
+    fig.savefig(fig_path, dpi=220)
+    plt.close(fig)
+
+    return tidy_df, effect_df, str(csv_path), str(fig_path)
+
+
+def run_in_time_placebo_nz(output_dir='article_assets'):
+    df = pd.read_csv('inter/nz.csv').rename(columns={'GDP per capita': 'GDP_per_capita'})
+    covar_cols = [
+        'Agriculture',
+        'Manufacturing',
+        'Construction',
+        'Financial and Insurance Services',
+        'Rental, Hiring and Real Estate Services',
+        'Tertiary',
+    ]
+    covar_cols = [col for col in covar_cols if col in df.columns]
+    return run_in_time_placebo_inference(
+        df=df,
+        treated='Canterbury',
+        actual_treatment_year=2011,
+        placebo_years=list(range(2000, 2010)),
+        covar_cols=covar_cols,
+        outcome_col='GDP_per_capita',
+        baseline_start_year=2000,
+        country_label='NZ',
+        output_dir=output_dir,
+    )
+
+
+def run_in_time_placebo_chile(output_dir='article_assets'):
+    df = pd.read_csv('inter/processed_chile.csv').rename(columns={'year': 'Year', 'region_name': 'Region', 'gdp_cap': 'GDP_per_capita'})
+    covar_cols = ['agropecuario', 'industria_m', 'construccion', 'comercio', 'servicios_financieros']
+    covar_cols = [col for col in covar_cols if col in df.columns]
+    return run_in_time_placebo_inference(
+        df=df,
+        treated='VII Del Maule',
+        actual_treatment_year=2010,
+        placebo_years=list(range(1990, 2010)),
+        covar_cols=covar_cols,
+        outcome_col='GDP_per_capita',
+        baseline_start_year=1990,
+        country_label='Chile',
+        output_dir=output_dir,
+    )
 
 def jackknife_tests(df, treated, pre_years, covar_cols, outcome_col='GDP_per_capita'):
     # Select donors once to determine the donor set

@@ -1,0 +1,104 @@
+% Response-to-reviewers template
+% Usage: duplicate \ReviewCommentBlock for every numbered reviewer comment.
+
+\section*{Reviewer \#1}
+
+\begin{enumerate}
+
+\item \textbf{Comment \#1}
+
+\textbf{Comment:}
+\begin{quote}
+``[Paste the reviewer comment verbatim, or add a concise quote.]''
+\end{quote}
+
+\textbf{Response:}
+[Describe exactly what changed in the manuscript and analysis, or justify why no change was made.]
+
+\textbf{Action:}
+Implemented \; / \; Partially implemented \; / \; Not implemented
+
+\textbf{Evidence:}
+\begin{itemize}
+    \item \textbf{Code source:} \texttt{run\_analysis.py}; \texttt{src/<module>.py}; notebook reference (if still used): \texttt{notebooks/<notebook>.ipynb}, Cell [<n>].
+    \item \textbf{Generated artifact:} \texttt{article\_assets/<artifact\_name>.png} (or \texttt{.csv}/\texttt{.tex} table output).
+    \item \textbf{Manuscript location:} \texttt{main.tex} \S\ref{sec:<section-label>}, Fig.~\ref{fig:<figure-label>}, Table~\ref{tab:<table-label>} (include line anchors in internal notes/commit message when available).
+\end{itemize}
+
+\item \textbf{Comment \#2}
+
+\textbf{Comment:}
+\begin{quote}
+``[Paste comment \#2.]''
+\end{quote}
+
+\textbf{Response:}
+[State changes and rationale.]
+
+\textbf{Action:}
+Implemented \; / \; Partially implemented \; / \; Not implemented
+
+\textbf{Evidence:}
+\begin{itemize}
+    \item \textbf{Code source:} \texttt{run\_analysis.py}; \texttt{src/<module>.py}; notebook Cell [<n>] if applicable.
+    \item \textbf{Generated artifact:} \texttt{article\_assets/<artifact\_name>}.
+    \item \textbf{Manuscript location:} \texttt{main.tex} label references (e.g., \texttt{sec:...}, \texttt{fig:...}, \texttt{tab:...}).
+\end{itemize}
+
+\end{enumerate}
+
+\section*{Reviewer \#2}
+
+\begin{enumerate}
+
+\item \textbf{Comment \#1}
+
+\textbf{Comment:}
+\begin{quote}
+``[Paste reviewer \#2, comment \#1.]''
+\end{quote}
+
+\textbf{Response:}
+[Describe what changed, or why no change was made.]
+
+\textbf{Action:}
+Implemented \; / \; Partially implemented \; / \; Not implemented
+
+\textbf{Evidence:}
+\begin{itemize}
+    \item \textbf{Code source:} \texttt{run\_analysis.py}; \texttt{src/<module>.py}; notebook Cell [<n>] if still used.
+    \item \textbf{Generated artifact:} \texttt{article\_assets/<artifact\_name>}.
+    \item \textbf{Manuscript location:} \texttt{main.tex} \S\ref{sec:<section-label>}, Fig.~\ref{fig:<figure-label>}, Table~\ref{tab:<table-label>}.
+\end{itemize}
+
+\item \textbf{Comment \#2}
+
+\textbf{Comment:}
+\begin{quote}
+``[Paste reviewer \#2, comment \#2.]''
+\end{quote}
+
+\textbf{Response:}
+[Describe what changed, or justify non-implementation.]
+
+\textbf{Action:}
+Implemented \; / \; Partially implemented \; / \; Not implemented
+
+\textbf{Evidence:}
+\begin{itemize}
+    \item \textbf{Code source:} \texttt{run\_analysis.py}; \texttt{src/<module>.py}; notebook Cell [<n>] if applicable.
+    \item \textbf{Generated artifact:} \texttt{article\_assets/<artifact\_name>}.
+    \item \textbf{Manuscript location:} \texttt{main.tex} label references (\texttt{sec:...}, \texttt{fig:...}, \texttt{tab:...}).
+\end{itemize}
+
+\end{enumerate}
+
+\section*{Reproducibility note}
+
+All updated figures and analysis outputs can be regenerated from the repository root with one command:
+
+\begin{verbatim}
+python run_analysis.py
+\end{verbatim}
+
+This command executes the analysis pipeline and writes outputs to \texttt{article\_assets/}, which is the canonical artifact path used by \texttt{main.tex}.
