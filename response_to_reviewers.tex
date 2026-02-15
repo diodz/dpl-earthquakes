@@ -1,0 +1,20 @@
+\section*{Response to reviewers}
+
+\subsection*{Reviewer \#1}
+
+\paragraph{Comment 3.2 (placebo and timing inference).}
+\textit{``Please provide stronger evidence that the Canterbury result is not driven by arbitrary treatment timing, and document the corresponding placebo diagnostics.''}
+
+\paragraph{Response.}
+Thank you for this suggestion. We have now added a systematic in-time placebo inference exercise for both countries and integrated it into the robustness discussion in the manuscript.
+
+Specifically, we now loop candidate treatment years across each case's pre-period (New~Zealand: 2000--2009; Chile: 1990--2009), re-estimate SCM for each candidate year, and store post-placebo gaps and post/pre RMSPE ratios. We export the results as tidy CSV artifacts and generate compact distributional figures that compare placebo effects against the actual treatment-year estimate.
+
+\begin{itemize}
+  \item New~Zealand tidy summary: \texttt{article\_assets/nz\_in\_time\_placebo\_summary.csv}
+  \item New~Zealand compact figure: \texttt{article\_assets/nz\_in\_time\_placebo\_compact.png}
+  \item Chile tidy summary: \texttt{article\_assets/chile\_in\_time\_placebo\_summary.csv}
+  \item Chile compact figure: \texttt{article\_assets/chile\_in\_time\_placebo\_compact.png}
+\end{itemize}
+
+We also added corresponding methods and results text in \texttt{main.tex}. The key conclusion from this added exercise is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution.
