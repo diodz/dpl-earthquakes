@@ -16,3 +16,17 @@ venv/
 .env.local
 .env.development.local
 .env.test.local
+.vscode/
+.pytest_cache/
+.coverage
+.coverage.*
+.coverage.xml
+.coverage.json
+.coverage.yaml
+.coverage.yml
+.coverage.ini
+.coverage.xml
+.coverage.json
+.coverage.yaml
+.coverage.yml
+__pycache__/

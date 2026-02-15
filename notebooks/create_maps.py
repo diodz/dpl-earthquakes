@@ -1,6 +1,21 @@
+import os
+
+import geopandas as gpd
+import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 from shapely.geometry import Polygon, MultiPolygon
 from shapely.ops import unary_union
+
+# Output directory (notebooks/output when run from project root or notebooks/)
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+output_dir = os.path.join(_script_dir, "output")
+os.makedirs(output_dir, exist_ok=True)
+
+# Load Natural Earth Admin 1 (states/provinces) — country and region boundaries
+NATURAL_EARTH_URL = "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_admin_1_states_provinces.zip"
+world = gpd.read_file(NATURAL_EARTH_URL)
+country_col = "admin"   # country name in Natural Earth
+region_col = "name"      # region/state name in Natural Earth
 
 # Global look
 LABEL_FONTSIZE = 10           # <- same for both figures
@@ -77,7 +92,7 @@ def plot_country_highlight(world, country_col, region_col,
 
     # Single label placed inside the highlighted region
     label = label_text if label_text else str(hi.iloc[0][region_col])
-    pt = hi.geometry.unary_union.representative_point()
+    pt = hi.geometry.union_all().representative_point()
     ax.text(
         pt.x, pt.y, label,
         fontsize=label_fontsize, ha="center", va="center", color="#222222",
