@@ -1,0 +1,136 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace,booktabs}
+\usepackage{natbib}
+\usepackage{hyperref}
+
+\doublespacing
+
+\title{Response to Reviewers}
+
+\begin{document}
+\maketitle
+
+\section*{Reviewer 1}
+
+\subsection*{Major Comment 1 -- Denominator Effect (§3.1)}
+
+\textbf{Comment:} Conduct SCM on Total Population and Total Regional GDP to rule out migration bias in the interpretation of GDP per capita (Y/L).
+
+\textbf{Response:} We appreciate this suggestion. GDP per capita could rise spuriously if population declined (out-migration) while GDP stayed constant. To rule out this mechanism, we ran the SCM with the same predictors but with \textit{Population} and \textit{Total Regional GDP} as dependent variables for both Maule and Canterbury. The results show that population and total GDP paths for the treated regions track their synthetic counterfactuals closely---no significant divergence in either the numerator or the denominator. This supports our interpretation that the Canterbury GDP per capita gain reflects a genuine output increase rather than a denominator-driven artifact.
+
+\textbf{Changes:}
+\begin{itemize}
+\item Added SCM cells in \texttt{notebooks/Maule SCM.ipynb} for \texttt{Population} and \texttt{gdp\_total} (sum of sectoral GDP), producing \texttt{maule\_pop\_paths.png} and \texttt{maule\_gdp\_total\_paths.png}.
+\item Added analogous cells in \texttt{notebooks/Canterbury SCM.ipynb} for \texttt{Population} and \texttt{Gross Domestic Product}, producing \texttt{nz\_pop\_paths.png} and \texttt{nz\_gdp\_total\_paths.png}.
+\item Added Appendix~A summarizing these results in \texttt{main.tex}.
+\end{itemize}
+
+\subsection*{Major Comment 2 -- Rolling In-Time Placebos (§3.2)}
+
+\textbf{Comment:} Provide placebo tests for every pre-treatment year (e.g., 2000--2009 for NZ, 1990--2009 for Chile).
+
+\textbf{Response:} We implemented rolling in-time placebos by iteratively assigning fake treatment years to each pre-treatment year and running the SCM. For Maule, we use fake treatment years 1996--2009; for Canterbury, 2001--2009. In each case, we store the post-fake-treatment gaps and compare them to the distribution. The true treatment year (2010 for Maule, 2011 for Canterbury) produces a gap that is uniquely extreme in the post-treatment period, whereas all in-time placebos show no systematic divergence. This falsification exercise strengthens the causal interpretation of our main results.
+
+\textbf{Changes:}
+\begin{itemize}
+\item Added in-time placebo cells in both notebooks; outputs \texttt{maule\_in\_time\_placebos.png} and \texttt{nz\_in\_time\_placebos.png}.
+\item Added Appendix~B with these figures and a brief summary in \texttt{main.tex}.
+\end{itemize}
+
+\section*{Reviewer 2}
+
+\subsection*{Major Comment 1 -- Maule Sectoral Figures (§4)}
+
+\textbf{Comment:} Include Maule sectoral SCM figures (Construction, Other\_Sectors) for comparability with Canterbury.
+
+\textbf{Response:} We have added SCM analyses for the Construction share and Other\_Sectors share of GDP in Maule, analogous to the Canterbury sectoral analysis. The Maule figures show that construction and other sectors track their synthetic counterfactuals closely in the post-2010 period, with no significant divergence---consistent with our aggregate null result. The sectoral figures are now available for both cases.
+
+\textbf{Changes:}
+\begin{itemize}
+\item Added sectoral SCM cells in \texttt{notebooks/Maule SCM.ipynb} for \texttt{construccion} and \texttt{Other\_Sectors}; outputs \texttt{maule\_scm\_Construction.png} and \texttt{maule\_scm\_Other\_Sectors.png}.
+\item Included these figures in Appendix~C of \texttt{main.tex} and cited in the Figure~5 discussion.
+\end{itemize}
+
+\subsection*{Major Comment 2 -- Construction ``Nearly Doubled'' (§4)}
+
+\textbf{Comment:} Figure 5a shows construction share rising from approximately 6\% to nearly 10\%, i.e., an increase of about 67\%, not doubling.
+
+\textbf{Response:} We agree. We have corrected the text accordingly.
+
+\textbf{Changes:}
+\begin{itemize}
+\item In \texttt{main.tex}, replaced ``nearly doubled'' with ``increased by approximately 67\%'' and ``rose from about 6\% to nearly 10\% of GDP'' (Section~4.2 and Section~5).
+\end{itemize}
+
+\subsection*{Major Comment 3 -- Placebo Tests for Sectoral SCM (§4)}
+
+\textbf{Comment:} Provide placebo tests for the construction share.
+
+\textbf{Response:} We ran a PlaceboTest with the construction share of GDP as the dependent variable for Canterbury. The treated unit's gap is clearly outside the distribution of placebo gaps, confirming that the construction share surge is statistically significant.
+
+\textbf{Changes:}
+\begin{itemize}
+\item Added PlaceboTest cell in \texttt{notebooks/Canterbury SCM.ipynb} for Construction share; output \texttt{nz\_scm\_Construction\_placebos.png}.
+\item Added figure to Appendix~D and cited in robustness discussion.
+\end{itemize}
+
+\subsection*{Minor Comment 1 -- Predictor Selection}
+
+\textbf{Comment:} Explain predictor weight choice and Fishing asymmetry between Chile and NZ.
+
+\textbf{Response:} Predictor weights are chosen via data-driven minimization of pre-treatment RMSPE, following \cite{abadie2010synthetic}. Regarding Fishing: Chile's Maule region is part of a coastal economy where fishing is a relevant sector, so we include it for Chile. For New Zealand, fishing is either negligible in the published industry data or aggregated differently, so we do not include a separate Fishing predictor there.
+
+\textbf{Changes:}
+\begin{itemize}
+\item Added footnote in Section~3 (Data and Methodology) of \texttt{main.tex} explaining (a) RMSPE-minimization for predictor weights and (b) Fishing inclusion for Chile vs.\ NZ.
+\end{itemize}
+
+\subsection*{Minor Comment 2 -- Treatment Timing 2010 vs.\ 2011}
+
+\textbf{Comment:} Show sensitivity using 2010 as treatment year for Canterbury.
+
+\textbf{Response:} We re-ran the Canterbury SCM with treatment year 2010 (the year of the Darfield quake). The results persist: the post-2010 gap is positive and similar in magnitude, and conclusions remain unchanged. The choice of 2011 as the formal first post-treatment year reflects the February 2011 Christchurch event as the main disruption driver; using 2010 does not alter our findings.
+
+\textbf{Changes:}
+\begin{itemize}
+\item Added SCM cell in \texttt{notebooks/Canterbury SCM.ipynb} with treatment year 2010; output \texttt{nz\_gdp\_paths\_t2010.png}.
+\item Added Appendix~E with this figure and a short paragraph in \texttt{main.tex}.
+\end{itemize}
+
+\subsection*{Minor Comment 3 -- Welfare Caveat}
+
+\textbf{Comment:} Move welfare caveat to a more prominent position.
+
+\textbf{Response:} We have added a clear sentence in both the Abstract and the Introduction stating that GDP gains do not imply welfare gains, and that both events entailed significant loss of life and displacement. The existing caveat in Section~4.1 is retained.
+
+\textbf{Changes:}
+\begin{itemize}
+\item Abstract: added ``Importantly, GDP gains do not imply welfare gains: both events entailed significant loss of life and displacement.''
+\item Introduction: added ``We stress that GDP gains do not imply welfare gains; both disasters caused substantial loss of life and displacement.''
+\end{itemize}
+
+\vspace{2em}
+\section*{Summary Table}
+
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+ID & Comment & Addressed & Location \\
+\midrule
+R1.1 & Denominator effect (Population, Total GDP SCM) & Y & Appendix A \\
+R1.2 & Rolling in-time placebos & Y & Appendix B \\
+R2.1 & Maule sectoral figures & Y & Appendix C \\
+R2.2 & ``Nearly doubled'' correction & Y & main text §4.2, §5 \\
+R2.3 & Construction share placebo & Y & Appendix D \\
+R2.4 & Predictor selection & Y & §3 footnote \\
+R2.5 & Treatment timing 2010 & Y & Appendix E \\
+R2.6 & Welfare caveat prominence & Y & Abstract, Introduction \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}

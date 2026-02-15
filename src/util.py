@@ -125,6 +125,52 @@ def synth_plot_chile(synth, time_period, treatment_time, filename=None) -> None:
         return rv
 
 
+def synth_plot_population(synth, time_period, treatment_time, filename=None, divide_by=1000, ylabel='Population (thousands)') -> None:
+    """Plot population or similar outcome for treated unit and synthetic control."""
+    Z0, Z1 = synth.dataprep.make_outcome_mats(time_period=time_period)
+    ts_synthetic = synth._synthetic(Z0=Z0)
+    plt.plot(Z1 / divide_by, color="red", linewidth=1.5, label=Z1.name)
+    plt.plot(
+        ts_synthetic / divide_by,
+        color="red",
+        linewidth=1,
+        linestyle="dashed",
+        label="Synthetic Control",
+    )
+    plt.ylabel(ylabel)
+    if treatment_time:
+        plt.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
+    plt.legend()
+    if filename:
+        plt.savefig(os.path.join(FIGURES_DIR, filename))
+    plt.show()
+    rv = pd.concat([ts_synthetic, Z1], axis=1).rename(columns={0: 'Synthetic Control'})
+    return rv
+
+
+def synth_plot_gdp_total(synth, time_period, treatment_time, filename=None, divide_by=1e9, ylabel='Total GDP (billions)') -> None:
+    """Plot total GDP or similar outcome for treated unit and synthetic control."""
+    Z0, Z1 = synth.dataprep.make_outcome_mats(time_period=time_period)
+    ts_synthetic = synth._synthetic(Z0=Z0)
+    plt.plot(Z1 / divide_by, color="red", linewidth=1.5, label=Z1.name)
+    plt.plot(
+        ts_synthetic / divide_by,
+        color="red",
+        linewidth=1,
+        linestyle="dashed",
+        label="Synthetic Control",
+    )
+    plt.ylabel(ylabel)
+    if treatment_time:
+        plt.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
+    plt.legend()
+    if filename:
+        plt.savefig(os.path.join(FIGURES_DIR, filename))
+    plt.show()
+    rv = pd.concat([ts_synthetic, Z1], axis=1).rename(columns={0: 'Synthetic Control'})
+    return rv
+
+
 def gap_plot(
     synth,
     time_period,
@@ -213,3 +259,35 @@ def placebo_plot(
         if filename:
             plt.savefig(os.path.join(FIGURES_DIR, filename))
         plt.show()
+
+
+def in_time_placebo_plot(
+    placebo_gaps: dict,
+    actual_gap: pd.Series,
+    time_period,
+    actual_treatment_year: int,
+    divide_by: float = 1000,
+    y_axis_label: str = "Gap",
+    y_axis_limit: Optional[float] = 10,
+    filename: Optional[str] = None,
+) -> None:
+    """Plot in-time placebo gaps (gray) vs actual treated gap (red).
+    placebo_gaps: dict mapping fake_treatment_year -> gap Series
+    actual_gap: gap Series from the real treatment analysis
+    """
+    time_list = list(time_period)
+    for _, gap_series in placebo_gaps.items():
+        g = gap_series[gap_series.index.isin(time_list)]
+        if len(g) > 0:
+            plt.plot(g.index, g.values / divide_by, color="black", alpha=0.15, linewidth=0.8)
+    g_act = actual_gap[actual_gap.index.isin(time_list)]
+    if len(g_act) > 0:
+        plt.plot(g_act.index, g_act.values / divide_by, color="red", linewidth=1.5, label="Treated")
+    plt.axvline(x=actual_treatment_year, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
+    plt.axhline(y=0, color="black")
+    plt.ylabel(y_axis_label)
+    plt.ylim(-y_axis_limit, y_axis_limit)
+    plt.legend()
+    if filename:
+        plt.savefig(os.path.join(FIGURES_DIR, filename))
+    plt.show()

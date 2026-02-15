@@ -139,6 +139,14 @@ def fix_encoding(text):
     return text.encode('latin1').decode('utf-8')
 
 
+def _population_long_format():
+    """Return population data in long format (region_name, Year, Population)."""
+    pop = read_updated_population_chile()
+    pop_long = pop.melt(id_vars=['Year'], var_name='region_name', value_name='Population')
+    pop_long = pop_long.rename(columns={'Year': 'year'})
+    return pop_long
+
+
 def process_data_for_synth():
     df = pd.read_excel('../data/scm_chile_2010.xlsx')
     # Apply the function to the column with apply
@@ -159,4 +167,8 @@ def process_data_for_synth():
             previous_year_gdp = merged_df.loc[i - 1, 'gdp_cap']
             growth_rate = merged_df.loc[i, 'growth_rate']
             merged_df.loc[i, 'gdp_cap'] = previous_year_gdp * (1 + growth_rate / 100)
+    # Add Population and gdp_total (gdp_cap * Population) for denominator-effect SCM
+    pop_long = _population_long_format()
+    merged_df = pd.merge(merged_df, pop_long, on=['year', 'region_name'], how='left')
+    merged_df['gdp_total'] = merged_df['gdp_cap'] * merged_df['Population']
     return merged_df
