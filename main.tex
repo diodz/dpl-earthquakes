@@ -366,6 +366,40 @@ Figure \ref{fig:jacknife} presents the results of this test. For Maule (Panel a)
 
 The in-time placebo results reinforce this interpretation. In the New~Zealand sweep, placebo assignment years before 2011 do not generate a persistent post-gap pattern comparable to the realized post-2011 trajectory; the observed Canterbury divergence remains uniquely large in both average post-gap and RMSPE-ratio terms. In Chile, by contrast, the realized 2010 treatment-year path remains within the placebo distribution, consistent with the null effect in Maule. Taken together, these timing placebos strengthen the claim that Canterbury’s sharp divergence is specifically a post-2011 phenomenon linked to the earthquake sequence and reconstruction period, rather than a generic pre-existing trend break.
 
+To further stress-test the long post-treatment horizon and the potential inexact-matching concern for Maule, we implement two additional estimators. First, we estimate Synthetic Difference-in-Differences (SDID; \cite{arkhangelsky2021sdid}) for both cases. Second, we estimate a penalized (bias-corrected) SCM in the spirit of \textcite{abadie2021penalized}. For the penalized estimator, we tune the penalty over a grid and select the largest $\lambda$ within 5\% of the minimum pre-period RMSPE (selected $\lambda=10^{-3}$ in both countries). The resulting post-period estimates are reported in Table~\ref{tab:sdid_penalized} and visualized in Figure~\ref{fig:sdid_penalized_gaps}. Canterbury remains clearly positive under SDID (+7.8\% average post-gap over 2011--2019) and under penalized SCM (+6.5\%), confirming that the overshoot is not an artifact of baseline SCM weighting alone. Maule remains non-positive across alternatives (SCM: $-1.7$\%, SDID: $-5.1$\%, penalized SCM: $-1.5$\% over 2010--2019), reinforcing the absence of a positive medium-run overshoot.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Robustness to SDID and penalized/bias-corrected SCM}}
+\label{tab:sdid_penalized}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Estimator} & \textbf{Mean post-gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} \\
+\midrule
+Chile & SCM & $-1.7$ & 3.4 & 2.5 \\
+Chile & SDID & $-5.1$ & 3.1 & 5.3 \\
+Chile & Penalized SCM & $-1.5$ & 3.0 & 2.3 \\
+New~Zealand & SCM & 7.8 & 1.0 & 8.8 \\
+New~Zealand & SDID & 7.8 & 1.7 & 8.5 \\
+New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Post windows are 2010--2019 for Maule and 2011--2019 for Canterbury. SDID is estimated with non-negative unit and time simplex weights plus intercept balancing. Penalized SCM uses a ridge penalty over pre-treatment outcomes; penalty choice follows a conservative 5\% pre-fit tolerance rule.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Gap trajectories under SCM, SDID, and penalized SCM}}
+\label{fig:sdid_penalized_gaps}
+\includegraphics[width=0.95\textwidth]{article_assets/sdid_bias_corrected_gaps.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each panel reports annual treated-minus-counterfactual gaps in percent under three estimators. The vertical dashed line marks treatment timing (2010 in Chile, 2011 in New~Zealand). Canterbury’s positive divergence persists under SDID and penalized SCM; Maule remains at or below zero.
+\end{minipage}
+\end{figure}
+
 In addition to the jackknife test, we check for sensitivity to the donor pool composition.  We re-run the Maule SCM excluding Region VI (O’Higgins), a neighbor that was moderately affected by the quake, and the resulting gap for Maule remains virtually unchanged.  For Canterbury, we test excluding the Wellington region (as its economy could be indirectly stimulated by government spending).  When Wellington is dropped, the estimated gap is slightly larger, strengthening our conclusion.  We further drop other potential spillover or small-donor regions—such as the West Coast and Marlborough—and find that the gap is virtually unchanged.  Even when both Wellington and the West Coast are simultaneously removed, Canterbury’s positive gap persists.  These checks give confidence that our findings are not artifacts of donor pool contamination or spillovers.
 
 We also consider the possibility of “cherry-picking” bias \autocite{ferman2020cherry} in our study. It is important to note that these two significant earthquakes were identified for analysis \textit{ ex ante} due to their severe magnitude, their temporal closeness (2010-2011), and also due to their socioeconomic importance for both countries (\cite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}); thus, they were not selected based on their results. In fact, by reporting both Maule’s null result and Canterbury's significant positive result, we demonstrate heterogeneity and avoid reporting only confirmatory findings, thus adding nuanced and transparency to our analysis. Finally, our results are robust to the precise timing of the treatment start date for the Canterbury earthquake sequence and persist for a medium-term period of (at least) five to seven years before diminishing its effect. In particular, if we consider 2010 (the year of the Darfield quake) as the beginning of the post-treatment period rather than 2011, the re-estimated synthetic control produces the same positive gap.  The effect peaks around 2015–2016 and falls below 5\% by 2019, underscoring that the impact is transitory or medium-lived rather than a permanent level shift.\footnote{Timing choice and time horizon considerations: For Canterbury we treat 2011 as the first post-treatment year given that the \textit{February 2011 event} drove the largest disruption; treating 2010 as “post-treatment” leaves the conclusions unchanged (no gap in 2010; divergence begins in 2011). We also stopped the analysis in 2019 to avoid any COVID-19-related confounding effect; extending the analysis to 2021 shows re-convergence to the counterfactual, consistent with a medium-lived rather than permanent level change.}

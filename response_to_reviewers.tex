@@ -18,6 +18,24 @@ Thank you for this suggestion. We have now added a systematic in-time placebo in
 
 We loop candidate treatment years across each case's pre-period (New~Zealand: 2000--2009; Chile: 1990--2009), re-estimate SCM for each candidate year, and compare placebo effects against the actual treatment-year estimate. The revised manuscript includes updated methods text and an expanded presentation of the placebo tests. The key conclusion is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution (see Figure~\ref{fig:placebos}).
 
+\paragraph{Comment 3.3 (SDID and bias-corrected SCM robustness).}
+\textit{``Given the long post-treatment window, please implement SDID and a bias-corrected/penalized SCM (especially for Maule) to test robustness to inexact matching.''}
+
+\paragraph{Response.}
+Implemented. We added a new robustness module (\texttt{src/sdid\_bias\_corrected\_analysis.py}) that estimates:
+\begin{enumerate}
+  \item SDID for both Canterbury and Maule, and
+  \item penalized (bias-corrected) SCM following the Abadie--L'Hour framework (reported for both countries; requested case Maule included).
+\end{enumerate}
+
+The revised manuscript reports these estimates in a new robustness table and figure (Table~\ref{tab:sdid_penalized}, Figure~\ref{fig:sdid_penalized_gaps}). Numerically:
+\begin{itemize}
+  \item \textbf{Canterbury}: baseline SCM average post-gap (2011--2019) is \(+7.8\%\); SDID is \(+7.8\%\); penalized SCM is \(+6.5\%\).
+  \item \textbf{Maule}: baseline SCM average post-gap (2010--2019) is \(-1.7\%\); SDID is \(-5.1\%\); penalized SCM is \(-1.5\%\).
+\end{itemize}
+
+Hence, Canterbury's overshoot persists when optimizing both unit and time weights (SDID), while Maule remains non-positive under all alternative estimators. This directly addresses concerns about long-window robustness and edge-of-convex-hull matching for Maule.
+
 \section*{Reproducibility note}
 
 All figures and tables cited above appear in the revised manuscript. The analysis code is available in the supplementary repository for verification.

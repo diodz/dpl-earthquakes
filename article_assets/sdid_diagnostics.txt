@@ -1,0 +1,34 @@
+SDID diagnostics (top weights and intercepts)
+=========================================
+
+Chile SDID
+Unit intercept: -746462.809198
+Time intercept: 1172685.172783
+Top unit weights:
+  - IX De La Araucanía: 0.161266
+  - V De Valparaíso: 0.149875
+  - VI Del Libertador General Bernardo OHiggins: 0.149160
+  - IV De Coquimbo: 0.145735
+  - XII De Magallanes y de la Antártica Chilena: 0.116596
+Top time weights:
+  - 2008: 0.156569
+  - 2009: 0.146759
+  - 1993: 0.123934
+  - 2007: 0.114676
+  - 2005: 0.097534
+
+New Zealand SDID
+Unit intercept: 390.931845
+Time intercept: 12303.192934
+Top unit weights:
+  - Auckland: 0.101988
+  - Otago: 0.093493
+  - Wellington: 0.090812
+  - Hawke's Bay: 0.087690
+  - Marlborough: 0.086081
+Top time weights:
+  - 2009: 0.170300
+  - 2010: 0.167330
+  - 2008: 0.163469
+  - 2007: 0.087591
+  - 2006: 0.073353
