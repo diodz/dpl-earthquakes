@@ -3,25 +3,9 @@
 \subsection*{Reviewer \#1}
 
 \paragraph{Comment 3.1 (GDP per-capita decomposition request).}
-We implemented the requested decomposition by extending the Canterbury SCM pipeline to estimate three outcomes under the \emph{same} donor pool and pre-treatment setup: (i) GDP per capita, (ii) total regional GDP (level), and (iii) total population.
+We implemented the requested decomposition by extending the Canterbury SCM to estimate three outcomes under the \emph{same} donor pool and pre-treatment setup: (i) GDP per capita, (ii) total regional GDP (level), and (iii) total population.
 
-\paragraph{Exact outputs generated}
-All outputs are now written to \texttt{article\_assets/}:
-\begin{itemize}
-    \item \texttt{nz\_population\_paths.png}
-    \item \texttt{nz\_population\_gap.png}
-    \item \texttt{nz\_total\_gdp\_paths.png}
-    \item \texttt{nz\_total\_gdp\_gap.png}
-    \item \texttt{nz\_outcome\_extension\_tables.xlsx}
-    \item \texttt{nz\_outcome\_extension\_summary.csv}
-\end{itemize}
-
-The summary file reports:
-\begin{itemize}
-    \item GDP per capita gap: 12.717\% in 2016; post-2011 average gap of 6.825\%.
-    \item Total GDP gap: 5.918\% in 2016; post-2011 average gap of 5.011\%.
-    \item Population gap: $-3.631$\% in 2016; post-2011 average gap of $-3.628$\%.
-\end{itemize}
+We added two new figures and accompanying text to the manuscript (Section~4, Results). Figure~\ref{fig:nz_decomposition_paths} shows the treated vs.\ synthetic paths for total GDP and population; Figure~\ref{fig:nz_decomposition_gaps} displays the corresponding gaps in percentage terms. The revised text reports: by 2016, the GDP-per-capita gap is 12.7\%, the total-GDP gap is 5.9\%, and the population gap is $-3.6$\%. Averaging over 2011--2022, the gaps are 6.8\% (GDP per capita), 5.0\% (total GDP), and $-3.6$\% (population).
 
 \paragraph{Interpretation}
 Yes, Canterbury's per-capita gap survives the decomposition. The positive post-quake GDP-per-capita divergence is not driven by denominator mechanics alone: total GDP itself rises above synthetic, while population remains below synthetic. Hence, the per-capita effect reflects the combined contribution of a stronger numerator and a smaller denominator relative to the counterfactual.
@@ -30,25 +14,10 @@ Yes, Canterbury's per-capita gap survives the decomposition. The positive post-q
 \textit{``Please provide stronger evidence that the Canterbury result is not driven by arbitrary treatment timing, and document the corresponding placebo diagnostics.''}
 
 \paragraph{Response.}
-Thank you for this suggestion. We have now added a systematic in-time placebo inference exercise for both countries and integrated it into the robustness discussion in the manuscript.
+Thank you for this suggestion. We have now added a systematic in-time placebo inference exercise for both countries and integrated it into the robustness discussion in the manuscript (Section~4).
 
-Specifically, we now loop candidate treatment years across each case's pre-period (New~Zealand: 2000--2009; Chile: 1990--2009), re-estimate SCM for each candidate year, and store post-placebo gaps and post/pre RMSPE ratios. We export the results as tidy CSV artifacts and generate compact distributional figures that compare placebo effects against the actual treatment-year estimate.
-
-\begin{itemize}
-  \item New~Zealand tidy summary: \texttt{article\_assets/nz\_in\_time\_placebo\_summary.csv}
-  \item New~Zealand compact figure: \texttt{article\_assets/nz\_in\_time\_placebo\_compact.png}
-  \item Chile tidy summary: \texttt{article\_assets/chile\_in\_time\_placebo\_summary.csv}
-  \item Chile compact figure: \texttt{article\_assets/chile\_in\_time\_placebo\_compact.png}
-\end{itemize}
-
-We also added corresponding methods and results text in \texttt{main.tex}. The key conclusion from this added exercise is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution.
+We loop candidate treatment years across each case's pre-period (New~Zealand: 2000--2009; Chile: 1990--2009), re-estimate SCM for each candidate year, and compare placebo effects against the actual treatment-year estimate. The revised manuscript includes updated methods text and an expanded presentation of the placebo tests. The key conclusion is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution (see Figure~\ref{fig:placebos}).
 
 \section*{Reproducibility note}
 
-All updated figures and analysis outputs can be regenerated from the repository root with one command:
-
-\begin{verbatim}
-python run_analysis.py
-\end{verbatim}
-
-This command executes the analysis pipeline and writes outputs to \texttt{article\_assets/}, which is the canonical artifact path used by \texttt{main.tex}.
+All figures and tables cited above appear in the revised manuscript. The analysis code is available in the supplementary repository for verification.
