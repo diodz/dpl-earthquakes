@@ -14,9 +14,15 @@ Yes, Canterbury's per-capita gap survives the decomposition. The positive post-q
 \textit{``Please provide stronger evidence that the Canterbury result is not driven by arbitrary treatment timing, and document the corresponding placebo diagnostics.''}
 
 \paragraph{Response.}
-Thank you for this suggestion. We have now added a systematic in-time placebo inference exercise for both countries and integrated it into the robustness discussion in the manuscript (Section~4).
+Thank you for this suggestion. We expanded the timing analysis to provide full treatment-year sensitivity outputs (not only textual claims). Specifically, we now estimate:
+\begin{itemize}
+  \item \textbf{New~Zealand:} 2010-start, 2011-start (preferred), and 2012 sequence-aware start.
+  \item \textbf{Chile:} 2010 baseline plus nearby placebo starts (2009 and 2011) for symmetry.
+\end{itemize}
 
-We loop candidate treatment years across each case's pre-period (New~Zealand: 2000--2009; Chile: 1990--2009), re-estimate SCM for each candidate year, and compare placebo effects against the actual treatment-year estimate. The revised manuscript includes updated methods text and an expanded presentation of the placebo tests. The key conclusion is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution (see Figure~\ref{fig:placebos}).
+For each timing choice, we report pre/post fit quality, post/pre RMSPE ratio, and placebo ranking in a dedicated table and figure set (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}). We also export machine-readable outputs (\texttt{article\_assets/timing\_sensitivity\_summary.csv}, \texttt{timing\_sensitivity\_gaps.csv}, \texttt{timing\_sensitivity\_placebo\_distribution.csv}).
+
+Conclusion-wise, Canterbury remains strongly positive across timing conventions, while Maule remains non-positive under nearby placebo starts; therefore, the main cross-case conclusion does not depend on the treatment-year definition.
 
 \paragraph{Comment 3.3 (SDID and bias-corrected SCM robustness).}
 \textit{``Given the long post-treatment window, please implement SDID and a bias-corrected/penalized SCM (especially for Maule) to test robustness to inexact matching.''}

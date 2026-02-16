@@ -156,7 +156,7 @@ We briefly outline the SCM procedure (see also \cite{abadie2021jel, abadie2010sy
 
 $$ \sum_{m=1}^M v_m (X_{1m} - \sum_{i=2}^{N+1} w_i X_{im})^2,$$ 
 
-where $X_{im}$ is the value of predictor $m$ for region $i$, and $v_m$ are predictor weights chosen to minimize the pre-treatment outcome discrepancy. We implement this procedure using the Python package \texttt{pysyncon} \parencite{pysynconpackage}. The outcome is a set of weights $W^{*}$ and a synthetic outcome path: $Y_{1t}^{\text{synt}} = \sum_{i=2}^{N+1} w_i^{*} Y_{it}$ for $t > T_0$.
+where $X_{im}$ is the value of predictor $m$ for region $i$, and $v_m$ are predictor weights chosen to minimize the pre-treatment outcome discrepancy. We implement this procedure using the Python package \texttt{pysyncon} \parencite{pysynconpackage}. The outcome is a set of weights $W^{*}$ and a synthetic outcome path: $Y_{1t}^{\text{synt}} = \sum_{i=2}^{N+1} w_i^{*} Y_{it}$ for $t > T_0$. For Canterbury, our preferred convention sets 2011 as the first post-treatment year (because the February 2011 event generated the largest disruption), but we also report 2010-start and 2012-start sensitivity specifications with full placebo diagnostics in Section~4.3.
 
 \begin{table}[H]
 \centering
@@ -344,7 +344,50 @@ To conclude, our SCM sectoral analysis provides evidence that helps explain the 
 \subsection{Robustness and Additional Checks}
 We now perform several robustness checks to validate our findings. A primary concern with SCM is that the results might be driven by a single, highly-weighted donor. To address this, we conduct a leave-one-out (or jackknife) test in which we re-estimate the synthetic control after excluding the donor region with the highest initial weight. For Maule, this was the Araucanía region (36.9\% weight); for Canterbury, it was the Auckland region (32.7\% weight). 
 
-As an additional timing falsification exercise, we implement a systematic \textit{in-time placebo} design. For New~Zealand, we re-assign the treatment year to each year in the pre-period (2000--2009), and for Chile we do the analogous pre-period sweep (1990--2009). For each candidate year, we re-estimate SCM using only years before that candidate date as pre-treatment information, then compute post-placebo gaps and the post/pre RMSPE ratio. We export these outputs as tidy country-level summaries (\texttt{article\_assets/nz\_in\_time\_placebo\_summary.csv} and \texttt{article\_assets/chile\_in\_time\_placebo\_summary.csv}) together with compact distributional figures comparing placebo effects with the actual treatment-year effect (\texttt{article\_assets/nz\_in\_time\_placebo\_compact.png} and \texttt{article\_assets/chile\_in\_time\_placebo\_compact.png}).
+As an additional timing falsification exercise, we estimate full SCM/placebo diagnostics under alternative treatment-year conventions for both cases. For New~Zealand, we report a 2010-start specification, our preferred 2011-start specification, and a sequence-aware 2012-start specification. For Chile, we report the baseline 2010-start model plus nearby placebo starts (2009 and 2011) to preserve cross-case symmetry. For each timing choice, we compute pre-/post-RMSPE, post/pre RMSPE ratios, and placebo ranks from the same randomization-inference design.
+
+We export complete machine-readable outputs to \texttt{article\_assets/timing\_sensitivity\_summary.csv}, \texttt{article\_assets/timing\_sensitivity\_gaps.csv}, and \texttt{article\_assets/timing\_sensitivity\_placebo\_distribution.csv}, with country-specific summaries in \texttt{nz\_timing\_sensitivity\_summary.csv} and \texttt{chile\_timing\_sensitivity\_summary.csv}.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Treatment-year timing sensitivity diagnostics (full specification set)}}
+\label{tab:timing_sensitivity}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Country} & \textbf{Timing specification} & \textbf{Mean gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} & \textbf{Post/Pre} & \textbf{Ratio rank ($p$-value)} \\
+\midrule
+Chile & 2009 placebo start & $-17.57$ & $8.93$ & $18.29$ & $2.05$ & $4/12\ (0.333)$ \\
+Chile & 2010 baseline start & $-4.69$ & $10.35$ & $5.01$ & $0.48$ & $12/12\ (1.000)$ \\
+Chile & 2011 placebo start & $-1.80$ & $7.32$ & $2.76$ & $0.38$ & $12/12\ (1.000)$ \\
+New~Zealand & 2010 start & $6.72$ & $1.08$ & $7.14$ & $6.63$ & $1/15\ (0.067)$ \\
+New~Zealand & 2011 start (preferred) & $7.10$ & $1.01$ & $7.88$ & $7.81$ & $1/15\ (0.067)$ \\
+New~Zealand & 2012 sequence-aware start & $6.85$ & $1.02$ & $8.13$ & $7.95$ & $1/15\ (0.067)$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Mean gaps are computed over common post windows (2011--2019 for New~Zealand; 2010--2019 for Chile). Ratio rank is the treated-unit rank among treated plus placebo units for the post/pre RMSPE ratio (higher is more extreme). One-sided placebo $p$-values are rank-based randomization-inference probabilities.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Timing sensitivity gap paths under alternative treatment-year conventions}}
+\label{fig:timing_sensitivity_paths}
+\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_gap_paths.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each panel overlays treated-minus-counterfactual gap paths under all timing conventions reported in Table~\ref{tab:timing_sensitivity}. The preferred convention is shown with a solid line; alternatives are dashed.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Timing sensitivity RMSPE-ratio diagnostics and placebo ranking}}
+\label{fig:timing_sensitivity_rmspe}
+\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_rmspe_ratios.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Bars report treated-unit post/pre RMSPE ratios for each timing convention. Labels show the treated-unit placebo rank and one-sided $p$-value for that specification.
+\end{minipage}
+\end{figure}
 
 \begin{figure}[H]\centering
 \caption{\textbf{Leave-One-Out (Jackknife) Robustness Test}}
@@ -365,7 +408,7 @@ As an additional timing falsification exercise, we implement a systematic \texti
 
 Figure \ref{fig:jacknife} presents the results of this test. For Maule (Panel a), the new synthetic control without Araucanía still tracks the actual GDP per capita path very closely, with the post-earthquake gap remaining near zero. This confirms that our null finding is not an artifact of, or largely driven by, one particular donor. Similarly, for Canterbury (Panel b), excluding Auckland produces a slightly \textit{lower} counterfactual path, which in turn makes the estimated positive gap between real Canterbury and its counterfactual  even larger, thus reinforcing the correct “direction" of our results. The core finding of a substantial and sustained positive economic impact in Canterbury is therefore robust to the exclusion of its most important donor.
 
-The in-time placebo results reinforce this interpretation. In the New~Zealand sweep, placebo assignment years before 2011 do not generate a persistent post-gap pattern comparable to the realized post-2011 trajectory; the observed Canterbury divergence remains uniquely large in both average post-gap and RMSPE-ratio terms. In Chile, by contrast, the realized 2010 treatment-year path remains within the placebo distribution, consistent with the null effect in Maule. Taken together, these timing placebos strengthen the claim that Canterbury’s sharp divergence is specifically a post-2011 phenomenon linked to the earthquake sequence and reconstruction period, rather than a generic pre-existing trend break.
+The timing results reinforce this interpretation. Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe} show that Canterbury remains strongly positive under 2010-, 2011-, and 2012-start conventions, with the treated unit ranked first in RMSPE-ratio extremeness in all three cases. In Chile, nearby placebo starts (2009, 2011) and the baseline 2010 specification remain non-positive and are never highly ranked against placebo units. Hence, the cross-case conclusion does not depend on an arbitrary timing definition.
 
 To further stress-test the long post-treatment horizon and the potential inexact-matching concern for Maule, we implement two additional estimators. First, we estimate Synthetic Difference-in-Differences (SDID; \cite{arkhangelsky2021sdid}) for both cases. Second, we estimate a penalized (bias-corrected) SCM in the spirit of \textcite{abadie2021penalized}. For the penalized estimator, we tune the penalty over a grid and select the largest $\lambda$ within 5\% of the minimum pre-period RMSPE (selected $\lambda=10^{-3}$ in both countries). The resulting post-period estimates are reported in Table~\ref{tab:sdid_penalized} and visualized in Figure~\ref{fig:sdid_penalized_gaps}. Canterbury remains clearly positive under SDID (+7.8\% average post-gap over 2011--2019) and under penalized SCM (+6.5\%), confirming that the overshoot is not an artifact of baseline SCM weighting alone. Maule remains non-positive across alternatives (SCM: $-1.7$\%, SDID: $-5.1$\%, penalized SCM: $-1.5$\% over 2010--2019), reinforcing the absence of a positive medium-run overshoot.
 
@@ -403,7 +446,7 @@ New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
 
 In addition to the jackknife test, we check for sensitivity to the donor pool composition.  We re-run the Maule SCM excluding Region VI (O’Higgins), a neighbor that was moderately affected by the quake, and the resulting gap for Maule remains virtually unchanged.  For Canterbury, we test excluding the Wellington region (as its economy could be indirectly stimulated by government spending).  When Wellington is dropped, the estimated gap is slightly larger, strengthening our conclusion.  We further drop other potential spillover or small-donor regions—such as the West Coast and Marlborough—and find that the gap is virtually unchanged.  Even when both Wellington and the West Coast are simultaneously removed, Canterbury’s positive gap persists.  These checks give confidence that our findings are not artifacts of donor pool contamination or spillovers.
 
-We also consider the possibility of “cherry-picking” bias \autocite{ferman2020cherry} in our study. It is important to note that these two significant earthquakes were identified for analysis \textit{ ex ante} due to their severe magnitude, their temporal closeness (2010-2011), and also due to their socioeconomic importance for both countries (\cite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}); thus, they were not selected based on their results. In fact, by reporting both Maule’s null result and Canterbury's significant positive result, we demonstrate heterogeneity and avoid reporting only confirmatory findings, thus adding nuanced and transparency to our analysis. Finally, our results are robust to the precise timing of the treatment start date for the Canterbury earthquake sequence and persist for a medium-term period of (at least) five to seven years before diminishing its effect. In particular, if we consider 2010 (the year of the Darfield quake) as the beginning of the post-treatment period rather than 2011, the re-estimated synthetic control produces the same positive gap.  The effect peaks around 2015–2016 and falls below 5\% by 2019, underscoring that the impact is transitory or medium-lived rather than a permanent level shift.\footnote{Timing choice and time horizon considerations: For Canterbury we treat 2011 as the first post-treatment year given that the \textit{February 2011 event} drove the largest disruption; treating 2010 as “post-treatment” leaves the conclusions unchanged (no gap in 2010; divergence begins in 2011). We also stopped the analysis in 2019 to avoid any COVID-19-related confounding effect; extending the analysis to 2021 shows re-convergence to the counterfactual, consistent with a medium-lived rather than permanent level change.}
+We also consider the possibility of “cherry-picking” bias \autocite{ferman2020cherry} in our study. It is important to note that these two significant earthquakes were identified for analysis \textit{ ex ante} due to their severe magnitude, their temporal closeness (2010-2011), and also due to their socioeconomic importance for both countries (\cite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}); thus, they were not selected based on their results. In fact, by reporting both Maule’s null result and Canterbury's significant positive result, we demonstrate heterogeneity and avoid reporting only confirmatory findings, thus adding nuanced and transparency to our analysis. Finally, the treatment-timing appendix outputs (Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) show that Canterbury’s positive effect persists under 2010-, 2011-, and 2012-start conventions, while Maule remains non-positive under nearby placebo starts. The Canterbury effect peaks around 2015--2016 and declines below 5\% by 2019, underscoring a medium-lived rather than permanent level shift.\footnote{Timing choice and horizon considerations: we prefer 2011 as the first post-treatment year for Canterbury because the February 2011 shock drove the largest disruption, but 2010-start and 2012-start alternatives preserve the qualitative conclusion. We truncate the main post window at 2019 to avoid COVID-19 confounding.}
 \\
 
 \begin{table}[H]
