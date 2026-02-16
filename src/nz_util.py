@@ -1,6 +1,10 @@
+import os
 import pandas as pd
 import warnings
 warnings.filterwarnings("ignore", message="Print area cannot be set to Defined name")
+
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_DATA_DIR = os.path.join(_PROJECT_ROOT, "data")
 
 SECTORIAL_GDP_VARIABLES = ['Agriculture', 'Administrative and Support Services', 'Construction', 
                         'Education and Training', 'Financial and Insurance Services', 
@@ -21,11 +25,14 @@ def clean_data_for_synthetic_control():
     merged_df.rename(columns={'Total': 'GDP per capita'}, inplace=True)
     rv = order_data_and_calculate_per_capita(merged_df)
     rv = add_tertiary_education_data(rv)
+    rv['gdp_per_capita'] = rv['GDP per capita']
+    rv['total_population'] = rv['Population']
+    rv['total_gdp'] = rv['Gross Domestic Product']
     return rv
 
 
 def read_and_clean_nz_data():
-    file_path = '../data/regional-gross-domestic-product-year-ended-march-2023.csv'
+    file_path = os.path.join(_DATA_DIR, 'regional-gross-domestic-product-year-ended-march-2023.csv')
     df = pd.read_csv(file_path)
     df_cleaned = df[['Period', 'Data_value', 'MAGNTUDE','Subject', 'Group', 'Series_title_2', 'Series_title_3']]    
     rv = df_cleaned.rename(columns={
@@ -38,7 +45,7 @@ def read_and_clean_nz_data():
     return rv
 
 def read_and_clean_nz_population_data():
-    spreadsheet_path = '../data/regional-gross-domestic-product-year-ended-march-2023.xlsx'
+    spreadsheet_path = os.path.join(_DATA_DIR, 'regional-gross-domestic-product-year-ended-march-2023.xlsx')
     table_3 = pd.read_excel(spreadsheet_path, sheet_name='Table 3')
     start_row = table_3.index[table_3.iloc[:, 0] == "Region"].tolist()[0]
 
@@ -89,7 +96,7 @@ def order_data_and_calculate_per_capita(df):
 
 def read_and_process_tertiary_education_data():
     # Define the region mapping
-    ter = pd.read_csv('../data/nz_tertiary_attainment.csv')
+    ter = pd.read_csv(os.path.join(_DATA_DIR, 'nz_tertiary_attainment.csv'))
     region_mapping = {
         'northland': 'Northland',
         'auckland': 'Auckland',

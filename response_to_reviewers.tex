@@ -1,6 +1,30 @@
-\section*{Response to reviewers}
+\section*{Response to Reviewers}
 
 \subsection*{Reviewer \#1}
+
+\paragraph{Comment 3.1 (GDP per-capita decomposition request).}
+We implemented the requested decomposition by extending the Canterbury SCM pipeline to estimate three outcomes under the \emph{same} donor pool and pre-treatment setup: (i) GDP per capita, (ii) total regional GDP (level), and (iii) total population.
+
+\paragraph{Exact outputs generated}
+All outputs are now written to \texttt{article\_assets/}:
+\begin{itemize}
+    \item \texttt{nz\_population\_paths.png}
+    \item \texttt{nz\_population\_gap.png}
+    \item \texttt{nz\_total\_gdp\_paths.png}
+    \item \texttt{nz\_total\_gdp\_gap.png}
+    \item \texttt{nz\_outcome\_extension\_tables.xlsx}
+    \item \texttt{nz\_outcome\_extension\_summary.csv}
+\end{itemize}
+
+The summary file reports:
+\begin{itemize}
+    \item GDP per capita gap: 12.717\% in 2016; post-2011 average gap of 6.825\%.
+    \item Total GDP gap: 5.918\% in 2016; post-2011 average gap of 5.011\%.
+    \item Population gap: $-3.631$\% in 2016; post-2011 average gap of $-3.628$\%.
+\end{itemize}
+
+\paragraph{Interpretation}
+Yes, Canterbury's per-capita gap survives the decomposition. The positive post-quake GDP-per-capita divergence is not driven by denominator mechanics alone: total GDP itself rises above synthetic, while population remains below synthetic. Hence, the per-capita effect reflects the combined contribution of a stronger numerator and a smaller denominator relative to the counterfactual.
 
 \paragraph{Comment 3.2 (placebo and timing inference).}
 \textit{``Please provide stronger evidence that the Canterbury result is not driven by arbitrary treatment timing, and document the corresponding placebo diagnostics.''}
