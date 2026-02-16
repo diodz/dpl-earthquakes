@@ -1,4 +1,8 @@
+import os
 import pandas as pd
+
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_DATA_DIR = os.path.join(_PROJECT_ROOT, "data")
 
 REGION_MAPPING = {
         'GDP per capita I De Tarapacá Growth Rate': 'I De Tarapacá',
@@ -59,7 +63,7 @@ GDP_COLUMNS_MAPPING = {
     }
 
 def read_updated_gdp_chile():
-    file_path = '../data/pib sectorial y regional.xlsx'
+    file_path = os.path.join(_DATA_DIR, 'pib sectorial y regional.xlsx')
     # Correctly load the dataset again, this time ensuring to skip only the first 2 rows
     df = pd.read_excel(file_path, skiprows=2)
 
@@ -87,7 +91,7 @@ def agg_regions(df):
 
 
 def read_updated_population_chile():
-    file_path = '../data/poblacion regional.xlsx'
+    file_path = os.path.join(_DATA_DIR, 'poblacion regional.xlsx')
     # Correctly load the dataset again, this time ensuring to skip only the first 2 rows
     df = pd.read_excel(file_path, skiprows=2)
     # Apply the function to rename the columns
@@ -140,7 +144,7 @@ def fix_encoding(text):
 
 
 def process_data_for_synth():
-    df = pd.read_excel('../data/scm_chile_2010.xlsx')
+    df = pd.read_excel(os.path.join(_DATA_DIR, 'scm_chile_2010.xlsx'))
     # Apply the function to the column with apply
     df['region_name'] = df['region_name'].apply(fix_encoding)
     ch = calculate_growth_rates()
@@ -159,4 +163,12 @@ def process_data_for_synth():
             previous_year_gdp = merged_df.loc[i - 1, 'gdp_cap']
             growth_rate = merged_df.loc[i, 'growth_rate']
             merged_df.loc[i, 'gdp_cap'] = previous_year_gdp * (1 + growth_rate / 100)
+    merged_df['gdp_per_capita'] = merged_df['gdp_cap']
+    merged_df['total_population'] = merged_df['population']
+    merged_df['total_gdp'] = merged_df['gdp_per_capita'] * merged_df['total_population']
+
+    # Keep harmonized aliases so notebook loaders can use a common API with New Zealand data.
+    merged_df['GDP per capita'] = merged_df['gdp_per_capita']
+    merged_df['Population'] = merged_df['total_population']
+    merged_df['Gross Domestic Product'] = merged_df['total_gdp']
     return merged_df
