@@ -39,7 +39,7 @@ def read_and_clean_nz_data():
     'Series_title_3': 'Industry',
     'Series_title_2': 'Region',
     'Data_value': 'value'
-    }).drop(columns=['Subject'], axis=1).copy(deep=True)
+    }).drop(columns=['Subject']).copy(deep=True)
     rv['Industry'] = rv['Industry'].fillna('Total')
     rv['Period'] = rv['Period'].astype(int)
     return rv
