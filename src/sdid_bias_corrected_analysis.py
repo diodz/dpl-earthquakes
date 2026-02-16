@@ -470,7 +470,6 @@ def _plot_gap_comparison(gap_df: pd.DataFrame, output_path: str) -> None:
     axes[0].set_ylabel("Gap (%)")
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", ncol=3, frameon=False)
-    fig.suptitle("SCM robustness: SDID and penalized/bias-corrected estimates")
     fig.tight_layout(rect=(0, 0, 1, 0.92))
     fig.savefig(output_path, dpi=220)
     plt.close(fig)

@@ -3,7 +3,7 @@ SDID diagnostics (top weights and intercepts)
 
 Chile SDID
 Unit intercept: -746462.809198
-Time intercept: 1172685.172783
+Time intercept: 1172685.173076
 Top unit weights:
   - IX De La Araucanía: 0.161266
   - V De Valparaíso: 0.149875
