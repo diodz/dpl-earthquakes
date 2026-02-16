@@ -16,9 +16,11 @@ This script:
 1. Runs `create_maps.py` (Maule and Canterbury maps)
 2. Runs `src/nz_outcome_extensions.py` (GDP / population decomposition)
 3. Runs `src/sdid_bias_corrected_analysis.py` (SDID + penalized SCM robustness)
-4. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
-5. Executes the Maule SCM notebook
-6. Executes the Canterbury SCM notebook
+4. Runs `src/uniform_confidence_analysis.py` (uniform confidence sets + sensitivity checks)
+5. Runs `src/treatment_timing_sensitivity.py` (2010/2011 timing diagnostics + placebo ranks)
+6. Executes the Maule SCM notebook
+7. Executes the Canterbury SCM notebook
+8. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
 
 ### Figure output
 
@@ -36,6 +38,7 @@ Figures are written to `article_assets/`, which is the canonical location expect
 - Jackknife: `chile_jacknife.png`, `nz_jacknife.png`
 - SDID / bias-corrected robustness: `sdid_bias_corrected_summary.csv`, `sdid_bias_corrected_gaps.png`
 - Uniform confidence tables: `scm_uniform_confidence_sets.csv`, `scm_uniform_confidence_summary.csv`
+- Timing sensitivity appendix outputs: `timing_sensitivity_summary.csv`, `timing_sensitivity_gap_paths.png`, `timing_sensitivity_rmspe_ratios.png`
 
 ## Requirements
 
