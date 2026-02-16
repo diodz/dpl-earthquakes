@@ -22,6 +22,8 @@ output_dir = os.path.join(os.path.dirname(__file__), '..', 'article_assets')
     "nz_scm_Other_Sectors.png",
     "chile_jacknife.png",
     "nz_jacknife.png",
+    "sdid_comparison.png",
+    "scm_robustness_summary.csv",
 ])
 def test_output_file_exists(file_name):
     file_path = os.path.join(output_dir, file_name)

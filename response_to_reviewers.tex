@@ -18,6 +18,16 @@ Thank you for this suggestion. We have now added a systematic in-time placebo in
 
 We loop candidate treatment years across each case's pre-period (New~Zealand: 2000--2009; Chile: 1990--2009), re-estimate SCM for each candidate year, and compare placebo effects against the actual treatment-year estimate. The revised manuscript includes updated methods text and an expanded presentation of the placebo tests. The key conclusion is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution (see Figure~\ref{fig:placebos}).
 
+\paragraph{Comment 3.3 (SDID and bias-corrected SCM).}
+\textit{``Given the long post-treatment window (2010--2019), implement Synthetic Difference-in-Differences to verify the Canterbury overshoot persists when optimizing both unit and time weights. Apply Bias-Corrected SCM to mitigate interpolation bias when Maule is at the edge of the donor pool's convex hull.''}
+
+\paragraph{Response.}
+Thank you for this suggestion. We have implemented both estimators and integrated the results into the manuscript (Section~4, Robustness).
+
+\textbf{SDID:} We apply Synthetic Difference-in-Differences \parencite{arkhangelsky2021sdid} to both cases using the same panel data and treatment timing as the baseline SCM. For Canterbury, SDID yields a positive ATT consistent with our baseline SCM, confirming that the overshoot persists when optimizing both unit and time weights. For Maule, SDID recovers a null effect, consistent with our baseline.
+
+\textbf{Bias-corrected SCM:} Following \cite{abadie2021penalized}, we apply PenalizedSynth (bias-corrected SCM) to Maule and, for completeness, to Canterbury. Maule's agrarian profile places it near the edge of the donor pool's convex hull (Table~2). The penalized estimator produces donor weights qualitatively similar to the baseline Synth, and Maule's post-treatment gap remains near zero. Canterbury's penalized weights likewise preserve the main conclusion. Figure~\ref{fig:sdid_robustness} and \texttt{article\_assets/scm\_robustness\_summary.csv} summarize the robustness results.
+
 \section*{Reproducibility note}
 
 All figures and tables cited above appear in the revised manuscript. The analysis code is available in the supplementary repository for verification.

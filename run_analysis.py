@@ -30,6 +30,10 @@ def main():
     print("Running NZ outcome extension SCM script...")
     subprocess.run([sys.executable, os.path.join(PROJECT_ROOT, "src", "nz_outcome_extensions.py")], check=True, cwd=PROJECT_ROOT)
 
+    # 2b. Run SCM robustness (SDID and bias-corrected SCM for Comment 3.3).
+    print("Running SCM robustness (SDID and PenalizedSynth)...")
+    subprocess.run([sys.executable, os.path.join(PROJECT_ROOT, "src", "scm_robustness_sdid_bias.py")], check=True, cwd=PROJECT_ROOT)
+
     # 3. Execute notebooks (nbconvert --execute runs from notebook's directory)
     for nb_name in ["Maule SCM.ipynb", "Canterbury SCM.ipynb"]:
         nb_path = os.path.join(NOTEBOOKS_DIR, nb_name)

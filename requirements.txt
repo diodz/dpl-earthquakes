@@ -3,7 +3,8 @@ ipykernel>=6.0
 nbconvert>=7.0
 matplotlib==3.8.4
 pandas==2.2.2
-pysyncon==1.5.0
+pysyncon>=1.5.2
+# synthdid>=0.10.1  # Optional; has install issues on some systems. SDID in scm_robustness_sdid_bias.py runs when available.
 openpyxl==3.1.2
 xlsxwriter==3.2.0
 shapely==2.2.0
