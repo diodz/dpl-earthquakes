@@ -42,3 +42,13 @@ Specifically, we now loop candidate treatment years across each case's pre-perio
 \end{itemize}
 
 We also added corresponding methods and results text in \texttt{main.tex}. The key conclusion from this added exercise is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution.
+
+\section*{Reproducibility note}
+
+All updated figures and analysis outputs can be regenerated from the repository root with one command:
+
+\begin{verbatim}
+python run_analysis.py
+\end{verbatim}
+
+This command executes the analysis pipeline and writes outputs to \texttt{article\_assets/}, which is the canonical artifact path used by \texttt{main.tex}.
