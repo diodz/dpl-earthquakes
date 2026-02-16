@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+import numpy as np
 from matplotlib import pyplot as plt
 from typing import Optional
 import matplotlib.ticker as mtick
@@ -213,3 +214,158 @@ def placebo_plot(
         if filename:
             plt.savefig(os.path.join(FIGURES_DIR, filename))
         plt.show()
+
+
+def compute_uniform_confidence_bands(
+    placebo,
+    treatment_time: int,
+    alpha: float = 0.1,
+    mspe_threshold: Optional[float] = None,
+    exclude_units: Optional[list] = None,
+) -> tuple:
+    """
+    Compute uniform confidence bands for SCM treatment effects following 
+    Firpo & Possebom (2018).
+    
+    The approach constructs confidence bands that are valid uniformly across all
+    post-treatment periods by using the maximum absolute standardized gap from
+    the placebo distribution.
+    
+    Parameters
+    ----------
+    placebo : PlaceboTest
+        A fitted placebo test object from pysyncon
+    treatment_time : int
+        The period when treatment occurred
+    alpha : float, optional
+        Significance level (default 0.1 for 90% confidence)
+    mspe_threshold : float, optional
+        Remove any non-treated units whose MSPE pre-treatment is >
+        mspe_threshold × the MSPE of the treated unit pre-treatment.
+    exclude_units : list, optional
+        List of unit names to exclude from placebo distribution
+        
+    Returns
+    -------
+    tuple
+        (lower_band, upper_band) as pandas Series indexed by time period
+    """
+    if placebo.gaps is None:
+        raise ValueError("No gaps available; run a placebo test first.")
+    
+    gaps = placebo.gaps.copy()
+    if exclude_units:
+        gaps = gaps.drop(columns=exclude_units, errors='ignore')
+    
+    # Filter placebos by pre-treatment MSPE if threshold specified
+    if mspe_threshold:
+        pre_mspe = gaps.loc[:treatment_time].pow(2).sum(axis=0)
+        pre_mspe_treated = placebo.treated_gap.loc[:treatment_time].pow(2).sum(axis=0)
+        keep = pre_mspe[pre_mspe < mspe_threshold * pre_mspe_treated].index
+        gaps = gaps[keep]
+    
+    # Compute RMSPE for standardization (pre-treatment period)
+    pre_rmspe = np.sqrt(gaps.loc[:treatment_time].pow(2).mean(axis=0))
+    pre_rmspe_treated = np.sqrt(placebo.treated_gap.loc[:treatment_time].pow(2).mean(axis=0))
+    
+    # Standardize gaps by pre-treatment RMSPE
+    standardized_gaps = gaps.div(pre_rmspe, axis=1)
+    
+    # For post-treatment period, compute maximum absolute standardized gap for each placebo
+    post_treatment_gaps = standardized_gaps.loc[treatment_time:]
+    max_abs_gaps = post_treatment_gaps.abs().max(axis=0)
+    
+    # Compute critical value as the (1-alpha) quantile of the max distribution
+    critical_value = np.quantile(max_abs_gaps, 1 - alpha)
+    
+    # Construct uniform confidence bands: treated_gap ± critical_value × RMSPE_treated
+    treated_gap_post = placebo.treated_gap.loc[treatment_time:]
+    band_width = critical_value * pre_rmspe_treated
+    
+    lower_band = treated_gap_post - band_width
+    upper_band = treated_gap_post + band_width
+    
+    return lower_band, upper_band
+
+
+def gap_plot_with_uniform_ci(
+    synth,
+    placebo,
+    time_period,
+    treatment_time: int,
+    alpha: float = 0.1,
+    mspe_threshold: Optional[float] = None,
+    exclude_units: Optional[list] = None,
+    divide_by: float = 1.0,
+    y_axis_label: str = "Gap",
+    filename: Optional[str] = None,
+) -> None:
+    """
+    Plot the gap between treated and synthetic control with uniform confidence bands.
+    
+    Parameters
+    ----------
+    synth : Synth
+        Fitted synthetic control object
+    placebo : PlaceboTest
+        Fitted placebo test object
+    time_period : range or list
+        Time periods to plot
+    treatment_time : int
+        The period when treatment occurred
+    alpha : float, optional
+        Significance level for confidence bands (default 0.1 for 90% CI)
+    mspe_threshold : float, optional
+        MSPE filtering threshold for placebos
+    exclude_units : list, optional
+        List of units to exclude from placebo distribution
+    divide_by : float, optional
+        Scaling factor for y-axis (default 1.0)
+    y_axis_label : str, optional
+        Label for y-axis
+    filename : str, optional
+        If provided, save figure to this filename
+    """
+    # Compute the treated gap
+    Z0, Z1 = synth.dataprep.make_outcome_mats(time_period=time_period)
+    ts_synthetic = synth._synthetic(Z0=Z0)
+    gap = Z1 - ts_synthetic
+    gap = gap[gap.index.isin(time_period)]
+    
+    # Compute uniform confidence bands
+    lower_band, upper_band = compute_uniform_confidence_bands(
+        placebo=placebo,
+        treatment_time=treatment_time,
+        alpha=alpha,
+        mspe_threshold=mspe_threshold,
+        exclude_units=exclude_units,
+    )
+    
+    # Create plot
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Plot confidence band
+    post_treatment_periods = [t for t in time_period if t >= treatment_time]
+    ax.fill_between(
+        post_treatment_periods,
+        lower_band / divide_by,
+        upper_band / divide_by,
+        alpha=0.2,
+        color='gray',
+        label=f'{int((1-alpha)*100)}% Uniform CI'
+    )
+    
+    # Plot the gap
+    ax.plot(gap / divide_by, color="red", linewidth=1.5, label="Treatment Gap")
+    
+    # Add reference lines
+    ax.axvline(x=treatment_time, color="black", ymin=0.05, ymax=0.95, linestyle="dashed")
+    ax.axhline(y=0, color="black", linewidth=0.8)
+    
+    ax.set_ylabel(y_axis_label)
+    ax.legend()
+    ax.grid(alpha=0.3)
+    
+    if filename:
+        plt.savefig(os.path.join(FIGURES_DIR, filename), dpi=300, bbox_inches='tight')
+    plt.show()
