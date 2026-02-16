@@ -1,5 +1,5 @@
 case,method,att,top_weights
 Maule,SDID,,
 Canterbury,SDID,,
-Maule,Penalized SCM,,
-Canterbury,Penalized SCM,,
+Maule,Penalized SCM,,"{'VI Del Libertador General Bernardo OHiggins': 0.361, 'V De Valparaíso': 0.337, 'X De Los Lagos': 0.302, 'I De Tarapacá': 0.0, 'II De Antofagasta': 0.0}"
+Canterbury,Penalized SCM,,"{'Auckland': 0.335, 'West Coast': 0.187, 'Manawatu-Whanganui': 0.165, 'Tasman/Nelson': 0.122, 'Bay of Plenty': 0.117}"

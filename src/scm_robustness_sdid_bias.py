@@ -60,8 +60,8 @@ def _prepare_chile_panel() -> pd.DataFrame:
     df = pcd.process_data_for_synth()
     df = df[df["region_name"].isin([CHILE_TREATED] + CHILE_CONTROLS)]
     df = df.rename(columns={"region_name": "unit", "year": "time", "gdp_per_capita": "outcome"})
-    # Block design: quota=1 for treated unit (identifies which unit is treated), 0 for controls
-    df["quota"] = (df["unit"] == CHILE_TREATED).astype(int)
+    # Block design: quota=1 only for treated unit in post-treatment periods (time > T0)
+    df["quota"] = ((df["unit"] == CHILE_TREATED) & (df["time"] > CHILE_T0)).astype(int)
     return df[["unit", "time", "outcome", "quota"]].dropna()
 
 
@@ -72,8 +72,8 @@ def _prepare_nz_panel() -> pd.DataFrame:
     df = nz_util.clean_data_for_synthetic_control()
     df = df[df["Region"].isin([NZ_TREATED] + NZ_CONTROLS)]
     df = df.rename(columns={"Region": "unit", "Year": "time", "gdp_per_capita": "outcome"})
-    # Block design: quota=1 for treated unit
-    df["quota"] = (df["unit"] == NZ_TREATED).astype(int)
+    # Block design: quota=1 only for treated unit in post-treatment periods (time > T0)
+    df["quota"] = ((df["unit"] == NZ_TREATED) & (df["time"] > NZ_T0)).astype(int)
     return df[["unit", "time", "outcome", "quota"]].dropna()
 
 
@@ -200,17 +200,31 @@ def run_penalized_canterbury() -> Optional[dict]:
         return None
 
 
-def plot_sdid_comparison(att_chile: Optional[float], att_nz: Optional[float]) -> None:
-    """Plot SDID vs baseline SCM ATT comparison."""
+def _pre_treatment_mean(df: pd.DataFrame, unit_col: str, time_col: str, outcome_col: str, treated_id: str, t0: int) -> float:
+    """Average outcome for treated unit in pre-treatment period (time <= t0)."""
+    pre = df[(df[unit_col] == treated_id) & (df[time_col] <= t0)]
+    return float(pre[outcome_col].mean())
+
+
+def plot_sdid_comparison(
+    att_chile: Optional[float],
+    att_nz: Optional[float],
+    baseline_chile: Optional[float] = None,
+    baseline_nz: Optional[float] = None,
+) -> None:
+    """Plot SDID vs baseline SCM ATT comparison. All values shown in percentage of pre-treatment mean."""
     fig, axes = plt.subplots(1, 2, figsize=(10, 5))
-    # Chile: baseline SCM ~0 (null), SDID
-    axes[0].bar(["Baseline SCM\n(avg post gap)", "SDID"], [0, att_chile or 0], color=["gray", "steelblue"])
+    # Chile: baseline SCM ~0% (null), SDID as %
+    att_chile_pct = (100 * att_chile / baseline_chile) if (att_chile is not None and baseline_chile and baseline_chile != 0) else (att_chile or 0)
+    axes[0].bar(["Baseline SCM\n(avg post gap)", "SDID"], [0, att_chile_pct], color=["gray", "steelblue"])
     axes[0].set_title("Maule (Chile)")
-    axes[0].set_ylabel("ATT (level)")
-    # NZ: baseline ~6.8% gap, SDID
-    axes[1].bar(["Baseline SCM\n(avg post gap %)", "SDID"], [6.8, att_nz or 0], color=["gray", "steelblue"])
+    axes[0].set_ylabel("ATT (%)")
+    # NZ: baseline ~6.8% gap, SDID as % (same scale)
+    att_nz_pct = (100 * att_nz / baseline_nz) if (att_nz is not None and baseline_nz and baseline_nz != 0) else (att_nz or 0)
+    baseline_scm_pct = 6.8
+    axes[1].bar(["Baseline SCM\n(avg post gap)", "SDID"], [baseline_scm_pct, att_nz_pct], color=["gray", "steelblue"])
     axes[1].set_title("Canterbury (NZ)")
-    axes[1].set_ylabel("ATT")
+    axes[1].set_ylabel("ATT (%)")
     plt.tight_layout()
     plt.savefig(os.path.join(FIGURES_DIR, "sdid_comparison.png"))
     plt.close()
@@ -249,7 +263,13 @@ def main() -> None:
     penalized_canterbury = run_penalized_canterbury()
     print(f"  Canterbury penalized top weights: {penalized_canterbury}")
 
-    plot_sdid_comparison(sdid_chile, sdid_nz)
+    # Pre-treatment mean outcomes for converting level ATT to percentage (same scale as baseline SCM gap %)
+    df_chile = _prepare_chile_panel()
+    df_nz = _prepare_nz_panel()
+    baseline_chile = _pre_treatment_mean(df_chile, "unit", "time", "outcome", CHILE_TREATED, CHILE_T0)
+    baseline_nz = _pre_treatment_mean(df_nz, "unit", "time", "outcome", NZ_TREATED, NZ_T0)
+
+    plot_sdid_comparison(sdid_chile, sdid_nz, baseline_chile, baseline_nz)
     save_summary_csv(sdid_chile, sdid_nz, penalized_maule, penalized_canterbury)
     print("Outputs saved to article_assets/")
 
