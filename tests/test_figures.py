@@ -27,6 +27,16 @@ output_dir = os.path.join(os.path.dirname(__file__), '..', 'article_assets')
     "sdid_bias_corrected_gaps.png",
     "sdid_penalized_lambda_grid.csv",
     "sdid_diagnostics.txt",
+    "nz_timing_sensitivity_summary.csv",
+    "nz_timing_sensitivity_gaps.csv",
+    "nz_timing_sensitivity_placebo_ratios.csv",
+    "nz_timing_sensitivity.png",
+    "chile_timing_sensitivity_summary.csv",
+    "chile_timing_sensitivity_gaps.csv",
+    "chile_timing_sensitivity_placebo_ratios.csv",
+    "chile_timing_sensitivity.png",
+    "timing_sensitivity_appendix_summary.csv",
+    "timing_sensitivity_methods_note.txt",
 ])
 def test_output_file_exists(file_name):
     file_path = os.path.join(output_dir, file_name)

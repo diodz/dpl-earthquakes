@@ -1,0 +1,4 @@
+Country,TreatedRegion,CandidateTreatmentYear,MeanPostGap,RMSPE_Pre,RMSPE_Post,RMSPE_Ratio,PlaceboRatioRank,PlaceboRatioPercentile,NumPlacebos,SelectedDonors,SelectedWeights
+NZ,Canterbury,2010,-5.283050087033189,2656.0050852608942,1660.8026838570593,0.6253010180866886,18,1.0,17,"Waikato, Auckland, Wellington, Manawatu-Whanganui, Total South Island","0.279, 0.211, 0.198, 0.161, 0.151"
+NZ,Canterbury,2011,139.7004599702867,2627.5257646269515,1614.180823459181,0.6143349173546002,18,1.0,17,"Waikato, Auckland, Wellington, Manawatu-Whanganui, Total South Island","0.278, 0.213, 0.197, 0.160, 0.151"
+NZ,Canterbury,2012,264.61436440038716,2561.7193690888726,1621.5140975767642,0.6329788177201817,18,1.0,17,"Waikato, Auckland, Wellington, Manawatu-Whanganui, Total South Island","0.278, 0.215, 0.196, 0.159, 0.151"

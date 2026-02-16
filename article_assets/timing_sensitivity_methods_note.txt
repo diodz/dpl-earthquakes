@@ -1,0 +1,1 @@
+Treatment timing sensitivity is estimated for Canterbury (2010/2011/2012) and Maule (2009/2010/2011). Preferred convention keeps Canterbury at 2011 and Maule at 2010; robustness diagnostics indicate conclusions are directionally stable under nearby start-year alternatives.
