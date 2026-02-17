@@ -185,7 +185,7 @@ def _evaluate_scenario(
     year_index = np.asarray(all_years, dtype=int)
     pre_mask = (year_index >= fit_start_year) & (year_index < scenario.treatment_year)
     post_mask = (year_index >= scenario.treatment_year) & (year_index <= ANALYSIS_END_YEAR)
-    common_mask = (year_index >= max(common_post_start, scenario.treatment_year)) & (year_index <= ANALYSIS_END_YEAR)
+    common_mask = (year_index >= common_post_start) & (year_index <= ANALYSIS_END_YEAR)
 
     for unit in placebo_gaps_level.columns:
         unit_actual = pivot[unit].astype(float)
@@ -240,7 +240,7 @@ def _evaluate_scenario(
         "MeanGapOneSidedPValue": mean_p_value,
         "PostWindowStart": scenario.treatment_year,
         "PostWindowEnd": ANALYSIS_END_YEAR,
-        "CommonWindowStart": max(common_post_start, scenario.treatment_year),
+        "CommonWindowStart": common_post_start,
         "CommonWindowEnd": ANALYSIS_END_YEAR,
         "NumPlaceboUnits": int(placebo_ratio_values.size),
     }
