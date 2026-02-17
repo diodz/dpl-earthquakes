@@ -1,0 +1,4 @@
+Country,Scenario,ExcludedRegions,NumDonors,PreRMSPE_Pct,PostRMSPE_Pct,RMSPERatio,MeanPostGapPct,MeanPostGapLevel
+Chile,Baseline (all donors),None,11,5.073921725133166,4.733689571213481,0.9329449344410696,-4.451366419360762,-136912.60210679317
+Chile,Excl. adjacent (O'Higgins),VI Del Libertador General Bernardo OHiggins,10,3.6736086074772083,6.849652848886627,1.864557055682237,-5.812358899190716,-193642.30606564754
+Chile,"Excl. Ring 1+2 (O'Higgins, RM, Valparaíso, Araucanía)",VI Del Libertador General Bernardo OHiggins; RMS Región Metropolitana de Santiago; V De Valparaíso; IX De La Araucanía,7,4.376278141899886,2.9136838053016048,0.6657903613129761,-0.8053557207802614,-17733.056294487928

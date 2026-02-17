@@ -1,0 +1,5 @@
+Country,Scenario,ExcludedRegions,NumDonors,PreRMSPE_Pct,PostRMSPE_Pct,RMSPERatio,MeanPostGapPct,MeanPostGapLevel
+New Zealand,Baseline (all donors),None,14,0.999565863159492,8.736249004621122,8.740043379439774,7.785686155103832,3891.229532561508
+New Zealand,Excl. adjacent South Island,West Coast; Otago; Marlborough; Tasman/Nelson,10,2.334888771356814,10.180174836448458,4.360025608642897,9.561832043321878,4709.395522486655
+New Zealand,Excl. SI adjacent + Auckland/Wellington,West Coast; Otago; Marlborough; Tasman/Nelson; Auckland; Wellington,8,5.007131446603291,13.343946694508624,2.6649882945575185,12.714234895426609,6079.111111111078
+New Zealand,North Island only (excl. all SI + Auckland + Wellington),West Coast; Otago; Marlborough; Tasman/Nelson; Southland; Wellington; Auckland,7,5.042404771489331,13.382634115425056,2.6540182158903405,12.754365267428142,6095.361160586097

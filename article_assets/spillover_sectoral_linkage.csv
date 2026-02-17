@@ -1,0 +1,30 @@
+Country,Region,RingCategory,CosineSimilarity
+Chile,IX De La Araucanía,Non-adjacent,0.9238934849766327
+Chile,V De Valparaíso,Non-adjacent,0.9127502273954566
+Chile,VIII Del Biobío,Adjacent,0.9039989936596411
+Chile,VI Del Libertador General Bernardo OHiggins,Adjacent,0.8738504469768849
+Chile,X De Los Lagos,Non-adjacent,0.8399641622113448
+Chile,XII De Magallanes y de la Antártica Chilena,Non-adjacent,0.7853923536890504
+Chile,RMS Región Metropolitana de Santiago,Non-adjacent,0.7287260327793099
+Chile,IV De Coquimbo,Non-adjacent,0.7206542061258476
+Chile,XI Aysén del General Carlos Ibáñez del Campo,Non-adjacent,0.5399722581126687
+Chile,I De Tarapacá,Non-adjacent,0.4062739792933928
+Chile,III De Atacama,Non-adjacent,0.37308644040852773
+Chile,II De Antofagasta,Non-adjacent,0.21329048570375853
+New Zealand,Total South Island,Non-adjacent,0.9950060848426363
+New Zealand,New Zealand,Non-adjacent,0.9928147279059485
+New Zealand,Tasman/Nelson,Adjacent,0.9869107918542034
+New Zealand,Bay of Plenty,Non-adjacent,0.9858160329910282
+New Zealand,Total North Island,Non-adjacent,0.984721293790123
+New Zealand,Waikato,Non-adjacent,0.9759481488940818
+New Zealand,Northland,Non-adjacent,0.9696151879175315
+New Zealand,Hawke's Bay,Non-adjacent,0.9674094106055624
+New Zealand,Otago,Adjacent,0.9604784056512532
+New Zealand,Manawatu-Whanganui,Non-adjacent,0.9469922398348866
+New Zealand,Auckland,Non-adjacent,0.9462372644347717
+New Zealand,Marlborough,Adjacent,0.9380735441190606
+New Zealand,Taranaki,Non-adjacent,0.9313235505475533
+New Zealand,Gisborne,Non-adjacent,0.9307412718595399
+New Zealand,West Coast,Adjacent,0.8999448015107477
+New Zealand,Southland,Non-adjacent,0.8836080338887895
+New Zealand,Wellington,Non-adjacent,0.8648356168146396
