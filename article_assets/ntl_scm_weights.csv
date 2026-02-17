@@ -1,0 +1,51 @@
+product,country,donor_unit,weight
+pcnl_harmonized,Chile,I De Tarapaca,0.0586848684
+pcnl_harmonized,Chile,II De Antofagasta,0.0825438761
+pcnl_harmonized,Chile,III De Atacama,0.0673299696
+pcnl_harmonized,Chile,IV De Coquimbo,0.144689355
+pcnl_harmonized,Chile,V De Valparaiso,0.1516994444
+pcnl_harmonized,Chile,RMS Region Metropolitana de Santiago,0.0381637419
+pcnl_harmonized,Chile,VI Del Libertador General Bernardo OHiggins,0.1609165963
+pcnl_harmonized,Chile,IX De La Araucania,0.1292022779
+pcnl_harmonized,Chile,X De Los Lagos,0.0910655671
+pcnl_harmonized,Chile,XI Aysen del General Carlos Ibanez del Campo,0.0424643478
+pcnl_harmonized,Chile,XII De Magallanes y de la Antartica Chilena,0.0332399554
+pcnl_harmonized,New Zealand,Auckland,0.046176003
+pcnl_harmonized,New Zealand,Bay of Plenty,0.046176003
+pcnl_harmonized,New Zealand,Gisborne,0.1008897715
+pcnl_harmonized,New Zealand,Hawke's Bay,0.0555275114
+pcnl_harmonized,New Zealand,Manawatu-Whanganui,0.0622486487
+pcnl_harmonized,New Zealand,Marlborough,0.096407878
+pcnl_harmonized,New Zealand,Northland,0.0647900416
+pcnl_harmonized,New Zealand,Otago,0.088180268
+pcnl_harmonized,New Zealand,Southland,0.1055199277
+pcnl_harmonized,New Zealand,Taranaki,0.046176003
+pcnl_harmonized,New Zealand,Tasman/Nelson,0.0799533349
+pcnl_harmonized,New Zealand,Waikato,0.046176003
+pcnl_harmonized,New Zealand,Wellington,0.046176003
+pcnl_harmonized,New Zealand,West Coast,0.115602603
+viirs_extrapolated,Chile,I De Tarapaca,0.0851889151
+viirs_extrapolated,Chile,II De Antofagasta,0.0143666737
+viirs_extrapolated,Chile,III De Atacama,0.0755324844
+viirs_extrapolated,Chile,IV De Coquimbo,0.0
+viirs_extrapolated,Chile,V De Valparaiso,0.0
+viirs_extrapolated,Chile,RMS Region Metropolitana de Santiago,0.0475700787
+viirs_extrapolated,Chile,VI Del Libertador General Bernardo OHiggins,0.3011826999
+viirs_extrapolated,Chile,IX De La Araucania,0.1835009382
+viirs_extrapolated,Chile,X De Los Lagos,0.2459062764
+viirs_extrapolated,Chile,XI Aysen del General Carlos Ibanez del Campo,0.0467519337
+viirs_extrapolated,Chile,XII De Magallanes y de la Antartica Chilena,0.0
+viirs_extrapolated,New Zealand,Auckland,0.0678910762
+viirs_extrapolated,New Zealand,Bay of Plenty,0.0711665213
+viirs_extrapolated,New Zealand,Gisborne,0.0722746755
+viirs_extrapolated,New Zealand,Hawke's Bay,0.0717028382
+viirs_extrapolated,New Zealand,Manawatu-Whanganui,0.071775548
+viirs_extrapolated,New Zealand,Marlborough,0.072309873
+viirs_extrapolated,New Zealand,Northland,0.0720366774
+viirs_extrapolated,New Zealand,Otago,0.0721130456
+viirs_extrapolated,New Zealand,Southland,0.0722694215
+viirs_extrapolated,New Zealand,Taranaki,0.0701905058
+viirs_extrapolated,New Zealand,Tasman/Nelson,0.072011486
+viirs_extrapolated,New Zealand,Waikato,0.0714145513
+viirs_extrapolated,New Zealand,Wellington,0.0704150521
+viirs_extrapolated,New Zealand,West Coast,0.072428728

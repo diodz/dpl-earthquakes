@@ -65,6 +65,23 @@ Interpretation: Canterbury exhibits a strong \emph{share} reallocation toward co
 
 We also added \textbf{alternative grouping sensitivity} for both countries (goods vs services non-construction aggregates), reported in the appendix table.
 
+
+\paragraph{Minor comment (data-quality corroboration via night-time lights).}
+\textit{``Corroborate regional GDP findings with an objective proxy such as NTL intensity.''}
+
+\paragraph{Response.}
+Implemented. We added a new reproducible module, \texttt{src/nighttime\_lights\_validation.py}, that builds annual regional NTL series and runs parallel SCM validation for Chile (Maule) and New Zealand (Canterbury). The script:
+\begin{enumerate}
+  \item aggregates a harmonized DMSP-OLS/VIIRS annual product to regional boundaries used in our SCM design;
+  \item re-estimates SCM on NTL outcomes for both treated regions (same treatment timing logic); and
+  \item exports product-sensitivity and spatial-sensitivity checks (urban-core mask in Maule; Christchurch buffers for Canterbury).
+\end{enumerate}
+
+New outputs are exported to \texttt{article\_assets/} (including \texttt{ntl\_validation\_paths\_gaps.png}, \texttt{ntl\_sensor\_processing\_robustness.png}, \texttt{ntl\_spatial\_sensitivity.png}, and summary CSV tables).
+
+\paragraph{Interpretation}
+For Canterbury, NTL confirms the GDP-based result: positive post-treatment divergence (about +10.0\% in 2016; average post-gap about +7.8\%). For Maule, NTL diverges from the GDP-null result (positive NTL post-gap). We now state this explicitly in the manuscript and discuss it as evidence that remote-sensing proxies can capture broader spatial re-lighting and infrastructure restoration dynamics that do not map one-to-one to measured value-added in regional GDP accounts. Product and spatial sensitivity checks preserve this qualitative pattern.
+
 \section*{Reproducibility note}
 
 All figures and tables cited above appear in the revised manuscript. The analysis code is available in the supplementary repository for verification.

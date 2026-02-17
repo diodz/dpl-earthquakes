@@ -30,3 +30,6 @@ venv/
 .coverage.yaml
 .coverage.yml
 __pycache__/
+data/ntl/boundaries/
+data/ntl/rasters/
+data/ntl/*.geojson
