@@ -46,6 +46,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from math_utils import project_to_simplex
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
@@ -222,15 +224,6 @@ def _gdp_to_ntl(
 # 2. SCM ON NTL OUTCOMES
 # ===================================================================
 
-def _project_to_simplex(v: np.ndarray) -> np.ndarray:
-    """Project v onto the unit simplex (non-negative, sum-to-one)."""
-    u = np.sort(v)[::-1]
-    cs = np.cumsum(u)
-    rho = np.nonzero(u * np.arange(1, len(v) + 1) > (cs - 1))[0][-1]
-    theta = (cs[rho] - 1.0) / (rho + 1.0)
-    return np.maximum(v - theta, 0.0)
-
-
 def _scm_weights(
     pivot: pd.DataFrame,
     treated: str,
@@ -253,7 +246,7 @@ def _scm_weights(
     for it in range(max_iter):
         resid = X.T @ w - y  # (T0,)
         grad = 2.0 * X @ resid
-        w = _project_to_simplex(w - step * grad)
+        w = project_to_simplex(w - step * grad)
         if it % 200 == 0:
             obj = float(np.sum(resid ** 2))
             if abs(prev - obj) < tol:
