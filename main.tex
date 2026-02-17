@@ -327,6 +327,41 @@ Figure~\ref{fig:uniform_sets} complements the placebo-spaghetti evidence with 95
 
 Quantitatively, the pre/post-RMSPE ratio for Maule is 1.12, and the associated pseudo-$p$ value is 0.58, confirming that it is not significant in rank terms. For Canterbury, the RMSPE ratio is 3.94, the highest among the 16 NZ regions, giving a one-sided pseudo-$p$ value of $1/16 = 0.0625$ ($\approx$6.3\%). Together with the uniform sets, this implies that Canterbury’s positive effect is strongest in mid-rebuild years and less precisely estimated late in the horizon. Finally, it is relevant to note that our results are a measure of \emph{flows} (real GDP per capita); hence, it does not value the \emph{stock} losses from capital destruction or non-market welfare costs (mortality, morbidity, displacement, etc.). A positive post-quake GDP gap can therefore coexist with lower net wealth or welfare; our estimates therefore should be read as output responses, rather than a comprehensive welfare assessment \parencite{hallegatte2010economics}.
 
+\subsection{Independent validation using night-time lights}
+To address concerns about potential measurement noise in regional GDP accounts during reconstruction, we build an independent remote-sensing validation using annual night-time lights (NTL). Specifically, we aggregate a harmonized DMSP-OLS/VIIRS product to the same regional units used in the SCM and re-estimate parallel SCM specifications for Maule and Canterbury over 2000--2019, preserving treatment timing (2010 for Maule, 2011 for Canterbury) and donor-pool logic.
+
+Figure~\ref{fig:ntl_validation} reports the resulting treated-vs-synthetic NTL paths and gaps. For Canterbury, the NTL evidence aligns with the GDP inference: the post-2011 gap is positive, with a 2016 gap of about 10.0\% and an average post-treatment gap of about 7.8\%. For Maule, however, NTL does \emph{not} replicate the GDP-null result: the NTL gap is positive (around 14.2\% in 2016; average post-treatment gap around 13.0\%). Hence, the independent proxy confirms the direction of the Canterbury overshoot but diverges from the Maule GDP estimate.
+
+To probe whether these findings are an artifact of one specific light product, we re-estimate SCM using an alternative annual VIIRS-extrapolated processing chain. The sign pattern is unchanged (Maule remains positive; Canterbury remains positive), though magnitudes differ (about 8.0\% average post-gap in Maule and 12.1\% in Canterbury), reinforcing that product choice affects scale more than direction in this exercise.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Night-time lights SCM validation (independent proxy)}}
+\label{fig:ntl_validation}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_validation_paths_gaps.png}
+\caption{Harmonized DMSP-OLS/VIIRS paths and gaps}
+\end{subfigure}
+\vspace{1ex}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_sensor_processing_robustness.png}
+\caption{Alternative sensor/processing robustness}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Panel (a) re-estimates country-specific SCM on harmonized annual NTL by region. Panel (b) compares the baseline harmonized product with an alternative annual VIIRS-extrapolated processing chain. Gaps are expressed as percentage differences between treated and synthetic NTL levels.
+\end{minipage}
+\end{figure}
+
+Finally, Figure~\ref{fig:ntl_spatial_sensitivity} reports the requested spatial checks. For Chile, an urban-core mask in Maule (top quintile of pre-treatment lit pixels) shows a much flatter post-2010 profile than full-region average lights, suggesting that part of the positive NTL signal is likely broader spatial re-lighting/infrastructure restoration rather than an urban production boom. For New~Zealand, Christchurch-centered buffers (30/50/80 km) all display the same qualitative pattern: a short post-shock dip followed by sustained increases above 2010 levels, consistent with a reconstruction-led expansion in the Canterbury area.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Spatial sensitivity checks for NTL validation}}
+\label{fig:ntl_spatial_sensitivity}
+\includegraphics[width=0.95\textwidth]{article_assets/ntl_spatial_sensitivity.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Left panel: Maule full-region lights, Maule urban-core lights, and synthetic-Maule lights (all indexed to 2009=100). Right panel: Christchurch-centered buffers within Canterbury (indexed to 2010=100).
+\end{minipage}
+\end{figure}
+
 \subsection{Sectoral Impact Analysis}
 To identify whether the Canterbury overshoot is broad-based or sector-specific, we estimate additional SCM models for sectoral aggregates in \emph{both} countries. We report treated-versus-synthetic paths for construction and non-construction aggregates, plus placebo-based inference diagnostics. Figure~\ref{fig:sector_analysis} shows the New~Zealand case and Figure~\ref{fig:sector_analysis_chile} shows the parallel Chile case.
 
