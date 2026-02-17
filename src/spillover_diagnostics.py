@@ -238,7 +238,6 @@ def _run_scm_exclusion(
     rmspe_ratio = post_rmspe / pre_rmspe if pre_rmspe and not np.isclose(pre_rmspe, 0.0) else float("nan")
     mean_post = float(np.nanmean(gap_pct.values[post_mask]))
 
-    raw_weights = synth.dataprep.make_covariate_mats()
     try:
         w_df = synth.weights(round=6)
         weight_dict = dict(zip(w_df.index, w_df.values.flatten()))
