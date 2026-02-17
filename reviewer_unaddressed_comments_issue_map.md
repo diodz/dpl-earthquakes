@@ -28,7 +28,7 @@ Each created issue includes explicit robustness requirements for both:
 | 3.3 SDID + bias-corrected SCM | Open issue already existed | [#26](https://github.com/diodz/dpl-earthquakes/issues/26) |
 | 3.4 SUTVA/spillovers | Addressed (spillover diagnostics + progressive geographic exclusions) | [#33](https://github.com/diodz/dpl-earthquakes/issues/33) |
 | 3.5 Social capital/looting narrative needs stronger evidence | Unaddressed/partial | [#34](https://github.com/diodz/dpl-earthquakes/issues/34) |
-| 3.6 Circularity and crowding-out in sectoral interpretation | Unaddressed/partial | [#35](https://github.com/diodz/dpl-earthquakes/issues/35) |
+| 3.6 Circularity and crowding-out in sectoral interpretation | Addressed (parallel Chile/NZ sectoral SCM figures, corrected construction-share magnitude, placebo inference, and crowding-out quantification in shares and levels) | [#35](https://github.com/diodz/dpl-earthquakes/issues/35) |
 | 3.7 Insurance-liquidity channel needs direct testing | Unaddressed | [#36](https://github.com/diodz/dpl-earthquakes/issues/36) |
 | Minor: Institutional metrics are national-level only | Unaddressed/partial | [#41](https://github.com/diodz/dpl-earthquakes/issues/41) |
 | Minor: Circularity in mechanism; add GFCF/consumption outcomes | Unaddressed | [#36](https://github.com/diodz/dpl-earthquakes/issues/36) |
@@ -43,7 +43,7 @@ Each created issue includes explicit robustness requirements for both:
 | Major 1: SUTVA/inter-regional spillovers (O'Higgins/Auckland contamination risk) | Addressed (spillover diagnostics + progressive geographic exclusions) | [#33](https://github.com/diodz/dpl-earthquakes/issues/33) |
 | Major 2: Mechanism identification remains conjectural | Partial | [#30](https://github.com/diodz/dpl-earthquakes/issues/30), [#34](https://github.com/diodz/dpl-earthquakes/issues/34), [#36](https://github.com/diodz/dpl-earthquakes/issues/36) |
 | Major 3: Event comparability differences (magnitude, multi-shock, urban/rural) | Addressed (cross-case comparability framing + spatial controls + symmetric timing checks) | [#29](https://github.com/diodz/dpl-earthquakes/issues/29) |
-| Major 4: Sectoral presentation/inference gaps (missing Maule figures, precision claim) | Unaddressed/partial | [#35](https://github.com/diodz/dpl-earthquakes/issues/35) |
+| Major 4: Sectoral presentation/inference gaps (missing Maule figures, precision claim) | Addressed (Maule sectoral figures added, precision claim corrected, and sectoral placebo inference reported) | [#35](https://github.com/diodz/dpl-earthquakes/issues/35) |
 | Major 5: Alternative confounders (commodity prices, FX, cycle, Region I check) | Unaddressed/partial | [#38](https://github.com/diodz/dpl-earthquakes/issues/38) |
 | Minor 1: Predictor-weight selection and variable asymmetry transparency | Addressed (documented \(v_m\) optimization + harmonized predictor sensitivity outputs) | [#39](https://github.com/diodz/dpl-earthquakes/issues/39) |
 | Minor 2: Canterbury treatment timing sensitivity (2010 vs 2011) | Partial (not fully shown) | [#40](https://github.com/diodz/dpl-earthquakes/issues/40) |
