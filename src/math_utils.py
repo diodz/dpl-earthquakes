@@ -73,6 +73,11 @@ def project_to_simplex(vec: np.ndarray) -> np.ndarray:
     rho_candidates = np.nonzero(
         sorted_vec * np.arange(1, len(vec) + 1) > (cumsum - 1)
     )[0]
+    if len(rho_candidates) == 0:
+        # Edge case: all elements very negative; project to simplex corner
+        result = np.zeros_like(vec)
+        result[np.argmax(vec)] = 1.0
+        return result
     rho = int(rho_candidates[-1])
     theta = (cumsum[rho] - 1) / (rho + 1)
     return np.maximum(vec - theta, 0.0)

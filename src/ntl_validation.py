@@ -272,12 +272,23 @@ def _run_ntl_scm(
     pre_idx = [years.index(y) for y in pre_years]
     post_idx = [years.index(y) for y in post_years]
 
+    if not pre_years:
+        raise ValueError(
+            f"No valid pre-treatment years for '{treated}' after dropping NaNs. "
+            f"Treatment year: {treatment_year}, available years: {years}"
+        )
+
     w = _scm_weights(pivot, treated, controls, pre_years)
     controls_mat = pivot.loc[controls].to_numpy(dtype=float)
     treated_arr = pivot.loc[treated].to_numpy(dtype=float)
     synthetic_arr = w @ controls_mat
 
-    gap_pct = (treated_arr - synthetic_arr) / synthetic_arr * 100.0
+    # Avoid division by zero for regions with zero or near-zero NTL values
+    gap_pct = np.where(
+        np.abs(synthetic_arr) > 1e-12,
+        (treated_arr - synthetic_arr) / synthetic_arr * 100.0,
+        0.0
+    )
     pre_rmspe = float(np.sqrt(np.mean(gap_pct[pre_idx] ** 2)))
     post_rmspe = float(np.sqrt(np.mean(gap_pct[post_idx] ** 2)))
     mean_post_gap = float(np.mean(gap_pct[post_idx]))
