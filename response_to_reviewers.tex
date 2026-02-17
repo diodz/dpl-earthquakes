@@ -14,9 +14,7 @@ Yes, Canterbury's per-capita gap survives the decomposition. The positive post-q
 \textit{``Please move beyond placebo spaghetti plots and provide uniform confidence sets over the post-treatment path, including timing/fitting sensitivity checks.''}
 
 \paragraph{Response.}
-Implemented. We added a dedicated module (\texttt{src/uniform\_confidence\_analysis.py}) that computes placebo-based \emph{uniform confidence sets} for SCM treatment effects over the full post-treatment horizon (simultaneous, not pointwise). The procedure studentizes each placebo path by pre-treatment RMSPE and uses the placebo sup-norm distribution to obtain a finite-sample critical value, following \textcite{firpo2018synthetic}. Outputs are exported as reproducible artifacts (\texttt{article\_assets/scm\_uniform\_confidence\_sets.csv}, \texttt{article\_assets/scm\_uniform\_confidence\_summary.csv}) and visualized in new manuscript figures.
-
-We also implemented both requested sensitivity checks:
+Thank you for this suggestion. We expanded the timing analysis to provide full treatment-year sensitivity outputs (not only textual claims). Specifically, we now estimate:
 \begin{itemize}
   \item \textbf{Chile (Maule):} alternative placebo pre-fit filters (2$\times$, 5$\times$, 10$\times$ treated pre-RMSPE).
   \item \textbf{New~Zealand (Canterbury):} treatment-start definitions of 2010 vs.\ 2011, plus expanded timing analysis.
