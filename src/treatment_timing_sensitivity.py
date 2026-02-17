@@ -170,7 +170,7 @@ def _evaluate_scenario(
         .pivot(index=time_col, columns=unit_col, values=outcome_col)
         .reindex(all_years)
     )
-    treated_gap_pct = treated_gap_level / pivot[treated].astype(float) * 100.0
+    treated_gap_pct = treated_gap_level / synthetic * 100.0
 
     placebo_test = PlaceboTest()
     placebo_test.fit(
@@ -189,7 +189,8 @@ def _evaluate_scenario(
 
     for unit in placebo_gaps_level.columns:
         unit_actual = pivot[unit].astype(float)
-        unit_gap_pct = placebo_gaps_level[unit] / unit_actual * 100.0
+        unit_synthetic = unit_actual - placebo_gaps_level[unit]
+        unit_gap_pct = placebo_gaps_level[unit] / unit_synthetic * 100.0
         placebo_gap_pct[unit] = unit_gap_pct
         unit_values = unit_gap_pct.to_numpy(dtype=float)
         unit_pre = _rmspe(unit_values[pre_mask])
