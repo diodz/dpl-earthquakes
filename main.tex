@@ -200,7 +200,7 @@ Statistical inference in the SCM framework relies on placebo-based methods. We i
 
 \paragraph{Leave-One-Out Sensitivity:} To ensure results are not driven by a single donor region, we re-run the SCM excluding each donor with a non-trivial weight one at a time. In our analysis, removing any one donor does not eliminate the Canterbury effect, and the null result for Maule remains unchanged.
 
-\paragraph{Predictor-weight and predictor-set symmetry sensitivity:} We explicitly document two additional implementation checks requested by reviewers. First, we vary the SCM predictor-weight optimization settings (initialization and method) while holding donor pools and timing fixed. Second, we re-estimate both country models under a harmonized reduced predictor set that uses common broad sectors (agriculture, manufacturing, construction, trade/hospitality, transport/information, finance/business, personal services, and public administration), while retaining country-specific auxiliary controls (GDP per capita and education). These diagnostics are exported in \texttt{article\_assets/predictor\_spec\_sensitivity.csv} and confirm that the qualitative treatment conclusions are not driven by one specific $v_m$ tuning choice or by unavoidable data asymmetries such as the Chile-specific Fishing category.
+\paragraph{Predictor-weight and predictor-set symmetry sensitivity:} Next we document two additional implementation checks for robustness. First, we vary the SCM predictor-weight optimization settings (initialization and method) while holding donor pools and timing fixed. Second, we re-estimate both country models under a harmonized reduced predictor set that uses common broad sectors (agriculture, manufacturing, construction, trade/hospitality, transport/information, finance/business, personal services, and public administration), while retaining country-specific auxiliary controls (GDP per capita and education). These diagnostics are exported in \texttt{article\_assets/predictor\_spec\_sensitivity.csv} and confirm that the qualitative treatment conclusions are not driven by one specific $v_m$ tuning choice or by unavoidable data asymmetries such as the Chile-specific Fishing category.
 
 \paragraph{In-Time Placebo (Falsification) Test:} We run a falsification (in-time placebo) test by pretending the disaster happened earlier than it did (e.g., a placebo quake in 2006 for Maule). We find no significant divergence in this test, as expected.\\
 
@@ -329,15 +329,15 @@ Figure~\ref{fig:uniform_sets} complements the placebo-spaghetti evidence with 95
 
 Quantitatively, the pre/post-RMSPE ratio for Maule is 1.12, and the associated pseudo-$p$ value is 0.58, confirming that it is not significant in rank terms. For Canterbury, the RMSPE ratio is 3.94, the highest among the 16 NZ regions, giving a one-sided pseudo-$p$ value of $1/16 = 0.0625$ ($\approx$6.3\%). Together with the uniform sets, this implies that Canterbury’s positive effect is strongest in mid-rebuild years and less precisely estimated late in the horizon. Finally, it is relevant to note that our results are a measure of \emph{flows} (real GDP per capita); hence, it does not value the \emph{stock} losses from capital destruction or non-market welfare costs (mortality, morbidity, displacement, etc.). A positive post-quake GDP gap can therefore coexist with lower net wealth or welfare; our estimates therefore should be read as output responses, rather than a comprehensive welfare assessment \parencite{hallegatte2010economics}.
 
-\subsection{Independent validation using night-time lights}
-To address concerns about potential measurement noise in regional GDP accounts during reconstruction, we build an independent remote-sensing validation using annual night-time lights (NTL). Specifically, we aggregate a harmonized DMSP-OLS/VIIRS product to the same regional units used in the SCM and re-estimate parallel SCM specifications for Maule and Canterbury over 2000--2019, preserving treatment timing (2010 for Maule, 2011 for Canterbury) and donor-pool logic.
+\subsection{Validation using night-time lights}
+To address concerns about potential measurement noise in regional GDP accounts during reconstruction, we build a remote-sensing validation using annual night-time lights (NTL). Specifically, we aggregate a harmonized DMSP-OLS/VIIRS product to the same regional units used in the SCM and re-estimate parallel SCM specifications for Maule and Canterbury over 2000--2019, preserving treatment timing (2010 for Maule, 2011 for Canterbury) and donor-pool logic.
 
-Figure~\ref{fig:ntl_validation} reports the resulting treated-vs-synthetic NTL paths and gaps. For Canterbury, the NTL evidence aligns with the GDP inference: the post-2011 gap is positive, with a 2016 gap of about 10.0\% and an average post-treatment gap of about 7.8\%. For Maule, however, NTL does \emph{not} replicate the GDP-null result: the NTL gap is positive (around 14.2\% in 2016; average post-treatment gap around 13.0\%). Hence, the independent proxy confirms the direction of the Canterbury overshoot but diverges from the Maule GDP estimate.
+Figure~\ref{fig:ntl_validation} reports the resulting treated-vs-synthetic NTL paths and gaps. For Canterbury, the NTL evidence aligns with the GDP inference: the post-2011 gap is positive, with a 2016 gap of about 10.0\% and an average post-treatment gap of about 7.8\%. For Maule, however, NTL does \emph{not} replicate the GDP-null result: the NTL gap is positive (around 14.2\% in 2016; average post-treatment gap around 13.0\%). Hence, the night-time lights evidence confirms the direction of the Canterbury overshoot but diverges from the Maule GDP estimate.
 
 To probe whether these findings are an artifact of one specific light product, we re-estimate SCM using an alternative annual VIIRS-extrapolated processing chain. The sign pattern is unchanged (Maule remains positive; Canterbury remains positive), though magnitudes differ (about 8.0\% average post-gap in Maule and 12.1\% in Canterbury), reinforcing that product choice affects scale more than direction in this exercise.
 
 \begin{figure}[H]\centering
-\caption{\textbf{Night-time lights SCM validation (independent proxy)}}
+\caption{\textbf{Night-time lights SCM validation for Chile and New Zealand}}
 \label{fig:ntl_validation}
 \begin{subfigure}{0.95\textwidth}\centering
 \includegraphics[width=\textwidth]{article_assets/ntl_validation_paths_gaps.png}
@@ -349,18 +349,18 @@ To probe whether these findings are an artifact of one specific light product, w
 \caption{Alternative sensor/processing robustness}
 \end{subfigure}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Panel (a) re-estimates country-specific SCM on harmonized annual NTL by region. Panel (b) compares the baseline harmonized product with an alternative annual VIIRS-extrapolated processing chain. Gaps are expressed as percentage differences between treated and synthetic NTL levels.
+\textit{Notes:} Panel (a) reports treated-region vs.\ synthetic-control NTL paths and gaps for both Chile (Maule) and New~Zealand (Canterbury), using the harmonized annual product. Panel (b) compares the baseline harmonized product with an alternative annual VIIRS-extrapolated processing chain. Gaps are expressed as percentage differences between treated and synthetic NTL levels.
 \end{minipage}
 \end{figure}
 
-Finally, Figure~\ref{fig:ntl_spatial_sensitivity} reports the requested spatial checks. For Chile, an urban-core mask in Maule (top quintile of pre-treatment lit pixels) shows a much flatter post-2010 profile than full-region average lights, suggesting that part of the positive NTL signal is likely broader spatial re-lighting/infrastructure restoration rather than an urban production boom. For New~Zealand, Christchurch-centered buffers (30/50/80 km) all display the same qualitative pattern: a short post-shock dip followed by sustained increases above 2010 levels, consistent with a reconstruction-led expansion in the Canterbury area.
+Finally, Figure~\ref{fig:ntl_spatial_sensitivity} reports spatial robustness checks that parallel the SCM validation for both treated regions. For Chile, we compare full-region Maule lights, an urban-core mask (top quintile of pre-treatment lit pixels), and the corresponding synthetic-control path, all indexed to 2009=100. For New~Zealand, we construct analogous full-region, urban-core, and synthetic paths for Canterbury, indexed to 2010=100, to assess whether the NTL signal is concentrated in the dense urban core or reflects broader regional re-lighting.
 
 \begin{figure}[H]\centering
-\caption{\textbf{Spatial sensitivity checks for NTL validation}}
+\caption{\textbf{Spatial sensitivity checks for NTL validation (Maule and Canterbury)}}
 \label{fig:ntl_spatial_sensitivity}
 \includegraphics[width=0.95\textwidth]{article_assets/ntl_spatial_sensitivity.png}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Left panel: Maule full-region lights, Maule urban-core lights, and synthetic-Maule lights (all indexed to 2009=100). Right panel: Christchurch-centered buffers within Canterbury (indexed to 2010=100).
+\textit{Notes:} Left panel: Chile (Maule) full-region lights, Maule urban-core lights, and synthetic-Maule lights (all indexed to 2009=100). Right panel: New~Zealand (Canterbury) full-region lights, Canterbury urban-core lights, and synthetic-Canterbury lights (all indexed to 2010=100). Vertical dashed lines mark treatment timing (2010 in Chile, 2011 in New~Zealand).
 \end{minipage}
 \end{figure}
 
@@ -497,7 +497,7 @@ Figure \ref{fig:jacknife} presents the results of this test. For Maule (Panel a)
 
 The timing results reinforce this interpretation. Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe} show that Canterbury remains strongly positive under 2010-, 2011-, and 2012-start conventions, with the treated unit ranked first in RMSPE-ratio extremeness in all three cases. In Chile, nearby placebo starts (2009, 2011) and the baseline 2010 specification remain non-positive and are never highly ranked against placebo units. Hence, the cross-case conclusion does not depend on an arbitrary timing definition.
 
-We additionally run the two sensitivity checks requested by reviewers for the uniform sets. First, for Chile we vary the pre-treatment fit filter used to retain placebo units (2$\times$, 5$\times$, and 10$\times$ the treated pre-RMSPE). The conclusion is unchanged: Maule’s post-treatment uniform set continues to include zero throughout. Second, for New~Zealand we re-estimate the design under alternative treatment-start definitions (2010 vs.\ 2011). In both definitions, Canterbury’s gap remains positive with exclusion of zero concentrated in early-to-mid rebuild years, and re-convergence later in the sample.
+We additionally run two further sensitivity checks for the uniform sets. First, for Chile we vary the pre-treatment fit filter used to retain placebo units (2$\times$, 5$\times$, and 10$\times$ the treated pre-RMSPE). The conclusion is unchanged: Maule’s post-treatment uniform set continues to include zero throughout. Second, for New~Zealand we re-estimate the design under alternative treatment-start definitions (2010 vs.\ 2011). In both definitions, Canterbury’s gap remains positive with exclusion of zero concentrated in early-to-mid rebuild years, and re-convergence later in the sample.
 
 \begin{figure}[H]\centering
 \caption{\textbf{Uniform-set sensitivity checks}}
@@ -672,6 +672,17 @@ Chile & Services (non-construction) & +5.62 & 2.67 & 0.17 \\
 \textit{Notes:} Groupings are defined from country-specific industry classifications and estimated with the same SCM design as the baseline sectoral models. Results remain asymmetric: New~Zealand exhibits stronger service-side crowding-out in shares, while Chile coefficients are imprecise.
 \end{minipage}
 \end{table}
+
+\section{Additional night-time lights spatial robustness (Canterbury buffers)}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Christchurch-centered buffer sensitivity for night-time lights (Canterbury)}}
+\label{fig:ntl_spatial_sensitivity_buffers}
+\includegraphics[width=0.7\textwidth]{article_assets/ntl_spatial_sensitivity_buffers.png}
+\begin{minipage}{0.9\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} This figure reports night-time lights indices for concentric buffers (30, 50, and 80 km) centered on Christchurch, intersected with the Canterbury region and indexed to 2010=100. The vertical dashed line marks the 2011 treatment year. All buffers display a short post-shock dip followed by sustained increases above 2010 levels, consistent with reconstruction-led expansion in the wider Canterbury area.
+\end{minipage}
+\end{figure}
 
 \section{SUTVA/spillover diagnostics and geographically robust donor pools}
 \label{sec:spillover_appendix}

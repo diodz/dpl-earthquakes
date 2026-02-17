@@ -465,40 +465,106 @@ def _km_buffer_ellipse(lon: float, lat: float, radius_km: float) -> object:
     return affinity.scale(unit_circle, xfact=lon_scale, yfact=lat_scale, origin=point)
 
 
-def _compute_maule_urban_series(
+def _compute_urban_series(
     year_to_path: dict[int, Path],
-    maule_geom: object,
+    region_geom: object,
     pre_years: list[int],
     quantile_threshold: float = 0.8,
 ) -> pd.DataFrame:
     pre_values: list[np.ndarray] = []
     for year in pre_years:
         with rasterio.open(year_to_path[year]) as dataset:
-            values = _extract_values(dataset, maule_geom)
+            values = _extract_values(dataset, region_geom)
             positive = values[values > 0]
             if positive.size:
                 pre_values.append(positive)
     if not pre_values:
-        raise ValueError("Could not compute Maule urban threshold: no positive pre-period values.")
+        raise ValueError("Could not compute urban threshold: no positive pre-period values.")
 
     threshold = float(np.quantile(np.concatenate(pre_values), quantile_threshold))
 
     rows: list[dict] = []
-    for year in sorted(year_to_path):
-        with rasterio.open(year_to_path[year]) as dataset:
-            values = _extract_values(dataset, maule_geom)
-            full_mean = float(np.mean(values)) if values.size else np.nan
-            urban_values = values[values >= threshold]
-            urban_mean = float(np.mean(urban_values)) if urban_values.size else np.nan
-            rows.append(
-                {
-                    "year": year,
-                    "maule_full_mean": full_mean,
-                    "maule_urban_core_mean": urban_mean,
-                    "urban_threshold": threshold,
-                }
-            )
+        for year in sorted(year_to_path):
+            with rasterio.open(year_to_path[year]) as dataset:
+                values = _extract_values(dataset, region_geom)
+                full_mean = float(np.mean(values)) if values.size else np.nan
+                urban_values = values[values >= threshold]
+                urban_mean = float(np.mean(urban_values)) if urban_values.size else np.nan
+                rows.append(
+                    {
+                        "year": year,
+                        "full_mean": full_mean,
+                        "urban_core_mean": urban_mean,
+                        "urban_threshold": threshold,
+                    }
+                )
     return pd.DataFrame(rows)
+
+
+def _plot_christchurch_buffer_sensitivity(
+    canterbury_buffer_series: pd.DataFrame,
+    output_path: Path,
+) -> None:
+    fig, ax = plt.subplots(1, 1, figsize=(6, 4.5))
+
+    for radius, group in canterbury_buffer_series.groupby("radius_km"):
+        ax.plot(
+            group["year"],
+            group["index_2010_100"],
+            label=f"{radius} km buffer",
+            linewidth=1.7,
+        )
+
+    ax.axvline(2011, color="black", linestyle="--", linewidth=1.0)
+    ax.set_xlabel("Year")
+    ax.set_ylabel("Index (2010=100)")
+    ax.set_title("Christchurch-centered buffer sensitivity (Canterbury)")
+    ax.grid(alpha=0.2)
+
+    ax.legend(loc="upper left", frameon=False)
+    fig.tight_layout()
+    fig.savefig(output_path, dpi=220)
+    plt.close(fig)
+
+
+def _compute_maule_urban_series(
+    year_to_path: dict[int, Path],
+    maule_geom: object,
+    pre_years: list[int],
+    quantile_threshold: float = 0.8,
+) -> pd.DataFrame:  
+    base = _compute_urban_series(
+        year_to_path=year_to_path,
+        region_geom=maule_geom,
+        pre_years=pre_years,
+        quantile_threshold=quantile_threshold,
+    )
+    return base.rename(
+        columns={
+            "full_mean": "maule_full_mean",
+            "urban_core_mean": "maule_urban_core_mean",
+        }
+    )
+
+
+def _compute_canterbury_urban_series(
+    year_to_path: dict[int, Path],
+    canterbury_geom: object,
+    pre_years: list[int],
+    quantile_threshold: float = 0.8,
+) -> pd.DataFrame:
+    base = _compute_urban_series(
+        year_to_path=year_to_path,
+        region_geom=canterbury_geom,
+        pre_years=pre_years,
+        quantile_threshold=quantile_threshold,
+    )
+    return base.rename(
+        columns={
+            "full_mean": "canterbury_full_mean",
+            "urban_core_mean": "canterbury_urban_core_mean",
+        }
+    )
 
 
 def _compute_christchurch_buffer_series(
@@ -605,15 +671,17 @@ def _plot_sensor_robustness(path_df: pd.DataFrame, output_path: Path) -> None:
 
 def _plot_spatial_sensitivity(
     maule_series: pd.DataFrame,
-    canterbury_buffer_series: pd.DataFrame,
     maule_synthetic: pd.DataFrame,
+    canterbury_series: pd.DataFrame,
+    canterbury_synthetic: pd.DataFrame,
     output_path: Path,
 ) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.5), sharex=False)
 
+    # Chile (Maule): index to 2009 = 100
     maule_full_base = float(maule_series.loc[maule_series["year"] == 2009, "maule_full_mean"].iloc[0])
     maule_urban_base = float(maule_series.loc[maule_series["year"] == 2009, "maule_urban_core_mean"].iloc[0])
-    synth_base = float(maule_synthetic.loc[maule_synthetic["year"] == 2009, "synthetic_level"].iloc[0])
+    maule_synth_base = float(maule_synthetic.loc[maule_synthetic["year"] == 2009, "synthetic_level"].iloc[0])
 
     axes[0].plot(
         maule_series["year"],
@@ -624,31 +692,54 @@ def _plot_spatial_sensitivity(
     axes[0].plot(
         maule_series["year"],
         100.0 * maule_series["maule_urban_core_mean"] / maule_urban_base,
-        label="Maule urban-core mask",
+        label="Maule urban core",
         color="#2ca02c",
     )
     axes[0].plot(
         maule_synthetic["year"],
-        100.0 * maule_synthetic["synthetic_level"] / synth_base,
+        100.0 * maule_synthetic["synthetic_level"] / maule_synth_base,
         label="Synthetic Maule",
         color="#d62728",
         linestyle="--",
     )
     axes[0].axvline(2010, color="black", linestyle="--", linewidth=1.0)
-    axes[0].set_title("Chile: urban-mask sensitivity (Maule)")
+    axes[0].set_title("Chile: Maule urban-mask sensitivity")
     axes[0].set_xlabel("Year")
     axes[0].set_ylabel("Index (2009=100)")
     axes[0].grid(alpha=0.2)
 
-    for radius, group in canterbury_buffer_series.groupby("radius_km"):
-        axes[1].plot(
-            group["year"],
-            group["index_2010_100"],
-            label=f"{radius} km buffer",
-            linewidth=1.7,
-        )
+    # New Zealand (Canterbury): index to 2010 = 100
+    canterbury_full_base = float(
+        canterbury_series.loc[canterbury_series["year"] == 2010, "canterbury_full_mean"].iloc[0]
+    )
+    canterbury_urban_base = float(
+        canterbury_series.loc[canterbury_series["year"] == 2010, "canterbury_urban_core_mean"].iloc[0]
+    )
+    canterbury_synth_base = float(
+        canterbury_synthetic.loc[canterbury_synthetic["year"] == 2010, "synthetic_level"].iloc[0]
+    )
+
+    axes[1].plot(
+        canterbury_series["year"],
+        100.0 * canterbury_series["canterbury_full_mean"] / canterbury_full_base,
+        label="Canterbury full region",
+        color="#1f77b4",
+    )
+    axes[1].plot(
+        canterbury_series["year"],
+        100.0 * canterbury_series["canterbury_urban_core_mean"] / canterbury_urban_base,
+        label="Canterbury urban core",
+        color="#2ca02c",
+    )
+    axes[1].plot(
+        canterbury_synthetic["year"],
+        100.0 * canterbury_synthetic["synthetic_level"] / canterbury_synth_base,
+        label="Synthetic Canterbury",
+        color="#d62728",
+        linestyle="--",
+    )
     axes[1].axvline(2011, color="black", linestyle="--", linewidth=1.0)
-    axes[1].set_title("New Zealand: Christchurch buffer sensitivity")
+    axes[1].set_title("New Zealand: Canterbury urban-mask sensitivity")
     axes[1].set_xlabel("Year")
     axes[1].set_ylabel("Index (2010=100)")
     axes[1].grid(alpha=0.2)
@@ -777,14 +868,29 @@ def run_nighttime_lights_validation(output_dir: Path = _FIGURES_DIR) -> pd.DataF
     maule_baseline_scm = path_df[
         (path_df["product"] == "pcnl_harmonized") & (path_df["country"] == "Chile")
     ].copy()
+    canterbury_baseline_scm = path_df[
+        (path_df["product"] == "pcnl_harmonized") & (path_df["country"] == "New Zealand")
+    ].copy()
 
     _plot_main_validation(path_df, output_dir / "ntl_validation_paths_gaps.png")
     _plot_sensor_robustness(path_df, output_dir / "ntl_sensor_processing_robustness.png")
     _plot_spatial_sensitivity(
         maule_series=maule_series,
-        canterbury_buffer_series=canterbury_buffer_series,
         maule_synthetic=maule_baseline_scm,
+        canterbury_series=_compute_canterbury_urban_series(
+            year_to_path=baseline_rasters,
+            canterbury_geom=nz_geoms[NZ_TREATED],
+            pre_years=list(range(2005, 2011)),
+            quantile_threshold=0.8,
+        ),
+        canterbury_synthetic=canterbury_baseline_scm,
         output_path=output_dir / "ntl_spatial_sensitivity.png",
+    )
+
+    # Appendix figure: Christchurch buffer-radius sensitivity for Canterbury
+    _plot_christchurch_buffer_sensitivity(
+        canterbury_buffer_series=canterbury_buffer_series,
+        output_path=output_dir / "ntl_spatial_sensitivity_buffers.png",
     )
 
     panel_df.to_csv(output_dir / "ntl_regional_panel.csv", index=False)
