@@ -32,7 +32,7 @@ Each created issue includes explicit robustness requirements for both:
 | 3.7 Insurance-liquidity channel needs direct testing | Unaddressed | [#36](https://github.com/diodz/dpl-earthquakes/issues/36) |
 | Minor: Institutional metrics are national-level only | Unaddressed/partial | [#41](https://github.com/diodz/dpl-earthquakes/issues/41) |
 | Minor: Circularity in mechanism; add GFCF/consumption outcomes | Unaddressed | [#36](https://github.com/diodz/dpl-earthquakes/issues/36) |
-| Minor: Validate with nighttime lights | Unaddressed | [#37](https://github.com/diodz/dpl-earthquakes/issues/37) |
+| Minor: Validate with nighttime lights | Addressed (NTL SCM validation + robustness) | [#37](https://github.com/diodz/dpl-earthquakes/issues/37) |
 
 ---
 

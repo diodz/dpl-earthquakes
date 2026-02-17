@@ -7,8 +7,9 @@ Runs:
   2. src/nz_outcome_extensions.py - generates NZ decomposition outcome figures/tables
   3. src/sdid_bias_corrected_analysis.py - generates SDID / penalized SCM robustness outputs
   4. src/uniform_confidence_analysis.py - generates uniform confidence set figures/tables
-  5. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
-  6. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
+  5. src/nighttime_lights_validation.py - generates independent NTL validation outputs
+  6. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
+  7. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
 
 All figures are written to article_assets/ (used by main.tex).
 """
@@ -48,7 +49,15 @@ def main():
         cwd=PROJECT_ROOT,
     )
 
-    # 5. Execute notebooks (nbconvert --execute runs from notebook's directory)
+    # 5. Run nighttime-lights validation as an independent proxy robustness check.
+    print("Running nighttime lights validation script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "nighttime_lights_validation.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
+
+    # 6. Execute notebooks (nbconvert --execute runs from notebook's directory)
     for nb_name in ["Maule SCM.ipynb", "Canterbury SCM.ipynb"]:
         nb_path = os.path.join(NOTEBOOKS_DIR, nb_name)
         if not os.path.exists(nb_path):

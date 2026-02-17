@@ -17,8 +17,11 @@ This script:
 2. Runs `src/nz_outcome_extensions.py` (GDP / population decomposition)
 3. Runs `src/sdid_bias_corrected_analysis.py` (SDID + penalized SCM robustness)
 4. Runs `src/uniform_confidence_analysis.py` (uniform confidence sets + sensitivity checks)
-5. Executes the Maule SCM notebook
-6. Executes the Canterbury SCM notebook
+5. Runs `src/nighttime_lights_validation.py` (independent night-time lights validation)
+6. Executes the Maule SCM notebook
+7. Executes the Canterbury SCM notebook
+
+> Note: the night-time lights validation step downloads yearly global rasters on first run and caches them under `data/ntl/rasters/` (large, ignored by git). Subsequent runs reuse the local cache.
 
 ### Figure output
 
@@ -33,6 +36,13 @@ Figures are written to `article_assets/`, which is the canonical location expect
 - Jackknife: `chile_jacknife.png`, `nz_jacknife.png`
 - SDID / bias-corrected robustness: `sdid_bias_corrected_summary.csv`, `sdid_bias_corrected_gaps.png`
 - Uniform confidence tables: `scm_uniform_confidence_sets.csv`, `scm_uniform_confidence_summary.csv`
+- Night-time lights validation:
+  `ntl_validation_paths_gaps.png`,
+  `ntl_sensor_processing_robustness.png`,
+  `ntl_spatial_sensitivity.png`,
+  `ntl_validation_summary.csv`,
+  `ntl_scm_summary.csv`,
+  `ntl_scm_gaps.csv`
 
 ## Requirements
 

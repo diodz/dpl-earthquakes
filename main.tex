@@ -327,6 +327,41 @@ Figure~\ref{fig:uniform_sets} complements the placebo-spaghetti evidence with 95
 
 Quantitatively, the pre/post-RMSPE ratio for Maule is 1.12, and the associated pseudo-$p$ value is 0.58, confirming that it is not significant in rank terms. For Canterbury, the RMSPE ratio is 3.94, the highest among the 16 NZ regions, giving a one-sided pseudo-$p$ value of $1/16 = 0.0625$ ($\approx$6.3\%). Together with the uniform sets, this implies that Canterbury’s positive effect is strongest in mid-rebuild years and less precisely estimated late in the horizon. Finally, it is relevant to note that our results are a measure of \emph{flows} (real GDP per capita); hence, it does not value the \emph{stock} losses from capital destruction or non-market welfare costs (mortality, morbidity, displacement, etc.). A positive post-quake GDP gap can therefore coexist with lower net wealth or welfare; our estimates therefore should be read as output responses, rather than a comprehensive welfare assessment \parencite{hallegatte2010economics}.
 
+\subsection{Independent validation using night-time lights}
+To address concerns about potential measurement noise in regional GDP accounts during reconstruction, we build an independent remote-sensing validation using annual night-time lights (NTL). Specifically, we aggregate a harmonized DMSP-OLS/VIIRS product to the same regional units used in the SCM and re-estimate parallel SCM specifications for Maule and Canterbury over 2000--2019, preserving treatment timing (2010 for Maule, 2011 for Canterbury) and donor-pool logic.
+
+Figure~\ref{fig:ntl_validation} reports the resulting treated-vs-synthetic NTL paths and gaps. For Canterbury, the NTL evidence aligns with the GDP inference: the post-2011 gap is positive, with a 2016 gap of about 10.0\% and an average post-treatment gap of about 7.8\%. For Maule, however, NTL does \emph{not} replicate the GDP-null result: the NTL gap is positive (around 14.2\% in 2016; average post-treatment gap around 13.0\%). Hence, the independent proxy confirms the direction of the Canterbury overshoot but diverges from the Maule GDP estimate.
+
+To probe whether these findings are an artifact of one specific light product, we re-estimate SCM using an alternative annual VIIRS-extrapolated processing chain. The sign pattern is unchanged (Maule remains positive; Canterbury remains positive), though magnitudes differ (about 8.0\% average post-gap in Maule and 12.1\% in Canterbury), reinforcing that product choice affects scale more than direction in this exercise.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Night-time lights SCM validation (independent proxy)}}
+\label{fig:ntl_validation}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_validation_paths_gaps.png}
+\caption{Harmonized DMSP-OLS/VIIRS paths and gaps}
+\end{subfigure}
+\vspace{1ex}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_sensor_processing_robustness.png}
+\caption{Alternative sensor/processing robustness}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Panel (a) re-estimates country-specific SCM on harmonized annual NTL by region. Panel (b) compares the baseline harmonized product with an alternative annual VIIRS-extrapolated processing chain. Gaps are expressed as percentage differences between treated and synthetic NTL levels.
+\end{minipage}
+\end{figure}
+
+Finally, Figure~\ref{fig:ntl_spatial_sensitivity} reports the requested spatial checks. For Chile, an urban-core mask in Maule (top quintile of pre-treatment lit pixels) shows a much flatter post-2010 profile than full-region average lights, suggesting that part of the positive NTL signal is likely broader spatial re-lighting/infrastructure restoration rather than an urban production boom. For New~Zealand, Christchurch-centered buffers (30/50/80 km) all display the same qualitative pattern: a short post-shock dip followed by sustained increases above 2010 levels, consistent with a reconstruction-led expansion in the Canterbury area.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Spatial sensitivity checks for NTL validation}}
+\label{fig:ntl_spatial_sensitivity}
+\includegraphics[width=0.95\textwidth]{article_assets/ntl_spatial_sensitivity.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Left panel: Maule full-region lights, Maule urban-core lights, and synthetic-Maule lights (all indexed to 2009=100). Right panel: Christchurch-centered buffers within Canterbury (indexed to 2010=100).
+\end{minipage}
+\end{figure}
+
 \subsection{Sectoral Impact Analysis}
 To understand the source of the 12\% gain in aggregate GDP in Canterbury, in this sub-section we investigate the impact of the disaster on the structure of the regional economy. Rather than decomposing the GDP gap, we apply the Synthetic Control Method directly to the sectoral shares of key economic components (which is also one of our methodological contributions to the analysis of disasters through the SCM). This allows us to assess how \textit{the composition} of Canterbury's economy changed relative to what it would have been without the earthquakes. Figure \ref{fig:sector_analysis} presents this analysis. Panel (a) applies the SCM to the share of construction in regional GDP, while Panel (b) applies it to the combined share of all the other sectors. In both cases, the pre-earthquake fit between the actual and synthetic shares is excellent, providing a credible counterfactual.
 
@@ -347,7 +382,7 @@ To understand the source of the 12\% gain in aggregate GDP in Canterbury, in thi
 \end{minipage}
 \end{figure}
 
-The results in Figure 5 reveal a dramatic and telling structural shift. As shown in Panel (a), the share of construction in Canterbury's economy surged immediately following the 2011 earthquake. It rose from a pre-quake average of around 6.2\% to a peak of nearly 10\% in 2016, nearly doubling its importance in the regional economy. In contrast, its synthetic counterfactual shows that, absent the earthquake, the share of the construction sector would have remained stable at around 6\%. This provides clear and direct evidence of a massive reconstruction-induced boom \parencite{miller2013estimating}.
+The results in Figure~\ref{fig:sector_analysis} reveal a dramatic and telling structural shift. As shown in Panel (a), the share of construction in Canterbury's economy surged immediately following the 2011 earthquake. It rose from a pre-quake average of around 6.2\% to a peak of nearly 10\% in 2016, nearly doubling its importance in the regional economy. In contrast, its synthetic counterfactual shows that, absent the earthquake, the share of the construction sector would have remained stable at around 6\%. This provides clear and direct evidence of a massive reconstruction-induced boom \parencite{miller2013estimating}.
 By 2015, Canterbury’s construction sector was roughly \$800\,\text{million} (in 2015 dollars) larger than its synthetic counterpart and contributed about +5 percentage points to the GDP gap. Other sectors experienced only small contributions: finance and insurance experienced a temporary uptick due to insurance claim handling (see also \cite{nguyen2020insurance}); manufacturing rose slightly; while sectors like education, health and retail showed negligible changes. In contrast, Maule's sector-level SCM analysis (not shown for brevity)\footnote{All data are from official statistical sources cited in the text. The scripts used to assemble the datasets and all the codes to run the SCM (pysyncon) are available from the authors upon request. Similarly, and for brevity, we have decided to exclude the graphs concerning the SCM sectoral analysis for the Maule region in Chile since it does not change the main findings of this paper.} reveals no deviations in construction or in any other sectors, reinforcing the aggregate null effect of the disaster on Chile's regional economy.
 
 Conversely, Panel (b) shows that the combined share of all other sectors in Canterbury's economy fell relative to its counterfactual. While the synthetic control for other sectors remains stable at around 72\% of the economy, the actual share in Canterbury dips below 70\% during the peak of the rebuild. This indicates that the economic boom in New Zealand was not an across-the-board phenomenon, but rather it was a regional and sectoral construction-related effect that was transitory in nature. From our novel SCM sectoral analysis, we can suggest that the earthquake triggered a significant \textit{reallocation of resources}—likely labor and capital—away from other industries and into the urgent task of rebuilding Canterbury. In Maule’s case (not plotted for brevity), a similar sectoral analysis reveals no such structural shifts. The shares of construction and other sectors in Maule continued to track their synthetic controls closely in the post-earthquake period. This is consistent with our aggregate finding of a null effect and suggests that Maule’s reconstruction effort, while substantial, was proportional to the existing economy and did not cause a significant restructuring or reallocation of resources.
