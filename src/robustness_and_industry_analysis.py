@@ -56,6 +56,76 @@ def _safe_inverse_distances(selected, distances):
     return inv / inv.sum()
 
 
+def _fit_gap_for_treated(
+    df,
+    treated,
+    candidate_year,
+    baseline_start_year,
+    covar_cols,
+    outcome_col,
+    max_donors=5,
+):
+    """Fit SCM for a treated region given a candidate treatment year.
+
+    This is the core SCM fitting pipeline used by both treatment timing
+    sensitivity analysis and in-time placebo inference.
+    """
+    years = sorted(df['Year'].dropna().unique())
+    regions = df['Region'].dropna().unique().tolist()
+    donors_all = [region for region in regions if region != treated]
+
+    pre_years = [year for year in years if baseline_start_year <= year < candidate_year]
+    if not pre_years:
+        raise ValueError(f'No pre-treatment years available for candidate year {candidate_year}.')
+
+    cov_treated = compute_covariates(df, treated, pre_years, covar_cols, outcome_col=outcome_col)
+    distances = {}
+    for donor in donors_all:
+        donor_cov = compute_covariates(df, donor, pre_years, covar_cols, outcome_col=outcome_col)
+        distances[donor] = np.linalg.norm(donor_cov - cov_treated)
+
+    selected = sorted(distances, key=lambda region: distances[region])[: min(max_donors, len(distances))]
+    weights = _safe_inverse_distances(selected, distances)
+
+    y_treated = (
+        df[df['Region'] == treated]
+        .set_index('Year')
+        .reindex(years)[outcome_col]
+        .astype(float)
+        .values
+    )
+
+    y_synth = np.zeros(len(years), dtype=float)
+    for idx, donor in enumerate(selected):
+        donor_series = (
+            df[df['Region'] == donor]
+            .set_index('Year')
+            .reindex(years)[outcome_col]
+            .astype(float)
+            .values
+        )
+        y_synth += weights[idx] * donor_series
+
+    gap = y_treated - y_synth
+    pre_idx = [i for i, year in enumerate(years) if year in pre_years]
+    post_idx = [i for i, year in enumerate(years) if year >= candidate_year]
+
+    rmspe_pre = float(np.sqrt(np.mean(np.square(gap[pre_idx]))))
+    rmspe_post = float(np.sqrt(np.mean(np.square(gap[post_idx]))))
+    rmspe_ratio = rmspe_post / rmspe_pre if not np.isclose(rmspe_pre, 0.0) else np.nan
+
+    return {
+        'years': years,
+        'gap': gap,
+        'selected': selected,
+        'weights': weights,
+        'mean_post_gap': float(np.mean(gap[post_idx])),
+        'rmspe_pre': rmspe_pre,
+        'rmspe_post': rmspe_post,
+        'rmspe_ratio': rmspe_ratio,
+    }
+
+
 def run_in_time_placebo_inference(
     df,
     treated,
@@ -83,52 +153,34 @@ def run_in_time_placebo_inference(
     if treated not in regions:
         raise ValueError(f'Treated region {treated} not found in Region column.')
 
-    donors_all = [region for region in regions if region != treated]
-    y_treated = (
-        work_df[work_df['Region'] == treated]
-        .set_index('Year')
-        .reindex(years)[outcome_col]
-        .astype(float)
-        .values
-    )
-
     records = []
     effect_rows = []
     candidate_years = sorted(set(placebo_years + [actual_treatment_year]))
 
     for candidate_year in candidate_years:
+        # Check if there are pre-treatment years before calling _fit_gap_for_treated
         pre_years = [y for y in years if baseline_start_year <= y < candidate_year]
         if not pre_years:
             continue
 
-        cov_treated = compute_covariates(work_df, treated, pre_years, covar_cols, outcome_col=outcome_col)
-        distances = {}
-        for donor in donors_all:
-            donor_cov = compute_covariates(work_df, donor, pre_years, covar_cols, outcome_col=outcome_col)
-            distances[donor] = np.linalg.norm(donor_cov - cov_treated)
+        result = _fit_gap_for_treated(
+            df=work_df,
+            treated=treated,
+            candidate_year=candidate_year,
+            baseline_start_year=baseline_start_year,
+            covar_cols=covar_cols,
+            outcome_col=outcome_col,
+            max_donors=max_donors,
+        )
 
-        selected = sorted(distances, key=lambda region: distances[region])[:min(max_donors, len(distances))]
-        weights = _safe_inverse_distances(selected, distances)
+        gap = result['gap']
+        rmspe_pre = result['rmspe_pre']
+        rmspe_post = result['rmspe_post']
+        rmspe_ratio = result['rmspe_ratio']
+        mean_post_gap = result['mean_post_gap']
+        result_years = result['years']
 
-        y_synth = np.zeros(len(years), dtype=float)
-        for idx, donor in enumerate(selected):
-            donor_series = (
-                work_df[work_df['Region'] == donor]
-                .set_index('Year')
-                .reindex(years)[outcome_col]
-                .astype(float)
-                .values
-            )
-            y_synth += weights[idx] * donor_series
-
-        gap = y_treated - y_synth
-        pre_idx = [i for i, y in enumerate(years) if y in pre_years]
-        post_idx = [i for i, y in enumerate(years) if y >= candidate_year]
-
-        rmspe_pre = float(np.sqrt(np.mean(np.square(gap[pre_idx])))) if pre_idx else np.nan
-        rmspe_post = float(np.sqrt(np.mean(np.square(gap[post_idx])))) if post_idx else np.nan
-        rmspe_ratio = rmspe_post / rmspe_pre if rmspe_pre and not np.isclose(rmspe_pre, 0.0) else np.nan
-        mean_post_gap = float(np.mean(gap[post_idx])) if post_idx else np.nan
+        post_idx = [i for i, y in enumerate(result_years) if y >= candidate_year]
 
         analysis_type = 'actual' if candidate_year == actual_treatment_year else 'placebo'
         effect_rows.append(
@@ -150,7 +202,7 @@ def run_in_time_placebo_inference(
                     'Country': country_label,
                     'AnalysisType': analysis_type,
                     'CandidateTreatmentYear': candidate_year,
-                    'Year': years[i],
+                    'Year': result_years[i],
                     'Gap': float(gap[i]),
                     'RMSPE_Pre': rmspe_pre,
                     'RMSPE_Post': rmspe_post,

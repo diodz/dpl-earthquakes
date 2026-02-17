@@ -3,72 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-from robustness_and_industry_analysis import compute_covariates, _safe_inverse_distances
-
-
-def _fit_gap_for_treated(
-    df,
-    treated,
-    candidate_year,
-    baseline_start_year,
-    covar_cols,
-    outcome_col,
-    max_donors=5,
-):
-    years = sorted(df['Year'].dropna().unique())
-    regions = df['Region'].dropna().unique().tolist()
-    donors_all = [region for region in regions if region != treated]
-
-    pre_years = [year for year in years if baseline_start_year <= year < candidate_year]
-    if not pre_years:
-        raise ValueError(f'No pre-treatment years available for candidate year {candidate_year}.')
-
-    cov_treated = compute_covariates(df, treated, pre_years, covar_cols, outcome_col=outcome_col)
-    distances = {}
-    for donor in donors_all:
-        donor_cov = compute_covariates(df, donor, pre_years, covar_cols, outcome_col=outcome_col)
-        distances[donor] = np.linalg.norm(donor_cov - cov_treated)
-
-    selected = sorted(distances, key=lambda region: distances[region])[: min(max_donors, len(distances))]
-    weights = _safe_inverse_distances(selected, distances)
-
-    y_treated = (
-        df[df['Region'] == treated]
-        .set_index('Year')
-        .reindex(years)[outcome_col]
-        .astype(float)
-        .values
-    )
-
-    y_synth = np.zeros(len(years), dtype=float)
-    for idx, donor in enumerate(selected):
-        donor_series = (
-            df[df['Region'] == donor]
-            .set_index('Year')
-            .reindex(years)[outcome_col]
-            .astype(float)
-            .values
-        )
-        y_synth += weights[idx] * donor_series
-
-    gap = y_treated - y_synth
-    pre_idx = [i for i, year in enumerate(years) if year in pre_years]
-    post_idx = [i for i, year in enumerate(years) if year >= candidate_year]
-
-    rmspe_pre = float(np.sqrt(np.mean(np.square(gap[pre_idx]))))
-    rmspe_post = float(np.sqrt(np.mean(np.square(gap[post_idx]))))
-    rmspe_ratio = rmspe_post / rmspe_pre if not np.isclose(rmspe_pre, 0.0) else np.nan
-
-    return {
-        'years': years,
-        'gap': gap,
-        'selected': selected,
-        'weights': weights,
-        'mean_post_gap': float(np.mean(gap[post_idx])),
-        'rmspe_pre': rmspe_pre,
-        'rmspe_post': rmspe_post,
-        'rmspe_ratio': rmspe_ratio,
-    }
+from robustness_and_industry_analysis import _fit_gap_for_treated
 
 
 def _placebo_rank_for_candidate(
