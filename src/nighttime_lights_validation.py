@@ -484,20 +484,20 @@ def _compute_urban_series(
     threshold = float(np.quantile(np.concatenate(pre_values), quantile_threshold))
 
     rows: list[dict] = []
-        for year in sorted(year_to_path):
-            with rasterio.open(year_to_path[year]) as dataset:
-                values = _extract_values(dataset, region_geom)
-                full_mean = float(np.mean(values)) if values.size else np.nan
-                urban_values = values[values >= threshold]
-                urban_mean = float(np.mean(urban_values)) if urban_values.size else np.nan
-                rows.append(
-                    {
-                        "year": year,
-                        "full_mean": full_mean,
-                        "urban_core_mean": urban_mean,
-                        "urban_threshold": threshold,
-                    }
-                )
+    for year in sorted(year_to_path):
+        with rasterio.open(year_to_path[year]) as dataset:
+            values = _extract_values(dataset, region_geom)
+            full_mean = float(np.mean(values)) if values.size else np.nan
+            urban_values = values[values >= threshold]
+            urban_mean = float(np.mean(urban_values)) if urban_values.size else np.nan
+            rows.append(
+                {
+                    "year": year,
+                    "full_mean": full_mean,
+                    "urban_core_mean": urban_mean,
+                    "urban_threshold": threshold,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -893,13 +893,20 @@ def run_nighttime_lights_validation(output_dir: Path = _FIGURES_DIR) -> pd.DataF
         output_path=output_dir / "ntl_spatial_sensitivity_buffers.png",
     )
 
-    panel_df.to_csv(output_dir / "ntl_regional_panel.csv", index=False)
-    path_df.to_csv(output_dir / "ntl_scm_gaps.csv", index=False)
-    summary_df.to_csv(output_dir / "ntl_scm_summary.csv", index=False)
-    baseline_summary.to_csv(output_dir / "ntl_validation_summary.csv", index=False)
-    weights_df.to_csv(output_dir / "ntl_scm_weights.csv", index=False)
-    maule_series.to_csv(output_dir / "ntl_maule_urban_mask_series.csv", index=False)
-    canterbury_buffer_series.to_csv(output_dir / "ntl_nz_buffer_sensitivity.csv", index=False)
+    float_format = "%.10f"
+    panel_df.to_csv(output_dir / "ntl_regional_panel.csv", index=False, float_format=float_format)
+    path_df.to_csv(output_dir / "ntl_scm_gaps.csv", index=False, float_format=float_format)
+    summary_df.to_csv(output_dir / "ntl_scm_summary.csv", index=False, float_format=float_format)
+    baseline_summary.to_csv(
+        output_dir / "ntl_validation_summary.csv", index=False, float_format=float_format
+    )
+    weights_df.to_csv(output_dir / "ntl_scm_weights.csv", index=False, float_format=float_format)
+    maule_series.to_csv(
+        output_dir / "ntl_maule_urban_mask_series.csv", index=False, float_format=float_format
+    )
+    canterbury_buffer_series.to_csv(
+        output_dir / "ntl_nz_buffer_sensitivity.csv", index=False, float_format=float_format
+    )
 
     return baseline_summary
 
