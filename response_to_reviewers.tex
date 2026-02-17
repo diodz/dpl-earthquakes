@@ -10,13 +10,19 @@ We added two new figures and accompanying text to the manuscript (Section~4, Res
 \paragraph{Interpretation}
 Yes, Canterbury's per-capita gap survives the decomposition. The positive post-quake GDP-per-capita divergence is not driven by denominator mechanics alone: total GDP itself rises above synthetic, while population remains below synthetic. Hence, the per-capita effect reflects the combined contribution of a stronger numerator and a smaller denominator relative to the counterfactual.
 
-\paragraph{Comment 3.2 (placebo and timing inference).}
-\textit{``Please provide stronger evidence that the Canterbury result is not driven by arbitrary treatment timing, and document the corresponding placebo diagnostics.''}
+\paragraph{Comment 3.2 (uniform confidence sets and timing sensitivity).}
+\textit{``Please move beyond placebo spaghetti plots and provide uniform confidence sets over the post-treatment path, including timing/fitting sensitivity checks.''}
 
 \paragraph{Response.}
-Thank you for this suggestion. We have now added a systematic in-time placebo inference exercise for both countries and integrated it into the robustness discussion in the manuscript (Section~4).
+Implemented. We added a dedicated module (\texttt{src/uniform\_confidence\_analysis.py}) that computes placebo-based \emph{uniform confidence sets} for SCM treatment effects over the full post-treatment horizon (simultaneous, not pointwise). The procedure studentizes each placebo path by pre-treatment RMSPE and uses the placebo sup-norm distribution to obtain a finite-sample critical value, following \textcite{firpo2018synthetic}. Outputs are exported as reproducible artifacts (\texttt{article\_assets/scm\_uniform\_confidence\_sets.csv}, \texttt{article\_assets/scm\_uniform\_confidence\_summary.csv}) and visualized in new manuscript figures.
 
-We loop candidate treatment years across each case's pre-period (New~Zealand: 2000--2009; Chile: 1990--2009), re-estimate SCM for each candidate year, and compare placebo effects against the actual treatment-year estimate. The revised manuscript includes updated methods text and an expanded presentation of the placebo tests. The key conclusion is that the post-2011 Canterbury divergence is unique in magnitude relative to in-time placebos, while Maule's 2010 path remains within the placebo distribution (see Figure~\ref{fig:placebos}).
+We also implemented both requested sensitivity checks:
+\begin{itemize}
+  \item \textbf{Chile (Maule):} alternative placebo pre-fit filters (2$\times$, 5$\times$, 10$\times$ treated pre-RMSPE).
+  \item \textbf{New~Zealand (Canterbury):} treatment-start definitions of 2010 vs.\ 2011.
+\end{itemize}
+
+Main conclusions are stable: Maule's uniform set includes zero throughout the post period, while Canterbury shows non-zero positive years concentrated in early-to-mid rebuild years, with later attenuation and re-convergence. We retain the in-time placebo diagnostics as a complementary falsification check and report both tools in the revised robustness section.
 
 \paragraph{Comment 3.3 (SDID and bias-corrected SCM robustness).}
 \textit{``Given the long post-treatment window, please implement SDID and a bias-corrected/penalized SCM (especially for Maule) to test robustness to inexact matching.''}
