@@ -243,9 +243,10 @@ def _run_scm_exclusion(
     year_arr = np.array(all_years)
     # Use the optimization window end year for pre-period mask to ensure
     # pre-RMSPE evaluates only years used to fit the SCM weights.
+    # Also bound by treatment_year to guarantee disjoint pre/post periods.
     optim_years = list(dataprep.time_optimize_ssr)
     optim_end = max(optim_years) if optim_years else treatment_year - 1
-    pre_mask = year_arr <= optim_end
+    pre_mask = (year_arr <= optim_end) & (year_arr < treatment_year)
     post_mask = (year_arr >= treatment_year) & (year_arr <= ANALYSIS_END_YEAR)
 
     pre_rmspe = _rmspe(gap_pct.values[pre_mask])
