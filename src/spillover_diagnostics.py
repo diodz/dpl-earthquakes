@@ -149,8 +149,13 @@ def _build_chile_dataprep(
     controls: list[str],
     treatment_year: int = CHILE_TREATMENT_YEAR,
 ) -> Dataprep:
-    pred_window = range(max(CHILE_FIT_START, treatment_year - 5), treatment_year)
-    edu_window = range(max(CHILE_FIT_START, treatment_year - 2), treatment_year)
+    # Use hardcoded baseline windows matching the paper specification.
+    # Predictors: range(2005, 2009) (years 2005-2008)
+    # Education: range(2008, 2009) (year 2008)
+    # Optimization: range(1990, 2009) (years 1990-2008)
+    # These windows exclude 2009+ to avoid contamination from the Feb 2010 earthquake.
+    pred_window = range(2005, 2009)
+    edu_window = range(2008, 2009)
     return Dataprep(
         foo=df,
         predictors=CHILE_PREDICTORS,
@@ -165,7 +170,7 @@ def _build_chile_dataprep(
         time_variable="year",
         treatment_identifier=CHILE_TREATED,
         controls_identifier=controls,
-        time_optimize_ssr=range(CHILE_FIT_START, treatment_year),
+        time_optimize_ssr=range(1990, 2009),
     )
 
 
@@ -174,8 +179,14 @@ def _build_nz_dataprep(
     controls: list[str],
     treatment_year: int = NZ_TREATMENT_YEAR,
 ) -> Dataprep:
-    pred_window = range(max(NZ_FIT_START, treatment_year - 5), treatment_year)
-    tert_window = range(max(NZ_FIT_START, treatment_year - 2), treatment_year)
+    # Use hardcoded baseline windows matching the paper specification.
+    # Predictors: range(2005, 2009) (years 2005-2008)
+    # Tertiary: range(2008, 2009) (year 2008)
+    # Optimization: range(2000, 2009) (years 2000-2008)
+    # These windows exclude 2009+ to avoid contamination from earthquake effects
+    # (the Sep 2010 Darfield earthquake partially affected 2010 data).
+    pred_window = range(2005, 2009)
+    tert_window = range(2008, 2009)
     return Dataprep(
         foo=df,
         predictors=nz_util.SECTORIAL_GDP_VARIABLES,
@@ -190,7 +201,7 @@ def _build_nz_dataprep(
         time_variable="Year",
         treatment_identifier=NZ_TREATED,
         controls_identifier=controls,
-        time_optimize_ssr=range(NZ_FIT_START, treatment_year),
+        time_optimize_ssr=range(2000, 2009),
     )
 
 
@@ -230,7 +241,12 @@ def _run_scm_exclusion(
     gap_pct = (treated_s - synthetic) / synthetic * 100.0
 
     year_arr = np.array(all_years)
-    pre_mask = year_arr < treatment_year
+    # Use the optimization window end year for pre-period mask to ensure
+    # pre-RMSPE evaluates only years used to fit the SCM weights.
+    # Also bound by treatment_year to guarantee disjoint pre/post periods.
+    optim_years = list(dataprep.time_optimize_ssr)
+    optim_end = max(optim_years) if optim_years else treatment_year - 1
+    pre_mask = (year_arr <= optim_end) & (year_arr < treatment_year)
     post_mask = (year_arr >= treatment_year) & (year_arr <= ANALYSIS_END_YEAR)
 
     pre_rmspe = _rmspe(gap_pct.values[pre_mask])
