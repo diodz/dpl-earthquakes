@@ -271,7 +271,7 @@ def main() -> None:
                 time_col="Year",
                 outcome_col="GDP per capita",
                 time_predictors_prior=range(2006, 2011),
-                time_optimize_ssr=range(2000, 2010),
+                time_optimize_ssr=range(2000, 2011),
                 treatment_year=2011,
                 analysis_end_year=2019,
             )
@@ -290,7 +290,7 @@ def main() -> None:
                 time_col="Year",
                 outcome_col="GDP per capita",
                 time_predictors_prior=range(2006, 2011),
-                time_optimize_ssr=range(2000, 2010),
+                time_optimize_ssr=range(2000, 2011),
                 treatment_year=2011,
                 analysis_end_year=2019,
             )
