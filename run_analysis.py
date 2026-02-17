@@ -6,9 +6,10 @@ Runs:
   1. create_maps.py - generates Maule_map.png and Canterbury_map.png
   2. src/nz_outcome_extensions.py - generates NZ decomposition outcome figures/tables
   3. src/sdid_bias_corrected_analysis.py - generates SDID / penalized SCM robustness outputs
-  4. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference
-  5. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
-  6. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
+  4. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
+  5. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
+  6. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
+     so its nz_scm_Construction.png and nz_scm_Other_Sectors.png are the final versions)
 
 All figures are written to article_assets/ (used by main.tex).
 """
@@ -40,15 +41,9 @@ def main():
         cwd=PROJECT_ROOT,
     )
 
-    # 4. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
-    print("Running sectoral SCM appendix script...")
-    subprocess.run(
-        [sys.executable, os.path.join(PROJECT_ROOT, "src", "sectoral_appendix_analysis.py")],
-        check=True,
-        cwd=PROJECT_ROOT,
-    )
-
-    # 5. Execute notebooks (nbconvert --execute runs from notebook's directory)
+    # 4. Execute notebooks (nbconvert --execute runs from notebook's directory)
+    # Note: Notebooks run before sectoral appendix script so that the sectoral script's
+    # outputs (nz_scm_Construction.png, nz_scm_Other_Sectors.png) are the final versions.
     for nb_name in ["Maule SCM.ipynb", "Canterbury SCM.ipynb"]:
         nb_path = os.path.join(NOTEBOOKS_DIR, nb_name)
         if not os.path.exists(nb_path):
@@ -69,6 +64,15 @@ def main():
             check=True,
             cwd=NOTEBOOKS_DIR,
         )
+
+    # 5. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
+    # Runs last so its outputs are not overwritten by the notebooks.
+    print("Running sectoral SCM appendix script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "sectoral_appendix_analysis.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
 
     print("Done. Figures saved to article_assets/")
 
