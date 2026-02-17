@@ -187,7 +187,8 @@ def _fit_and_summarize(
     treated_series = pd.Series(np.asarray(z1).flatten().astype(float), index=years)
     gap = treated_series - synthetic
 
-    pre_gap = gap[gap.index < treatment_year]
+    # Keep pre-period diagnostics aligned with the SSR optimization window.
+    pre_gap = gap[gap.index.isin(time_optimize_ssr)]
     post_gap = gap[(gap.index >= treatment_year) & (gap.index <= analysis_end_year)]
 
     pre_rmspe = _rms(pre_gap)
@@ -225,7 +226,7 @@ def main() -> None:
                 config=config,
                 df=chile_df,
                 predictors=CHILE_BASELINE_PREDICTORS,
-                special_predictors=[("gdp_cap", range(2005, 2009), "mean"), ("ed_superior_cap", range(2007, 2009), "mean")],
+                special_predictors=[("gdp_cap", range(2005, 2009), "mean"), ("ed_superior_cap", range(2008, 2009), "mean")],
                 treated=CHILE_TREATED,
                 controls=CHILE_CONTROLS,
                 unit_col="region_name",
@@ -244,7 +245,7 @@ def main() -> None:
                 config=config,
                 df=chile_df,
                 predictors=harmonized_cols,
-                special_predictors=[("gdp_cap", range(2005, 2009), "mean"), ("ed_superior_cap", range(2007, 2009), "mean")],
+                special_predictors=[("gdp_cap", range(2005, 2009), "mean"), ("ed_superior_cap", range(2008, 2009), "mean")],
                 treated=CHILE_TREATED,
                 controls=CHILE_CONTROLS,
                 unit_col="region_name",
@@ -264,14 +265,14 @@ def main() -> None:
                 config=config,
                 df=nz_df,
                 predictors=nz_util.SECTORIAL_GDP_VARIABLES,
-                special_predictors=[("GDP per capita", range(2006, 2011), "mean"), ("Tertiary Share", range(2008, 2011), "mean")],
+                special_predictors=[("GDP per capita", range(2006, 2010), "mean"), ("Tertiary Share", range(2008, 2010), "mean")],
                 treated=NZ_TREATED,
                 controls=NZ_CONTROLS,
                 unit_col="Region",
                 time_col="Year",
                 outcome_col="GDP per capita",
-                time_predictors_prior=range(2006, 2011),
-                time_optimize_ssr=range(2000, 2011),
+                time_predictors_prior=range(2006, 2010),
+                time_optimize_ssr=range(2000, 2010),
                 treatment_year=2011,
                 analysis_end_year=2019,
             )
@@ -283,14 +284,14 @@ def main() -> None:
                 config=config,
                 df=nz_df,
                 predictors=harmonized_cols,
-                special_predictors=[("GDP per capita", range(2006, 2011), "mean"), ("Tertiary Share", range(2008, 2011), "mean")],
+                special_predictors=[("GDP per capita", range(2006, 2010), "mean"), ("Tertiary Share", range(2008, 2010), "mean")],
                 treated=NZ_TREATED,
                 controls=NZ_CONTROLS,
                 unit_col="Region",
                 time_col="Year",
                 outcome_col="GDP per capita",
-                time_predictors_prior=range(2006, 2011),
-                time_optimize_ssr=range(2000, 2011),
+                time_predictors_prior=range(2006, 2010),
+                time_optimize_ssr=range(2000, 2010),
                 treatment_year=2011,
                 analysis_end_year=2019,
             )
