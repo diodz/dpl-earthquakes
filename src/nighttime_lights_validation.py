@@ -150,7 +150,7 @@ def _download_file(url: str, destination: Path, timeout: int = 120) -> None:
                 if chunk:
                     handle.write(chunk)
         # Atomically move the completed download to the final destination
-        temp_destination.rename(destination)
+        temp_destination.replace(destination)
     except BaseException:
         # Clean up partial temp file on any error
         if temp_destination.exists():
