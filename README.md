@@ -18,9 +18,10 @@ This script:
 3. Runs `src/sdid_bias_corrected_analysis.py` (SDID + penalized SCM robustness)
 4. Runs `src/uniform_confidence_analysis.py` (uniform confidence sets + sensitivity checks)
 5. Runs `src/treatment_timing_sensitivity.py` (2010/2011 timing diagnostics + placebo ranks)
-6. Executes the Maule SCM notebook
-7. Executes the Canterbury SCM notebook
-8. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
+6. Runs `src/spillover_diagnostics_analysis.py` (SUTVA/spillover diagnostics + exclusion robustness)
+7. Executes the Maule SCM notebook
+8. Executes the Canterbury SCM notebook
+9. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
 
 ### Figure output
 
@@ -39,6 +40,11 @@ Figures are written to `article_assets/`, which is the canonical location expect
 - SDID / bias-corrected robustness: `sdid_bias_corrected_summary.csv`, `sdid_bias_corrected_gaps.png`
 - Uniform confidence tables: `scm_uniform_confidence_sets.csv`, `scm_uniform_confidence_summary.csv`
 - Timing sensitivity appendix outputs: `timing_sensitivity_summary.csv`, `timing_sensitivity_gap_paths.png`, `timing_sensitivity_rmspe_ratios.png`
+- Spillover appendix outputs:
+  `spillover_exclusion_summary.csv`, `spillover_exclusion_gaps.csv`,
+  `spillover_baseline_vs_strictest_summary.csv`, `spillover_channel_diagnostics.csv`,
+  `spillover_channel_group_summary.csv`, `spillover_exclusion_effects.png`,
+  `spillover_exclusion_gap_paths.png`, `spillover_flow_proxies.png`
 
 ## Requirements
 

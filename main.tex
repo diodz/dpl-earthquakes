@@ -513,7 +513,32 @@ New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
 \end{minipage}
 \end{figure}
 
-In addition to the jackknife test, we check for sensitivity to the donor pool composition.  We re-run the Maule SCM excluding Region VI (O’Higgins), a neighbor that was moderately affected by the quake, and the resulting gap for Maule remains virtually unchanged.  For Canterbury, we test excluding the Wellington region (as its economy could be indirectly stimulated by government spending).  When Wellington is dropped, the estimated gap is slightly larger, strengthening our conclusion.  We further drop other potential spillover or small-donor regions—such as the West Coast and Marlborough—and find that the gap is virtually unchanged.  Even when both Wellington and the West Coast are simultaneously removed, Canterbury’s positive gap persists.  These checks give confidence that our findings are not artifacts of donor pool contamination or spillovers.
+In addition to the jackknife test, we implement explicit SUTVA/spillover diagnostics and geographically structured donor exclusions for both cases (Appendix~\ref{sec:spillover_appendix}). For Chile, we progressively exclude O’Higgins (adjacent) and then O’Higgins plus the southern near-ring (Araucanía). For New~Zealand, we progressively exclude the reviewer-prioritized network hubs (Auckland and Wellington), then adjacent South Island donors, and finally both sets together. Table~\ref{tab:spillover_exclusion_main} reports side-by-side estimates.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Baseline vs.\ spillover-robust donor pools (GDP per capita SCM)}}
+\label{tab:spillover_exclusion_main}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Country} & \textbf{Donor-pool rule} & \textbf{Mean post gap (\%)} & \textbf{$\Delta$ vs.\ baseline (p.p.)} & \textbf{Pre RMSPE (\%)} & \textbf{Post/Pre} \\
+\midrule
+Chile & Baseline donor pool & $-1.71$ & 0.00 & 3.38 & 0.74 \\
+Chile & Exclude O’Higgins & $-5.42$ & $-3.71$ & 7.04 & 0.80 \\
+Chile & Exclude O’Higgins + Araucanía & $-0.68$ & +1.03 & 4.38 & 0.67 \\
+\midrule
+New~Zealand & Baseline donor pool & +7.78 & 0.00 & 1.00 & 8.78 \\
+New~Zealand & Exclude Auckland + Wellington & +10.47 & +2.68 & 4.40 & 2.52 \\
+New~Zealand & Exclude adjacent South Island ring & +9.55 & +1.77 & 2.33 & 4.36 \\
+New~Zealand & Exclude ring + network hubs & +12.71 & +4.93 & 5.01 & 2.66 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Post windows are 2010--2019 for Chile and 2011--2019 for New~Zealand. Values are from \texttt{article\_assets/spillover\_exclusion\_summary.csv}. The strictest Chile specification remains non-positive ($-0.68\%$), while the strictest New~Zealand specification remains strongly positive (+12.71\%). Full gap paths are reported in Appendix Figure~\ref{fig:spillover_gap_appendix}.
+\end{minipage}
+\end{table}
 
 We also consider the possibility of “cherry-picking” bias \autocite{ferman2020cherry} in our study. It is important to note that these two significant earthquakes were identified for analysis \textit{ ex ante} due to their severe magnitude, their temporal closeness (2010-2011), and also due to their socioeconomic importance for both countries (\cite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}); thus, they were not selected based on their results. In fact, by reporting both Maule’s null result and Canterbury's significant positive result, we demonstrate heterogeneity and avoid reporting only confirmatory findings, thus adding nuanced and transparency to our analysis. Finally, the treatment-timing appendix outputs (Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) show that Canterbury’s positive effect persists under 2010-, 2011-, and 2012-start conventions, while Maule remains non-positive under nearby placebo starts. The Canterbury effect peaks around 2015--2016 and declines below 5\% by 2019, underscoring a medium-lived rather than permanent level shift.\footnote{Timing choice and horizon considerations: we prefer 2011 as the first post-treatment year for Canterbury because the February 2011 shock drove the largest disruption, but 2010-start and 2012-start alternatives preserve the qualitative conclusion. We truncate the main post window at 2019 to avoid COVID-19 confounding.}
 \\
@@ -635,6 +660,81 @@ Chile & Services (non-construction) & +5.62 & 2.67 & 0.17 \\
 \textit{Notes:} Groupings are defined from country-specific industry classifications and estimated with the same SCM design as the baseline sectoral models. Results remain asymmetric: New~Zealand exhibits stronger service-side crowding-out in shares, while Chile coefficients are imprecise.
 \end{minipage}
 \end{table}
+
+\section{Spillover diagnostics and geographically structured donor exclusions}
+\label{sec:spillover_appendix}
+
+This appendix reports the explicit spillover-channel diagnostics requested by reviewers (migration/population flows, labor-movement proxies, and trade/input-output link proxies) plus progressive exclusion rules for both countries. Reproducible outputs are written to \texttt{article\_assets/spillover\_channel\_diagnostics.csv}, \texttt{spillover\_channel\_group\_summary.csv}, \texttt{spillover\_exclusion\_summary.csv}, and \texttt{spillover\_exclusion\_gaps.csv}.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Spillover-channel proxies and data sources}}
+\label{tab:spillover_data_sources}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{p{2.8cm} p{4.7cm} p{3.3cm} p{3.3cm}}
+\toprule
+\textbf{Channel} & \textbf{Operational proxy} & \textbf{Chile source} & \textbf{New~Zealand source} \\
+\midrule
+Migration / population flows &
+Post- minus pre-period annual population-growth differential (regional, p.p.) &
+INE regional population series (processed in \texttt{inter/processed\_chile.csv}) &
+Stats NZ regional population release \\
+\addlinespace
+Labor movement &
+Chile: tertiary enrollment per-capita shift (labor-supply proxy, p.p.); NZ: construction GDP-share shift (labor-demand proxy, p.p.) &
+MINEDUC tertiary enrollment series (processed) &
+Stats NZ industry GDP shares (construction) \\
+\addlinespace
+Trade / input-output linkage proxy &
+Pre-treatment correlation in regional GDP-per-capita growth with the treated unit &
+Banco Central regional GDP per capita series &
+Stats NZ regional GDP per capita series \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Proxies are used because bilateral migration microflows, inter-regional commuting microdata, and formal regional input-output matrices are not jointly available at comparable frequency for both countries over the full horizon.
+\end{minipage}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Reviewer-prioritized units: explicit spillover diagnostics}}
+\label{tab:spillover_key_units}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Region / donor group} & \textbf{Pre-growth corr. with treated} & \textbf{Population-growth shift (p.p.)} & \textbf{Labor-proxy shift (p.p.)} \\
+\midrule
+Chile & O’Higgins (VI) & 0.95 & $-0.04$ & +1.04 \\
+New~Zealand & Auckland & 0.78 & +0.26 & +0.27 \\
+New~Zealand & Wellington & 0.31 & +0.34 & +0.03 \\
+New~Zealand & Adjacent South Island ring (mean) & 0.64 & +0.25 & $-0.15$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Population shifts are post-pre differences in annual growth rates. Chile labor proxy is tertiary enrollment per capita; NZ labor proxy is construction share of regional GDP. Full region-by-region diagnostics appear in \texttt{spillover\_channel\_diagnostics.csv}.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Spillover-channel diagnostics by donor region}}
+\label{fig:spillover_flow_appendix}
+\includegraphics[width=0.98\textwidth]{article_assets/spillover_flow_proxies.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Top row: migration proxy (population-growth shift). Bottom row: labor proxy shift. Colors identify risk groups used in progressive exclusions (adjacent/ring/network). 
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Gap paths under progressive spillover exclusions}}
+\label{fig:spillover_gap_appendix}
+\includegraphics[width=0.98\textwidth]{article_assets/spillover_exclusion_gap_paths.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Baseline and exclusion scenarios correspond to Table~\ref{tab:spillover_exclusion_main}. Under the strictest exclusion, Chile moves from $-1.71\%$ to $-0.68\%$ (+1.03 p.p.), while New~Zealand moves from +7.78\% to +12.71\% (+4.93 p.p.).
+\end{minipage}
+\end{figure}
 
 \printbibliography
 \section*{Data and code availability}

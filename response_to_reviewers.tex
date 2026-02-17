@@ -42,6 +42,35 @@ The revised manuscript reports these estimates in a new robustness table and fig
 
 Hence, Canterbury's overshoot persists when optimizing both unit and time weights (SDID), while Maule remains non-positive under all alternative estimators. This directly addresses concerns about long-window robustness and edge-of-convex-hull matching for Maule.
 
+\paragraph{Comment 3.4 (SUTVA/inter-regional spillovers: O'Higgins/Auckland contamination).}
+\textit{``Please provide explicit spillover diagnostics (flows/channels), geographically structured donor exclusions, and side-by-side baseline vs spillover-robust estimates.''}
+
+\paragraph{Response.}
+Implemented in a new reproducible module: \texttt{src/spillover\_diagnostics\_analysis.py}. We now export:
+\begin{itemize}
+  \item \textbf{Channel diagnostics} for both cases:
+  \begin{itemize}
+    \item migration/population-flow proxy: post-pre annual population-growth shifts,
+    \item labor-movement proxy: tertiary-enrollment-per-capita shift (Chile) and construction-share shift (NZ),
+    \item trade/input-output linkage proxy: pre-treatment GDP-growth comovement with the treated unit.
+  \end{itemize}
+  \item \textbf{Progressive exclusion rules}:
+  \begin{itemize}
+    \item Chile: baseline; exclude O'Higgins; exclude O'Higgins + Araucanía,
+    \item New~Zealand: baseline; exclude Auckland+Wellington; exclude adjacent South Island ring; exclude ring + network hubs.
+  \end{itemize}
+  \item \textbf{Machine-readable outputs}: \texttt{spillover\_exclusion\_summary.csv}, \texttt{spillover\_exclusion\_gaps.csv}, \texttt{spillover\_baseline\_vs\_strictest\_summary.csv}, \texttt{spillover\_channel\_diagnostics.csv}, and \texttt{spillover\_channel\_group\_summary.csv}, plus appendix figures.
+\end{itemize}
+
+\paragraph{Main quantitative movement under stricter SUTVA assumptions}
+\begin{itemize}
+  \item \textbf{Chile (Maule):} baseline mean post-gap is \(-1.71\%\). Under the strictest geographic exclusion (O'Higgins + Araucanía), it is \(-0.68\%\) (\(+1.03\) p.p. vs baseline), i.e., still non-positive.
+  \item \textbf{New~Zealand (Canterbury):} baseline mean post-gap is \(+7.78\%\). Under the strictest exclusion (adjacent ring + Auckland/Wellington), it is \(+12.71\%\) (\(+4.93\) p.p. vs baseline), i.e., still clearly positive.
+\end{itemize}
+
+\paragraph{Reviewer-prioritized units (explicit checks).}
+O'Higgins shows high pre-treatment comovement with Maule (corr.\ 0.95), while Auckland and Wellington show positive post-pre population-growth shifts (+0.26 and +0.34 p.p., respectively) and non-negative labor-proxy shifts (+0.27 and +0.03 p.p.). These diagnostics and progressive exclusions are now documented in a dedicated appendix section with data-source mapping and full scenario gap paths.
+
 \paragraph{Comment 3.6 (circularity and crowding-out in sectoral interpretation).}
 \textit{``Sectoral interpretation appears circular; please quantify crowding-out and provide parallel Chile/New~Zealand sectoral inference.''}
 

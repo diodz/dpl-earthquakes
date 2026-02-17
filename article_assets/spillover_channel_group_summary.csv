@@ -1,0 +1,7 @@
+Country,RiskGroup,MeanGDPGrowthCorrelation,MeanPopulationShiftPctPoints,MeanLaborShiftPctPoints,Regions
+Chile,Adjacent,0.946899599761131,-0.0421649047095185,1.04015892,VI Del Libertador General Bernardo OHiggins
+Chile,Near-ring,0.5373954065796247,-0.07804009595848112,1.239181703333333,IX De La Araucanía;RMS Región Metropolitana de Santiago;V De Valparaíso
+Chile,Other donor,0.2339844446406752,-0.06984520280102975,0.7566413042857142,I De Tarapacá;II De Antofagasta;III De Atacama;IV De Coquimbo;X De Los Lagos;XI Aysén del General Carlos Ibáñez del Campo;XII De Magallanes y de la Antártica Chilena
+New Zealand,Adjacent ring,0.6371022402964235,0.24696515965687715,-0.1505720693512641,Marlborough;Otago;Tasman/Nelson;West Coast
+New Zealand,Network hub,0.5428612681921259,0.2987135612212933,0.14673793240934097,Auckland;Wellington
+New Zealand,Other donor,0.4669760839333425,0.6834772707812021,-0.5146833971933312,Bay of Plenty;Gisborne;Hawke's Bay;Manawatu-Whanganui;Northland;Southland;Taranaki;Waikato

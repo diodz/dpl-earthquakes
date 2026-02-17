@@ -1,0 +1,3 @@
+Country,MostDemandingScenario,MostDemandingScenarioMeanPostGapPct,DeltaVsBaselinePctPoints,NumControls
+Chile,Exclude adjacent + near-ring,-0.6833397946630612,1.0266025295380081,9
+New Zealand,Exclude ring + network hubs,12.714234895426543,4.929392421499383,8

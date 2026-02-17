@@ -8,9 +8,10 @@ Runs:
   3. src/sdid_bias_corrected_analysis.py - generates SDID / penalized SCM robustness outputs
   4. src/uniform_confidence_analysis.py - uniform confidence sets + sensitivity checks
   5. src/treatment_timing_sensitivity.py - treatment-year sensitivity diagnostics/figures
-  6. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
-  7. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
-  8. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
+  6. src/spillover_diagnostics_analysis.py - SUTVA/spillover channel diagnostics + exclusions
+  7. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
+  8. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
+  9. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
      so its nz_scm_Construction.png and nz_scm_Other_Sectors.png are the final versions)
 
 All figures are written to article_assets/ (used by main.tex).
@@ -59,7 +60,15 @@ def main():
         cwd=PROJECT_ROOT,
     )
 
-    # 6–7. Execute notebooks (nbconvert --execute runs from notebook's directory)
+    # 6. Run explicit spillover diagnostics + progressive exclusion robustness.
+    print("Running spillover diagnostics script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "spillover_diagnostics_analysis.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
+
+    # 7–8. Execute notebooks (nbconvert --execute runs from notebook's directory)
     # Note: Notebooks run before sectoral appendix script so that the sectoral script's
     # outputs (nz_scm_Construction.png, nz_scm_Other_Sectors.png) are the final versions.
     for nb_name in ["Maule SCM.ipynb", "Canterbury SCM.ipynb"]:
@@ -83,7 +92,7 @@ def main():
             cwd=NOTEBOOKS_DIR,
         )
 
-    # 8. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
+    # 9. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
     # Runs last so its outputs are not overwritten by the notebooks.
     print("Running sectoral SCM appendix script...")
     subprocess.run(

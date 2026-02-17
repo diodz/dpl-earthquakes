@@ -51,6 +51,14 @@ output_dir = os.path.join(os.path.dirname(__file__), '..', 'article_assets')
     "timing_sensitivity_rmspe_ratios.png",
     "nz_timing_sensitivity_summary.csv",
     "chile_timing_sensitivity_summary.csv",
+    "spillover_exclusion_summary.csv",
+    "spillover_exclusion_gaps.csv",
+    "spillover_baseline_vs_strictest_summary.csv",
+    "spillover_channel_diagnostics.csv",
+    "spillover_channel_group_summary.csv",
+    "spillover_exclusion_effects.png",
+    "spillover_exclusion_gap_paths.png",
+    "spillover_flow_proxies.png",
 ])
 def test_output_file_exists(file_name):
     file_path = os.path.join(output_dir, file_name)
