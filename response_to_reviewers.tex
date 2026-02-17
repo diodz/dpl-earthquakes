@@ -14,15 +14,15 @@ Yes, Canterbury's per-capita gap survives the decomposition. The positive post-q
 \textit{``Please move beyond placebo spaghetti plots and provide uniform confidence sets over the post-treatment path, including timing/fitting sensitivity checks.''}
 
 \paragraph{Response.}
-Implemented. We added a dedicated module (\texttt{src/uniform\_confidence\_analysis.py}) that computes placebo-based \emph{uniform confidence sets} for SCM treatment effects over the full post-treatment horizon (simultaneous, not pointwise). The procedure studentizes each placebo path by pre-treatment RMSPE and uses the placebo sup-norm distribution to obtain a finite-sample critical value, following \textcite{firpo2018synthetic}. Outputs are exported as reproducible artifacts (\texttt{article\_assets/scm\_uniform\_confidence\_sets.csv}, \texttt{article\_assets/scm\_uniform\_confidence\_summary.csv}) and visualized in new manuscript figures.
-
-We also implemented both requested sensitivity checks:
+Thank you for this suggestion. We expanded the timing analysis to provide full treatment-year sensitivity outputs (not only textual claims). Specifically, we now estimate:
 \begin{itemize}
   \item \textbf{Chile (Maule):} alternative placebo pre-fit filters (2$\times$, 5$\times$, 10$\times$ treated pre-RMSPE).
-  \item \textbf{New~Zealand (Canterbury):} treatment-start definitions of 2010 vs.\ 2011.
+  \item \textbf{New~Zealand (Canterbury):} treatment-start definitions of 2010 vs.\ 2011, plus expanded timing analysis.
 \end{itemize}
 
-Main conclusions are stable: Maule's uniform set includes zero throughout the post period, while Canterbury shows non-zero positive years concentrated in early-to-mid rebuild years, with later attenuation and re-convergence. We retain the in-time placebo diagnostics as a complementary falsification check and report both tools in the revised robustness section.
+We expanded the timing analysis to provide full treatment-year sensitivity outputs. For New~Zealand we report 2010-start, 2011-start (preferred), and 2012 sequence-aware start; for Chile, 2010 baseline plus nearby placebo starts (2009 and 2011). For each timing choice we report pre/post fit quality, post/pre RMSPE ratio, and placebo ranking (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}), with machine-readable outputs (\texttt{article\_assets/timing\_sensitivity\_summary.csv}, \texttt{timing\_sensitivity\_gaps.csv}, \texttt{timing\_sensitivity\_placebo\_distribution.csv}).
+
+Main conclusions are stable: Maule's uniform set includes zero throughout the post period, while Canterbury shows non-zero positive years concentrated in early-to-mid rebuild years, with later attenuation and re-convergence. Canterbury remains strongly positive across timing conventions, while Maule remains non-positive under nearby placebo starts; therefore, the main cross-case conclusion does not depend on the treatment-year definition. We retain the in-time placebo diagnostics as a complementary falsification check and report both tools in the revised robustness section.
 
 \paragraph{Comment 3.3 (SDID and bias-corrected SCM robustness).}
 \textit{``Given the long post-treatment window, please implement SDID and a bias-corrected/penalized SCM (especially for Maule) to test robustness to inexact matching.''}

@@ -319,6 +319,9 @@ def _build_chile_dataset() -> tuple[pd.DataFrame, list[str]]:
     df["Construction_share"] = df["construction_share"]  # normalized
     df["NonConstruction_share"] = 1.0 - df["Construction_share"]
 
+    # Fishery: fishery_share_pct is percentage-style; convert to level (same units as pib).
+    # Other level cols (adm_publica, agropecuario, etc.) are already in GDP level units.
+    df["fishery_level"] = (df["fishery_share_pct"] / 100.0) * df["pib"]
     level_cols_non_construction = [
         "adm_publica",
         "agropecuario",
@@ -326,7 +329,7 @@ def _build_chile_dataset() -> tuple[pd.DataFrame, list[str]]:
         "electricidad",
         "industria",
         "mineria",
-        "pesca_pct",
+        "fishery_level",
         "vivienda",
         "financieros",
         "personales",

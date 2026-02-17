@@ -7,9 +7,10 @@ Runs:
   2. src/nz_outcome_extensions.py - generates NZ decomposition outcome figures/tables
   3. src/sdid_bias_corrected_analysis.py - generates SDID / penalized SCM robustness outputs
   4. src/uniform_confidence_analysis.py - uniform confidence sets + sensitivity checks
-  5. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
-  6. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
-  7. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
+  5. src/treatment_timing_sensitivity.py - treatment-year sensitivity diagnostics/figures
+  6. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
+  7. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
+  8. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
      so its nz_scm_Construction.png and nz_scm_Other_Sectors.png are the final versions)
 
 All figures are written to article_assets/ (used by main.tex).
@@ -50,7 +51,15 @@ def main():
         cwd=PROJECT_ROOT,
     )
 
-    # 5. Execute notebooks (nbconvert --execute runs from notebook's directory)
+    # 5. Run treatment timing sensitivity outputs (2010/2011/sequence-aware).
+    print("Running treatment timing sensitivity script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "treatment_timing_sensitivity.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
+
+    # 6–7. Execute notebooks (nbconvert --execute runs from notebook's directory)
     # Note: Notebooks run before sectoral appendix script so that the sectoral script's
     # outputs (nz_scm_Construction.png, nz_scm_Other_Sectors.png) are the final versions.
     for nb_name in ["Maule SCM.ipynb", "Canterbury SCM.ipynb"]:
@@ -74,7 +83,7 @@ def main():
             cwd=NOTEBOOKS_DIR,
         )
 
-    # 6. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
+    # 8. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
     # Runs last so its outputs are not overwritten by the notebooks.
     print("Running sectoral SCM appendix script...")
     subprocess.run(
