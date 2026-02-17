@@ -225,8 +225,10 @@ def _plot_placebo_gaps(
     years = result.years
 
     if mspe_threshold:
-        pre_mspe = gaps.loc[: result.treatment_year].pow(2).sum(axis=0)
-        pre_mspe_treated = treated_gap.loc[: result.treatment_year].pow(2).sum(axis=0)
+        # Use treatment_year - 1 to exclude treatment year from pre-period
+        # (treatment_year is the first post-treatment year per post_mask logic)
+        pre_mspe = gaps.loc[: result.treatment_year - 1].pow(2).sum(axis=0)
+        pre_mspe_treated = treated_gap.loc[: result.treatment_year - 1].pow(2).sum(axis=0)
         keep_units = pre_mspe[pre_mspe < mspe_threshold * pre_mspe_treated].index
         gaps = gaps[keep_units]
 
