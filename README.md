@@ -22,6 +22,7 @@ This script:
 7. Executes the Maule SCM notebook
 8. Executes the Canterbury SCM notebook
 9. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
+10. Runs `src/predictor_weight_sensitivity.py` (predictor-weight tuning + harmonized predictor-set sensitivity)
 
 > Note: the night-time lights validation step downloads yearly global rasters on first run and caches them under `data/ntl/rasters/` (large, ignored by git). Subsequent runs reuse the local cache.
 
@@ -38,6 +39,7 @@ Figures are written to `article_assets/`, which is the canonical location expect
 - Sectoral appendix (new): `chile_scm_Construction.png`, `chile_scm_Other_Sectors.png`,
   `sectoral_inference_summary.csv`, `sectoral_crowding_out_summary.csv`,
   `sectoral_grouping_sensitivity.csv`, `sectoral_appendix_series.xlsx`
+- Predictor-weight / predictor-symmetry sensitivity: `predictor_spec_sensitivity.csv`
 - Jackknife: `chile_jacknife.png`, `nz_jacknife.png`
 - SDID / bias-corrected robustness: `sdid_bias_corrected_summary.csv`, `sdid_bias_corrected_gaps.png`
 - Uniform confidence tables: `scm_uniform_confidence_sets.csv`, `scm_uniform_confidence_summary.csv`

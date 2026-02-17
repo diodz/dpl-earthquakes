@@ -45,7 +45,7 @@ Each created issue includes explicit robustness requirements for both:
 | Major 3: Event comparability differences (magnitude, multi-shock, urban/rural) | Partial | [#29](https://github.com/diodz/dpl-earthquakes/issues/29) |
 | Major 4: Sectoral presentation/inference gaps (missing Maule figures, precision claim) | Unaddressed/partial | [#35](https://github.com/diodz/dpl-earthquakes/issues/35) |
 | Major 5: Alternative confounders (commodity prices, FX, cycle, Region I check) | Unaddressed/partial | [#38](https://github.com/diodz/dpl-earthquakes/issues/38) |
-| Minor 1: Predictor-weight selection and variable asymmetry transparency | Unaddressed/partial | [#39](https://github.com/diodz/dpl-earthquakes/issues/39) |
+| Minor 1: Predictor-weight selection and variable asymmetry transparency | Addressed (documented \(v_m\) optimization + harmonized predictor sensitivity outputs) | [#39](https://github.com/diodz/dpl-earthquakes/issues/39) |
 | Minor 2: Canterbury treatment timing sensitivity (2010 vs 2011) | Partial (not fully shown) | [#40](https://github.com/diodz/dpl-earthquakes/issues/40) |
 | Minor 3: Welfare caveat prominence | Mostly addressed in manuscript text | (No new issue) |
 | Minor 4: Table 4 integration/formalization | Unaddressed/partial | [#41](https://github.com/diodz/dpl-earthquakes/issues/41) |

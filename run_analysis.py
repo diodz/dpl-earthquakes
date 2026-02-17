@@ -14,6 +14,8 @@ Runs:
   8. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
   9. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
      so its nz_scm_Construction.png and nz_scm_Other_Sectors.png are the final versions)
+ 10. src/predictor_weight_sensitivity.py - predictor weighting and cross-country
+     harmonized predictor sensitivity table
 
 All figures are written to article_assets/ (used by main.tex).
 """
@@ -106,6 +108,14 @@ def main():
     print("Running sectoral SCM appendix script...")
     subprocess.run(
         [sys.executable, os.path.join(PROJECT_ROOT, "src", "sectoral_appendix_analysis.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
+
+    # 10. Run predictor-weight and cross-country harmonized predictor sensitivity checks.
+    print("Running predictor-weight sensitivity script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "predictor_weight_sensitivity.py")],
         check=True,
         cwd=PROJECT_ROOT,
     )
