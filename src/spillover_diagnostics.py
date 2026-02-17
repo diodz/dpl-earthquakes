@@ -147,7 +147,6 @@ def _rmspe(values: np.ndarray) -> float:
 def _build_chile_dataprep(
     df: pd.DataFrame,
     controls: list[str],
-    treatment_year: int = CHILE_TREATMENT_YEAR,
 ) -> Dataprep:
     # Use hardcoded baseline windows matching the paper specification.
     # Predictors: range(2005, 2009) (years 2005-2008)
@@ -177,7 +176,6 @@ def _build_chile_dataprep(
 def _build_nz_dataprep(
     df: pd.DataFrame,
     controls: list[str],
-    treatment_year: int = NZ_TREATMENT_YEAR,
 ) -> Dataprep:
     # Use hardcoded baseline windows matching the paper specification.
     # Predictors: range(2005, 2009) (years 2005-2008)
@@ -215,9 +213,6 @@ def _run_scm_exclusion(
     treatment_year: int,
     fit_start: int,
     dataprep_builder,
-    unit_col: str,
-    time_col: str,
-    outcome_col: str,
     optim_method: str,
     optim_initial: str,
 ) -> ExclusionResult:
@@ -228,7 +223,7 @@ def _run_scm_exclusion(
             f"Ring '{ring_label}' leaves only {len(controls)} donors; need at least 2."
         )
 
-    dataprep = dataprep_builder(df, controls, treatment_year)
+    dataprep = dataprep_builder(df, controls)
     synth = Synth()
     synth.fit(dataprep=dataprep, optim_method=optim_method, optim_initial=optim_initial)
 
@@ -412,9 +407,6 @@ def _run_progressive_exclusions(
     all_controls: list[str],
     exclusion_rings: dict[str, list[str]],
     dataprep_builder,
-    unit_col: str,
-    time_col: str,
-    outcome_col: str,
     optim_method: str,
     optim_initial: str,
 ) -> list[ExclusionResult]:
@@ -431,9 +423,6 @@ def _run_progressive_exclusions(
                 treatment_year=treatment_year,
                 fit_start=fit_start,
                 dataprep_builder=dataprep_builder,
-                unit_col=unit_col,
-                time_col=time_col,
-                outcome_col=outcome_col,
                 optim_method=optim_method,
                 optim_initial=optim_initial,
             )
@@ -646,7 +635,6 @@ def run_spillover_diagnostics(output_dir: str = FIGURES_DIR) -> dict[str, pd.Dat
         all_controls=CHILE_ALL_CONTROLS,
         exclusion_rings=CHILE_EXCLUSION_RINGS,
         dataprep_builder=_build_chile_dataprep,
-        unit_col="region_name", time_col="year", outcome_col="gdp_cap",
         optim_method="Nelder-Mead", optim_initial="ols",
     )
 
@@ -656,7 +644,6 @@ def run_spillover_diagnostics(output_dir: str = FIGURES_DIR) -> dict[str, pd.Dat
         all_controls=NZ_ALL_CONTROLS,
         exclusion_rings=NZ_EXCLUSION_RINGS,
         dataprep_builder=_build_nz_dataprep,
-        unit_col="Region", time_col="Year", outcome_col="GDP per capita",
         optim_method="Nelder-Mead", optim_initial="equal",
     )
 
