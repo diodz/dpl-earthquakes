@@ -153,6 +153,7 @@ def _evaluate_scenario(
     optim_method: str,
     optim_initial: str,
     common_post_start: int,
+    fit_start_year: int,
 ) -> tuple[dict, list[dict], list[dict]]:
     dataprep = dataprep_builder(df, scenario.treatment_year)
     synth = Synth()
@@ -182,9 +183,9 @@ def _evaluate_scenario(
     placebo_gap_pct = pd.DataFrame(index=all_years)
     placebo_rows: list[dict] = []
     year_index = np.asarray(all_years, dtype=int)
-    pre_mask = year_index < scenario.treatment_year
+    pre_mask = (year_index >= fit_start_year) & (year_index < scenario.treatment_year)
     post_mask = (year_index >= scenario.treatment_year) & (year_index <= ANALYSIS_END_YEAR)
-    common_mask = (year_index >= common_post_start) & (year_index <= ANALYSIS_END_YEAR)
+    common_mask = (year_index >= max(common_post_start, scenario.treatment_year)) & (year_index <= ANALYSIS_END_YEAR)
 
     for unit in placebo_gaps_level.columns:
         unit_actual = pivot[unit].astype(float)
@@ -359,6 +360,7 @@ def run_treatment_timing_sensitivity(output_dir: str = FIGURES_DIR) -> pd.DataFr
             optim_method="Nelder-Mead",
             optim_initial="equal",
             common_post_start=NZ_COMMON_POST_START,
+            fit_start_year=2000,
         )
         summary_rows.append(summary)
         gap_rows.extend(gaps)
@@ -378,6 +380,7 @@ def run_treatment_timing_sensitivity(output_dir: str = FIGURES_DIR) -> pd.DataFr
             optim_method="Nelder-Mead",
             optim_initial="ols",
             common_post_start=CHILE_COMMON_POST_START,
+            fit_start_year=1990,
         )
         summary_rows.append(summary)
         gap_rows.extend(gaps)
