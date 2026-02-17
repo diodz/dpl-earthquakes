@@ -5,6 +5,7 @@ Regenerate all figures for the article (main.tex).
 Runs:
   1. create_maps.py - generates Maule_map.png and Canterbury_map.png
   2. src/nz_outcome_extensions.py - generates NZ decomposition outcome figures/tables
+  2b. src/chile_outcome_extensions.py - generates Maule (Chile) decomposition outcome figures/tables
   3. src/sdid_bias_corrected_analysis.py - generates SDID / penalized SCM robustness outputs
   4. src/uniform_confidence_analysis.py - uniform confidence sets + sensitivity checks
   5. src/treatment_timing_sensitivity.py - treatment-year sensitivity diagnostics/figures
@@ -38,6 +39,10 @@ def main():
     # 2. Run explicit NZ outcome extensions (per-capita, population, total GDP).
     print("Running NZ outcome extension SCM script...")
     subprocess.run([sys.executable, os.path.join(PROJECT_ROOT, "src", "nz_outcome_extensions.py")], check=True, cwd=PROJECT_ROOT)
+
+    # 2b. Run Chile (Maule) outcome extensions (same decomposition for Y/L interpretability).
+    print("Running Chile (Maule) outcome extension SCM script...")
+    subprocess.run([sys.executable, os.path.join(PROJECT_ROOT, "src", "chile_outcome_extensions.py")], check=True, cwd=PROJECT_ROOT)
 
     # 3. Run SDID + penalized (bias-corrected) SCM robustness analysis.
     print("Running SDID / bias-corrected SCM robustness script...")
