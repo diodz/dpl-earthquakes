@@ -274,7 +274,7 @@ def _build_nz_dataset() -> tuple[pd.DataFrame, list[str]]:
     return df, nz_util.SECTORIAL_GDP_VARIABLES
 
 
-def _build_chile_dataset() -> tuple[pd.DataFrame, list[str], list[str]]:
+def _build_chile_dataset() -> tuple[pd.DataFrame, list[str]]:
     df = pd.read_csv(os.path.join(_PROJECT_ROOT, "data", "scm_2010.csv")).copy()
     rename_map = {
         "nom_region": "Region",
@@ -350,14 +350,14 @@ def _build_chile_dataset() -> tuple[pd.DataFrame, list[str], list[str]]:
         + df["personal_share"]
         + df["transport_share"]
     )
-    return df, normalized_share_cols, level_cols_non_construction
+    return df, normalized_share_cols
 
 
 def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, pd.DataFrame]:
     os.makedirs(output_dir, exist_ok=True)
 
     nz_df, nz_share_cols = _build_nz_dataset()
-    chile_df, chile_share_cols, chile_level_nonconstruction_cols = _build_chile_dataset()
+    chile_df, chile_share_cols = _build_chile_dataset()
 
     nz_years = list(range(NZ_START_YEAR, NZ_END_YEAR + 1))
     chile_years = list(range(CHILE_START_YEAR, CHILE_END_YEAR + 1))
