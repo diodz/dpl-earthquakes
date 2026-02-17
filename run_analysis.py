@@ -9,6 +9,7 @@ Runs:
   4. src/uniform_confidence_analysis.py - uniform confidence sets + sensitivity checks
   5. src/treatment_timing_sensitivity.py - treatment-year sensitivity diagnostics/figures
   6. src/nighttime_lights_validation.py - generates independent NTL validation outputs
+  6b. src/spillover_diagnostics.py - generates SUTVA/spillover diagnostics outputs
   7. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
   8. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
   9. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
@@ -66,6 +67,14 @@ def main():
         [sys.executable, os.path.join(PROJECT_ROOT, "src", "nighttime_lights_validation.py")],
         check=True,
         cwd=PROJECT_ROOT,
+    )
+
+    # 6b. Run spillover / SUTVA diagnostics (geographic donor exclusions).
+    print("Running spillover diagnostics script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "spillover_diagnostics.py")],
+        check=True,
+        cwd=os.path.join(PROJECT_ROOT, "src"),
     )
 
     # 7–8. Execute notebooks (nbconvert --execute runs from notebook's directory)

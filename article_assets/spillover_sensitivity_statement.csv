@@ -1,0 +1,3 @@
+Country,Baseline mean gap (%),Min gap across rings (%),Max gap across rings (%),Max absolute shift (p.p.),Sign consistent,Conclusion
+Chile,-4.451366419360762,-14.674864309705296,9.377499371153384,13.828865790514147,False,Sign reversal under strictest exclusion; interpret with caution
+New Zealand,7.785686155103832,5.440603356287458,12.714234895426598,4.928548740322766,True,Estimates qualitatively stable; sign unchanged across all exclusion rings
