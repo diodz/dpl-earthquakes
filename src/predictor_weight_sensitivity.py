@@ -181,7 +181,7 @@ def _fit_and_summarize(
     synth = Synth()
     synth.fit(dataprep=dataprep, optim_method=config.optim_method, optim_initial=config.optim_initial)
 
-    years = list(range(int(df[time_col].min()), int(df[time_col].max()) + 1))
+    years = list(range(min(time_optimize_ssr), analysis_end_year + 1))
     z0, z1 = synth.dataprep.make_outcome_mats(time_period=years)
     synthetic = pd.Series(np.asarray(synth._synthetic(z0)).flatten().astype(float), index=years)
     treated_series = pd.Series(np.asarray(z1).flatten().astype(float), index=years)
