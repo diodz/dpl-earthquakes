@@ -1,0 +1,190 @@
+Country,ScenarioID,ScenarioLabel,Year,GapPct
+Chile,baseline,Baseline (Biobio excluded),1985,-13.803701357482005
+Chile,baseline,Baseline (Biobio excluded),1986,-12.458475011616251
+Chile,baseline,Baseline (Biobio excluded),1987,-15.145041296421017
+Chile,baseline,Baseline (Biobio excluded),1988,-11.327171058986215
+Chile,baseline,Baseline (Biobio excluded),1989,-12.130062007682826
+Chile,baseline,Baseline (Biobio excluded),1990,-11.070009414650029
+Chile,baseline,Baseline (Biobio excluded),1991,-3.6260409709240724
+Chile,baseline,Baseline (Biobio excluded),1992,0.6263424923451648
+Chile,baseline,Baseline (Biobio excluded),1993,-2.63154405330946
+Chile,baseline,Baseline (Biobio excluded),1994,3.053242217318227
+Chile,baseline,Baseline (Biobio excluded),1995,5.065881376520018
+Chile,baseline,Baseline (Biobio excluded),1996,0.6550615216831045
+Chile,baseline,Baseline (Biobio excluded),1997,-1.2967704064750558
+Chile,baseline,Baseline (Biobio excluded),1998,-2.2465162407011916
+Chile,baseline,Baseline (Biobio excluded),1999,-2.5381246118561482
+Chile,baseline,Baseline (Biobio excluded),2000,-1.291282812672999
+Chile,baseline,Baseline (Biobio excluded),2001,2.0724741765848727
+Chile,baseline,Baseline (Biobio excluded),2002,-1.8367061973861059
+Chile,baseline,Baseline (Biobio excluded),2003,0.45987397281707065
+Chile,baseline,Baseline (Biobio excluded),2004,-0.9168379061670067
+Chile,baseline,Baseline (Biobio excluded),2005,2.1715560026311542
+Chile,baseline,Baseline (Biobio excluded),2006,4.575682355888988
+Chile,baseline,Baseline (Biobio excluded),2007,-0.5480851468642836
+Chile,baseline,Baseline (Biobio excluded),2008,-0.036192689695910905
+Chile,baseline,Baseline (Biobio excluded),2009,0.5309268903936044
+Chile,baseline,Baseline (Biobio excluded),2010,-0.15462989163821855
+Chile,baseline,Baseline (Biobio excluded),2011,-1.0309968239553842
+Chile,baseline,Baseline (Biobio excluded),2012,1.847073498915048
+Chile,baseline,Baseline (Biobio excluded),2013,-1.0519976597228418
+Chile,baseline,Baseline (Biobio excluded),2014,-3.8856114514264424
+Chile,baseline,Baseline (Biobio excluded),2015,-0.46688266448646265
+Chile,baseline,Baseline (Biobio excluded),2016,-2.159740290678435
+Chile,baseline,Baseline (Biobio excluded),2017,-4.1867773538034925
+Chile,baseline,Baseline (Biobio excluded),2018,-2.070737011502434
+Chile,baseline,Baseline (Biobio excluded),2019,-3.9391235937120315
+Chile,baseline,Baseline (Biobio excluded),2020,-1.7749936275990554
+Chile,baseline,Baseline (Biobio excluded),2021,-3.012136543717753
+Chile,baseline,Baseline (Biobio excluded),2022,-3.654467374114171
+Chile,baseline,Baseline (Biobio excluded),2023,-3.2386467391990164
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1985,-17.71499037906706
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1986,-12.945127206777466
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1987,-15.240327362406262
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1988,-15.632346840987438
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1989,-18.575101287346666
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1990,-17.516127807566516
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1991,-11.386700951158884
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1992,-6.507075630806275
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1993,-10.984929662803895
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1994,-5.032232761723386
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1995,-5.385296531862332
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1996,-7.808691112383926
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1997,-7.4637922822078195
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1998,-8.247335304754143
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,1999,-9.470416244471465
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2000,-4.986249177995371
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2001,-1.324069869652299
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2002,-3.0541555389172257
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2003,-1.9398548847747543
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2004,-2.032299787655201
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2005,1.076347222808571
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2006,2.193619907580255
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2007,-2.484709532505723
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2008,-2.6733933371315772
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2009,-0.8934017291909365
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2010,-4.09362753064848
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2011,-4.467265891793995
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2012,-4.913674458235617
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2013,-7.451571394891174
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2014,-6.8201375735816585
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2015,-3.9431581591871576
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2016,-5.96342949191656
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2017,-8.083513820245058
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2018,-3.419795622740532
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2019,-5.046639832440158
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2020,-1.9177713571424035
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2021,-3.739405764311672
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2022,-6.018041280320578
+Chile,exclude_ohiggins,Ring 1: exclude O'Higgins,2023,-6.038579784048588
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1985,-5.35153099512951
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1986,-3.969567643658297
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1987,-4.692539758996453
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1988,-7.359138737214138
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1989,-9.227143645049551
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1990,-10.151861043193621
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1991,-3.790511599541156
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1992,0.9101845776143124
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1993,2.629369066273943
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1994,7.1153742955160215
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1995,8.002869177227803
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1996,3.2226779203502973
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1997,0.6101208897629412
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1998,-2.4012668441118317
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,1999,-5.079630316772016
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2000,-5.8849094910690605
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2001,-1.795033933436718
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2002,-1.7210446498023864
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2003,-1.693891511692195
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2004,-1.3615145221302565
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2005,3.524583135399556
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2006,6.128210056034525
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2007,-0.3274284810893765
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2008,-2.2043547887568535
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2009,0.6619403609531695
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2010,-2.89773490591511
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2011,-5.128974608107766
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2012,-1.1078905083414559
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2013,-1.1448932103276719
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2014,-4.587106648146398
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2015,3.657419830230639
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2016,3.1412346941361293
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2017,-0.22023312372838902
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2018,1.9783019539189883
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2019,-0.523521420349576
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2020,2.413078085341111
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2021,2.778189593085875
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2022,3.0541484248913418
+Chile,exclude_ohiggins_araucania,Ring 2: exclude O'Higgins + Araucania,2023,1.6131884303050181
+New Zealand,baseline,Baseline donor pool,2000,-0.045052677746505516
+New Zealand,baseline,Baseline donor pool,2001,-1.9509020427895905
+New Zealand,baseline,Baseline donor pool,2002,-1.7569413185402587
+New Zealand,baseline,Baseline donor pool,2003,0.22331467692399382
+New Zealand,baseline,Baseline donor pool,2004,-0.07430919354228745
+New Zealand,baseline,Baseline donor pool,2005,1.7361929970430943
+New Zealand,baseline,Baseline donor pool,2006,-0.2088700754931522
+New Zealand,baseline,Baseline donor pool,2007,0.8750985037868372
+New Zealand,baseline,Baseline donor pool,2008,-0.014493042068198982
+New Zealand,baseline,Baseline donor pool,2009,-0.077516615378452
+New Zealand,baseline,Baseline donor pool,2010,0.8891728195418614
+New Zealand,baseline,Baseline donor pool,2011,1.6631817708200858
+New Zealand,baseline,Baseline donor pool,2012,3.6951162155307062
+New Zealand,baseline,Baseline donor pool,2013,7.50483673307767
+New Zealand,baseline,Baseline donor pool,2014,11.98701266066718
+New Zealand,baseline,Baseline donor pool,2015,13.561330315342387
+New Zealand,baseline,Baseline donor pool,2016,11.99067640071089
+New Zealand,baseline,Baseline donor pool,2017,6.939410461043152
+New Zealand,baseline,Baseline donor pool,2018,5.530477516224704
+New Zealand,baseline,Baseline donor pool,2019,4.78888518617739
+New Zealand,baseline,Baseline donor pool,2020,5.902129960579661
+New Zealand,baseline,Baseline donor pool,2021,1.56482094080785
+New Zealand,baseline,Baseline donor pool,2022,2.643862091171268
+New Zealand,baseline,Baseline donor pool,2023,2.825042659727849
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2000,7.706804857290361
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2001,2.0547125541456106
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2002,0.0038086383215980846
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2003,4.62175860753849
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2004,4.278884596949597
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2005,6.1406561265326625
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2006,5.498374935074827
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2007,3.087225566821092
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2008,3.7218046559729974
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2009,2.279481544444802
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2010,3.53837498069815
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2011,4.831044426805767
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2012,7.081178125097487
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2013,12.46053573151108
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2014,13.712262303327934
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2015,17.238201190243743
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2016,14.536471691863804
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2017,10.439286671245684
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2018,9.674614253638518
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2019,8.044952005295679
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2020,8.723196253639518
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2021,8.054279553228884
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2022,8.264966682605381
+New Zealand,exclude_auckland_wellington,Ring 1: exclude Auckland + Wellington,2023,8.619010760089239
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2000,5.995699673050088
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2001,1.2797689480216181
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2002,-0.2664312154124074
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2003,0.24076825790851314
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2004,0.932029183239573
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2005,2.2830160621469644
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2006,2.8479638002477885
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2007,1.895371142251376
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2008,-1.3953289624122618
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2009,-2.1895517376198645
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2010,-3.1765935428364416
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2011,-1.5048759689322013
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2012,2.4624963605800367
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2013,5.806693402821205
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2014,8.493297618499117
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2015,11.474847255330205
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2016,9.482087486247822
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2017,5.7557805537257245
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2018,4.597761737451179
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2019,4.0736255580955785
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2020,5.5186526147202555
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2021,7.4109399308749
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2022,7.067505381120484
+New Zealand,exclude_metro_corridor,Ring 2: North-Island corridor exclusion,2023,7.027735077101256

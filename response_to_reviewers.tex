@@ -42,6 +42,31 @@ The revised manuscript reports these estimates in a new robustness table and fig
 
 Hence, Canterbury's overshoot persists when optimizing both unit and time weights (SDID), while Maule remains non-positive under all alternative estimators. This directly addresses concerns about long-window robustness and edge-of-convex-hull matching for Maule.
 
+\paragraph{Comment 3.4 (SUTVA/spillovers and geographically structured donor contamination).}
+\textit{``Please provide explicit evidence on spillover channels (migration/labor/trade linkages) and re-estimate effects under stricter geographic donor exclusions, especially O'Higgins/Auckland concerns.''}
+
+\paragraph{Response.}
+Implemented. We added a dedicated reproducible module, \texttt{src/spillover\_diagnostics\_analysis.py}, and integrated a new appendix section in the manuscript (\textit{Spillover diagnostics and geographic donor-exclusion robustness}).
+
+The new module delivers three components requested by reviewers:
+\begin{enumerate}
+  \item \textbf{Explicit flow/linkage diagnostics} (new table): population-growth shifts (migration proxy), construction-share shifts (labor-demand proxy), and tradables/co-movement proxies (manufacturing+trade+transport exposure plus pre-treatment GDP-growth correlation with the treated region).
+  \item \textbf{Progressive geographic exclusions} (rings/adjacency):
+  \begin{itemize}
+    \item \textbf{Chile (Maule):} baseline already excludes Biobío; ring-1 excludes O'Higgins; ring-2 excludes O'Higgins + Araucanía.
+    \item \textbf{New~Zealand (Canterbury):} ring-1 excludes Auckland + Wellington; ring-2 additionally excludes the North-Island corridor (Waikato, Bay of Plenty, Hawke's Bay, Manawatu-Whanganui).
+  \end{itemize}
+  \item \textbf{Baseline vs spillover-robust SCM estimates} side-by-side, including placebo-rank diagnostics.
+\end{enumerate}
+
+Key quantitative movement under stricter SUTVA assumptions:
+\begin{itemize}
+  \item \textbf{Chile}: baseline mean post-gap (2010--2019) is \(-1.71\%\); ring-1 is \(-5.42\%\); ring-2 is \(-0.68\%\). The estimate remains non-positive across all geographic exclusions.
+  \item \textbf{New~Zealand}: baseline mean post-gap (2011--2019) is \(+7.52\%\); ring-1 is \(+10.89\%\); ring-2 is \(+5.63\%\). The estimate remains positive across all geographic exclusions.
+\end{itemize}
+
+Hence, stronger spillover screens change \emph{magnitude} but not the core sign pattern (Maule non-positive; Canterbury positive), directly addressing SUTVA contamination concerns raised by both Reviewer \#1 (3.4) and Reviewer \#2 (Major 1).
+
 \paragraph{Comment 3.6 (circularity and crowding-out in sectoral interpretation).}
 \textit{``Sectoral interpretation appears circular; please quantify crowding-out and provide parallel Chile/New~Zealand sectoral inference.''}
 

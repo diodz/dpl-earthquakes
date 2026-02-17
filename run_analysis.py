@@ -8,10 +8,11 @@ Runs:
   3. src/sdid_bias_corrected_analysis.py - generates SDID / penalized SCM robustness outputs
   4. src/uniform_confidence_analysis.py - uniform confidence sets + sensitivity checks
   5. src/treatment_timing_sensitivity.py - treatment-year sensitivity diagnostics/figures
-  6. src/nighttime_lights_validation.py - generates independent NTL validation outputs
-  7. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
-  8. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
-  9. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
+  6. src/spillover_diagnostics_analysis.py - spillover-flow diagnostics and donor exclusions
+  7. src/nighttime_lights_validation.py - generates independent NTL validation outputs
+  8. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
+  9. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
+  10. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
      so its nz_scm_Construction.png and nz_scm_Other_Sectors.png are the final versions)
 
 All figures are written to article_assets/ (used by main.tex).
@@ -60,7 +61,15 @@ def main():
         cwd=PROJECT_ROOT,
     )
 
-    # 6. Run nighttime-lights validation as an independent proxy robustness check.
+    # 6. Run spillover-flow diagnostics and geographic donor exclusion checks.
+    print("Running spillover diagnostics script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "spillover_diagnostics_analysis.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
+
+    # 7. Run nighttime-lights validation as an independent proxy robustness check.
     print("Running nighttime lights validation script...")
     subprocess.run(
         [sys.executable, os.path.join(PROJECT_ROOT, "src", "nighttime_lights_validation.py")],
@@ -68,7 +77,7 @@ def main():
         cwd=PROJECT_ROOT,
     )
 
-    # 7–8. Execute notebooks (nbconvert --execute runs from notebook's directory)
+    # 8-9. Execute notebooks (nbconvert --execute runs from notebook's directory)
     # Note: Notebooks run before sectoral appendix script so that the sectoral script's
     # outputs (nz_scm_Construction.png, nz_scm_Other_Sectors.png) are the final versions.
     for nb_name in ["Maule SCM.ipynb", "Canterbury SCM.ipynb"]:
@@ -92,7 +101,7 @@ def main():
             cwd=NOTEBOOKS_DIR,
         )
 
-    # 9. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
+    # 10. Run sectoral appendix SCM outputs (parallel Chile/NZ sectoral diagnostics).
     # Runs last so its outputs are not overwritten by the notebooks.
     print("Running sectoral SCM appendix script...")
     subprocess.run(

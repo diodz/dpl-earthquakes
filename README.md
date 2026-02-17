@@ -18,10 +18,11 @@ This script:
 3. Runs `src/sdid_bias_corrected_analysis.py` (SDID + penalized SCM robustness)
 4. Runs `src/uniform_confidence_analysis.py` (uniform confidence sets + sensitivity checks)
 5. Runs `src/treatment_timing_sensitivity.py` (2010/2011 timing diagnostics + placebo ranks)
-6. Runs `src/nighttime_lights_validation.py` (independent night-time lights validation)
-7. Executes the Maule SCM notebook
-8. Executes the Canterbury SCM notebook
-9. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
+6. Runs `src/spillover_diagnostics_analysis.py` (spillover-flow diagnostics + geographic donor exclusions)
+7. Runs `src/nighttime_lights_validation.py` (independent night-time lights validation)
+8. Executes the Maule SCM notebook
+9. Executes the Canterbury SCM notebook
+10. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
 
 > Note: the night-time lights validation step downloads yearly global rasters on first run and caches them under `data/ntl/rasters/` (large, ignored by git). Subsequent runs reuse the local cache.
 
@@ -42,6 +43,11 @@ Figures are written to `article_assets/`, which is the canonical location expect
 - SDID / bias-corrected robustness: `sdid_bias_corrected_summary.csv`, `sdid_bias_corrected_gaps.png`
 - Uniform confidence tables: `scm_uniform_confidence_sets.csv`, `scm_uniform_confidence_summary.csv`
 - Timing sensitivity appendix outputs: `timing_sensitivity_summary.csv`, `timing_sensitivity_gap_paths.png`, `timing_sensitivity_rmspe_ratios.png`
+- Spillover diagnostics appendix outputs:
+  `spillover_sensitivity_summary.csv`,
+  `spillover_gap_paths.csv`,
+  `spillover_flow_diagnostics.csv`,
+  `spillover_sensitivity_paths.png`
 - Night-time lights validation:
   `ntl_validation_paths_gaps.png`,
   `ntl_sensor_processing_robustness.png`,

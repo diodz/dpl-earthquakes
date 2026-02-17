@@ -548,7 +548,9 @@ New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
 \end{minipage}
 \end{figure}
 
-In addition to the jackknife test, we check for sensitivity to the donor pool composition.  We re-run the Maule SCM excluding Region VI (O’Higgins), a neighbor that was moderately affected by the quake, and the resulting gap for Maule remains virtually unchanged.  For Canterbury, we test excluding the Wellington region (as its economy could be indirectly stimulated by government spending).  When Wellington is dropped, the estimated gap is slightly larger, strengthening our conclusion.  We further drop other potential spillover or small-donor regions—such as the West Coast and Marlborough—and find that the gap is virtually unchanged.  Even when both Wellington and the West Coast are simultaneously removed, Canterbury’s positive gap persists.  These checks give confidence that our findings are not artifacts of donor pool contamination or spillovers.
+To directly address the SUTVA/spillover concern, we add two new robustness layers: (i) explicit flow/linkage diagnostics (population reallocation, labor-demand proxies, and tradables-link proxies), and (ii) progressive \emph{geographically structured} donor exclusions. Full machine-readable outputs are exported to \texttt{article\_assets/spillover\_flow\_diagnostics.csv}, \texttt{spillover\_sensitivity\_summary.csv}, and \texttt{spillover\_gap\_paths.csv}, with visualization in \texttt{spillover\_sensitivity\_paths.png}. Details appear in Appendix~\ref{app:spillover}.
+
+For Chile, the baseline already excludes Biobío. Under a ring-1 exclusion that removes adjacent O’Higgins, Maule’s mean post-2010 gap moves from $-1.71\%$ to $-5.42\%$; under a stricter ring-2 exclusion (O’Higgins + Araucanía), it is $-0.68\%$. For New~Zealand, Canterbury’s baseline mean post-2011 gap is $+7.52\%$; excluding Auckland and Wellington yields $+10.89\%$; and under a wider North-Island corridor exclusion it remains positive at $+5.63\%$. Thus, stricter spillover screens move magnitudes but do not reverse the core sign pattern (Maule non-positive, Canterbury positive).
 
 We also consider the possibility of “cherry-picking” bias \autocite{ferman2020cherry} in our study. It is important to note that these two significant earthquakes were identified for analysis \textit{ ex ante} due to their severe magnitude, their temporal closeness (2010-2011), and also due to their socioeconomic importance for both countries (\cite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}); thus, they were not selected based on their results. In fact, by reporting both Maule’s null result and Canterbury's significant positive result, we demonstrate heterogeneity and avoid reporting only confirmatory findings, thus adding nuanced and transparency to our analysis. Finally, the treatment-timing appendix outputs (Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) show that Canterbury’s positive effect persists under 2010-, 2011-, and 2012-start conventions, while Maule remains non-positive under nearby placebo starts. The Canterbury effect peaks around 2015--2016 and declines below 5\% by 2019, underscoring a medium-lived rather than permanent level shift.\footnote{Timing choice and horizon considerations: we prefer 2011 as the first post-treatment year for Canterbury because the February 2011 shock drove the largest disruption, but 2010-start and 2012-start alternatives preserve the qualitative conclusion. We truncate the main post window at 2019 to avoid COVID-19 confounding.}
 \\
@@ -670,6 +672,68 @@ Chile & Services (non-construction) & +5.62 & 2.67 & 0.17 \\
 \textit{Notes:} Groupings are defined from country-specific industry classifications and estimated with the same SCM design as the baseline sectoral models. Results remain asymmetric: New~Zealand exhibits stronger service-side crowding-out in shares, while Chile coefficients are imprecise.
 \end{minipage}
 \end{table}
+
+\section{Spillover diagnostics and geographic donor-exclusion robustness}
+\label{app:spillover}
+
+This appendix provides the requested explicit spillover diagnostics and progressively stricter donor-pool exclusions for both cases. We combine three proxy blocks: (i) population-growth shifts (migration/reallocation proxy), (ii) construction-share shifts (labor reallocation/demand proxy), and (iii) tradables-link exposure plus pre-treatment growth co-movement (trade/input-output linkage proxies). Table~\ref{tab:spillover_flow_diag} reports the key potentially contaminating regions emphasized by reviewers.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Spillover flow/linkage diagnostics for key potentially contaminating regions}}
+\label{tab:spillover_flow_diag}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Country} & \textbf{Region} & \textbf{Baseline SCM wt.} & \textbf{Pop. growth pre (\%)} & \textbf{Pop. growth post (\%)} & \textbf{$\Delta$ Construction (p.p.)} & \textbf{Tradables pre (\%)} & \textbf{Pre-growth corr.} \\
+\midrule
+Chile & O'Higgins (VI) & 0.323 & 1.00 & 0.93 & $-1.49$ & 34.81 & 0.69 \\
+Chile & Biobío (VIII) & 0.000 & 0.68 & 0.61 & +0.71 & 49.54 & 0.50 \\
+Chile & Araucanía (IX) & 0.356 & 0.88 & 0.81 & $-1.25$ & 34.67 & 0.51 \\
+New~Zealand & Auckland & 0.320 & 1.36 & 1.76 & +0.27 & 26.06 & 0.75 \\
+New~Zealand & Wellington & 0.000 & 0.77 & 1.19 & +0.03 & 17.10 & 0.33 \\
+New~Zealand & Waikato & 0.000 & 1.17 & 1.85 & $-0.32$ & 20.25 & 0.43 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Baseline SCM weights are from the unrestricted donor pool in each country. Population growth is average annual growth in pre/post windows (Chile: 2005--2009 vs.\ 2010--2015; New~Zealand: 2005--2010 vs.\ 2011--2019). $\Delta$ Construction is the post-minus-pre change in construction's GDP share. Tradables pre is the pre-period average of manufacturing + trade + transport sector shares. Pre-growth correlation is the correlation of regional GDP-per-capita growth with treated-region growth in pre-treatment years.
+\end{minipage}
+\end{table}
+
+Table~\ref{tab:spillover_sensitivity} reports side-by-side baseline versus spillover-robust estimates under progressive geographic exclusions. For Chile, the baseline design already excludes Biobío (co-affected adjacent region), then ring-1 removes O'Higgins and ring-2 removes O'Higgins plus Araucanía. For New~Zealand, ring-1 removes Auckland and Wellington; ring-2 additionally removes the North-Island corridor (Waikato, Bay of Plenty, Hawke's Bay, Manawatu-Whanganui).
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Baseline vs.\ spillover-robust donor-pool exclusions}}
+\label{tab:spillover_sensitivity}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Country} & \textbf{Exclusion specification} & \textbf{Mean post gap (\%)} & \textbf{$\Delta$ vs.\ baseline (p.p.)} & \textbf{Post/Pre RMSPE} & \textbf{RMSPE-ratio $p$} \\
+\midrule
+Chile & Baseline (Biobío excluded) & $-1.71$ & 0.00 & 0.38 & 0.92 \\
+Chile & Ring 1: exclude O'Higgins & $-5.42$ & $-3.71$ & 0.59 & 0.91 \\
+Chile & Ring 2: exclude O'Higgins + Araucanía & $-0.68$ & +1.03 & 0.60 & 0.90 \\
+New~Zealand & Baseline donor pool & +7.52 & 0.00 & 8.26 & 0.07 \\
+New~Zealand & Ring 1: exclude Auckland + Wellington & +10.89 & +3.37 & 2.62 & 0.31 \\
+New~Zealand & Ring 2: North-Island corridor exclusion & +5.63 & $-1.89$ & 2.62 & 0.11 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Mean post gaps are averages over 2010--2019 for Chile and 2011--2019 for New~Zealand. RMSPE-ratio $p$ values are one-sided placebo-rank probabilities from the same donor-restricted design as each row. Full outputs are in \texttt{article\_assets/spillover\_sensitivity\_summary.csv}.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Gap paths under progressive spillover-robust donor exclusions}}
+\label{fig:spillover_paths}
+\includegraphics[width=0.95\textwidth]{article_assets/spillover_sensitivity_paths.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each panel overlays treated-minus-synthetic GDP-per-capita gaps for baseline and progressively stricter geographic exclusion rules. The vertical dashed line marks treatment timing (2010 for Maule, 2011 for Canterbury). This figure visualizes the magnitude movement summarized in Table~\ref{tab:spillover_sensitivity}.
+\end{minipage}
+\end{figure}
 
 \printbibliography
 \section*{Data and code availability}
