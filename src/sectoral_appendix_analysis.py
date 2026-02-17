@@ -182,7 +182,7 @@ def _fit_scm_model(
     return result, placebo_test
 
 
-def _plot_paths(result: ModelResult, output_name: str, y_label: str) -> None:
+def _plot_paths(result: ModelResult, output_name: str, y_label: str, output_dir: str) -> None:
     is_share = result.scale == "share"
     scale_factor = 100.0 if is_share else 1.0
     y_suffix = " (%)" if is_share else ""
@@ -209,7 +209,7 @@ def _plot_paths(result: ModelResult, output_name: str, y_label: str) -> None:
     ax.grid(alpha=0.2)
     ax.legend(loc="best")
     fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES_DIR, output_name), dpi=220)
+    fig.savefig(os.path.join(output_dir, output_name), dpi=220)
     plt.close(fig)
 
 
@@ -218,6 +218,7 @@ def _plot_placebo_gaps(
     placebo_test: PlaceboTest,
     output_name: str,
     y_label: str,
+    output_dir: str,
     mspe_threshold: float = 100.0,
 ) -> None:
     gaps = placebo_test.gaps.copy()
@@ -254,7 +255,7 @@ def _plot_placebo_gaps(
     ax.legend(loc="best")
     ax.grid(alpha=0.2)
     fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES_DIR, output_name), dpi=220)
+    fig.savefig(os.path.join(output_dir, output_name), dpi=220)
     plt.close(fig)
 
 
@@ -357,7 +358,7 @@ def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, p
     os.makedirs(output_dir, exist_ok=True)
 
     nz_df, nz_share_cols = _build_nz_dataset()
-    chile_df, chile_share_cols, chile_level_nonconstruction_cols = _build_chile_dataset()
+    chile_df, chile_share_cols, _ = _build_chile_dataset()
 
     nz_years = list(range(NZ_START_YEAR, NZ_END_YEAR + 1))
     chile_years = list(range(CHILE_START_YEAR, CHILE_END_YEAR + 1))
@@ -412,12 +413,14 @@ def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, p
         nz_construction_share,
         output_name="nz_scm_Construction.png",
         y_label="Construction share",
+        output_dir=output_dir,
     )
     _plot_placebo_gaps(
         nz_construction_share,
         nz_construction_share_placebo,
         output_name="nz_sector_placebo_construction_share.png",
         y_label="Gap",
+        output_dir=output_dir,
     )
 
     nz_other_share, _ = _fit_scm_model(
@@ -445,6 +448,7 @@ def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, p
         nz_other_share,
         output_name="nz_scm_Other_Sectors.png",
         y_label="Non-construction share",
+        output_dir=output_dir,
     )
 
     nz_other_level, nz_other_level_placebo = _fit_scm_model(
@@ -472,12 +476,14 @@ def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, p
         nz_other_level,
         output_name="nz_scm_nonconstruction_level.png",
         y_label="Non-construction GDP level",
+        output_dir=output_dir,
     )
     _plot_placebo_gaps(
         nz_other_level,
         nz_other_level_placebo,
         output_name="nz_sector_placebo_nonconstruction_level.png",
         y_label="Gap",
+        output_dir=output_dir,
     )
 
     # Chile baseline models.
@@ -506,12 +512,14 @@ def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, p
         chile_construction_share,
         output_name="chile_scm_Construction.png",
         y_label="Construction share",
+        output_dir=output_dir,
     )
     _plot_placebo_gaps(
         chile_construction_share,
         chile_construction_share_placebo,
         output_name="chile_sector_placebo_construction_share.png",
         y_label="Gap",
+        output_dir=output_dir,
     )
 
     chile_other_share, _ = _fit_scm_model(
@@ -539,6 +547,7 @@ def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, p
         chile_other_share,
         output_name="chile_scm_Other_Sectors.png",
         y_label="Non-construction share",
+        output_dir=output_dir,
     )
 
     chile_other_level, chile_other_level_placebo = _fit_scm_model(
@@ -566,12 +575,14 @@ def run_sectoral_appendix_analysis(output_dir: str = FIGURES_DIR) -> dict[str, p
         chile_other_level,
         output_name="chile_scm_nonconstruction_level.png",
         y_label="Non-construction GDP level",
+        output_dir=output_dir,
     )
     _plot_placebo_gaps(
         chile_other_level,
         chile_other_level_placebo,
         output_name="chile_sector_placebo_nonconstruction_level.png",
         y_label="Gap",
+        output_dir=output_dir,
     )
 
     # Alternative grouping sensitivity.
