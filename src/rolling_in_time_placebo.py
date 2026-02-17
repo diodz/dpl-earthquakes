@@ -233,8 +233,8 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         os.path.join(output_dir, "rolling_in_time_placebo_chile.png"),
     )
 
-    # Two-panel figure for manuscript
-    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=True)
+    # Two-panel figure for manuscript (separate y-axes: NZ ~0–10%, Chile ~-45–5%)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=False)
     for ax, paths_df, actual_year, title in [
         (axes[0], nz_paths, NZ_ACTUAL_TREATMENT, "New Zealand (Canterbury)"),
         (axes[1], chile_paths, CHILE_ACTUAL_TREATMENT, "Chile (Maule)"),
