@@ -893,13 +893,20 @@ def run_nighttime_lights_validation(output_dir: Path = _FIGURES_DIR) -> pd.DataF
         output_path=output_dir / "ntl_spatial_sensitivity_buffers.png",
     )
 
-    panel_df.to_csv(output_dir / "ntl_regional_panel.csv", index=False)
-    path_df.to_csv(output_dir / "ntl_scm_gaps.csv", index=False)
-    summary_df.to_csv(output_dir / "ntl_scm_summary.csv", index=False)
-    baseline_summary.to_csv(output_dir / "ntl_validation_summary.csv", index=False)
-    weights_df.to_csv(output_dir / "ntl_scm_weights.csv", index=False)
-    maule_series.to_csv(output_dir / "ntl_maule_urban_mask_series.csv", index=False)
-    canterbury_buffer_series.to_csv(output_dir / "ntl_nz_buffer_sensitivity.csv", index=False)
+    float_format = "%.10f"
+    panel_df.to_csv(output_dir / "ntl_regional_panel.csv", index=False, float_format=float_format)
+    path_df.to_csv(output_dir / "ntl_scm_gaps.csv", index=False, float_format=float_format)
+    summary_df.to_csv(output_dir / "ntl_scm_summary.csv", index=False, float_format=float_format)
+    baseline_summary.to_csv(
+        output_dir / "ntl_validation_summary.csv", index=False, float_format=float_format
+    )
+    weights_df.to_csv(output_dir / "ntl_scm_weights.csv", index=False, float_format=float_format)
+    maule_series.to_csv(
+        output_dir / "ntl_maule_urban_mask_series.csv", index=False, float_format=float_format
+    )
+    canterbury_buffer_series.to_csv(
+        output_dir / "ntl_nz_buffer_sensitivity.csv", index=False, float_format=float_format
+    )
 
     return baseline_summary
 
