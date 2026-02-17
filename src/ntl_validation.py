@@ -259,6 +259,14 @@ def _run_ntl_scm(
     work = work[(work["Year"] >= start_year) & (work["Year"] <= end_year)]
 
     pivot = work.pivot(index="Region", columns="Year", values=ntl_col)
+    available = set(pivot.index)
+    missing = [r for r in regions if r not in available]
+    if missing:
+        raise ValueError(
+            f"NTL data is missing {len(missing)} required region(s): {missing}. "
+            f"Available regions in data: {sorted(available)}. "
+            "Check region name spelling and that all treated/control regions exist in the input."
+        )
     years = sorted([int(y) for y in pivot.columns])
     pre_years = [y for y in years if y < treatment_year]
     post_years = [y for y in years if y >= treatment_year]
