@@ -8,6 +8,7 @@ import pandas as pd
 from pysyncon import Dataprep, PenalizedSynth, Synth
 
 import nz_util
+from math_utils import project_to_simplex
 
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIGURES_DIR = os.path.join(_PROJECT_ROOT, "article_assets")
@@ -60,17 +61,6 @@ class GapStats:
     post_rmspe_pct: float
 
 
-def _project_to_simplex(vec: np.ndarray) -> np.ndarray:
-    sorted_vec = np.sort(vec)[::-1]
-    cumsum = np.cumsum(sorted_vec)
-    rho_candidates = np.nonzero(
-        sorted_vec * np.arange(1, len(vec) + 1) > (cumsum - 1)
-    )[0]
-    rho = int(rho_candidates[-1])
-    theta = (cumsum[rho] - 1) / (rho + 1)
-    return np.maximum(vec - theta, 0.0)
-
-
 def _solve_simplex_with_intercept(
     design_matrix: np.ndarray,
     target_vector: np.ndarray,
@@ -101,7 +91,7 @@ def _solve_simplex_with_intercept(
             x_centered.T @ (x_centered @ weights - y_centered)
             + regularization * weights
         )
-        weights = _project_to_simplex(weights - step_size * gradient)
+        weights = project_to_simplex(weights - step_size * gradient)
 
         if iteration % 300 == 0:
             obj = float(
