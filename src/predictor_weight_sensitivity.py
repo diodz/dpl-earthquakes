@@ -211,7 +211,8 @@ def _fit_and_summarize(
 
 def main() -> None:
     chile_df = pd.read_csv(os.path.join(PROJECT_ROOT, "inter", "processed_chile.csv"))
-    nz_df = nz_util.clean_data_for_synthetic_control()
+    nz_df = nz_util.clean_data_for_synthetic_control().copy()
+    nz_df["Tertiary Share"] = nz_df["Tertiary"] / nz_df["Population"]
     chile_df, nz_df, harmonized_cols = _add_harmonized_predictors(chile_df, nz_df)
 
     rows: list[dict] = []
