@@ -161,8 +161,8 @@ def _evaluate_scenario(
 
     all_years = list(range(int(df[time_col].min()), int(df[time_col].max()) + 1))
     z0, z1 = synth.dataprep.make_outcome_mats(time_period=all_years)
-    synthetic = synth._synthetic(z0).astype(float)
-    treated_outcome = z1.astype(float)
+    synthetic = pd.Series(np.asarray(synth._synthetic(z0)).flatten().astype(float), index=all_years)
+    treated_outcome = pd.Series(np.asarray(z1).flatten().astype(float), index=all_years)
     treated_gap_level = treated_outcome - synthetic
 
     pivot = (
