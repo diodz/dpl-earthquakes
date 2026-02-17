@@ -636,6 +636,121 @@ Chile & Services (non-construction) & +5.62 & 2.67 & 0.17 \\
 \end{minipage}
 \end{table}
 
+\section{Spillover diagnostics and SUTVA-robust donor pool analysis}
+\label{sec:spillover_appendix}
+
+A central assumption of the SCM is the \emph{Stable Unit Treatment Value Assumption} (SUTVA): the treated region's earthquake should not spill over to the donor (control) regions through migration, labor reallocation, or trade/input-output links. Reviewers raised the concern that adjacent regions---in particular O'Higgins (VI) for Maule and Auckland/Wellington for Canterbury---may have been contaminated by such channels. Below we provide three complementary diagnostics.
+
+\paragraph{Population-flow evidence.}
+Table~\ref{tab:spillover_pop} reports average annual population growth rates in the five years before and after the treatment year for each donor region, grouped by geographic proximity. In Canterbury, population growth fell markedly post-earthquake ($-0.46$~p.p.), while nearby South Island regions such as Otago ($+0.58$~p.p.) and Tasman/Nelson ($+0.65$~p.p.) saw notable \emph{increases}---consistent with earthquake-driven outmigration from Canterbury. West Coast, a small neighbouring region, saw a sharp decline ($-0.63$~p.p.), possibly reflecting broader South Island disruption. In Chile, changes were modest across the board: the treated Maule region and adjacent O'Higgins both saw slight declines ($-0.04$~p.p. each), with no anomalous spikes in any adjacent donor.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Population growth change around earthquake (post minus pre, percentage points)}}
+\label{tab:spillover_pop}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Region} & \textbf{Category} & \textbf{Pre (\%/yr)} & \textbf{$\Delta$~(p.p.)} \\
+\midrule
+\multicolumn{5}{l}{\textit{Chile (treatment year: 2010)}} \\
+& VII Del Maule & Treated & 0.82 & $-0.04$ \\
+& VI O'Higgins & Adjacent & 0.99 & $-0.04$ \\
+& VIII Biobío & Adjacent$^*$ & 0.67 & $-0.05$ \\
+& RM Santiago & Non-adj. & 1.02 & $-0.11$ \\
+\midrule
+\multicolumn{5}{l}{\textit{New Zealand (treatment year: 2011)}} \\
+& Canterbury & Treated & 1.32 & $-0.46$ \\
+& Otago & Adjacent & 0.71 & $+0.58$ \\
+& Tasman/Nelson & Adjacent & 0.88 & $+0.65$ \\
+& West Coast & Adjacent & 0.68 & $-0.63$ \\
+& Auckland & Non-adj. & 1.36 & $+0.21$ \\
+& Wellington & Non-adj. & 0.77 & $+0.21$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Pre- and post-treatment windows are five years each. $^*$Biobío is already excluded from the Chile donor pool due to direct earthquake exposure. Full results for all regions are available in the supplementary data file \texttt{spillover\_population\_diagnostics.csv}.
+\end{minipage}
+\end{table}
+
+\paragraph{Sectoral-linkage proxy.}
+As a proxy for inter-regional trade and input-output exposure, we compute the cosine similarity of pre-treatment sectoral GDP composition between the treated region and each donor (Table~\ref{tab:spillover_linkage}). Higher similarity suggests a greater potential for economic spillovers. In Chile, the adjacent O'Higgins region has the fourth-highest sectoral similarity to Maule (0.87), while the already-excluded Biobío has even higher similarity (0.90). In New Zealand, adjacent South Island regions and Auckland all show high similarity ($>$0.93), consistent with strong economic linkages. These results motivate the geographic exclusion tests below.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Sectoral composition similarity (cosine) with treated region}}
+\label{tab:spillover_linkage}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llcc}
+\toprule
+\textbf{Country} & \textbf{Region} & \textbf{Category} & \textbf{Cosine sim.} \\
+\midrule
+\multicolumn{4}{l}{\textit{Chile---top 5 most similar to Maule}} \\
+& IX Araucanía & Non-adjacent & 0.924 \\
+& V Valparaíso & Non-adjacent & 0.913 \\
+& VIII Biobío$^*$ & Adjacent & 0.904 \\
+& VI O'Higgins & Adjacent & 0.874 \\
+& X Los Lagos & Non-adjacent & 0.840 \\
+\midrule
+\multicolumn{4}{l}{\textit{NZ---top 5 most similar to Canterbury}} \\
+& Tasman/Nelson & Adjacent & 0.987 \\
+& Bay of Plenty & Non-adjacent & 0.986 \\
+& Waikato & Non-adjacent & 0.976 \\
+& Northland & Non-adjacent & 0.970 \\
+& Otago & Adjacent & 0.960 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Cosine similarity computed on mean sectoral GDP shares over the five pre-treatment years. $^*$Biobío is already excluded from the Chile donor pool. Full results in \texttt{spillover\_sectoral\_linkage.csv}.
+\end{minipage}
+\end{table}
+
+\paragraph{Geographically structured donor exclusions.}
+To test whether spatial spillovers bias the main estimates, we re-estimate the SCM under progressively restrictive donor pools. For Chile, we define geographic rings around Maule: Ring~1 excludes the directly adjacent O'Higgins (VI); Ring~1+2 additionally removes the next tier of nearby regions (RM Santiago, Valparaíso, Araucanía). For New Zealand, Ring~1 excludes South Island neighbours (West Coast, Otago, Marlborough, Tasman/Nelson); subsequent exclusions additionally remove the major linked North Island centres (Auckland, Wellington). Table~\ref{tab:spillover_exclusion} and Figure~\ref{fig:spillover_comparison} present the results.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{SCM estimates under progressive geographic donor exclusion}}
+\label{tab:spillover_exclusion}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Country} & \textbf{Donor pool scenario} & \textbf{$N$ donors} & \textbf{Pre RMSPE} & \textbf{Post/Pre RMSPE} & \textbf{Mean gap (\%)} \\
+\midrule
+Chile & Baseline (all donors) & 11 & 5.07 & 0.93 & $-4.45$ \\
+Chile & Excl.\ O'Higgins & 10 & 3.67 & 1.86 & $-5.81$ \\
+Chile & Excl.\ Ring 1+2 & 7 & 4.38 & 0.67 & $-0.81$ \\
+\midrule
+New Zealand & Baseline (all donors) & 14 & 1.00 & 8.74 & $+7.79$ \\
+New Zealand & Excl.\ adjacent SI & 10 & 2.33 & 4.36 & $+9.56$ \\
+New Zealand & Excl.\ SI adj.\ + Auck/Well & 8 & 5.01 & 2.66 & $+12.71$ \\
+New Zealand & North Island only & 7 & 5.04 & 2.65 & $+12.75$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Pre and Post RMSPE are in percentage terms. Mean gap is the average percentage gap between treated and synthetic over the post-treatment window through 2019. The pre-treatment fit naturally degrades with fewer donors, but the qualitative conclusions are robust.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Mean post-treatment gap under progressive donor exclusion}}
+\label{fig:spillover_comparison}
+\includegraphics[width=0.95\textwidth]{article_assets/spillover_donor_exclusion_comparison.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Bars show the mean post-treatment gap (in percent) for each donor-pool scenario. Red bars indicate the baseline specification. Annotations show the RMSPE ratio for each scenario.
+\end{minipage}
+\end{figure}
+
+\paragraph{Assessment.}
+For \textbf{Chile (Maule)}, the treatment effect estimate remains near zero across all donor exclusion scenarios. Under the most restrictive pool (7 remote donors only), the mean post-gap shrinks to $-0.81\%$ with a post/pre RMSPE ratio of 0.67. This confirms that Maule's null result is not an artifact of spillover contamination from O'Higgins or other nearby regions. The population-flow evidence is also reassuring: no adjacent Chilean region shows an anomalous post-earthquake population surge that would signal significant migration-driven SUTVA violation.
+
+For \textbf{New Zealand (Canterbury)}, the positive treatment effect \emph{persists and strengthens} as potentially contaminated donors are removed. The mean post-gap rises from $+7.8\%$ (baseline) to $+12.7\%$ under the most restrictive pool (North Island only, 7 donors). This is consistent with mild \emph{negative} spillovers to nearby South Island regions (i.e., adjacent regions received some of Canterbury's pre-quake activity, so including them in the donor pool partially absorbs the Canterbury effect into the synthetic control). The population data corroborate this interpretation: Otago and Tasman/Nelson experienced notable post-quake population growth increases, likely reflecting inward migration from Canterbury. Therefore, if anything, the baseline Canterbury estimate of $\approx 8\%$ is \emph{conservative}---a conclusion that strengthens rather than weakens the finding.
+
+Overall, estimates are qualitatively stable under progressively stricter SUTVA assumptions. The null result for Maule holds, and Canterbury's positive overshoot remains significant, across all spillover-robust donor pool configurations tested.
+
 \printbibliography
 \section*{Data and code availability}
 All data are from official statistical sources cited in the text. The scripts used to assemble the datasets and to run the SCM (\texttt{pysyncon}) are available from the authors upon request.

@@ -12,6 +12,8 @@ Runs:
   7. Canterbury SCM.ipynb - regenerates nz_*, nz_scm_Construction, nz_scm_Other_Sectors
   8. src/sectoral_appendix_analysis.py - sectoral SCM appendix outputs/inference (runs last
      so its nz_scm_Construction.png and nz_scm_Other_Sectors.png are the final versions)
+  9. src/spillover_diagnostics.py - spillover/SUTVA diagnostics with geographic donor
+     exclusion analysis for both Chile and NZ
 
 All figures are written to article_assets/ (used by main.tex).
 """
@@ -88,6 +90,14 @@ def main():
     print("Running sectoral SCM appendix script...")
     subprocess.run(
         [sys.executable, os.path.join(PROJECT_ROOT, "src", "sectoral_appendix_analysis.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
+
+    # 9. Run spillover / SUTVA diagnostics (geographic donor exclusion analysis).
+    print("Running spillover / SUTVA diagnostics script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "spillover_diagnostics.py")],
         check=True,
         cwd=PROJECT_ROOT,
     )
