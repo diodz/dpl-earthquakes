@@ -74,7 +74,7 @@ def main():
     subprocess.run(
         [sys.executable, os.path.join(PROJECT_ROOT, "src", "spillover_diagnostics.py")],
         check=True,
-        cwd=os.path.join(PROJECT_ROOT, "src"),
+        cwd=PROJECT_ROOT,
     )
 
     # 7–8. Execute notebooks (nbconvert --execute runs from notebook's directory)
