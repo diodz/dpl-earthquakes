@@ -9,6 +9,7 @@ Runs:
   3. src/sdid_bias_corrected_analysis.py - generates SDID / penalized SCM robustness outputs
   4. src/uniform_confidence_analysis.py - uniform confidence sets + sensitivity checks
   5. src/treatment_timing_sensitivity.py - treatment-year sensitivity diagnostics/figures
+  5b. src/rolling_in_time_placebo.py - rolling in-time placebo for every pre-treatment year (Comment 3.2)
   6. src/nighttime_lights_validation.py - generates independent NTL validation outputs
   6b. src/spillover_diagnostics.py - generates SUTVA/spillover diagnostics outputs
   7. Maule SCM.ipynb - generates maule_*, chile_jacknife figures
@@ -64,6 +65,14 @@ def main():
     print("Running treatment timing sensitivity script...")
     subprocess.run(
         [sys.executable, os.path.join(PROJECT_ROOT, "src", "treatment_timing_sensitivity.py")],
+        check=True,
+        cwd=PROJECT_ROOT,
+    )
+
+    # 5b. Run rolling in-time placebo (every pre-treatment year) per Comment 3.2.
+    print("Running rolling in-time placebo script...")
+    subprocess.run(
+        [sys.executable, os.path.join(PROJECT_ROOT, "src", "rolling_in_time_placebo.py")],
         check=True,
         cwd=PROJECT_ROOT,
     )
