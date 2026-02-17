@@ -1,3 +1,4 @@
+#raw_reviewer_comments.md
 Comments to the author (if any):
 Reviewer #1: Referee Report
 Manuscript Title: Earthquakes and the Wealth of Nations: The cases of Chile and New Zealand Manuscript Number: EMEC-D-25-01824
