@@ -8,50 +8,25 @@ import pandas as pd
 from pysyncon import Dataprep, PenalizedSynth, Synth
 
 import nz_util
-from math_utils import project_to_simplex
+from math_utils import (
+    project_to_simplex,
+    NZ_TREATED,
+    NZ_CONTROLS,
+    NZ_START_YEAR,
+    NZ_TREATMENT_YEAR,
+    NZ_END_YEAR,
+    CHILE_TREATED,
+    CHILE_CONTROLS,
+    CHILE_TREATMENT_YEAR,
+    CHILE_END_YEAR,
+)
 
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIGURES_DIR = os.path.join(_PROJECT_ROOT, "article_assets")
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
-NZ_TREATED = "Canterbury"
-NZ_CONTROLS = [
-    "Auckland",
-    "Bay of Plenty",
-    "Gisborne",
-    "Hawke's Bay",
-    "Manawatu-Whanganui",
-    "Marlborough",
-    "Northland",
-    "Otago",
-    "Southland",
-    "Taranaki",
-    "Tasman/Nelson",
-    "Waikato",
-    "Wellington",
-    "West Coast",
-]
-NZ_START_YEAR = 2000
-NZ_TREATMENT_YEAR = 2011
-NZ_END_YEAR = 2019
-
-CHILE_TREATED = "VII Del Maule"
-CHILE_CONTROLS = [
-    "I De Tarapacá",
-    "II De Antofagasta",
-    "III De Atacama",
-    "IV De Coquimbo",
-    "V De Valparaíso",
-    "RMS Región Metropolitana de Santiago",
-    "VI Del Libertador General Bernardo OHiggins",
-    "IX De La Araucanía",
-    "X De Los Lagos",
-    "XI Aysén del General Carlos Ibáñez del Campo",
-    "XII De Magallanes y de la Antártica Chilena",
-]
+# GDP-specific start year (first year of processed_chile.csv)
 CHILE_START_YEAR = 1990
-CHILE_TREATMENT_YEAR = 2010
-CHILE_END_YEAR = 2019
 
 
 @dataclass
