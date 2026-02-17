@@ -37,8 +37,12 @@ def _placebo_rank_for_candidate(
         )
 
     placebo_df = pd.DataFrame(placebo_ratios).dropna(subset=['RMSPE_Ratio'])
-    rank = int((placebo_df['RMSPE_Ratio'] >= treated_rmspe_ratio).sum() + 1)
-    percentile = rank / float(len(placebo_df) + 1)
+    if np.isnan(treated_rmspe_ratio):
+        rank = np.nan
+        percentile = np.nan
+    else:
+        rank = int((placebo_df['RMSPE_Ratio'] >= treated_rmspe_ratio).sum() + 1)
+        percentile = rank / float(len(placebo_df) + 1)
     return rank, percentile, placebo_df
 
 
