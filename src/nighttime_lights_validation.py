@@ -169,15 +169,38 @@ def _resolve_yearly_rasters(spec: ProductSpec, years: list[int]) -> dict[int, Pa
     target_dir = _RASTER_DIR / spec.output_subdir
     target_dir.mkdir(parents=True, exist_ok=True)
 
-    key_to_url = _fetch_zenodo_file_map(spec.zenodo_record_id)
-    all_keys = list(key_to_url.keys())
     year_to_path: dict[int, Path] = {}
+    missing_years: list[int] = []
+
+    # First, check what files are already cached locally
+    existing_files = [f.name for f in target_dir.iterdir() if f.is_file() and f.suffix == ".tif"]
 
     for year in years:
+        try:
+            # Try to find a matching file in existing local files
+            key = spec.key_selector(existing_files, year)
+            local_path = target_dir / key
+            if local_path.exists() and local_path.stat().st_size > 0:
+                year_to_path[year] = local_path
+            else:
+                missing_years.append(year)
+        except KeyError:
+            missing_years.append(year)
+
+    # If all years are covered by local files, we're done without network access
+    if not missing_years:
+        return year_to_path
+
+    # Only fetch from Zenodo API if we need to download missing files
+    key_to_url = _fetch_zenodo_file_map(spec.zenodo_record_id)
+    all_keys = list(key_to_url.keys())
+
+    for year in missing_years:
         key = spec.key_selector(all_keys, year)
         destination = target_dir / key
         _download_file(key_to_url[key], destination, timeout=600)
         year_to_path[year] = destination
+
     return year_to_path
 
 
