@@ -38,7 +38,6 @@ Nguyen, C.N. & Noy, I. (2020). Measuring the impact of insurance on urban
     20(3), 857-877.
 """
 
-import os
 from pathlib import Path
 
 import matplotlib
