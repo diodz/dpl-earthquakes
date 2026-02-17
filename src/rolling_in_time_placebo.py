@@ -14,6 +14,8 @@ import os
 from typing import Callable
 
 import matplotlib.pyplot as plt
+import matplotlib.cm as mcm
+import matplotlib.colors as mcolors
 import numpy as np
 import pandas as pd
 from pysyncon import Dataprep, Synth
@@ -234,27 +236,41 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     )
 
     # Two-panel figure for manuscript (separate y-axes: NZ ~0–10%, Chile ~-45–5%)
+    # Placebo lines colored by candidate treatment year (colorbar); actual treatment in red.
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=False)
     for ax, paths_df, actual_year, title in [
         (axes[0], nz_paths, NZ_ACTUAL_TREATMENT, "New Zealand (Canterbury)"),
         (axes[1], chile_paths, CHILE_ACTUAL_TREATMENT, "Chile (Maule)"),
     ]:
+        placebo_years = sorted(c for c in paths_df.columns if c != actual_year)
+        if placebo_years:
+            norm = mcolors.Normalize(vmin=min(placebo_years), vmax=max(placebo_years))
+            cmap = mcm.get_cmap("viridis")
         for col in paths_df.columns:
             is_actual = col == actual_year
+            if is_actual:
+                color = "red"
+            else:
+                color = cmap(norm(col)) if placebo_years else "gray"
             ax.plot(
                 paths_df.index,
                 paths_df[col],
-                color="red" if is_actual else "gray",
+                color=color,
                 linewidth=2.5 if is_actual else 0.7,
-                alpha=0.9 if is_actual else 0.45,
+                alpha=0.9 if is_actual else 0.6,
             )
         ax.axvline(actual_year, color="red", linestyle="--", linewidth=1, alpha=0.7)
         ax.axhline(0, color="black", linewidth=0.8)
         ax.set_xlabel("Year")
         ax.set_title(title)
         ax.grid(alpha=0.2)
+        if placebo_years:
+            sm = mcm.ScalarMappable(norm=norm, cmap=cmap)
+            sm.set_array([])
+            cbar = fig.colorbar(sm, ax=ax, shrink=0.7, aspect=25)
+            cbar.set_label("Placebo treatment year", fontsize=8)
     axes[0].set_ylabel("Gap (%)")
-    fig.suptitle("Rolling in-time placebo: gap path for every pre-treatment year (gray) vs actual treatment year (red)")
+    fig.suptitle("Rolling in-time placebo: gap path by candidate treatment year (colorbar) vs actual treatment year (red)")
     fig.tight_layout(rect=(0, 0, 1, 0.96))
     fig.savefig(os.path.join(output_dir, "rolling_in_time_placebo_paths.png"), dpi=220)
     plt.close(fig)
