@@ -319,6 +319,9 @@ def _build_chile_dataset() -> tuple[pd.DataFrame, list[str]]:
     df["Construction_share"] = df["construction_share"]  # normalized
     df["NonConstruction_share"] = 1.0 - df["Construction_share"]
 
+    # Calculate proper pesca level from normalized share and GDP (pesca_pct is a percentage, not a level)
+    df["pesca"] = df["fishery_share"] * df["pib"]
+
     level_cols_non_construction = [
         "adm_publica",
         "agropecuario",
@@ -326,7 +329,7 @@ def _build_chile_dataset() -> tuple[pd.DataFrame, list[str]]:
         "electricidad",
         "industria",
         "mineria",
-        "pesca_pct",
+        "pesca",
         "vivienda",
         "financieros",
         "personales",
