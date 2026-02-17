@@ -278,7 +278,7 @@ def _compute_population_flow_diagnostics(
     """Compute pre/post population growth rates for treated, adjacent, and
     non-adjacent region groups as a proxy for migration flows."""
     pre_years = list(range(treatment_year - pre_window, treatment_year))
-    post_years = list(range(treatment_year, treatment_year + post_window + 1))
+    post_years = list(range(treatment_year, treatment_year + post_window))
 
     def _avg_growth(region_list, year_range):
         sub = df[df[unit_col].isin(region_list) & df[time_col].isin(year_range)]
@@ -323,7 +323,7 @@ def _compute_sector_spillover_diagnostics(
     """Compute pre/post construction-share changes for adjacent vs non-adjacent
     regions as a proxy for labour reallocation spillovers."""
     pre_years = list(range(treatment_year - pre_window, treatment_year))
-    post_years = list(range(treatment_year, treatment_year + post_window + 1))
+    post_years = list(range(treatment_year, treatment_year + post_window))
 
     def _avg_constr(region_list, year_range):
         sub = df[df[unit_col].isin(region_list) & df[time_col].isin(year_range)]
