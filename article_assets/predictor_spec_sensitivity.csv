@@ -1,0 +1,13 @@
+country,specification,vm_config,optim_method,optim_initial,n_predictors,pre_rmspe,post_rmspe,post_pre_rmspe_ratio,mean_post_gap_pct
+Chile,baseline_country_specific,baseline_vm,Nelder-Mead,ols,12,50313.93114768269,71919.71239191436,1.4294194619938134,-1.4889597930190546
+Chile,baseline_country_specific,vm_alt_init,Nelder-Mead,equal,12,187632.66633923064,533906.6814980091,2.845488964766573,-14.15160356009089
+Chile,baseline_country_specific,vm_alt_method,Powell,ols,12,50293.28469990361,78991.53985239158,1.5706180322826075,-1.6970698075018888
+Chile,harmonized_reduced,baseline_vm,Nelder-Mead,ols,8,73106.27105182242,253910.52214208225,3.473170201255295,-6.894283949415647
+Chile,harmonized_reduced,vm_alt_init,Nelder-Mead,equal,8,150664.71331188342,182038.58739971052,1.2082363773054254,-5.909832236485211
+Chile,harmonized_reduced,vm_alt_method,Powell,ols,8,53405.75240120919,190450.28089009778,3.5661005102848375,-5.228288297157488
+New Zealand,baseline_country_specific,baseline_vm,Nelder-Mead,equal,15,329.71393449188116,4476.481356119227,13.576864329431169,8.077347626848672
+New Zealand,baseline_country_specific,vm_alt_init,Nelder-Mead,ols,15,529.6296922768055,5065.475520224986,9.564183417378283,9.795215112443731
+New Zealand,baseline_country_specific,vm_alt_method,Powell,equal,15,306.6545533932758,4487.609230439324,14.63408640368073,8.221784789916889
+New Zealand,harmonized_reduced,baseline_vm,Nelder-Mead,equal,8,328.82867331861263,4509.431020694276,13.71361863058987,8.141373209765565
+New Zealand,harmonized_reduced,vm_alt_init,Nelder-Mead,ols,8,422.7600703308867,4001.54906680842,9.465295678649309,7.124751586270768
+New Zealand,harmonized_reduced,vm_alt_method,Powell,equal,8,298.3663329171383,3966.911662576731,13.295439950587232,7.215289834333054
