@@ -1,11 +1,12 @@
 """
-Maule (Chile) outcome decomposition: GDP per capita, total GDP, and population.
+Maule (Chile) outcome decomposition: GDP per capita only.
 
 Runs SCM with the same donor pool and pre-treatment setup as the baseline Maule analysis,
-varying only the dependent variable (gdp_cap, total_population, total_gdp). This addresses
-the referee request (Comment 3.1) that the denominator-effect / interpretability logic
-apply to both treated regions: even if Maule shows null effects everywhere, reporting the
-decomposition forecloses a composition/migration critique.
+with dependent variable gdp_cap (GDP per capita). Regional population (and thus total GDP)
+in our Chilean source (scm_chile_2010.xlsx) are available only for a short year window
+(about 7 years), so we do not run population or total_gdp outcomes for Maule; those
+would produce misleading paths/gaps. The GDP-per-capita decomposition alone addresses
+Comment 3.1 by showing that the Maule null result holds for the main Y/L outcome.
 """
 import os
 from typing import Dict
@@ -50,6 +51,8 @@ CHILE_PREDICTORS = [
     "publica",
 ]
 
+# Only GDP per capita: regional population (and thus total_gdp) are not available
+# over the full SCM window in the Chile source, so we do not run those outcomes.
 OUTCOME_SPECS: Dict[str, Dict[str, object]] = {
     "gdp_per_capita": {
         "column": "gdp_cap",
@@ -57,20 +60,6 @@ OUTCOME_SPECS: Dict[str, Dict[str, object]] = {
         "scale": 1.0,
         "path_figure": "chile_maule_gdp_paths.png",
         "gap_figure": "chile_maule_gdp_gap.png",
-    },
-    "population": {
-        "column": "total_population",
-        "label": "Population",
-        "scale": 1.0,
-        "path_figure": "chile_maule_population_paths.png",
-        "gap_figure": "chile_maule_population_gap.png",
-    },
-    "total_gdp": {
-        "column": "total_gdp",
-        "label": "Gross Domestic Product (CLP)",
-        "scale": 1e8,
-        "path_figure": "chile_maule_total_gdp_paths.png",
-        "gap_figure": "chile_maule_total_gdp_gap.png",
     },
 }
 
