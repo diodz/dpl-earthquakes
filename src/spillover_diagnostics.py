@@ -149,8 +149,13 @@ def _build_chile_dataprep(
     controls: list[str],
     treatment_year: int = CHILE_TREATMENT_YEAR,
 ) -> Dataprep:
-    pred_window = range(max(CHILE_FIT_START, treatment_year - 5), treatment_year)
-    edu_window = range(max(CHILE_FIT_START, treatment_year - 2), treatment_year)
+    # Use hardcoded baseline windows matching the paper specification.
+    # Predictors: range(2005, 2009) (years 2005-2008)
+    # Education: range(2008, 2009) (year 2008)
+    # Optimization: range(1990, 2009) (years 1990-2008)
+    # These windows exclude 2009+ to avoid contamination from the Feb 2010 earthquake.
+    pred_window = range(2005, 2009)
+    edu_window = range(2008, 2009)
     return Dataprep(
         foo=df,
         predictors=CHILE_PREDICTORS,
@@ -165,7 +170,7 @@ def _build_chile_dataprep(
         time_variable="year",
         treatment_identifier=CHILE_TREATED,
         controls_identifier=controls,
-        time_optimize_ssr=range(CHILE_FIT_START, treatment_year),
+        time_optimize_ssr=range(1990, 2009),
     )
 
 
@@ -174,8 +179,14 @@ def _build_nz_dataprep(
     controls: list[str],
     treatment_year: int = NZ_TREATMENT_YEAR,
 ) -> Dataprep:
-    pred_window = range(max(NZ_FIT_START, treatment_year - 5), treatment_year)
-    tert_window = range(max(NZ_FIT_START, treatment_year - 2), treatment_year)
+    # Use hardcoded baseline windows matching the paper specification.
+    # Predictors: range(2005, 2009) (years 2005-2008)
+    # Tertiary: range(2008, 2009) (year 2008)
+    # Optimization: range(2000, 2009) (years 2000-2008)
+    # These windows exclude 2009+ to avoid contamination from earthquake effects
+    # (the Sep 2010 Darfield earthquake partially affected 2010 data).
+    pred_window = range(2005, 2009)
+    tert_window = range(2008, 2009)
     return Dataprep(
         foo=df,
         predictors=nz_util.SECTORIAL_GDP_VARIABLES,
@@ -190,7 +201,7 @@ def _build_nz_dataprep(
         time_variable="Year",
         treatment_identifier=NZ_TREATED,
         controls_identifier=controls,
-        time_optimize_ssr=range(NZ_FIT_START, treatment_year),
+        time_optimize_ssr=range(2000, 2009),
     )
 
 
