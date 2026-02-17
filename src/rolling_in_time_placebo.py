@@ -106,9 +106,7 @@ def _run_rolling_placebo(
     dataprep_builder: Callable[[pd.DataFrame, int], Dataprep],
     candidate_years: list[int],
     actual_treatment_year: int,
-    unit_col: str,
     time_col: str,
-    outcome_col: str,
     fit_start_year: int,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """For each candidate year T, fit SCM with treatment_year=T; return gap paths and summary."""
@@ -197,9 +195,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         dataprep_builder=_build_nz_dataprep,
         candidate_years=nz_candidates,
         actual_treatment_year=NZ_ACTUAL_TREATMENT,
-        unit_col="Region",
         time_col="Year",
-        outcome_col="GDP per capita",
         fit_start_year=2000,
     )
     chile_paths, chile_summary = _run_rolling_placebo(
@@ -208,9 +204,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         dataprep_builder=_build_chile_dataprep,
         candidate_years=chile_candidates,
         actual_treatment_year=CHILE_ACTUAL_TREATMENT,
-        unit_col="region_name",
         time_col="year",
-        outcome_col="gdp_cap",
         fit_start_year=1990,
     )
 
@@ -234,7 +228,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     )
 
     # Two-panel figure for manuscript
-    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=False)
     for ax, paths_df, actual_year, title in [
         (axes[0], nz_paths, NZ_ACTUAL_TREATMENT, "New Zealand (Canterbury)"),
         (axes[1], chile_paths, CHILE_ACTUAL_TREATMENT, "Chile (Maule)"),
