@@ -2,6 +2,19 @@
 
 \subsection*{Reviewer \#1}
 
+\paragraph{Comment 2.2 (cross-case comparability and spatial heterogeneity).}
+\textit{``The Maule and Canterbury shocks differ in magnitude and geography (dispersed/rural vs urban hub). Please control for spatial damage intensity before attributing differences to institutions.''}
+
+\paragraph{Response.}
+Implemented with three additions in the revised manuscript:
+\begin{enumerate}
+  \item \textbf{Damage-normalized comparability checks.} In the robustness section we now report descriptive scaling metrics using common damage denominators from Table~\ref{tab:damage_compare}: peak SCM gap per US\$1 billion of direct damage and peak SCM gap per 1 percentage point of GDP-loss share. Canterbury remains positive under both normalizations, while Maule remains near zero.
+  \item \textbf{Symmetric timing windows across cases.} We now report treatment-year sensitivity for both countries (Chile: 2009/2010/2011 starts; New~Zealand: 2010/2011/2012 starts) to avoid attributing differences to arbitrary timing definitions.
+  \item \textbf{Spatial damage controls in measurement.} We added urban-core night-lights checks for both countries and Christchurch-centered 30/50/80 km buffer tests for Canterbury, in addition to the geographically progressive donor-exclusion tests in Appendix~\ref{sec:spillover_appendix}.
+\end{enumerate}
+
+Interpretation: these controls do not force physical equivalence between a subduction mega-event and an urban sequence; rather, they verify that the qualitative economic contrast (Canterbury positive overshoot, Maule near-null) is robust after explicitly accounting for differences in damage scale, timing conventions, and within-region spatial concentration.
+
 \paragraph{Comment 3.1 (GDP per-capita decomposition request).}
 We implemented the requested decomposition by extending the Canterbury SCM to estimate three outcomes under the \emph{same} donor pool and pre-treatment setup: (i) GDP per capita, (ii) total regional GDP (level), and (iii) total population.
 
@@ -118,6 +131,12 @@ We address this concern comprehensively in the new SUTVA/spillover diagnostics a
 \end{itemize}
 
 We conclude that the specific O'Higgins and Auckland contamination concerns do not threaten either the Maule null finding or the Canterbury positive finding.
+
+\paragraph{Major Comment 3 (event comparability: magnitude, multi-shock sequence, urban/rural composition).}
+\textit{``Please address whether physical and spatial differences between events, rather than institutions, explain divergent outcomes.''}
+
+\paragraph{Response.}
+Addressed in the revised introduction and robustness sections. We now: (i) explicitly frame comparability as a testable design problem, not an assumption; (ii) add damage-normalized SCM effect benchmarks based on common reported damage metrics; (iii) report symmetric timing-placebo windows across both countries; and (iv) include spatially focused validation checks (urban-core masks and Christchurch-centered buffers) to limit compositional bias from large heterogeneous regions. The results continue to show a robust Canterbury overshoot and a Maule near-null aggregate response. We therefore present the institutional interpretation as conditional and probabilistic (``institutions likely mediated outcomes''), while acknowledging remaining residual heterogeneity in shock physics and geography.
 
 \section*{Reproducibility note}
 
