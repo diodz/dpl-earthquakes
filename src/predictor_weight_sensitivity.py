@@ -88,7 +88,13 @@ class SCMConfig:
     optim_initial: str
 
 
-SCM_CONFIGS = [
+CHILE_SCM_CONFIGS = [
+    SCMConfig("baseline_vm", "Nelder-Mead", "ols"),
+    SCMConfig("vm_alt_init", "Nelder-Mead", "equal"),
+    SCMConfig("vm_alt_method", "Powell", "ols"),
+]
+
+NZ_SCM_CONFIGS = [
     SCMConfig("baseline_vm", "Nelder-Mead", "equal"),
     SCMConfig("vm_alt_init", "Nelder-Mead", "ols"),
     SCMConfig("vm_alt_method", "Powell", "equal"),
@@ -218,7 +224,7 @@ def main() -> None:
 
     rows: list[dict] = []
 
-    for config in SCM_CONFIGS:
+    for config in CHILE_SCM_CONFIGS:
         rows.append(
             _fit_and_summarize(
                 country="Chile",
@@ -258,6 +264,7 @@ def main() -> None:
             )
         )
 
+    for config in NZ_SCM_CONFIGS:
         rows.append(
             _fit_and_summarize(
                 country="New Zealand",
