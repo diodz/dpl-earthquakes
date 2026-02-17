@@ -528,7 +528,6 @@ def _plot_main_validation(path_df: pd.DataFrame, output_path: Path) -> None:
     fig, axes = plt.subplots(2, 2, figsize=(12, 7), sharex="col")
     countries = ["Chile", "New Zealand"]
     treatment_year = {"Chile": 2010, "New Zealand": 2011}
-    labels = {"Chile": "Maule", "New Zealand": "Canterbury"}
 
     for col, country in enumerate(countries):
         country_df = path_df[(path_df["country"] == country) & (path_df["product"] == "pcnl_harmonized")]
@@ -536,7 +535,8 @@ def _plot_main_validation(path_df: pd.DataFrame, output_path: Path) -> None:
         treated_idx = 100.0 * country_df["treated_level"] / base
         synth_idx = 100.0 * country_df["synthetic_level"] / base
 
-        axes[0, col].plot(country_df["year"], treated_idx, color="#d62728", linewidth=1.8, label=labels[country])
+        # Use generic "Treated"/"Synthetic" so legend applies to both Chile and New Zealand panels
+        axes[0, col].plot(country_df["year"], treated_idx, color="#d62728", linewidth=1.8, label="Treated")
         axes[0, col].plot(
             country_df["year"],
             synth_idx,
