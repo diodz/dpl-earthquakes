@@ -223,7 +223,10 @@ def _evaluate_scenario(
         [row["MeanGapPctCommonWindow"] for row in placebo_rows], dtype=float
     )
     placebo_mean_values = placebo_mean_values[np.isfinite(placebo_mean_values)]
-    mean_rank = int(np.sum(placebo_mean_values >= treated_mean_common)) + 1
+    if treated_mean_common >= 0:
+        mean_rank = int(np.sum(placebo_mean_values >= treated_mean_common)) + 1
+    else:
+        mean_rank = int(np.sum(placebo_mean_values <= treated_mean_common)) + 1
     mean_p_value = float(mean_rank / (placebo_mean_values.size + 1))
 
     summary_row = {
