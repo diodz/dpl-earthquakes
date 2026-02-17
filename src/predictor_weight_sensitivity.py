@@ -187,7 +187,8 @@ def _fit_and_summarize(
     treated_series = pd.Series(np.asarray(z1).flatten().astype(float), index=years)
     gap = treated_series - synthetic
 
-    pre_gap = gap[gap.index < treatment_year]
+    # Keep pre-period diagnostics aligned with the SSR optimization window.
+    pre_gap = gap[gap.index.isin(time_optimize_ssr)]
     post_gap = gap[(gap.index >= treatment_year) & (gap.index <= analysis_end_year)]
 
     pre_rmspe = _rms(pre_gap)
