@@ -140,12 +140,22 @@ def _download_file(url: str, destination: Path, timeout: int = 120) -> None:
     if destination.exists() and destination.stat().st_size > 0:
         return
 
+    # Download to a temporary file first to avoid caching partial downloads
+    temp_destination = destination.with_suffix(destination.suffix + ".tmp")
     response = requests.get(url, stream=True, timeout=timeout)
     response.raise_for_status()
-    with destination.open("wb") as handle:
-        for chunk in response.iter_content(chunk_size=1024 * 1024):
-            if chunk:
-                handle.write(chunk)
+    try:
+        with temp_destination.open("wb") as handle:
+            for chunk in response.iter_content(chunk_size=1024 * 1024):
+                if chunk:
+                    handle.write(chunk)
+        # Atomically move the completed download to the final destination
+        temp_destination.replace(destination)
+    except BaseException:
+        # Clean up partial temp file on any error
+        if temp_destination.exists():
+            temp_destination.unlink()
+        raise
 
 
 def _fetch_zenodo_file_map(record_id: str) -> dict[str, str]:
