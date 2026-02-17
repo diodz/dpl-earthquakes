@@ -240,7 +240,7 @@ def _evaluate_scenario(
         "MeanGapOneSidedPValue": mean_p_value,
         "PostWindowStart": scenario.treatment_year,
         "PostWindowEnd": ANALYSIS_END_YEAR,
-        "CommonWindowStart": common_post_start,
+        "CommonWindowStart": max(common_post_start, scenario.treatment_year),
         "CommonWindowEnd": ANALYSIS_END_YEAR,
         "NumPlaceboUnits": int(placebo_ratio_values.size),
     }
