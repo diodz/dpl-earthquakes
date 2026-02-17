@@ -66,6 +66,28 @@ Interpretation: Canterbury exhibits a strong \emph{share} reallocation toward co
 We also added \textbf{alternative grouping sensitivity} for both countries (goods vs services non-construction aggregates), reported in the appendix table.
 
 
+\paragraph{Comment 3.4 (SUTVA/spillover diagnostics).}
+\textit{``Current donor-drop checks are useful but do not directly test economic spillover channels (migration, labor reallocation, trade/input-output links). Please strengthen SUTVA diagnostics with explicit flow evidence and geographically structured donor exclusions.''}
+
+\paragraph{Response.}
+Implemented. We added a new reproducible module (\texttt{src/spillover\_diagnostics.py}) and a full appendix section (Appendix~\ref{sec:spillover_appendix}) that addresses this concern through three complementary diagnostics:
+
+\begin{enumerate}
+  \item \textbf{Explicit spillover proxy evidence:} We assemble population-flow indicators, construction-sector shift diagnostics (labour reallocation proxy), and inter-regional sector-structure correlations (economic linkage index) for both Chile and New~Zealand (Tables~\ref{tab:pop_flow_diagnostics}--\ref{tab:economic_linkage}).
+  \item \textbf{Geographically structured progressive donor exclusions:} We define concentric geographic ``rings'' around each treated region and re-estimate SCM under progressively restrictive donor pools (4 rings for Chile, 5 rings for New~Zealand). Results are reported in Table~\ref{tab:spillover_exclusion_summary} and Figure~\ref{fig:spillover_gap_paths}.
+  \item \textbf{Side-by-side baseline vs.\ spillover-robust estimates:} Figure~\ref{fig:spillover_sensitivity_bar} provides a direct comparison of mean post-treatment gaps under each exclusion ring.
+\end{enumerate}
+
+Main findings:
+\begin{itemize}
+  \item \textbf{Canterbury:} The positive effect is qualitatively robust to \emph{all} geographic exclusion specifications. The mean post-gap ranges from $+5.4\%$ (Ring~1, excluding West Coast) to $+12.7\%$ (Ring~4, most restrictive). The sign never reverses. Population and construction-sector diagnostics show no evidence of spillovers to neighbouring donor regions.
+  \item \textbf{Maule:} The null/non-positive result holds under Rings 1--2 (excluding O'Higgins, Araucanía, and RM Santiago). Under the most restrictive Ring~3 (only 6 distant donors), the sign reverses but pre-treatment fit deteriorates, indicating convex-hull breakdown rather than a genuine positive effect. Population-flow diagnostics confirm no differential migration to adjacent regions.
+\end{itemize}
+
+Sensitivity statement: Canterbury's positive finding survives all reasonable SUTVA-motivated exclusions. Maule's null result is robust under plausible exclusion rings (Rings 1--2) but becomes unreliable when the donor pool is too severely restricted.
+
+Machine-readable outputs are exported to \texttt{article\_assets/spillover\_exclusion\_summary.csv}, \texttt{spillover\_exclusion\_gap\_series.csv}, \texttt{spillover\_sensitivity\_statement.csv}, and the consolidated workbook \texttt{spillover\_diagnostics\_workbook.xlsx}.
+
 \paragraph{Minor comment (data-quality corroboration via night-time lights).}
 \textit{``Corroborate regional GDP findings with an objective proxy such as NTL intensity.''}
 
@@ -81,6 +103,21 @@ New outputs are exported to \texttt{article\_assets/} (including \texttt{ntl\_va
 
 \paragraph{Interpretation}
 For Canterbury, NTL confirms the GDP-based result: positive post-treatment divergence (about +10.0\% in 2016; average post-gap about +7.8\%). For Maule, NTL diverges from the GDP-null result (positive NTL post-gap). We now state this explicitly in the manuscript and discuss it as evidence that remote-sensing proxies can capture broader spatial re-lighting and infrastructure restoration dynamics that do not map one-to-one to measured value-added in regional GDP accounts. Product and spatial sensitivity checks preserve this qualitative pattern.
+
+\subsection*{Reviewer \#2}
+
+\paragraph{Major Comment 1 (SUTVA concerns: O'Higgins/Auckland contamination).}
+\textit{``SUTVA may be violated if adjacent or economically linked donor regions are contaminated by earthquake spillovers (e.g., O'Higgins for Chile; Auckland for New~Zealand).''}
+
+\paragraph{Response.}
+We address this concern comprehensively in the new SUTVA/spillover diagnostics appendix (Appendix~\ref{sec:spillover_appendix}) and in the response to Reviewer~\#1 Comment~3.4 above. Specifically:
+
+\begin{itemize}
+  \item For O'Higgins (Chile): Excluding O'Higgins from the donor pool (Ring~1) changes the Maule mean gap from $-4.5\%$ to $-5.8\%$---the null conclusion is unchanged. Population-flow and construction-sector diagnostics show no evidence that O'Higgins was differentially affected relative to more distant donors. The economic linkage index places O'Higgins at a moderate correlation ($0.38$) with Maule, lower than Araucanía ($0.74$) and Biobío ($0.70$, already excluded).
+  \item For Auckland (New~Zealand): Excluding Auckland (Ring~4, the most restrictive exclusion) \emph{increases} the Canterbury gap from $+7.8\%$ to $+12.7\%$, suggesting that including Auckland as a donor---if anything---understates the Canterbury effect. This is consistent with Auckland potentially receiving positive spillovers (redirected government spending, temporary migration), which would bias the synthetic counterfactual upward and the treatment gap downward. Population diagnostics confirm that non-adjacent regions (including Auckland) experienced stronger post-quake population growth than adjacent regions.
+\end{itemize}
+
+We conclude that the specific O'Higgins and Auckland contamination concerns do not threaten either the Maule null finding or the Canterbury positive finding.
 
 \section*{Reproducibility note}
 

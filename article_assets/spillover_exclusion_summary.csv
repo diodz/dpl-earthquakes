@@ -1,0 +1,10 @@
+Country,Ring,Excluded regions,N donors,Mean post gap (%),Pre RMSPE (%),Post RMSPE (%),Post/Pre RMSPE
+Chile,Baseline (excl. Biobío only),None,11,-4.451366419360762,5.073921725133166,4.733689571213481,0.9329449344410696
+Chile,Ring 1: excl. O'Higgins,VI Del Libertador General Bernardo OHiggins,10,-5.812358899190716,3.6736086074772083,6.849652848886627,1.864557055682237
+Chile,Ring 2: excl. O'Higgins + Araucanía + RM,VI Del Libertador General Bernardo OHiggins; IX De La Araucanía; RMS Región Metropolitana de Santiago,8,-14.674864309705296,7.354731790030105,15.785937286699937,2.146364780847477
+Chile,Ring 3: excl. O'Higgins + Araucanía + RM + Valparaíso + Los Lagos,VI Del Libertador General Bernardo OHiggins; IX De La Araucanía; RMS Región Metropolitana de Santiago; V De Valparaíso; X De Los Lagos,6,9.377499371153384,4.76944775570567,15.875383304771754,3.3285579626656148
+New Zealand,Baseline (all donors),None,14,7.785686155103832,0.999565863159492,8.736249004621122,8.740043379439774
+New Zealand,Ring 1: excl. West Coast,West Coast,13,5.440603356287458,1.1537153500004955,6.21719483747283,5.3888464234008495
+New Zealand,Ring 2: excl. West Coast + Otago + Marlborough,West Coast; Otago; Marlborough,11,9.52553196063994,2.328317392195513,10.144136870163491,4.356853109531585
+New Zealand,Ring 3: excl. W.Coast + Otago + Marl. + Wellington + Southland,West Coast; Otago; Marlborough; Wellington; Southland,9,9.256231963570654,2.3140389032255895,9.880332186461374,4.269734693176058
+New Zealand,Ring 4: Ring 3 + Auckland (most restrictive),West Coast; Otago; Marlborough; Wellington; Southland; Auckland,8,12.714234895426598,5.00713144660328,13.343946694508613,2.664988294557522

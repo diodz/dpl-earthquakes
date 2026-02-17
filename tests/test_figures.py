@@ -60,6 +60,20 @@ output_dir = os.path.join(os.path.dirname(__file__), '..', 'article_assets')
     "ntl_scm_weights.csv",
     "ntl_maule_urban_mask_series.csv",
     "ntl_nz_buffer_sensitivity.csv",
+    "spillover_exclusion_summary.csv",
+    "spillover_sensitivity_statement.csv",
+    "spillover_exclusion_gap_series.csv",
+    "spillover_geographic_exclusion_gaps.png",
+    "spillover_sensitivity_bar.png",
+    "spillover_diagnostics_workbook.xlsx",
+    "chile_population_flow_diagnostics.csv",
+    "chile_sector_spillover_diagnostics.csv",
+    "chile_economic_linkage_index.csv",
+    "chile_spillover_paths.png",
+    "nz_population_flow_diagnostics.csv",
+    "nz_sector_spillover_diagnostics.csv",
+    "nz_economic_linkage_index.csv",
+    "nz_spillover_paths.png",
 ])
 def test_output_file_exists(file_name):
     file_path = os.path.join(output_dir, file_name)
