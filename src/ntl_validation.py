@@ -89,7 +89,7 @@ def _load_or_generate_ntl(country: str) -> pd.DataFrame:
     """Return a DataFrame with columns [Year, Region, ntl_mean].
 
     If a pre-built CSV exists in data/, use it.  Otherwise generate a
-    calibrated proxy from GDP data.
+    calibrated proxy from GDP data and save it for reproducibility.
     """
     csv_map = {
         "chile": _DATA_DIR / "ntl_regional_chile.csv",
@@ -103,8 +103,13 @@ def _load_or_generate_ntl(country: str) -> pd.DataFrame:
 
     # Fall back to calibrated proxy generation
     if country == "nz":
-        return _generate_ntl_proxy_nz()
-    return _generate_ntl_proxy_chile()
+        df = _generate_ntl_proxy_nz()
+    else:
+        df = _generate_ntl_proxy_chile()
+
+    # Save generated proxy data for reproducibility
+    df.to_csv(str(csv_path), index=False)
+    return df
 
 
 def _generate_ntl_proxy_nz() -> pd.DataFrame:
@@ -596,9 +601,6 @@ def run_ntl_validation(output_dir: str | None = None) -> pd.DataFrame:
     ntl_chile = _load_or_generate_ntl("chile")
     ntl_nz = _load_or_generate_ntl("nz")
 
-    # Save generated data for reproducibility
-    ntl_chile.to_csv(str(_DATA_DIR / "ntl_regional_chile.csv"), index=False)
-    ntl_nz.to_csv(str(_DATA_DIR / "ntl_regional_nz.csv"), index=False)
     print(f"  Chile NTL: {len(ntl_chile)} rows, "
           f"{ntl_chile['Region'].nunique()} regions")
     print(f"  NZ NTL:    {len(ntl_nz)} rows, "
