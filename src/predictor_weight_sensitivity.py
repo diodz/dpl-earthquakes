@@ -91,7 +91,7 @@ class SCMConfig:
 CHILE_SCM_CONFIGS = [
     SCMConfig("baseline_vm", "Nelder-Mead", "ols"),
     SCMConfig("vm_alt_init", "Nelder-Mead", "equal"),
-    SCMConfig("vm_alt_method", "Powell", "equal"),
+    SCMConfig("vm_alt_method", "Powell", "ols"),
 ]
 
 NZ_SCM_CONFIGS = [
