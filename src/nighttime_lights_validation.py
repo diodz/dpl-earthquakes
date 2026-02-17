@@ -484,20 +484,20 @@ def _compute_urban_series(
     threshold = float(np.quantile(np.concatenate(pre_values), quantile_threshold))
 
     rows: list[dict] = []
-        for year in sorted(year_to_path):
-            with rasterio.open(year_to_path[year]) as dataset:
-                values = _extract_values(dataset, region_geom)
-                full_mean = float(np.mean(values)) if values.size else np.nan
-                urban_values = values[values >= threshold]
-                urban_mean = float(np.mean(urban_values)) if urban_values.size else np.nan
-                rows.append(
-                    {
-                        "year": year,
-                        "full_mean": full_mean,
-                        "urban_core_mean": urban_mean,
-                        "urban_threshold": threshold,
-                    }
-                )
+    for year in sorted(year_to_path):
+        with rasterio.open(year_to_path[year]) as dataset:
+            values = _extract_values(dataset, region_geom)
+            full_mean = float(np.mean(values)) if values.size else np.nan
+            urban_values = values[values >= threshold]
+            urban_mean = float(np.mean(urban_values)) if urban_values.size else np.nan
+            rows.append(
+                {
+                    "year": year,
+                    "full_mean": full_mean,
+                    "urban_core_mean": urban_mean,
+                    "urban_threshold": threshold,
+                }
+            )
     return pd.DataFrame(rows)
 
 
