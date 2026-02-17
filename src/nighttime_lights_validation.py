@@ -415,10 +415,11 @@ def _run_ntl_scm(
     synth.fit(dataprep=dataprep, optim_method="Nelder-Mead", optim_initial="equal")
 
     z0, z1 = synth.dataprep.make_outcome_mats(time_period=years)
-    treated_log = z1.astype(float)
-    synthetic_log = synth._synthetic(z0).astype(float)
-    treated_level = np.expm1(treated_log.to_numpy())
-    synthetic_level = np.expm1(synthetic_log.to_numpy())
+    # make_outcome_mats returns (1, num_years) DataFrames; flatten to 1D for alignment with years
+    treated_log = np.asarray(z1).flatten().astype(float)
+    synthetic_log = np.asarray(synth._synthetic(z0)).flatten().astype(float)
+    treated_level = np.expm1(treated_log)
+    synthetic_level = np.expm1(synthetic_log)
 
     denominator = np.where(synthetic_level > 1e-9, synthetic_level, np.nan)
     gap_pct = (treated_level - synthetic_level) / denominator * 100.0
@@ -437,13 +438,17 @@ def _run_ntl_scm(
     post = path_df[path_df["year"] >= treatment_year]
     pre = path_df[path_df["year"] < treatment_year]
 
+    # gap_2016_pct: use 2016 if in data, else NaN (avoids IndexError when end_year < 2016)
+    match_2016 = path_df.loc[path_df["year"] == 2016, "gap_pct"]
+    gap_2016_pct = float(match_2016.iloc[0]) if len(match_2016) > 0 else np.nan
+
     summary_row = {
         "product": product_name,
         "country": country,
         "treated_unit": treated,
         "avg_post_gap_pct": float(post["gap_pct"].mean()),
         "max_post_gap_pct": float(post["gap_pct"].max()),
-        "gap_2016_pct": float(path_df.loc[path_df["year"] == 2016, "gap_pct"].iloc[0]),
+        "gap_2016_pct": gap_2016_pct,
         "pre_rmspe_pct": float(np.sqrt(np.nanmean(np.square(pre["gap_pct"])))),
         "post_rmspe_pct": float(np.sqrt(np.nanmean(np.square(post["gap_pct"])))),
     }
