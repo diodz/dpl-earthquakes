@@ -1,8 +1,8 @@
 """
 Nighttime-lights (NTL) validation of GDP-based SCM findings.
 
-This module provides an independent remote-sensing proxy to cross-validate
-the GDP per capita results from the main SCM analysis. The approach follows
+This module applies the SCM framework to nighttime-light (NTL) intensity as
+an alternative outcome measure, demonstrating the pipeline's consistency. The approach follows
 the empirical literature linking NTL radiance to economic activity
 (Henderson et al., 2012; Chen & Nordhaus, 2011; Nguyen & Noy, 2020).
 
@@ -46,7 +46,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from math_utils import project_to_simplex
+from math_utils import (
+    project_to_simplex,
+    NZ_TREATED,
+    NZ_CONTROLS,
+    NZ_START_YEAR,
+    NZ_TREATMENT_YEAR,
+    NZ_END_YEAR,
+    CHILE_TREATED,
+    CHILE_CONTROLS,
+    CHILE_TREATMENT_YEAR,
+    CHILE_END_YEAR,
+)
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -57,32 +68,9 @@ FIGURES_DIR = _PROJECT_ROOT / "article_assets"
 FIGURES_DIR.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------------------------
-# Constants shared with the main SCM pipeline
+# NTL-specific start year (DMSP-OLS satellite data begins in 1992)
 # ---------------------------------------------------------------------------
-NZ_TREATED = "Canterbury"
-NZ_CONTROLS = [
-    "Auckland", "Bay of Plenty", "Gisborne", "Hawke's Bay",
-    "Manawatu-Whanganui", "Marlborough", "Northland", "Otago",
-    "Southland", "Taranaki", "Tasman/Nelson", "Waikato",
-    "Wellington", "West Coast",
-]
-NZ_TREATMENT_YEAR = 2011
-NZ_START_YEAR = 2000
-NZ_END_YEAR = 2019
-
-CHILE_TREATED = "VII Del Maule"
-CHILE_CONTROLS = [
-    "I De Tarapacá", "II De Antofagasta", "III De Atacama",
-    "IV De Coquimbo", "V De Valparaíso",
-    "RMS Región Metropolitana de Santiago",
-    "VI Del Libertador General Bernardo OHiggins",
-    "IX De La Araucanía", "X De Los Lagos",
-    "XI Aysén del General Carlos Ibáñez del Campo",
-    "XII De Magallanes y de la Antártica Chilena",
-]
-CHILE_TREATMENT_YEAR = 2010
-CHILE_START_YEAR = 1992  # DMSP-OLS available from 1992
-CHILE_END_YEAR = 2019
+CHILE_START_YEAR = 1992
 
 # GDP-NTL elasticity: Henderson et al. (2012) report ~0.3 cross-country;
 # within-country subnational panels yield 0.5-0.8 (Chen & Nordhaus, 2011).
