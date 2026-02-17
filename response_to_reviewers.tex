@@ -36,6 +36,29 @@ The revised manuscript reports these estimates in a new robustness table and fig
 
 Hence, Canterbury's overshoot persists when optimizing both unit and time weights (SDID), while Maule remains non-positive under all alternative estimators. This directly addresses concerns about long-window robustness and edge-of-convex-hull matching for Maule.
 
+\paragraph{Comment 3.6 (circularity and crowding-out in sectoral interpretation).}
+\textit{``Sectoral interpretation appears circular; please quantify crowding-out and provide parallel Chile/New~Zealand sectoral inference.''}
+
+\paragraph{Response.}
+Implemented. We added a new reproducible sectoral module (\texttt{src/sectoral\_appendix\_analysis.py}) and integrated its outputs into the manuscript text and appendix.
+
+\begin{itemize}
+  \item We now include \textbf{parallel sectoral SCM figures for both countries}, not only Canterbury (new Maule figure added).
+  \item We corrected quantitative wording: Canterbury construction rises from roughly \(6.1\%\) to \(10.0\%\), i.e., about \(+63\%\), \textbf{not} a doubling.
+  \item We report placebo-based inference for sectoral outcomes in a new summary table.
+  \item We quantify crowding-out in both \textbf{share} and \textbf{absolute level} terms.
+\end{itemize}
+
+Main quantitative additions (post-treatment averages):
+\begin{itemize}
+  \item \textbf{Canterbury}: construction share gap \(+2.53\) p.p. (pseudo-\(p=0.00\)); non-construction share gap \(-2.13\) p.p. (pseudo-\(p=0.00\)); non-construction \emph{level} gap \(+3.14\%\) of synthetic (pseudo-\(p=0.80\)).
+  \item \textbf{Maule}: construction share gap \(+1.82\) p.p. (pseudo-\(p=0.17\)); non-construction share gap \(-2.01\) p.p. (pseudo-\(p=0.33\)); non-construction level gap \(-6.66\%\) of synthetic (pseudo-\(p=0.42\)).
+\end{itemize}
+
+Interpretation: Canterbury exhibits a strong \emph{share} reallocation toward construction, but no robust absolute contraction in non-construction output (consistent with temporary net stimulus plus reallocation). Maule does not exhibit a statistically robust sectoral overshoot.
+
+We also added \textbf{alternative grouping sensitivity} for both countries (goods vs services non-construction aggregates), reported in the appendix table.
+
 \section*{Reproducibility note}
 
 All figures and tables cited above appear in the revised manuscript. The analysis code is available in the supplementary repository for verification.

@@ -16,8 +16,9 @@ This script:
 1. Runs `create_maps.py` (Maule and Canterbury maps)
 2. Runs `src/nz_outcome_extensions.py` (GDP / population decomposition)
 3. Runs `src/sdid_bias_corrected_analysis.py` (SDID + penalized SCM robustness)
-4. Executes the Maule SCM notebook
-5. Executes the Canterbury SCM notebook
+4. Runs `src/sectoral_appendix_analysis.py` (parallel Chile/NZ sectoral SCM appendix outputs)
+5. Executes the Maule SCM notebook
+6. Executes the Canterbury SCM notebook
 
 ### Figure output
 
@@ -28,6 +29,9 @@ Figures are written to `article_assets/`, which is the canonical location expect
 - Gaps: `maule_gap.png`, `nz_gap.png`
 - Placebos: `maule_placebos.png`, `nz_placebos.png`
 - Sectoral: `nz_scm_Construction.png`, `nz_scm_Other_Sectors.png`
+- Sectoral appendix (new): `chile_scm_Construction.png`, `chile_scm_Other_Sectors.png`,
+  `sectoral_inference_summary.csv`, `sectoral_crowding_out_summary.csv`,
+  `sectoral_grouping_sensitivity.csv`, `sectoral_appendix_series.xlsx`
 - Jackknife: `chile_jacknife.png`, `nz_jacknife.png`
 - SDID / bias-corrected robustness: `sdid_bias_corrected_summary.csv`, `sdid_bias_corrected_gaps.png`
 

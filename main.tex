@@ -315,7 +315,7 @@ Now, to formally assess the significance of our findings, Figure \ref{fig:place
 In Figure 4, we can attest that, quantitatively, the pre/post-RMSPE ratio for Maule is 1.12, and the associated pseudo-$p$ value is 0.58, confirming that it is not significant. For Canterbury, on the contrary, the RMSPE ratio is 3.94, the highest among the 16 NZ regions, giving a one-sided pseudo-$p$-value of $1/16 = 0.0625$ ($\approx$6.3\%). Year-specific tests show that by 2013, Canterbury’s gap is statistically significant at the 5\% level. Thus, based on our synthetic counterfactuals, we conclude that Canterbury’s positive effect is large and statistically significant. Finally, it is relevant to note that our results are a measure of \emph{flows} (real GDP per capita); hence, it does not value the \emph{stock} losses from capital destruction or non-market welfare costs (mortality, morbidity, displacement, etc.). A positive post-quake GDP gap can therefore coexist with lower net wealth or welfare; our estimates therefore should be read as output responses, rather than a comprehensive welfare assessment \parencite{hallegatte2010economics}.
 
 \subsection{Sectoral Impact Analysis}
-To understand the source of the 12\% gain in aggregate GDP in Canterbury, in this sub-section we investigate the impact of the disaster on the structure of the regional economy. Rather than decomposing the GDP gap, we apply the Synthetic Control Method directly to the sectoral shares of key economic components (which is also one of our methodological contributions to the analysis of disasters through the SCM). This allows us to assess how \textit{the composition} of Canterbury's economy changed relative to what it would have been without the earthquakes. Figure \ref{fig:sector_analysis} presents this analysis. Panel (a) applies the SCM to the share of construction in regional GDP, while Panel (b) applies it to the combined share of all the other sectors. In both cases, the pre-earthquake fit between the actual and synthetic shares is excellent, providing a credible counterfactual.
+To identify whether the Canterbury overshoot is broad-based or sector-specific, we estimate additional SCM models for sectoral aggregates in \emph{both} countries. We report treated-versus-synthetic paths for construction and non-construction aggregates, plus placebo-based inference diagnostics. Figure~\ref{fig:sector_analysis} shows the New~Zealand case and Figure~\ref{fig:sector_analysis_chile} shows the parallel Chile case.
 
 \begin{figure}[H]\centering
 \caption{\textbf{SCM Applied to Sectoral Shares of GDP (Canterbury)}}
@@ -330,16 +330,53 @@ To understand the source of the 12\% gain in aggregate GDP in Canterbury, in thi
 \caption{Share of All Other Sectors in GDP}
 \end{subfigure}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} This figure shows the synthetic control method applied directly to sectoral shares of the Canterbury economy. The solid red line is the actual share, and the dashed red line is the synthetic counterfactual. Panel (a) shows a dramatic post-earthquake surge in the share of the construction sector. Panel (b) shows a corresponding dip in the combined share of all other sectors, indicating a significant reallocation of economic activity toward reconstruction.
+\textit{Notes:} The solid line is Canterbury and the dashed line is synthetic Canterbury. Panel~(a) plots the construction share of regional GDP; Panel~(b) plots the aggregate non-construction share.
 \end{minipage}
 \end{figure}
 
-The results in Figure 5 reveal a dramatic and telling structural shift. As shown in Panel (a), the share of construction in Canterbury's economy surged immediately following the 2011 earthquake. It rose from a pre-quake average of around 6.2\% to a peak of nearly 10\% in 2016, nearly doubling its importance in the regional economy. In contrast, its synthetic counterfactual shows that, absent the earthquake, the share of the construction sector would have remained stable at around 6\%. This provides clear and direct evidence of a massive reconstruction-induced boom \parencite{miller2013estimating}.
-By 2015, Canterbury’s construction sector was roughly \$800\,\text{million} (in 2015 dollars) larger than its synthetic counterpart and contributed about +5 percentage points to the GDP gap. Other sectors experienced only small contributions: finance and insurance experienced a temporary uptick due to insurance claim handling (see also \cite{nguyen2020insurance}); manufacturing rose slightly; while sectors like education, health and retail showed negligible changes. In contrast, Maule's sector-level SCM analysis (not shown for brevity)\footnote{All data are from official statistical sources cited in the text. The scripts used to assemble the datasets and all the codes to run the SCM (pysyncon) are available from the authors upon request. Similarly, and for brevity, we have decided to exclude the graphs concerning the SCM sectoral analysis for the Maule region in Chile since it does not change the main findings of this paper.} reveals no deviations in construction or in any other sectors, reinforcing the aggregate null effect of the disaster on Chile's regional economy.
+\begin{figure}[H]\centering
+\caption{\textbf{SCM Applied to Sectoral Shares of GDP (Maule)}}
+\label{fig:sector_analysis_chile}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_scm_Construction.png}
+\caption{Share of Construction in GDP}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_scm_Other_Sectors.png}
+\caption{Share of All Other Sectors in GDP}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} The solid line is Maule and the dashed line is synthetic Maule. The post-2010 deviations are modest relative to Canterbury.
+\end{minipage}
+\end{figure}
 
-Conversely, Panel (b) shows that the combined share of all other sectors in Canterbury's economy fell relative to its counterfactual. While the synthetic control for other sectors remains stable at around 72\% of the economy, the actual share in Canterbury dips below 70\% during the peak of the rebuild. This indicates that the economic boom in New Zealand was not an across-the-board phenomenon, but rather it was a regional and sectoral construction-related effect that was transitory in nature. From our novel SCM sectoral analysis, we can suggest that the earthquake triggered a significant \textit{reallocation of resources}—likely labor and capital—away from other industries and into the urgent task of rebuilding Canterbury. In Maule’s case (not plotted for brevity), a similar sectoral analysis reveals no such structural shifts. The shares of construction and other sectors in Maule continued to track their synthetic controls closely in the post-earthquake period. This is consistent with our aggregate finding of a null effect and suggests that Maule’s reconstruction effort, while substantial, was proportional to the existing economy and did not cause a significant restructuring or reallocation of resources.
+Figure~\ref{fig:sector_analysis} indicates a large and immediate reallocation in Canterbury. The construction share increases from a pre-quake average of about 6.1\% (2006--2010) to a peak near 10.0\% in 2016: an increase of roughly 63\%, \emph{not} a doubling. Over 2011--2019, the SCM average construction-share gap is +2.53 percentage points, while the non-construction share gap is $-2.13$ percentage points. Figure~\ref{fig:sector_analysis_chile} shows a much smaller Maule shift; the corresponding average gaps over 2010--2015 are +1.82 p.p.\ (construction) and $-2.01$ p.p.\ (non-construction).
 
-To conclude, our SCM sectoral analysis provides evidence that helps explain the divergent regional economic outcomes between Chile and New Zealand. The Canterbury earthquakes stimulated a construction-induced boom so large in magnitude that it more than compensated for the relative economic decline in the share of other sectors, driving the net positive effect on total GDP per capita in the region. In other words, the disaster did not simply make the economic pie bigger; it fundamentally, albeit temporarily, changed the recipe.
+\begin{table}[H]
+\centering
+\caption{\textbf{Sectoral SCM inference and crowding-out quantification}}
+\label{tab:sectoral_inference}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Country} & \textbf{Outcome} & \textbf{Mean post gap} & \textbf{Gap (\% of synth.)} & \textbf{Post/Pre RMSPE} & \textbf{Pseudo-$p$} \\
+\midrule
+New~Zealand & Construction share & +2.53 p.p. & +42.70\% & 19.13 & 0.00 \\
+New~Zealand & Non-construction share & $-2.13$ p.p. & $-2.28$\% & 7.79 & 0.00 \\
+New~Zealand & Non-construction level & +789.01 & +3.14\% & 1.92 & 0.80 \\
+Chile & Construction share & +1.82 p.p. & +25.48\% & 1.50 & 0.17 \\
+Chile & Non-construction share & $-2.01$ p.p. & $-2.16$\% & 1.57 & 0.33 \\
+Chile & Non-construction level & $-1.62$ & $-6.66$\% & 1.08 & 0.42 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Values are post-treatment averages from SCM sectoral models: 2011--2019 for New~Zealand and 2010--2015 for Chile. Share outcomes are in percentage points. Level outcomes are in country-specific constant-price units from the underlying regional accounts. Inference is placebo-based randomization inference.
+\end{minipage}
+\end{table}
+
+Table~\ref{tab:sectoral_inference} clarifies the crowding-out mechanism in both share and level terms. In Canterbury, non-construction \emph{shares} fall, but non-construction \emph{levels} are not significantly below synthetic (indeed the average level gap is positive and statistically weak). This pattern is consistent with reallocation toward construction without a broad absolute contraction of the rest of the economy. In Maule, both construction and non-construction effects are imprecisely estimated and do not indicate a robust sectoral overshoot. Thus, Canterbury is best interpreted as a mix of temporary net stimulus and sectoral reallocation, while Maule remains a near-null aggregate and sectoral case. Alternative sector grouping sensitivity checks for both countries are reported in Appendix Table~\ref{tab:sector_grouping_sensitivity}.
 
 \subsection{Robustness and Additional Checks}
 We now perform several robustness checks to validate our findings. A primary concern with SCM is that the results might be driven by a single, highly-weighted donor. To address this, we conduct a leave-one-out (or jackknife) test in which we re-estimate the synthetic control after excluding the donor region with the highest initial weight. For Maule, this was the Araucanía region (36.9\% weight); for Canterbury, it was the Auckland region (32.7\% weight). 
@@ -448,7 +485,7 @@ Our cross-case results and the literature reviewed in Section 2 suggest that ins
 \paragraph{(i) Financial capacity and timing (insurance \& public finance):}
 Early, large, and predictable financial liquidity can convert a replacement investment effort into a multi-year reconstruction cycle as we have identified in section 4.2. In Canterbury, pervasive catastrophe insurance (the EQC layer plus private coverage) and rapid private claims processing injected quickly, and with low transaction costs, very large funds into the region (total insurance payouts $\,\approx\,$NZ\$30\,b; residential \emph{loss} coverage $\,\approx\,80\%$), and GDP per capita diverges upwards beginning in 2012 just as rebuilding activity scales up (Figures~\ref{fig:gdp_paths}b and \ref{fig:gaps}b) (see also \cite{nguyen2020insurance, parker2016five}). In contrast, in Maule the insurance take-up was \(<20\%\) and reconstruction relied heavily on public transfers from the central government and household savings ($\,\approx\,$US\$8.4\,b public spending), consistent with an absence of aggregate overshoot relative to the synthetic Maule (Section~4.1).
 
-\paragraph{(ii) Governance, implementation capacity, and regulations:} Beyond finance and insurance, coordination capacity and enabling rules matter for a quick recovery after a disaster \parencite{storr2016community, storr2017sandy, rayamajhee2022coproduction}. New Zealand established the Canterbury Earthquake Recovery Authority (CERA), adapted planning rules quickly and enforced building codes to expedite demolition/consenting during peak rebuild years, thus adapting the regulatory framework to enable a quick recovery (\cite{miller2013estimating, doyle2015short}). These changes help explain why the output gains were concentrated in construction: its GDP share nearly doubled at the peak—while spillovers to other sectors were limited; and thereafter the intensity decreased by 2019, matching a medium-lived gap (Figures~\ref{fig:sector_analysis}a and \ref{fig:gaps}b). Conversely, Chile implemented substantial but centralized national programs that were slower to deploy at the regional level, consistent with a “build back to trend" approach in Maule (\cite{eclac2010overview, cardenas2018talca, cardenasjiron2012chilean}). In addition, no significant regulatory changes were made to the planning rules of affected cities, nor were substantial adaptations to building codes promoted to facilitate demolition. This centralized approach with limited regulatory flexibility helps explain why Chile's regional economy did not experience the reconstruction boom observed in New Zealand.  
+\paragraph{(ii) Governance, implementation capacity, and regulations:} Beyond finance and insurance, coordination capacity and enabling rules matter for a quick recovery after a disaster \parencite{storr2016community, storr2017sandy, rayamajhee2022coproduction}. New Zealand established the Canterbury Earthquake Recovery Authority (CERA), adapted planning rules quickly and enforced building codes to expedite demolition/consenting during peak rebuild years, thus adapting the regulatory framework to enable a quick recovery (\cite{miller2013estimating, doyle2015short}). These changes help explain why the output gains were concentrated in construction: its GDP share rose sharply at the peak (from about 6\% to about 10\%, i.e., roughly +63\%) while spillovers to other sectors were limited; and thereafter the intensity decreased by 2019, matching a medium-lived gap (Figures~\ref{fig:sector_analysis}a and \ref{fig:gaps}b). Conversely, Chile implemented substantial but centralized national programs that were slower to deploy at the regional level, consistent with a “build back to trend" approach in Maule (\cite{eclac2010overview, cardenas2018talca, cardenasjiron2012chilean}). In addition, no significant regulatory changes were made to the planning rules of affected cities, nor were substantial adaptations to building codes promoted to facilitate demolition. This centralized approach with limited regulatory flexibility helps explain why Chile's regional economy did not experience the reconstruction boom observed in New Zealand.  
 
 \paragraph{(iii) Informal institutions (social capital and co-production):} Socio-economic evidence from Christchurch documents that community groups and embedded entrepreneurs contributed greatly in help restoring services and complementing official efforts (e.g., volunteer “armies,” temporary retail), reducing downtime and frictions in the recovery \parencite{grube2018embedded, parker2016five}. In fact, the socioeconomic literature on post-disaster recovery has suggested that informal institutions, social capital, and co-production efforts from local communities and organizations can greatly influence the speed and magnitude of recovery after a natural disaster \parencite{storr2016community, storr2017sandy, rayamajhee2022coproduction}. The case of Canterbury seems to confirm these previous findings in the post-diaster literature. On the other hand, comparative socio-economic accounts of Maule point to a much weaker formal engagement of local communities in recovery planning, lower levels of social capital and lack of trust among citizens, plausibly hampered local positive effects or multipliers from co-production and bottom-up reconstruction efforts \parencite{cardenasjiron2012chilean, dussaillant2014trust}. 
 
@@ -470,9 +507,60 @@ significant change relative to its counterfactual. In other words, the impact of
 
 Quantitatively, Maule's pre-/post-RMSPE ratio is 1.12 (pseudo-$p$-value $\approx 0.58$) and Canterbury’s is 3.94 (one-sided pseudo-$p$-value $= 1/16 \approx 6.3\%$), and year-by-year inference indicates that the Canterbury effect becomes statistically significant by 2013.  The positive gap peaks around 2015–2016 and falls below five percent by 2019, implying a medium-lived surge rather than a permanent level shift.  Our findings underscore that \emph{institutions matter} enormously in disaster recovery.  Canterbury’s post-quake boom was facilitated by strong formal and informal institutions that converted a disaster into an opportunity for economic renewal. In contrast, Chile’s institutions managed to restore the economic status quo but not much beyond that point. Notably, the divergent economic outcomes occurred despite both regions (Maule and Canterbury) being of comparable relative economic sizes within their respective countries. We have argued that institutional factors and recovery policies can help explain the difference in outcomes.
 
-New Zealand’s strong institutions, ample insurance coverage, and aggressive reconstruction spending caused an economic “overshoot” in Canterbury. Chile’s respectable but more limited institutional response in Maule was enough to rebuild, but not enough to generate an overshoot. Our study confirms that the importance of institutions (both formal and informal) in post-disaster recovery cannot be overstated. Countries or regions with weaker institutions may experience prolonged economic slumps after major disasters, not because people are unwilling to recover, but because the formal mechanisms to channel effort and capital into reconstruction are inefficient or lacking, or they are hampered by legal and bureaucratic unpredictability. For policymakers, our study suggests that investing in disaster preparedness should include financial and organizational readiness—like insurance schemes and community engagement plans. Our work also contributes methodologically by demonstrating the use of SCM in evaluating disaster impacts at the regional level. Future research could examine distributional impacts or other outcomes like employment and migration. 
+New Zealand’s strong institutions, ample insurance coverage, and aggressive reconstruction spending caused an economic “overshoot” in Canterbury. Chile’s respectable but more limited institutional response in Maule was enough to rebuild, but not enough to generate an overshoot. Our sectoral evidence indicates that Canterbury’s gains combine a temporary net stimulus with substantial reallocation toward construction, whereas Maule shows no statistically robust sectoral reallocation or net stimulus. Our study confirms that the importance of institutions (both formal and informal) in post-disaster recovery cannot be overstated. Countries or regions with weaker institutions may experience prolonged economic slumps after major disasters, not because people are unwilling to recover, but because the formal mechanisms to channel effort and capital into reconstruction are inefficient or lacking, or they are hampered by legal and bureaucratic unpredictability. For policymakers, our study suggests that investing in disaster preparedness should include financial and organizational readiness—like insurance schemes and community engagement plans. Our work also contributes methodologically by demonstrating the use of SCM in evaluating disaster impacts at the regional level. Future research could examine distributional impacts or other outcomes like employment and migration. 
 
 In conclusion, this comparative analysis of Chile and New Zealand provides a nuanced understanding of how earthquakes impact different economies and their growth trajectories. Natural disasters need not derail economic growth; with robust formal and informal institutions, their adverse effects on output could be neutralized or even reversed. Our paper underscores that investing in institutional quality and preparedness is investing in resilience and, potentially, even in a strong rebound. Governments should ensure that transparent and efficient frameworks for disaster response are in place before a disaster strikes. As our findings demonstrate, those ‘institutional investments’ pay dividends by speeding up recovery and possibly turning a potential economic catastrophe into an economic opportunity. The cases of these two earthquakes teach us that, while natural disasters are unavoidable, their economic outcomes are to a great extent a policy and institutional choice.
+
+\appendix
+\section{Sectoral SCM appendix: placebo diagnostics and grouping sensitivity}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Sectoral placebo diagnostics (construction and non-construction aggregate)}}
+\label{fig:sector_placebo_appendix}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_sector_placebo_construction_share.png}
+\caption{Chile: construction share gap placebos}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_sector_placebo_nonconstruction_level.png}
+\caption{Chile: non-construction level gap placebos}
+\end{subfigure}
+\medskip
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_sector_placebo_construction_share.png}
+\caption{New~Zealand: construction share gap placebos}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_sector_placebo_nonconstruction_level.png}
+\caption{New~Zealand: non-construction level gap placebos}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Gray lines are placebo gaps and the red line is the treated-region gap. Placebo filters follow the same pre-fit MSPE threshold rule used in the main text.
+\end{minipage}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Alternative sector-grouping sensitivity (share outcomes)}}
+\label{tab:sector_grouping_sensitivity}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Grouping outcome} & \textbf{Mean post gap (p.p.)} & \textbf{Post/Pre RMSPE} & \textbf{Pseudo-$p$} \\
+\midrule
+New~Zealand & Goods (non-construction) & +0.70 & 1.01 & 0.67 \\
+New~Zealand & Services (non-construction) & $-3.99$ & 4.35 & 0.07 \\
+Chile & Goods (non-construction) & $-4.35$ & 1.64 & 0.42 \\
+Chile & Services (non-construction) & +5.62 & 2.67 & 0.17 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Groupings are defined from country-specific industry classifications and estimated with the same SCM design as the baseline sectoral models. Results remain asymmetric: New~Zealand exhibits stronger service-side crowding-out in shares, while Chile coefficients are imprecise.
+\end{minipage}
+\end{table}
 
 \printbibliography
 \section*{Data and code availability}
