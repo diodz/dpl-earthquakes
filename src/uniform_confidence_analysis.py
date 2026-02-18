@@ -54,7 +54,6 @@ CHILE_SCM_OPTIONS = {"optim_method": "Nelder-Mead", "optim_initial": "ols"}
 NZ_SCM_OPTIONS = {"optim_method": "Nelder-Mead", "optim_initial": "equal"}
 
 ALPHA = 0.05
-BASELINE_MSPE_THRESHOLD = 10.0
 # Pre-fit placebo retention threshold (× treated pre-RMSPE); used for both Chile and NZ sensitivity.
 MSPE_SENSITIVITY = [2.0, 5.0, 10.0]
 
