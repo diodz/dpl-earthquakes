@@ -57,15 +57,24 @@ def _run_rolling_placebo(
     gap_paths: dict[int, pd.Series] = {}
     summary_rows: list[dict] = []
 
+    # Require at least 3 pre-treatment years so SCM has enough data to fit (avoids singular/ill-conditioned fits).
+    min_pre_years = 3
     for T in candidate_years:
         pre_years = [y for y in all_years if fit_start_year <= y < T]
-        if len(pre_years) < 1:
+        if len(pre_years) < min_pre_years:
             continue
         dataprep = dataprep_builder(df, T)
         synth = Synth()
-        try:
-            synth.fit(dataprep=dataprep, optim_method="Nelder-Mead", optim_initial="equal" if country == "New Zealand" else "ols")
-        except Exception:
+        optim_initial = "equal" if country == "New Zealand" else "ols"
+        fit_ok = False
+        for initial in (optim_initial, "ols" if optim_initial == "equal" else "equal"):
+            try:
+                synth.fit(dataprep=dataprep, optim_method="Nelder-Mead", optim_initial=initial)
+                fit_ok = True
+                break
+            except Exception:
+                continue
+        if not fit_ok:
             continue
         z0, z1 = synth.dataprep.make_outcome_mats(time_period=all_years)
         synthetic = pd.Series(np.asarray(synth._synthetic(z0)).flatten().astype(float), index=all_years)
@@ -157,6 +166,15 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         outcome_col="gdp_cap",
         fit_start_year=1990,
     )
+
+    n_nz = len(nz_paths.columns)
+    n_chile = len(chile_paths.columns)
+    if n_nz < 5 or n_chile < 10:
+        import warnings
+        warnings.warn(
+            f"Rolling placebo: only {n_nz} paths for NZ (expected 8) and {n_chile} for Chile (expected 18). "
+            "Some SCM fits may have failed; check for singular/optimization errors."
+        )
 
     os.makedirs(output_dir, exist_ok=True)
     nz_summary.to_csv(os.path.join(output_dir, "rolling_in_time_placebo_nz_summary.csv"), index=False)
