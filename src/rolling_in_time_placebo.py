@@ -36,9 +36,12 @@ FIGURES_DIR = os.path.join(_PROJECT_ROOT, "article_assets")
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
 NZ_ACTUAL_TREATMENT = 2011
-NZ_PRE_YEARS = list(range(2000, 2010))  # 2000-2009, every pre-treatment year
 CHILE_ACTUAL_TREATMENT = 2010
-CHILE_PRE_YEARS = list(range(1990, 2010))  # 1990-2009
+# Candidate treatment years: pre-treatment, actual, and post-earthquake through 2015.
+PLACEBO_CANDIDATE_END_YEAR = 2015
+NZ_FIT_START_YEAR = 2000
+CHILE_FIT_START_YEAR = 1990
+MIN_PRE_YEARS = 3  # at least 3 pre-treatment years per fit for stability
 
 
 def _run_rolling_placebo(
@@ -57,8 +60,7 @@ def _run_rolling_placebo(
     gap_paths: dict[int, pd.Series] = {}
     summary_rows: list[dict] = []
 
-    # Require at least 2 pre-treatment years so we can include nearly all reviewer-requested placebo years.
-    min_pre_years = 2
+    min_pre_years = MIN_PRE_YEARS
     optimizer_attempts = ["Nelder-Mead", "Powell", "BFGS", "L-BFGS-B"]
     for T in candidate_years:
         pre_years = [y for y in all_years if fit_start_year <= y < T]
@@ -146,8 +148,17 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     nz_df["Tertiary Share"] = nz_df["Tertiary"] / nz_df["Population"]
     chile_df = pd.read_csv(os.path.join(_PROJECT_ROOT, "inter", "processed_chile.csv"))
 
-    nz_candidates = NZ_PRE_YEARS + [NZ_ACTUAL_TREATMENT]
-    chile_candidates = CHILE_PRE_YEARS + [CHILE_ACTUAL_TREATMENT]
+    # Pre-treatment years, actual year, and post-earthquake placebos through PLACEBO_CANDIDATE_END_YEAR.
+    nz_candidates = (
+        list(range(NZ_FIT_START_YEAR + MIN_PRE_YEARS, 2010))  # 2003-2009
+        + [NZ_ACTUAL_TREATMENT]
+        + list(range(NZ_ACTUAL_TREATMENT + 1, PLACEBO_CANDIDATE_END_YEAR + 1))  # 2012-2015
+    )
+    chile_candidates = (
+        list(range(CHILE_FIT_START_YEAR + MIN_PRE_YEARS, 2010))  # 1993-2009
+        + [CHILE_ACTUAL_TREATMENT]
+        + list(range(CHILE_ACTUAL_TREATMENT + 1, PLACEBO_CANDIDATE_END_YEAR + 1))  # 2011-2015
+    )
 
     nz_paths, nz_summary = _run_rolling_placebo(
         country="New Zealand",
@@ -158,7 +169,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         unit_col="Region",
         time_col="Year",
         outcome_col="GDP per capita",
-        fit_start_year=2000,
+        fit_start_year=NZ_FIT_START_YEAR,
     )
     chile_paths, chile_summary = _run_rolling_placebo(
         country="Chile",
@@ -169,13 +180,13 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         unit_col="region_name",
         time_col="year",
         outcome_col="gdp_cap",
-        fit_start_year=1990,
+        fit_start_year=CHILE_FIT_START_YEAR,
     )
 
     n_nz = len(nz_paths.columns)
     n_chile = len(chile_paths.columns)
-    expected_nz = len([y for y in nz_candidates if y - 2000 >= 2])
-    expected_chile = len([y for y in chile_candidates if y - 1990 >= 2])
+    expected_nz = len([y for y in nz_candidates if y - NZ_FIT_START_YEAR >= MIN_PRE_YEARS])
+    expected_chile = len([y for y in chile_candidates if y - CHILE_FIT_START_YEAR >= MIN_PRE_YEARS])
     if n_nz < expected_nz or n_chile < expected_chile:
         import warnings
         warnings.warn(
@@ -204,7 +215,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     )
 
     # Two-panel figure for manuscript (separate y-axes: NZ ~0–10%, Chile ~-45–5%).
-    # Plot all placebo paths faintly, and explicitly highlight at least 5 placebo years for readability.
+    # Plot every fitted placebo path in a distinct color so "Placebo lines in fit" matches the figure.
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=False)
     cmap = mcm.get_cmap("viridis")
     for ax, paths_df, actual_year, title in [
@@ -215,33 +226,27 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         n_placebo = len(placebo_years)
         x_vals = np.asarray(paths_df.index, dtype=float)
 
-        # 1) Draw every placebo path lightly so the complete set is retained.
+        # Draw every placebo path in a distinct color (colormap by placebo year).
+        norm = mcolors.Normalize(vmin=min(placebo_years), vmax=max(placebo_years)) if n_placebo else None
         for col in placebo_years:
-            ax.plot(
-                x_vals,
-                paths_df[col].to_numpy(),
-                color="lightgray",
-                linewidth=0.9,
-                alpha=0.45,
-                zorder=1,
-            )
-
-        # 2) Explicitly highlight at least 5 placebo paths (or all if fewer than 5 exist).
-        n_highlight = min(5, n_placebo)
-        highlighted_years = [
-            placebo_years[i] for i in np.linspace(0, max(0, n_placebo - 1), n_highlight, dtype=int)
-        ] if n_highlight > 0 else []
-        for i, col in enumerate(highlighted_years):
-            t = i / max(1, n_highlight - 1)
+            t = norm(col) if norm is not None else 0
             ax.plot(
                 x_vals,
                 paths_df[col].to_numpy(),
                 color=cmap(t),
-                linewidth=1.8,
-                alpha=0.95,
+                linewidth=1.6,
+                alpha=0.9,
                 zorder=2,
-                label=f"Placebo = {col}",
             )
+
+        # Colorbar only for placebo years that appear in the fit (no missing years).
+        if n_placebo > 0 and norm is not None:
+            sm = mcm.ScalarMappable(cmap=cmap, norm=norm)
+            sm.set_array(placebo_years)
+            cbar = fig.colorbar(sm, ax=ax, shrink=0.6, aspect=20, label="Placebo year")
+            cbar.set_ticks(placebo_years)
+            cbar.set_ticklabels(placebo_years)
+            cbar.ax.tick_params(labelsize=7)
 
         # Plot actual treatment year on top.
         if actual_year in paths_df.columns:
@@ -273,7 +278,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         )
         ax.legend(loc="lower left", fontsize=7, frameon=True)
     axes[0].set_ylabel("Gap (%)")
-    fig.suptitle("Rolling in-time placebo: all candidate paths (gray), highlighted placebos (color), actual treatment (red)")
+    fig.suptitle("Rolling in-time placebo: placebo paths by year (color), actual treatment (red)")
     fig.tight_layout(rect=(0, 0, 1, 0.96))
     fig.savefig(os.path.join(output_dir, "rolling_in_time_placebo_paths.png"), dpi=220)
     plt.close(fig)
