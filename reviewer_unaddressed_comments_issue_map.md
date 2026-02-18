@@ -47,7 +47,7 @@ Each created issue includes explicit robustness requirements for both:
 | Major 5: Alternative confounders (commodity prices, FX, cycle, Region I check) | Addressed (added explicit confounder robustness framing + Region I exclusion clarification) | [#38](https://github.com/diodz/dpl-earthquakes/issues/38) |
 | Minor 1: Predictor-weight selection and variable asymmetry transparency | Addressed (documented \(v_m\) optimization + harmonized predictor sensitivity outputs) | [#39](https://github.com/diodz/dpl-earthquakes/issues/39) |
 | Minor 2: Canterbury treatment timing sensitivity (2010 vs 2011) | Addressed (full timing sensitivity: NZ 2010/2011/2012, Chile 2009/2010/2011; table and figures in manuscript) | [#40](https://github.com/diodz/dpl-earthquakes/issues/40) |
-| Minor 3: Welfare caveat prominence | Mostly addressed in manuscript text | (No new issue) |
+| Minor 3: Welfare caveat prominence | Unaddressed | (No new issue) |
 | Minor 4: Table 4 integration/formalization | Unaddressed/partial | [#41](https://github.com/diodz/dpl-earthquakes/issues/41) |
 
 ---
