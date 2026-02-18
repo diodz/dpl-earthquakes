@@ -182,10 +182,14 @@ def _fit_scm_model(
     return result, placebo_test
 
 
+_REGION_DISPLAY_NAME = {"Chile": "Maule", "New Zealand": "Canterbury"}
+
+
 def _plot_paths(result: ModelResult, output_name: str, y_label: str) -> None:
     is_share = result.scale == "share"
     scale_factor = 100.0 if is_share else 1.0
     y_suffix = " (%)" if is_share else ""
+    region_label = _REGION_DISPLAY_NAME.get(result.country, result.country)
 
     fig, ax = plt.subplots(figsize=(8.4, 5.0))
     ax.plot(
@@ -193,7 +197,7 @@ def _plot_paths(result: ModelResult, output_name: str, y_label: str) -> None:
         result.treated.values * scale_factor,
         color="#d62728",
         linewidth=1.8,
-        label=f"{result.country} actual",
+        label=f"{region_label} actual",
     )
     ax.plot(
         result.years,
@@ -201,7 +205,7 @@ def _plot_paths(result: ModelResult, output_name: str, y_label: str) -> None:
         color="#d62728",
         linestyle="--",
         linewidth=1.5,
-        label=f"Synthetic {result.country}",
+        label=f"Synthetic {region_label}",
     )
     ax.axvline(result.treatment_year, color="black", linestyle="--", linewidth=1.0)
     ax.set_xlabel("Year")
