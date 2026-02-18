@@ -210,12 +210,12 @@ Statistical inference in the SCM framework relies on placebo-based methods. We i
 \caption{\textbf{Regional context: Location of treated regions}}
 \label{fig:maps}
 \begin{subfigure}{0.42\textwidth}\centering
-\includegraphics[height=0.2\textheight]{article_assets/Maule_map.png}\\
+\includegraphics[height=0.3\textheight]{article_assets/Maule_map.png}\\
 \caption{Chile, highlighting Maule Region}
 \end{subfigure}
 \hfill
 \begin{subfigure}{0.42\textwidth}\centering
-\includegraphics[height=0.2\textheight]{article_assets/Canterbury_map.png}\\
+\includegraphics[height=0.3\textheight]{article_assets/Canterbury_map.png}\\
 \caption{New Zealand, highlighting Canterbury Region}
 \end{subfigure}
 \end{figure}
@@ -439,18 +439,20 @@ Figure~\ref{fig:sector_analysis} indicates a large and immediate reallocation in
 \label{tab:sectoral_inference}
 \small
 \setlength{\tabcolsep}{5pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llcccc}
 \toprule
 \textbf{Country} & \textbf{Outcome} & \textbf{Mean post gap} & \textbf{Gap (\% of synth.)} & \textbf{Post/Pre RMSPE} & \textbf{Pseudo-$p$} \\
 \midrule
-New~Zealand & Construction share & +2.53 p.p. & +42.70\% & 19.13 & 0.00 \\
+New~Zealand & Construction share & +2.53 p.p. & +42.76\% & 19.59 & 0.00 \\
 New~Zealand & Non-construction share & $-2.13$ p.p. & $-2.28$\% & 7.79 & 0.00 \\
-New~Zealand & Non-construction level & +789.01 & +3.14\% & 1.92 & 0.80 \\
-Chile & Construction share & +1.82 p.p. & +25.48\% & 1.50 & 0.17 \\
+New~Zealand & Non-construction level & +911.23 & +3.53\% & 2.12 & 0.87 \\
+Chile & Construction share & +1.82 p.p. & +25.48\% & 1.50 & 0.33 \\
 Chile & Non-construction share & $-2.01$ p.p. & $-2.16$\% & 1.57 & 0.33 \\
-Chile & Non-construction level & $-1.62$ & $-6.66$\% & 1.08 & 0.42 \\
+Chile & Non-construction level & $-12.51$ & $-33.98$\% & 0.94 & 0.42 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
 \textit{Notes:} Values are post-treatment averages from SCM sectoral models: 2011--2019 for New~Zealand and 2010--2015 for Chile. Share outcomes are in percentage points. Level outcomes are in country-specific constant-price units from the underlying regional accounts. Inference is placebo-based randomization inference.
 \end{minipage}
@@ -467,7 +469,7 @@ To discipline cross-case comparability further, we compute simple damage-normali
 
 We also implement spatial damage controls in measurement. First, we re-estimate night-time-lights validation paths using urban-core masks (Talca-Curicó-Linares-Cauquenes in Maule; Christchurch-centered core in Canterbury) rather than only full administrative regions. Second, for Canterbury we add concentric 30/50/80 km buffers centered on Christchurch and show that all buffers share the same qualitative post-2011 pattern (initial dip, sustained rebuild rise). Together with the progressive geographic donor exclusions in Appendix~\ref{sec:spillover_appendix}, these checks reduce the risk that our cross-case contrast is driven solely by within-region spatial composition differences.
 
-We export complete machine-readable outputs to \texttt{article\_assets/timing\_sensitivity\_summary.csv}, \texttt{article\_assets/timing\_sensitivity\_gaps.csv}, and \texttt{article\_assets/timing\_sensitivity\_placebo\_distribution.csv}, with country-specific summaries in \texttt{nz\_timing\_sensitivity\_summary.csv} and \texttt{chile\_timing\_sensitivity\_summary.csv}.
+Timing-sensitivity outputs are available in the replication package.
 
 \begin{table}[H]
 \centering
@@ -531,7 +533,7 @@ Figure \ref{fig:jacknife} presents the results of this test. For Maule (Panel a)
 
 The timing results reinforce this interpretation. Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe} show that Canterbury remains strongly positive under 2010-, 2011-, and 2012-start conventions, with the treated unit ranked first in RMSPE-ratio extremeness in all three cases. In Chile, nearby placebo starts (2009, 2011) and the baseline 2010 specification remain non-positive and are never highly ranked against placebo units. Hence, the cross-case conclusion does not depend on an arbitrary timing definition.
 
-We additionally run two further sensitivity checks for the uniform sets. First, for Chile we vary the pre-treatment fit filter used to retain placebo units (2$\times$, 5$\times$, and 10$\times$ the treated pre-RMSPE). The conclusion is unchanged: Maule’s post-treatment uniform set continues to include zero throughout. Second, for New~Zealand we re-estimate the design under alternative treatment-start definitions (2010 vs.\ 2011). In both definitions, Canterbury’s gap remains positive with exclusion of zero concentrated in early-to-mid rebuild years, and re-convergence later in the sample.
+We additionally run sensitivity checks for the uniform sets by varying the pre-treatment fit filter used to retain placebo units (2$\times$, 5$\times$, and 10$\times$ the treated pre-RMSPE) in both countries. For Chile (treatment fixed at 2010), Maule’s post-treatment uniform set continues to include zero throughout. For New~Zealand (treatment fixed at 2011), Canterbury’s gap remains positive with exclusion of zero concentrated in early-to-mid rebuild years, and re-convergence later in the sample. Treatment-year sensitivity for New~Zealand is already reported in the timing section (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) and in the rolling in-time placebo figure.
 
 \begin{figure}[H]\centering
 \caption{\textbf{Uniform-set sensitivity checks}}
@@ -542,11 +544,11 @@ We additionally run two further sensitivity checks for the uniform sets. First, 
 \end{subfigure}
 \hfill
 \begin{subfigure}{0.48\textwidth}\centering
-\includegraphics[width=\textwidth]{article_assets/nz_uniform_treatment_timing_sensitivity.png}
-\caption{New Zealand: treatment-start definitions}
+\includegraphics[width=\textwidth]{article_assets/nz_uniform_threshold_sensitivity.png}
+\caption{New Zealand: alternative pre-fit thresholds}
 \end{subfigure}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Panel (a) varies Chile's placebo pre-fit filter (2$\times$, 5$\times$, 10$\times$). Panel (b) re-estimates New~Zealand with treatment starting in 2010 and 2011. The qualitative inference is stable across both exercises.
+\textit{Notes:} Both panels vary the placebo pre-fit filter (2$\times$, 5$\times$, 10$\times$ the treated pre-RMSPE). The qualitative inference is stable across both countries.
 \end{minipage}
 \end{figure}
 
@@ -699,10 +701,10 @@ In conclusion, this comparative analysis of Chile and New Zealand provides a nua
 \toprule
 \textbf{Country} & \textbf{Grouping outcome} & \textbf{Mean post gap (p.p.)} & \textbf{Post/Pre RMSPE} & \textbf{Pseudo-$p$} \\
 \midrule
-New~Zealand & Goods (non-construction) & +0.70 & 1.01 & 0.67 \\
-New~Zealand & Services (non-construction) & $-3.99$ & 4.35 & 0.07 \\
+New~Zealand & Goods (non-construction) & +0.73 & 1.04 & 0.67 \\
+New~Zealand & Services (non-construction) & $-4.23$ & 4.45 & 0.07 \\
 Chile & Goods (non-construction) & $-4.35$ & 1.64 & 0.42 \\
-Chile & Services (non-construction) & +5.62 & 2.67 & 0.17 \\
+Chile & Services (non-construction) & +5.62 & 2.67 & 0.42 \\
 \bottomrule
 \end{tabular}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
@@ -891,7 +893,7 @@ The Canterbury positive effect is qualitatively \emph{robust} to all geographic 
 \paragraph{Chile (Maule).}
 The Maule null result is largely stable under Ring~1 (excluding O'Higgins; mean gap $-5.8\%$) and Ring~2 (excluding O'Higgins, Araucanía, and RM; mean gap $-14.7\%$), both of which show non-positive effects. Under the most restrictive Ring~3 (retaining only 6 donors from distant, structurally dissimilar regions), the sign reverses to $+9.4\%$, but the pre-treatment fit deteriorates substantially (pre-RMSPE rises to 4.8\%). We attribute this to the breakdown of the convex-hull condition with very few, dissimilar donors rather than to a genuine positive effect. The population-flow diagnostics confirm no differential migration to adjacent Chilean regions, and the construction-sector spillover analysis shows negligible shifts in neighbouring regions' construction shares. We conclude that the baseline null finding for Maule is robust to plausible geographic exclusions under Rings 1--2, but that the donor pool becomes too small and structurally inappropriate under Ring~3 for reliable inference.
 
-Machine-readable outputs are exported to: \texttt{article\_assets/spillover\_exclusion\_summary.csv}, \texttt{spillover\_exclusion\_gap\_series.csv}, \texttt{spillover\_sensitivity\_statement.csv}, and the consolidated workbook \texttt{spillover\_diagnostics\_workbook.xlsx}.
+Spillover-diagnostics outputs are available in the replication package.
 
 \printbibliography
 \section*{Data and code availability}

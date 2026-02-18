@@ -20,7 +20,7 @@ output_dir = os.path.join(os.path.dirname(__file__), '..', 'article_assets')
     "nz_placebos.png",
     "scm_uniform_confidence_sets.png",
     "chile_uniform_threshold_sensitivity.png",
-    "nz_uniform_treatment_timing_sensitivity.png",
+    "nz_uniform_threshold_sensitivity.png",
     "scm_uniform_confidence_sets.csv",
     "scm_uniform_confidence_summary.csv",
     "nz_scm_Construction.png",

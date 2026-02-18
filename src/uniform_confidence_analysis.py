@@ -54,9 +54,8 @@ CHILE_SCM_OPTIONS = {"optim_method": "Nelder-Mead", "optim_initial": "ols"}
 NZ_SCM_OPTIONS = {"optim_method": "Nelder-Mead", "optim_initial": "equal"}
 
 ALPHA = 0.05
-BASELINE_MSPE_THRESHOLD = 10.0
-CHILE_MSPE_SENSITIVITY = [2.0, 5.0, 10.0]
-NZ_TREATMENT_YEAR_SENSITIVITY = [2010, 2011]
+# Pre-fit placebo retention threshold (× treated pre-RMSPE); used for both Chile and NZ sensitivity.
+MSPE_SENSITIVITY = [2.0, 5.0, 10.0]
 
 
 @dataclass
@@ -320,7 +319,7 @@ def run_uniform_confidence_analysis(output_dir: str = FIGURES_DIR) -> pd.DataFra
         outcome_col="gdp_cap",
         treated_unit=CHILE_TREATED,
     )
-    for threshold in CHILE_MSPE_SENSITIVITY:
+    for threshold in MSPE_SENSITIVITY:
         intervals, pre_rmspe, critical, retained = _uniform_intervals_from_placebos(
             treated_gap_pct=chile_treated_gap,
             placebo_gaps_pct=chile_placebo_gaps,
@@ -342,34 +341,34 @@ def run_uniform_confidence_analysis(output_dir: str = FIGURES_DIR) -> pd.DataFra
             )
         )
 
-    # New Zealand treatment-start sensitivity (2010 vs 2011 definitions).
+    # New Zealand: fixed treatment year 2011, vary pre-fit threshold (same as Chile).
     nz_df = nz_util.clean_data_for_synthetic_control().copy()
     nz_df["Tertiary Share"] = nz_df["Tertiary"] / nz_df["Population"]
-    for treatment_year in NZ_TREATMENT_YEAR_SENSITIVITY:
-        nz_dataprep = _build_nz_dataprep(nz_df, treatment_year=treatment_year)
-        nz_treated_gap, nz_placebo_gaps = _run_placebo_gaps(nz_dataprep, NZ_SCM_OPTIONS)
-        nz_treated_gap, nz_placebo_gaps = _convert_gap_levels_to_percent(
-            treated_gap_levels=nz_treated_gap,
-            placebo_gap_levels=nz_placebo_gaps,
-            source_df=nz_df,
-            unit_col="Region",
-            time_col="Year",
-            outcome_col="GDP per capita",
-            treated_unit=NZ_TREATED,
-        )
+    nz_dataprep = _build_nz_dataprep(nz_df, treatment_year=2011)
+    nz_treated_gap, nz_placebo_gaps = _run_placebo_gaps(nz_dataprep, NZ_SCM_OPTIONS)
+    nz_treated_gap, nz_placebo_gaps = _convert_gap_levels_to_percent(
+        treated_gap_levels=nz_treated_gap,
+        placebo_gap_levels=nz_placebo_gaps,
+        source_df=nz_df,
+        unit_col="Region",
+        time_col="Year",
+        outcome_col="GDP per capita",
+        treated_unit=NZ_TREATED,
+    )
+    for threshold in MSPE_SENSITIVITY:
         intervals, pre_rmspe, critical, retained = _uniform_intervals_from_placebos(
             treated_gap_pct=nz_treated_gap,
             placebo_gaps_pct=nz_placebo_gaps,
-            treatment_year=treatment_year,
-            mspe_threshold=BASELINE_MSPE_THRESHOLD,
+            treatment_year=2011,
+            mspe_threshold=threshold,
             alpha=ALPHA,
         )
         scenarios.append(
             UniformScenario(
                 country="New Zealand",
-                scenario=f"nz_treatment_start_{treatment_year}",
-                treatment_year=treatment_year,
-                mspe_threshold=BASELINE_MSPE_THRESHOLD,
+                scenario=f"nz_fit_threshold_{int(threshold)}x",
+                treatment_year=2011,
+                mspe_threshold=threshold,
                 alpha=ALPHA,
                 intervals=intervals,
                 treated_pre_rmspe=pre_rmspe,
@@ -380,7 +379,7 @@ def run_uniform_confidence_analysis(output_dir: str = FIGURES_DIR) -> pd.DataFra
 
     scenario_map = {scenario.scenario: scenario for scenario in scenarios}
     chile_baseline = scenario_map["chile_fit_threshold_10x"]
-    nz_baseline = scenario_map["nz_treatment_start_2011"]
+    nz_baseline = scenario_map["nz_fit_threshold_10x"]
 
     # Main two-country figure.
     fig, axes = plt.subplots(1, 2, figsize=(12.5, 4.6), sharey=True)
@@ -404,30 +403,30 @@ def run_uniform_confidence_analysis(output_dir: str = FIGURES_DIR) -> pd.DataFra
 
     # Chile fit-threshold sensitivity figure.
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.6), sharey=True)
-    for axis, threshold in zip(axes, CHILE_MSPE_SENSITIVITY, strict=True):
+    for axis, threshold in zip(axes, MSPE_SENSITIVITY, strict=True):
         scenario = scenario_map[f"chile_fit_threshold_{int(threshold)}x"]
         _plot_uniform_panel(
             axis,
             scenario,
             title=f"Chile: pre-fit threshold {int(threshold)}x",
-            ylabel="GDP per capita gap (%)" if threshold == CHILE_MSPE_SENSITIVITY[0] else "",
+            ylabel="GDP per capita gap (%)" if threshold == MSPE_SENSITIVITY[0] else "",
         )
     fig.tight_layout()
     fig.savefig(os.path.join(output_dir, "chile_uniform_threshold_sensitivity.png"), dpi=220)
     plt.close(fig)
 
-    # New Zealand treatment-year sensitivity figure.
-    fig, axes = plt.subplots(1, 2, figsize=(12.5, 4.6), sharey=True)
-    for axis, treatment_year in zip(axes, NZ_TREATMENT_YEAR_SENSITIVITY, strict=True):
-        scenario = scenario_map[f"nz_treatment_start_{treatment_year}"]
+    # New Zealand fit-threshold sensitivity figure (same design as Chile).
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4.6), sharey=True)
+    for axis, threshold in zip(axes, MSPE_SENSITIVITY, strict=True):
+        scenario = scenario_map[f"nz_fit_threshold_{int(threshold)}x"]
         _plot_uniform_panel(
             axis,
             scenario,
-            title=f"New Zealand: treatment start {treatment_year}",
-            ylabel="GDP per capita gap (%)" if treatment_year == NZ_TREATMENT_YEAR_SENSITIVITY[0] else "",
+            title=f"New Zealand: pre-fit threshold {int(threshold)}x",
+            ylabel="GDP per capita gap (%)" if threshold == MSPE_SENSITIVITY[0] else "",
         )
     fig.tight_layout()
-    fig.savefig(os.path.join(output_dir, "nz_uniform_treatment_timing_sensitivity.png"), dpi=220)
+    fig.savefig(os.path.join(output_dir, "nz_uniform_threshold_sensitivity.png"), dpi=220)
     plt.close(fig)
 
     # Export tidy outputs for reproducibility.
