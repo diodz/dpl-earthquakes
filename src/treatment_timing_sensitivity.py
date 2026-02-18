@@ -9,61 +9,23 @@ from pysyncon import Dataprep, Synth
 from pysyncon.utils import PlaceboTest
 
 import nz_util
+from scm_common import (
+    ANALYSIS_END_YEAR,
+    CHILE_CONTROLS,
+    CHILE_TREATED,
+    NZ_CONTROLS,
+    NZ_TREATED,
+    build_chile_dataprep,
+    build_nz_dataprep,
+    rmspe,
+)
 
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIGURES_DIR = os.path.join(_PROJECT_ROOT, "article_assets")
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
-ANALYSIS_END_YEAR = 2019
 NZ_COMMON_POST_START = 2011
 CHILE_COMMON_POST_START = 2010
-
-NZ_TREATED = "Canterbury"
-NZ_CONTROLS = [
-    "Auckland",
-    "Bay of Plenty",
-    "Gisborne",
-    "Hawke's Bay",
-    "Manawatu-Whanganui",
-    "Marlborough",
-    "Northland",
-    "Otago",
-    "Southland",
-    "Taranaki",
-    "Tasman/Nelson",
-    "Waikato",
-    "Wellington",
-    "West Coast",
-]
-
-CHILE_TREATED = "VII Del Maule"
-CHILE_CONTROLS = [
-    "I De Tarapacá",
-    "II De Antofagasta",
-    "III De Atacama",
-    "IV De Coquimbo",
-    "V De Valparaíso",
-    "RMS Región Metropolitana de Santiago",
-    "VI Del Libertador General Bernardo OHiggins",
-    "IX De La Araucanía",
-    "X De Los Lagos",
-    "XI Aysén del General Carlos Ibáñez del Campo",
-    "XII De Magallanes y de la Antártica Chilena",
-]
-CHILE_PREDICTORS = [
-    "agropecuario",
-    "pesca",
-    "mineria",
-    "industria_m",
-    "electricidad",
-    "construccion",
-    "comercio",
-    "transporte",
-    "servicios_financieros",
-    "vivienda",
-    "personales",
-    "publica",
-]
 
 
 @dataclass(frozen=True)
@@ -85,59 +47,10 @@ CHILE_SCENARIOS = [
 ]
 
 
-def _rmspe(values: np.ndarray) -> float:
-    valid = values[np.isfinite(values)]
-    if valid.size == 0:
-        return float("nan")
-    return float(np.sqrt(np.mean(np.square(valid))))
-
-
 def _safe_ratio(numerator: float, denominator: float) -> float:
     if not np.isfinite(denominator) or np.isclose(denominator, 0.0):
         return float("nan")
     return float(numerator / denominator)
-
-
-def _build_nz_dataprep(df: pd.DataFrame, treatment_year: int) -> Dataprep:
-    predictors_window = range(max(2000, treatment_year - 5), treatment_year)
-    tertiary_window = range(max(2000, treatment_year - 2), treatment_year)
-    return Dataprep(
-        foo=df,
-        predictors=nz_util.SECTORIAL_GDP_VARIABLES,
-        predictors_op="mean",
-        time_predictors_prior=predictors_window,
-        special_predictors=[
-            ("GDP per capita", predictors_window, "mean"),
-            ("Tertiary Share", tertiary_window, "mean"),
-        ],
-        dependent="GDP per capita",
-        unit_variable="Region",
-        time_variable="Year",
-        treatment_identifier=NZ_TREATED,
-        controls_identifier=NZ_CONTROLS,
-        time_optimize_ssr=range(2000, treatment_year),
-    )
-
-
-def _build_chile_dataprep(df: pd.DataFrame, treatment_year: int) -> Dataprep:
-    predictors_window = range(max(1990, treatment_year - 5), treatment_year)
-    education_window = range(max(1990, treatment_year - 2), treatment_year)
-    return Dataprep(
-        foo=df,
-        predictors=CHILE_PREDICTORS,
-        predictors_op="mean",
-        time_predictors_prior=predictors_window,
-        special_predictors=[
-            ("gdp_cap", predictors_window, "mean"),
-            ("ed_superior_cap", education_window, "mean"),
-        ],
-        dependent="gdp_cap",
-        unit_variable="region_name",
-        time_variable="year",
-        treatment_identifier=CHILE_TREATED,
-        controls_identifier=CHILE_CONTROLS,
-        time_optimize_ssr=range(1990, treatment_year),
-    )
 
 
 def _evaluate_scenario(
@@ -193,8 +106,8 @@ def _evaluate_scenario(
         unit_gap_pct = placebo_gaps_level[unit] / unit_synthetic * 100.0
         placebo_gap_pct[unit] = unit_gap_pct
         unit_values = unit_gap_pct.to_numpy(dtype=float)
-        unit_pre = _rmspe(unit_values[pre_mask])
-        unit_post = _rmspe(unit_values[post_mask])
+        unit_pre = rmspe(unit_values[pre_mask])
+        unit_post = rmspe(unit_values[post_mask])
         placebo_rows.append(
             {
                 "Country": country,
@@ -209,8 +122,8 @@ def _evaluate_scenario(
         )
 
     treated_values = treated_gap_pct.to_numpy(dtype=float)
-    treated_pre = _rmspe(treated_values[pre_mask])
-    treated_post = _rmspe(treated_values[post_mask])
+    treated_pre = rmspe(treated_values[pre_mask])
+    treated_post = rmspe(treated_values[post_mask])
     treated_ratio = _safe_ratio(treated_post, treated_pre)
     treated_mean_common = float(np.nanmean(treated_values[common_mask]))
 
@@ -355,7 +268,7 @@ def run_treatment_timing_sensitivity(output_dir: str = FIGURES_DIR) -> pd.DataFr
             country="New Zealand",
             scenario=scenario,
             df=nz_df,
-            dataprep_builder=_build_nz_dataprep,
+            dataprep_builder=build_nz_dataprep,
             treated=NZ_TREATED,
             controls=NZ_CONTROLS,
             unit_col="Region",
@@ -375,7 +288,7 @@ def run_treatment_timing_sensitivity(output_dir: str = FIGURES_DIR) -> pd.DataFr
             country="Chile",
             scenario=scenario,
             df=chile_df,
-            dataprep_builder=_build_chile_dataprep,
+            dataprep_builder=build_chile_dataprep,
             treated=CHILE_TREATED,
             controls=CHILE_CONTROLS,
             unit_col="region_name",

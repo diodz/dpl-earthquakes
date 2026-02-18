@@ -204,7 +204,7 @@ Statistical inference in the SCM framework relies on placebo-based methods. We i
 
 \paragraph{Predictor-weight and predictor-set symmetry sensitivity:} Next we document two additional implementation checks for robustness. First, we vary the SCM predictor-weight optimization settings (initialization and method) while holding donor pools and timing fixed. Second, we re-estimate both country models under a harmonized reduced predictor set that uses common broad sectors (agriculture, manufacturing, construction, trade/hospitality, transport/information, finance/business, personal services, and public administration), while retaining country-specific auxiliary controls (GDP per capita and education). These diagnostics are exported in \texttt{article\_assets/predictor\_spec\_sensitivity.csv} and confirm that the qualitative treatment conclusions are not driven by one specific $v_m$ tuning choice or by unavoidable data asymmetries such as the Chile-specific Fishing category.
 
-\paragraph{In-Time Placebo (Falsification) Test:} We run a \emph{rolling} in-time placebo: for each candidate treatment year we re-estimate SCM and plot the resulting gap path (Figure~\ref{fig:rolling_in_time_placebo}). For New Zealand we use candidate years 2003--2009 and the actual treatment year 2011; for Chile, 1993--2009 and 2010, ensuring at least three pre-treatment years per fit. The post-treatment divergence is unique to the actual treatment year; placebo years show no sustained divergence, as expected.\\
+\paragraph{In-Time Placebo (Falsification) Test:} We run a \emph{rolling} in-time placebo: for each candidate treatment year we re-estimate SCM and plot the resulting gap path (Figure~\ref{fig:rolling_in_time_placebo}). For New Zealand we use candidate years 2001--2009 and the actual treatment year 2011; for Chile, 1991--2009 and 2010, ensuring at least one pre-treatment year per fit. The post-treatment divergence is unique to the actual treatment year; placebo years show no sustained divergence, as expected.\\
 
 \begin{figure}[H]\centering 
 \caption{\textbf{Regional context: Location of treated regions}}
@@ -346,14 +346,14 @@ Figure~\ref{fig:uniform_sets} complements the placebo-spaghetti evidence with 95
 \end{minipage}
 \end{figure}
 
-We also perform a \emph{rolling} in-time placebo: we re-estimate SCM for each candidate treatment year $T$ in the pre-period and plot the resulting gap path. For New Zealand we use $T \in \{2003,\ldots,2009, 2011\}$ and for Chile $T \in \{1993,\ldots,2009, 2010\}$, with at least three pre-treatment years per fit. Figure~\ref{fig:rolling_in_time_placebo} shows that the post-treatment divergence is unique to the actual treatment year (Canterbury's gap rises only when 2011 is used; Maule remains near zero for 2010 and for all placebo years), so the results are not driven by pre-existing diverging trends.
+We also perform a \emph{rolling} in-time placebo: we re-estimate SCM for each candidate treatment year $T$ in the pre-period and plot the resulting gap path. For New Zealand we use $T \in \{2001,\ldots,2009, 2011\}$ and for Chile $T \in \{1991,\ldots,2009, 2010\}$, with at least one pre-treatment year per fit. Figure~\ref{fig:rolling_in_time_placebo} shows that the post-treatment divergence is unique to the actual treatment year (Canterbury's gap rises only when 2011 is used; Maule remains near zero for 2010 and for all placebo years), so the results are not driven by pre-existing diverging trends.
 
 \begin{figure}[H]\centering
 \caption{\textbf{Rolling in-time placebo: gap path by candidate treatment year}}
 \label{fig:rolling_in_time_placebo}
 \includegraphics[width=0.95\textwidth]{article_assets/rolling_in_time_placebo_paths.png}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Each line is the gap path when treatment is assumed to start in a given year; the placebo treatment year is indicated by color (colorbar). The thick red line is the path for the actual treatment year (2011 for Canterbury, 2010 for Maule). Candidate years are 2003--2009 and 2011 (New Zealand) and 1993--2009 and 2010 (Chile), with at least three pre-treatment years per fit. The divergence is unique to the actual treatment year.
+\textit{Notes:} Each line is the gap path when treatment is assumed to start in a given year; the placebo treatment year is indicated by color (colorbar). The thick red line is the path for the actual treatment year (2011 for Canterbury, 2010 for Maule). Candidate years are 2001--2009 and 2011 (New Zealand) and 1991--2009 and 2010 (Chile), with at least one pre-treatment year per fit. The divergence is unique to the actual treatment year.
 \end{minipage}
 \end{figure}
 

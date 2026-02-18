@@ -16,90 +16,29 @@ from typing import Callable
 import matplotlib.pyplot as plt
 import matplotlib.cm as mcm
 import matplotlib.colors as mcolors
+import matplotlib.ticker as mtick
 import numpy as np
 import pandas as pd
 from pysyncon import Dataprep, Synth
 
 import nz_util
+from scm_common import (
+    ANALYSIS_END_YEAR,
+    CHILE_TREATED,
+    NZ_TREATED,
+    build_chile_dataprep,
+    build_nz_dataprep,
+    rmspe,
+)
 
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIGURES_DIR = os.path.join(_PROJECT_ROOT, "article_assets")
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
-ANALYSIS_END_YEAR = 2019
-NZ_TREATED = "Canterbury"
 NZ_ACTUAL_TREATMENT = 2011
 NZ_PRE_YEARS = list(range(2000, 2010))  # 2000-2009, every pre-treatment year
-CHILE_TREATED = "VII Del Maule"
 CHILE_ACTUAL_TREATMENT = 2010
 CHILE_PRE_YEARS = list(range(1990, 2010))  # 1990-2009
-
-NZ_CONTROLS = [
-    "Auckland", "Bay of Plenty", "Gisborne", "Hawke's Bay", "Manawatu-Whanganui",
-    "Marlborough", "Northland", "Otago", "Southland", "Taranaki", "Tasman/Nelson",
-    "Waikato", "Wellington", "West Coast",
-]
-CHILE_CONTROLS = [
-    "I De Tarapacá", "II De Antofagasta", "III De Atacama", "IV De Coquimbo",
-    "V De Valparaíso", "RMS Región Metropolitana de Santiago",
-    "VI Del Libertador General Bernardo OHiggins", "IX De La Araucanía",
-    "X De Los Lagos", "XI Aysén del General Carlos Ibáñez del Campo",
-    "XII De Magallanes y de la Antártica Chilena",
-]
-CHILE_PREDICTORS = [
-    "agropecuario", "pesca", "mineria", "industria_m", "electricidad",
-    "construccion", "comercio", "transporte", "servicios_financieros",
-    "vivienda", "personales", "publica",
-]
-
-
-def _build_nz_dataprep(df: pd.DataFrame, treatment_year: int) -> Dataprep:
-    predictors_window = range(max(2000, treatment_year - 5), treatment_year)
-    tertiary_window = range(max(2000, treatment_year - 2), treatment_year)
-    return Dataprep(
-        foo=df,
-        predictors=nz_util.SECTORIAL_GDP_VARIABLES,
-        predictors_op="mean",
-        time_predictors_prior=predictors_window,
-        special_predictors=[
-            ("GDP per capita", predictors_window, "mean"),
-            ("Tertiary Share", tertiary_window, "mean"),
-        ],
-        dependent="GDP per capita",
-        unit_variable="Region",
-        time_variable="Year",
-        treatment_identifier=NZ_TREATED,
-        controls_identifier=NZ_CONTROLS,
-        time_optimize_ssr=range(2000, treatment_year),
-    )
-
-
-def _build_chile_dataprep(df: pd.DataFrame, treatment_year: int) -> Dataprep:
-    predictors_window = range(max(1990, treatment_year - 5), treatment_year)
-    education_window = range(max(1990, treatment_year - 2), treatment_year)
-    return Dataprep(
-        foo=df,
-        predictors=CHILE_PREDICTORS,
-        predictors_op="mean",
-        time_predictors_prior=predictors_window,
-        special_predictors=[
-            ("gdp_cap", predictors_window, "mean"),
-            ("ed_superior_cap", education_window, "mean"),
-        ],
-        dependent="gdp_cap",
-        unit_variable="region_name",
-        time_variable="year",
-        treatment_identifier=CHILE_TREATED,
-        controls_identifier=CHILE_CONTROLS,
-        time_optimize_ssr=range(1990, treatment_year),
-    )
-
-
-def _rmspe(series: pd.Series) -> float:
-    valid = series.replace([np.inf, -np.inf], np.nan).dropna()
-    if valid.size == 0:
-        return float("nan")
-    return float(np.sqrt(np.mean(np.square(valid))))
 
 
 def _run_rolling_placebo(
@@ -120,7 +59,7 @@ def _run_rolling_placebo(
 
     for T in candidate_years:
         pre_years = [y for y in all_years if fit_start_year <= y < T]
-        if len(pre_years) < 3:
+        if len(pre_years) < 1:
             continue
         dataprep = dataprep_builder(df, T)
         synth = Synth()
@@ -136,8 +75,8 @@ def _run_rolling_placebo(
 
         post_mask = (np.array(all_years) >= T) & (np.array(all_years) <= ANALYSIS_END_YEAR)
         pre_mask = (np.array(all_years) >= fit_start_year) & (np.array(all_years) < T)
-        rmspe_pre = _rmspe(gap_pct.iloc[pre_mask]) if pre_mask.any() else np.nan
-        rmspe_post = _rmspe(gap_pct.iloc[post_mask]) if post_mask.any() else np.nan
+        rmspe_pre = rmspe(gap_pct.iloc[pre_mask]) if pre_mask.any() else np.nan
+        rmspe_post = rmspe(gap_pct.iloc[post_mask]) if post_mask.any() else np.nan
         ratio = rmspe_post / rmspe_pre if np.isfinite(rmspe_pre) and rmspe_pre > 0 else np.nan
         mean_post = float(gap_pct.iloc[post_mask].mean()) if post_mask.any() else np.nan
         summary_rows.append({
@@ -163,11 +102,12 @@ def _plot_rolling_placebo(
 ) -> None:
     """One panel: each line = gap path when treatment is assumed in year T; actual year highlighted."""
     fig, ax = plt.subplots(figsize=(9, 4.5))
+    x_vals = np.asarray(paths_df.index, dtype=float)
     for col in paths_df.columns:
         is_actual = col == actual_year
         ax.plot(
-            paths_df.index,
-            paths_df[col],
+            x_vals,
+            paths_df[col].to_numpy(),
             color="red" if is_actual else "gray",
             linewidth=2.5 if is_actual else 0.9,
             alpha=0.9 if is_actual else 0.5,
@@ -177,6 +117,8 @@ def _plot_rolling_placebo(
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_xlabel("Year")
     ax.set_ylabel("Gap (%)")
+    ax.xaxis.set_major_locator(mtick.MaxNLocator(integer=True))
+    ax.xaxis.set_major_formatter(mtick.FormatStrFormatter("%d"))
     ax.set_title(f"Rolling in-time placebo: {country_label} (each line = gap path if treatment in that year)")
     ax.legend(loc="best", fontsize=9)
     ax.grid(alpha=0.2)
@@ -196,7 +138,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     nz_paths, nz_summary = _run_rolling_placebo(
         country="New Zealand",
         df=nz_df,
-        dataprep_builder=_build_nz_dataprep,
+        dataprep_builder=build_nz_dataprep,
         candidate_years=nz_candidates,
         actual_treatment_year=NZ_ACTUAL_TREATMENT,
         unit_col="Region",
@@ -207,7 +149,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     chile_paths, chile_summary = _run_rolling_placebo(
         country="Chile",
         df=chile_df,
-        dataprep_builder=_build_chile_dataprep,
+        dataprep_builder=build_chile_dataprep,
         candidate_years=chile_candidates,
         actual_treatment_year=CHILE_ACTUAL_TREATMENT,
         unit_col="region_name",
@@ -236,39 +178,50 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     )
 
     # Two-panel figure for manuscript (separate y-axes: NZ ~0–10%, Chile ~-45–5%)
-    # Placebo lines colored by candidate treatment year (colorbar); actual treatment in red.
+    # Placebo lines: one distinct color per year (by index); actual treatment in red; colorbar with integer ticks.
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=False)
+    cmap = mcm.get_cmap("viridis")
     for ax, paths_df, actual_year, title in [
         (axes[0], nz_paths, NZ_ACTUAL_TREATMENT, "New Zealand (Canterbury)"),
         (axes[1], chile_paths, CHILE_ACTUAL_TREATMENT, "Chile (Maule)"),
     ]:
         placebo_years = sorted(c for c in paths_df.columns if c != actual_year)
-        if placebo_years:
-            norm = mcolors.Normalize(vmin=min(placebo_years), vmax=max(placebo_years))
-            cmap = mcm.get_cmap("viridis")
-        for col in paths_df.columns:
-            is_actual = col == actual_year
-            if is_actual:
-                color = "red"
-            else:
-                color = cmap(norm(col)) if placebo_years else "gray"
+        n_placebo = len(placebo_years)
+        x_vals = np.asarray(paths_df.index, dtype=float)
+        # Plot placebos first (sorted), each with a distinct color by index over full colormap range.
+        for i, col in enumerate(placebo_years):
+            t = i / max(1, n_placebo - 1)  # 0 to 1 over placebo years
             ax.plot(
-                paths_df.index,
-                paths_df[col],
-                color=color,
-                linewidth=2.5 if is_actual else 0.7,
-                alpha=0.9 if is_actual else 0.6,
+                x_vals,
+                paths_df[col].to_numpy(),
+                color=cmap(t),
+                linewidth=0.9,
+                alpha=0.75,
+            )
+        # Plot actual treatment year on top.
+        if actual_year in paths_df.columns:
+            ax.plot(
+                x_vals,
+                paths_df[actual_year].to_numpy(),
+                color="red",
+                linewidth=2.5,
+                alpha=0.95,
             )
         ax.axvline(actual_year, color="red", linestyle="--", linewidth=1, alpha=0.7)
         ax.axhline(0, color="black", linewidth=0.8)
         ax.set_xlabel("Year")
         ax.set_title(title)
         ax.grid(alpha=0.2)
-        if placebo_years:
+        ax.xaxis.set_major_locator(mtick.MaxNLocator(integer=True))
+        ax.xaxis.set_major_formatter(mtick.FormatStrFormatter("%d"))
+        if n_placebo > 0:
+            norm = mcolors.Normalize(vmin=min(placebo_years), vmax=max(placebo_years))
             sm = mcm.ScalarMappable(norm=norm, cmap=cmap)
             sm.set_array([])
             cbar = fig.colorbar(sm, ax=ax, shrink=0.7, aspect=25)
             cbar.set_label("Placebo treatment year", fontsize=8)
+            cbar.set_ticks(placebo_years)
+            cbar.ax.yaxis.set_major_formatter(mtick.FormatStrFormatter("%d"))
     axes[0].set_ylabel("Gap (%)")
     fig.suptitle("Rolling in-time placebo: gap path by candidate treatment year (colorbar) vs actual treatment year (red)")
     fig.tight_layout(rect=(0, 0, 1, 0.96))
