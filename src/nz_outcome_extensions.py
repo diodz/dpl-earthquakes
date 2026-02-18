@@ -28,6 +28,9 @@ CONTROLS_IDENTIFIER = [
     "West Coast",
 ]
 
+POST_TREATMENT_START_YEAR = 2011
+POST_TREATMENT_END_YEAR = 2019
+
 OUTCOME_SPECS: Dict[str, Dict[str, object]] = {
     "gdp_per_capita": {
         "column": "gdp_per_capita",
@@ -137,7 +140,10 @@ def run_nz_outcome_extensions() -> Dict[str, pd.DataFrame]:
 
     summary_rows: List[dict] = []
     for name, table in output_tables.items():
-        post = table[table.index >= 2011]
+        post = table[
+            (table.index >= POST_TREATMENT_START_YEAR)
+            & (table.index <= POST_TREATMENT_END_YEAR)
+        ]
         summary_rows.append(
             {
                 "outcome": name,
