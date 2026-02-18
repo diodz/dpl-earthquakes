@@ -29,15 +29,15 @@ Canterbury's per-capita gap survives the decomposition: total GDP rises above sy
 \paragraph{Response.}
 We address both parts of the comment as follows.
 
-\textbf{Uniform confidence sets and timing sensitivity:} We expanded the timing analysis to provide full treatment-year sensitivity outputs. For New~Zealand we report 2010-start, 2011-start (preferred), and 2012 sequence-aware start; for Chile, 2010 baseline plus nearby placebo starts (2009 and 2011). For each timing choice we report pre/post fit quality, post/pre RMSPE ratio, and placebo ranking (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}), with machine-readable outputs. We also report placebo pre-fit filters for Chile (2$\times$, 5$\times$, 10$\times$ treated pre-RMSPE). Uniform confidence sets over the post-treatment path are reported in Figure~\ref{fig:uniform_sets}. Main conclusions are stable: Maule's uniform set includes zero throughout the post period, while Canterbury shows non-zero positive years concentrated in early-to-mid rebuild years, with later attenuation.
+\textbf{Uniform confidence sets and timing sensitivity:} We expanded the timing analysis to provide full treatment-year sensitivity outputs. For New~Zealand we report 2010-start, 2011-start (preferred), and 2012 sequence-aware start; for Chile, 2010 baseline plus nearby placebo starts (2009 and 2011). For each timing choice we report pre/post fit quality, post/pre RMSPE ratio, and placebo ranking (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}). We also report placebo pre-fit filters for Chile (2$\times$, 5$\times$, 10$\times$ treated pre-RMSPE). Uniform confidence sets over the post-treatment path are reported in Figure~\ref{fig:uniform_sets}. Main conclusions are stable: Maule's uniform set includes zero throughout the post period, while Canterbury shows non-zero positive years concentrated in early-to-mid rebuild years, with later attenuation.
 
-\textbf{Rolling in-time placebo (every pre-treatment year):} The referee requested a rolling in-time placebo for \emph{every} possible year in the pre-treatment period (e.g., 2000--2009). We now implement this explicitly: we re-estimate SCM for each candidate treatment year $T$ in the pre-treatment window and plot the resulting gap path. We require at least three pre-treatment years for each fit, so the candidate set is New~Zealand: $T \in \{2003,\ldots,2009, 2011\}$ (years 2000--2002 omitted) and Chile: $T \in \{1993,\ldots,2009, 2010\}$ (years 1990--1992 omitted). The new script \texttt{src/rolling\_in\_time\_placebo.py} produces Figure~\ref{fig:rolling_in_time_placebo}: each line's placebo treatment year is indicated by color (colorbar); the thick red line is the path for the actual treatment year. The figure shows that the post-treatment divergence is unique to the actual treatment year (Canterbury's gap rises only when 2011 is used; Maule remains near zero for 2010 and for all placebo years). Summary CSVs are exported to \texttt{article\_assets/rolling\_in\_time\_placebo\_summary.csv} (and country-specific variants). This completes the requested rolling in-time placebo exercise.
+\textbf{Rolling in-time placebo (every pre-treatment year):} The referee requested a rolling in-time placebo for \emph{every} possible year in the pre-treatment period (e.g., 2000--2009). We now implement this explicitly: we re-estimate SCM for each candidate treatment year $T$ in the pre-treatment window and plot the resulting gap path. We require at least three pre-treatment years for each fit, so the candidate set is New~Zealand: $T \in \{2003,\ldots,2009, 2011\}$ (years 2000--2002 omitted) and Chile: $T \in \{1993,\ldots,2009, 2010\}$ (years 1990--1992 omitted). The resulting placebo paths are reported in Figure~\ref{fig:rolling_in_time_placebo}: each line's placebo treatment year is indicated by color (colorbar); the thick red line is the path for the actual treatment year. The figure shows that the post-treatment divergence is unique to the actual treatment year (Canterbury's gap rises only when 2011 is used; Maule remains near zero for 2010 and for all placebo years). This completes the requested rolling in-time placebo exercise.
 
 \paragraph{Comment 3.3 (SDID and bias-corrected SCM robustness).}
 \textit{``Given the long post-treatment window, please implement SDID and a bias-corrected/penalized SCM (especially for Maule) to test robustness to inexact matching.''}
 
 \paragraph{Response.}
-Implemented. We added a new robustness module (\texttt{src/sdid\_bias\_corrected\_analysis.py}) that estimates:
+Implemented. We added robustness analyses that estimate:
 \begin{enumerate}
   \item SDID for both Canterbury and Maule, and
   \item penalized (bias-corrected) SCM following the Abadie--L'Hour framework (reported for both countries; requested case Maule included).
@@ -55,7 +55,7 @@ Hence, Canterbury's overshoot persists when optimizing both unit and time weight
 \textit{``Sectoral interpretation appears circular; please quantify crowding-out and provide parallel Chile/New~Zealand sectoral inference.''}
 
 \paragraph{Response.}
-Implemented. We added a new reproducible sectoral module (\texttt{src/sectoral\_appendix\_analysis.py}) and integrated its outputs into the manuscript text and appendix.
+Implemented. We added sectoral analyses and integrated the results into the manuscript text and appendix.
 
 \begin{itemize}
   \item We now include \textbf{parallel sectoral SCM figures for both countries}, not only Canterbury (new Maule figure added).
@@ -79,7 +79,7 @@ We also added \textbf{alternative grouping sensitivity} for both countries (good
 \textit{``Current donor-drop checks are useful but do not directly test economic spillover channels (migration, labor reallocation, trade/input-output links). Please strengthen SUTVA diagnostics with explicit flow evidence and geographically structured donor exclusions.''}
 
 \paragraph{Response.}
-Implemented. We added a new reproducible module (\texttt{src/spillover\_diagnostics.py}) and a full appendix section (Appendix~\ref{sec:spillover_appendix}) that addresses this concern through three complementary diagnostics:
+Implemented. We added a full appendix section (Appendix~\ref{sec:spillover_appendix}) that addresses this concern through three complementary diagnostics:
 
 \begin{enumerate}
   \item \textbf{Explicit spillover proxy evidence:} We assemble population-flow indicators, construction-sector shift diagnostics (labour reallocation proxy), and inter-regional sector-structure correlations (economic linkage index) for both Chile and New~Zealand (Tables~\ref{tab:pop_flow_diagnostics}--\ref{tab:economic_linkage}).
@@ -95,20 +95,11 @@ Main findings:
 
 Sensitivity statement: Canterbury's positive finding survives all reasonable SUTVA-motivated exclusions. Maule's null result is robust under plausible exclusion rings (Rings 1--2) but becomes unreliable when the donor pool is too severely restricted.
 
-Machine-readable outputs are exported to \texttt{article\_assets/spillover\_exclusion\_summary.csv}, \texttt{spillover\_exclusion\_gap\_series.csv}, \texttt{spillover\_sensitivity\_statement.csv}, and the consolidated workbook \texttt{spillover\_diagnostics\_workbook.xlsx}.
-
 \paragraph{Minor comment (data-quality corroboration via night-time lights).}
 \textit{``Corroborate regional GDP findings with an objective proxy such as NTL intensity.''}
 
 \paragraph{Response.}
-Implemented. We added a new reproducible module, \texttt{src/nighttime\_lights\_validation.py}, that builds annual regional NTL series and runs parallel SCM validation for Chile (Maule) and New Zealand (Canterbury). The script:
-\begin{enumerate}
-  \item aggregates a harmonized DMSP-OLS/VIIRS annual product to regional boundaries used in our SCM design;
-  \item re-estimates SCM on NTL outcomes for both treated regions (same treatment timing logic); and
-  \item exports product-sensitivity and spatial-sensitivity checks (urban-core mask in Maule; Christchurch buffers for Canterbury).
-\end{enumerate}
-
-New outputs are exported to \texttt{article\_assets/} (including \texttt{ntl\_validation\_paths\_gaps.png}, \texttt{ntl\_sensor\_processing\_robustness.png}, \texttt{ntl\_spatial\_sensitivity.png}, and summary CSV tables).
+Implemented. We added analyses that build annual regional NTL series and run parallel SCM validation for Chile (Maule) and New Zealand (Canterbury). The procedure: (i) aggregates a harmonized DMSP-OLS/VIIRS annual product to regional boundaries used in our SCM design; (ii) re-estimates SCM on NTL outcomes for both treated regions (same treatment timing logic); and (iii) reports product-sensitivity and spatial-sensitivity checks (urban-core mask in Maule; Christchurch buffers for Canterbury). Results are reported in the revised manuscript (Figures~\ref{fig:ntl_validation} and \ref{fig:ntl_spatial_sensitivity} and related text).
 
 \paragraph{Interpretation}
 For Canterbury, NTL confirms the GDP-based result: positive post-treatment divergence (about +10.0\% in 2016; average post-gap about +7.8\%). For Maule, NTL diverges from the GDP-null result (positive NTL post-gap). We now state this explicitly in the manuscript and discuss it as evidence that remote-sensing proxies can capture broader spatial re-lighting and infrastructure restoration dynamics that do not map one-to-one to measured value-added in regional GDP accounts. Product and spatial sensitivity checks preserve this qualitative pattern.
@@ -151,4 +142,4 @@ Addressed in the revised introduction and robustness sections. We now: (i) expli
 
 \section*{Reproducibility note}
 
-All figures and tables cited above appear in the revised manuscript. The analysis code is available in the supplementary repository for verification.
+All figures and tables cited above appear in the revised manuscript.
