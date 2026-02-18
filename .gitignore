@@ -18,6 +18,7 @@ venv/
 .env.test.local
 .vscode/
 .pytest_cache/
+instructions.md
 .coverage
 .coverage.*
 .coverage.xml
