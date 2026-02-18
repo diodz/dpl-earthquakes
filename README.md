@@ -33,7 +33,7 @@ Figures are written to `article_assets/`, which is the canonical location expect
 - GDP paths: `maule_gdp_paths.png`, `nz_gdp_paths.png`
 - Gaps: `maule_gap.png`, `nz_gap.png`
 - Placebos: `maule_placebos.png`, `nz_placebos.png`
-- Uniform confidence sets: `scm_uniform_confidence_sets.png`, `chile_uniform_threshold_sensitivity.png`, `nz_uniform_treatment_timing_sensitivity.png`
+- Uniform confidence sets: `scm_uniform_confidence_sets.png`, `chile_uniform_threshold_sensitivity.png`, `nz_uniform_threshold_sensitivity.png`
 - Sectoral: `nz_scm_Construction.png`, `nz_scm_Other_Sectors.png`
 - Sectoral appendix (new): `chile_scm_Construction.png`, `chile_scm_Other_Sectors.png`,
   `sectoral_inference_summary.csv`, `sectoral_crowding_out_summary.csv`,
