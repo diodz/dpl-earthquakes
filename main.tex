@@ -467,90 +467,33 @@ As an additional timing falsification exercise, we estimate full SCM/placebo dia
 
 To discipline cross-case comparability further, we compute simple damage-normalized effect benchmarks using common headline damage metrics from Table~\ref{tab:damage_compare}. Let $\widehat{g}^{\max}_c$ denote country $c$'s peak SCM GDP-per-capita gap (in percent), $D_c$ reported direct damages (US\$ billions), and $\ell_c$ losses as a share of national GDP (in percent). We report $\widehat{g}^{\max}_c / D_c$ and $\widehat{g}^{\max}_c / \ell_c$ as descriptive scaling checks. With Canterbury's peak gap near 12\% and Maule's near zero, Canterbury remains larger on both normalized margins (about $0.8$ versus $0.0$ gap-points per US\$1 billion of damage, and about $1.2$ versus $0.0$ gap-points per 1 pp of GDP-loss share). These are not structural elasticities, but they show that the divergence is not an artifact of comparing raw gaps from differently sized events.
 
+\begin{table}[H]
+\centering
+\caption{\textbf{Cross-case comparability calibration: normalized effect benchmarks}}
+\label{tab:comparability_calibration}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{Maule (Chile)} & \textbf{Canterbury (New~Zealand)} \\
+\midrule
+Peak SCM GDP-per-capita gap, $\widehat{g}^{\max}$ (\%) & $\approx 0.0$ & $\approx 12.0$ \\
+Direct damage, $D$ (US\$ bn) & 30.0 & 15.0 \\
+Loss share of national GDP, $\ell$ (\%) & 18.0 & 10.0 \\
+Normalized gap: $\widehat{g}^{\max}/D$ (gap-pp per US\$1 bn) & $\approx 0.0$ & $\approx 0.8$ \\
+Normalized gap: $\widehat{g}^{\max}/\ell$ (gap-pp per 1 pp GDP-loss share) & $\approx 0.0$ & $\approx 1.2$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Damage and GDP-loss denominators are taken from Table~\ref{tab:damage_compare}. Peak gaps are read from the baseline SCM gap paths. The normalized ratios are descriptive comparability checks (not causal elasticities).
+\end{minipage}
+\end{table}
+
 We also implement spatial damage controls in measurement. First, we re-estimate night-time-lights validation paths using urban-core masks (Talca-Curicó-Linares-Cauquenes in Maule; Christchurch-centered core in Canterbury) rather than only full administrative regions. Second, for Canterbury we add concentric 30/50/80 km buffers centered on Christchurch and show that all buffers share the same qualitative post-2011 pattern (initial dip, sustained rebuild rise). Together with the progressive geographic donor exclusions in Appendix~\ref{sec:spillover_appendix}, these checks reduce the risk that our cross-case contrast is driven solely by within-region spatial composition differences.
 
 Timing-sensitivity outputs are available in the replication package.
 
-\begin{table}[H]
-\centering
-\caption{\textbf{Treatment-year timing sensitivity diagnostics (full specification set)}}
-\label{tab:timing_sensitivity}
-\scriptsize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{llccccc}
-\toprule
-\textbf{Country} & \textbf{Timing specification} & \textbf{Mean gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} & \textbf{Post/Pre} & \textbf{Ratio rank ($p$-value)} \\
-\midrule
-Chile & 2009 placebo start & $-17.57$ & $8.93$ & $18.29$ & $2.05$ & $4/12\ (0.333)$ \\
-Chile & 2010 baseline start & $-4.69$ & $10.35$ & $5.01$ & $0.48$ & $12/12\ (1.000)$ \\
-Chile & 2011 placebo start & $-1.80$ & $7.32$ & $2.76$ & $0.38$ & $12/12\ (1.000)$ \\
-New~Zealand & 2010 start & $6.72$ & $1.08$ & $7.14$ & $6.63$ & $1/15\ (0.067)$ \\
-New~Zealand & 2011 start (preferred) & $7.10$ & $1.01$ & $7.88$ & $7.81$ & $1/15\ (0.067)$ \\
-New~Zealand & 2012 sequence-aware start & $6.85$ & $1.02$ & $8.13$ & $7.95$ & $1/15\ (0.067)$ \\
-\bottomrule
-\end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Mean gaps are computed over common post windows (2011--2019 for New~Zealand; 2010--2019 for Chile). Ratio rank is the treated-unit rank among treated plus placebo units for the post/pre RMSPE ratio (higher is more extreme). One-sided placebo $p$-values are rank-based randomization-inference probabilities.
-\end{minipage}
-\end{table}
-
-\begin{figure}[H]\centering
-\caption{\textbf{Timing sensitivity gap paths under alternative treatment-year conventions}}
-\label{fig:timing_sensitivity_paths}
-\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_gap_paths.png}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Each panel overlays treated-minus-counterfactual gap paths under all timing conventions reported in Table~\ref{tab:timing_sensitivity}. The preferred convention is shown with a solid line; alternatives are dashed.
-\end{minipage}
-\end{figure}
-
-\begin{figure}[H]\centering
-\caption{\textbf{Timing sensitivity RMSPE-ratio diagnostics and placebo ranking}}
-\label{fig:timing_sensitivity_rmspe}
-\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_rmspe_ratios.png}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Bars report treated-unit post/pre RMSPE ratios for each timing convention. Labels show the treated-unit placebo rank and one-sided $p$-value for that specification.
-\end{minipage}
-\end{figure}
-
-\begin{figure}[H]\centering
-\caption{\textbf{Leave-One-Out (Jackknife) Robustness Test}}
-\label{fig:jackknife}
-\begin{subfigure}{0.48\textwidth}\centering
-\includegraphics[width=\textwidth]{article_assets/chile_jacknife.png}
-\caption{Maule vs. Synthetic (without Araucanía)}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.48\textwidth}\centering
-\includegraphics[width=\textwidth]{article_assets/nz_jacknife.png}
-\caption{Canterbury vs. Synthetic (without Auckland)}
-\end{subfigure}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} This figure shows the results of the leave-one-out robustness test, where the synthetic control is re-estimated after removing the donor region with the highest weight. Panel (a) shows the result for Maule after excluding the Araucanía region. Panel (b) shows the result for Canterbury after excluding the Auckland region. In both cases, the main conclusions remain unchanged.
-\end{minipage}
-\end{figure}
-
-Figure \ref{fig:jackknife} presents the results of this test. For Maule (Panel a), the new synthetic control without Araucanía still tracks the actual GDP per capita path very closely, with the post-earthquake gap remaining near zero. This confirms that our null finding is not an artifact of, or largely driven by, one particular donor. Similarly, for Canterbury (Panel b), excluding Auckland produces a slightly \textit{lower} counterfactual path, which in turn makes the estimated positive gap between real Canterbury and its counterfactual even larger, thus reinforcing the direction of our results. The core finding of a substantial and sustained positive economic impact in Canterbury is therefore robust to the exclusion of its most important donor.
-
-The timing results reinforce this interpretation. Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe} show that Canterbury remains strongly positive under 2010-, 2011-, and 2012-start conventions, with the treated unit ranked first in RMSPE-ratio extremeness in all three cases. In Chile, nearby placebo starts (2009, 2011) and the baseline 2010 specification remain non-positive and are never highly ranked against placebo units. Hence, the cross-case conclusion does not depend on an arbitrary timing definition.
-
-We additionally run sensitivity checks for the uniform sets by varying the pre-treatment fit filter used to retain placebo units (2$\times$, 5$\times$, and 10$\times$ the treated pre-RMSPE) in both countries. For Chile (treatment fixed at 2010), Maule’s post-treatment uniform set continues to include zero throughout. For New~Zealand (treatment fixed at 2011), Canterbury’s gap remains positive with exclusion of zero concentrated in early-to-mid rebuild years, and re-convergence later in the sample. Treatment-year sensitivity for New~Zealand is already reported in the timing section (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) and in the rolling in-time placebo figure.
-
-\begin{figure}[H]\centering
-\caption{\textbf{Uniform-set sensitivity checks}}
-\label{fig:uniform_sensitivity}
-\begin{subfigure}{0.48\textwidth}\centering
-\includegraphics[width=\textwidth]{article_assets/chile_uniform_threshold_sensitivity.png}
-\caption{Chile: alternative pre-fit thresholds}
-\end{subfigure}
-\hfill
-\begin{subfigure}{0.48\textwidth}\centering
-\includegraphics[width=\textwidth]{article_assets/nz_uniform_threshold_sensitivity.png}
-\caption{New Zealand: alternative pre-fit thresholds}
-\end{subfigure}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Both panels vary the placebo pre-fit filter (2$\times$, 5$\times$, 10$\times$ the treated pre-RMSPE). The qualitative inference is stable across both countries.
-\end{minipage}
-\end{figure}
+Detailed timing, jackknife, and uniform-threshold sensitivity outputs are reported in Appendix~\ref{sec:additional_robustness_appendix}; the main qualitative conclusions are unchanged across all variants.
 
 To further stress-test the long post-treatment horizon and the potential inexact-matching concern for Maule, we implement two additional estimators. First, we estimate Synthetic Difference-in-Differences (SDID; \cite{arkhangelsky2021sdid}) for both cases. Second, we estimate a penalized (bias-corrected) SCM in the spirit of \textcite{abadie2021penalized}. For the penalized estimator, we tune the penalty over a grid and select the largest $\lambda$ within 5\% of the minimum pre-period RMSPE (selected $\lambda=10^{-3}$ in both countries). The resulting post-period estimates are reported in Table~\ref{tab:sdid_penalized} and visualized in Figure~\ref{fig:sdid_penalized_gaps}. Canterbury remains clearly positive under SDID (+7.8\% average post-gap over 2011--2019) and under penalized SCM (+6.5\%), confirming that the overshoot is not an artifact of baseline SCM weighting alone. Maule remains non-positive across alternatives (SCM: $-1.7$\%, SDID: $-5.1$\%, penalized SCM: $-1.5$\% over 2010--2019), reinforcing the absence of a positive medium-run overshoot.
 
@@ -641,6 +584,22 @@ Early, large, and predictable financial liquidity can convert a replacement inve
 \paragraph{(iii) Informal institutions (social capital and co-production):} Socio-economic evidence from Christchurch documents that community groups and embedded entrepreneurs contributed greatly to restoring services and complementing official efforts (e.g., volunteer “armies,” temporary retail), reducing downtime and frictions in the recovery \parencite{grube2018embedded, parker2016five}. In fact, the socioeconomic literature on post-disaster recovery has suggested that informal institutions, social capital, and co-production efforts from local communities and organizations can greatly influence the speed and magnitude of recovery after a natural disaster \parencite{storr2016community, storr2017sandy, rayamajhee2022coproduction}. The case of Canterbury seems to confirm these previous findings in the post-disaster literature. On the other hand, comparative socio-economic accounts of Maule point to a much weaker formal engagement of local communities in recovery planning, lower levels of social capital and lack of trust among citizens, plausibly hampering local positive effects or multipliers from co-production and bottom-up reconstruction efforts \parencite{cardenasjiron2012chilean, dussaillant2014trust}. 
 
 In summary, the three identified channels help to emphasize the broader point that \emph{institutional quality mediates disaster impacts and affects the magnitude and direction of a recovery}. They also suggest testable predictions for the disaster literature going forward that also resonate with our findings: (a) where insurance penetration and implementation capacity are high, positive post-disaster effects appear with a short lag, and they tend to concentrate in the construction sector of the affected regions; (b) economic effects tend to attenuate as rebuilding efforts conclude; and (c) in settings with lower insurance and weaker co-production or low levels of social capital and trust, treated and synthetic paths remain indistinguishable.\footnote{In other words, our work and the mechanisms identified in this sub-section imply the following falsifiable patterns in other cases of natural disasters: a) Insurance $\times$ implementation: short-lag, construction-led spikes. Where catastrophe insurance penetration and implementation capacity are high, positive post-disaster effects should emerge within 1--2 years and be dominated by construction's share of GVA. b) Medium-lived dynamics: Effects should attenuate when rebuild pipelines end; convergence toward synthetic by years 7--10 is expected absent productivity upgrades. c) Weak co-production: null macro effects: Where insurance is sparse and community co-production is weaker, aggregate treated and synthetic paths should remain statistically indistinguishable, even with sizable reconstruction outlays.}
+
+\subsection{Empirically anchored mechanism checks (suggestive, not definitive)}
+
+To reduce reliance on narrative interpretation, we evaluate several reduced-form mechanism implications that are testable in our data and compare them with observed patterns. These are \emph{mechanism-consistent diagnostics}, not formal mediation estimates.
+
+\paragraph{Liquidity/reconstruction channel prediction.}
+If rapid reconstruction liquidity is central, we should observe: (i) a positive gap concentrated in rebuild years, (ii) stronger construction divergence than non-construction divergence, and (iii) attenuation as the rebuild pipeline winds down. This is the pattern in Canterbury: positive post-2011 gaps, statistically strong construction-share effects, and convergence toward synthetic by the end of the sample (Sections~4.1--4.3).
+
+\paragraph{Pure denominator channel prediction.}
+If GDP-per-capita gains were mainly demographic composition effects, total GDP should not co-move with per-capita gaps. In Canterbury, decomposition evidence indicates a positive total-GDP gap alongside a negative population gap, implying denominator effects contribute but do not fully account for the overshoot. For Maule, available decomposition evidence does not reveal a hidden positive output overshoot.
+
+\paragraph{Spatial comparability prediction.}
+If the cross-case contrast were mainly an artifact of geographic aggregation, urban-core and buffer validations should overturn baseline findings. They do not: urban-core night-lights checks and Christchurch-centered 30/50/80 km buffers preserve the qualitative divergence.
+
+\paragraph{Interpretive implication.}
+Taken jointly, these diagnostics are consistent with a mechanism bundle in which insurance-linked liquidity, implementation capacity, and temporary sectoral reallocation help explain Canterbury's medium-lived overshoot, whereas Maule maps into return-to-trend dynamics. We therefore frame mechanisms as \emph{suggestive and empirically disciplined}, not as fully identified causal channels.
 
 
 
@@ -894,6 +853,93 @@ The Canterbury positive effect is qualitatively \emph{robust} to all geographic 
 The Maule null result is largely stable under Ring~1 (excluding O'Higgins; mean gap $-5.8\%$) and Ring~2 (excluding O'Higgins, Araucanía, and RM; mean gap $-14.7\%$), both of which show non-positive effects. Under the most restrictive Ring~3 (retaining only 6 donors from distant, structurally dissimilar regions), the sign reverses to $+9.4\%$, but the pre-treatment fit deteriorates substantially (pre-RMSPE rises to 4.8\%). We attribute this to the breakdown of the convex-hull condition with very few, dissimilar donors rather than to a genuine positive effect. The population-flow diagnostics confirm no differential migration to adjacent Chilean regions, and the construction-sector spillover analysis shows negligible shifts in neighbouring regions' construction shares. We conclude that the baseline null finding for Maule is robust to plausible geographic exclusions under Rings 1--2, but that the donor pool becomes too small and structurally inappropriate under Ring~3 for reliable inference.
 
 Spillover-diagnostics outputs are available in the replication package.
+
+\section{Additional robustness details moved from the main text}
+\label{sec:additional_robustness_appendix}
+
+For readability of the main manuscript, this appendix collects the full timing-sensitivity diagnostics, jackknife plot, and uniform-threshold sensitivity plots referenced in Section~4.3.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Treatment-year timing sensitivity diagnostics (full specification set)}}
+\label{tab:timing_sensitivity}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Country} & \textbf{Timing specification} & \textbf{Mean gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} & \textbf{Post/Pre} & \textbf{Ratio rank ($p$-value)} \\
+\midrule
+Chile & 2009 placebo start & $-17.57$ & $8.93$ & $18.29$ & $2.05$ & $4/12\ (0.333)$ \\
+Chile & 2010 baseline start & $-4.69$ & $10.35$ & $5.01$ & $0.48$ & $12/12\ (1.000)$ \\
+Chile & 2011 placebo start & $-1.80$ & $7.32$ & $2.76$ & $0.38$ & $12/12\ (1.000)$ \\
+New~Zealand & 2010 start & $6.72$ & $1.08$ & $7.14$ & $6.63$ & $1/15\ (0.067)$ \\
+New~Zealand & 2011 start (preferred) & $7.10$ & $1.01$ & $7.88$ & $7.81$ & $1/15\ (0.067)$ \\
+New~Zealand & 2012 sequence-aware start & $6.85$ & $1.02$ & $8.13$ & $7.95$ & $1/15\ (0.067)$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Mean gaps are computed over common post windows (2011--2019 for New~Zealand; 2010--2019 for Chile). Ratio rank is the treated-unit rank among treated plus placebo units for the post/pre RMSPE ratio (higher is more extreme). One-sided placebo $p$-values are rank-based randomization-inference probabilities.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Timing sensitivity gap paths under alternative treatment-year conventions}}
+\label{fig:timing_sensitivity_paths}
+\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_gap_paths.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each panel overlays treated-minus-counterfactual gap paths under all timing conventions reported in Table~\ref{tab:timing_sensitivity}. The preferred convention is shown with a solid line; alternatives are dashed.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Timing sensitivity RMSPE-ratio diagnostics and placebo ranking}}
+\label{fig:timing_sensitivity_rmspe}
+\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_rmspe_ratios.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Bars report treated-unit post/pre RMSPE ratios for each timing convention. Labels show the treated-unit placebo rank and one-sided $p$-value for that specification.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Leave-One-Out (Jackknife) Robustness Test}}
+\label{fig:jackknife}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_jacknife.png}
+\caption{Maule vs. Synthetic (without Araucanía)}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_jacknife.png}
+\caption{Canterbury vs. Synthetic (without Auckland)}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} This figure shows the results of the leave-one-out robustness test, where the synthetic control is re-estimated after removing the donor region with the highest weight. Panel (a) shows the result for Maule after excluding the Araucanía region. Panel (b) shows the result for Canterbury after excluding the Auckland region. In both cases, the main conclusions remain unchanged.
+\end{minipage}
+\end{figure}
+
+Figure \ref{fig:jackknife} presents the results of this test. For Maule (Panel a), the new synthetic control without Araucanía still tracks the actual GDP per capita path very closely, with the post-earthquake gap remaining near zero. This confirms that our null finding is not an artifact of, or largely driven by, one particular donor. Similarly, for Canterbury (Panel b), excluding Auckland produces a slightly \textit{lower} counterfactual path, which in turn makes the estimated positive gap between real Canterbury and its counterfactual even larger, thus reinforcing the direction of our results. The core finding of a substantial and sustained positive economic impact in Canterbury is therefore robust to the exclusion of its most important donor.
+
+The timing results reinforce this interpretation. Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe} show that Canterbury remains strongly positive under 2010-, 2011-, and 2012-start conventions, with the treated unit ranked first in RMSPE-ratio extremeness in all three cases. In Chile, nearby placebo starts (2009, 2011) and the baseline 2010 specification remain non-positive and are never highly ranked against placebo units. Hence, the cross-case conclusion does not depend on an arbitrary timing definition.
+
+We additionally run sensitivity checks for the uniform sets by varying the pre-treatment fit filter used to retain placebo units (2$\times$, 5$\times$, and 10$\times$ the treated pre-RMSPE) in both countries. For Chile (treatment fixed at 2010), Maule’s post-treatment uniform set continues to include zero throughout. For New~Zealand (treatment fixed at 2011), Canterbury’s gap remains positive with exclusion of zero concentrated in early-to-mid rebuild years, and re-convergence later in the sample. Treatment-year sensitivity for New~Zealand is already reported in the timing section (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) and in the rolling in-time placebo figure.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Uniform-set sensitivity checks}}
+\label{fig:uniform_sensitivity}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_uniform_threshold_sensitivity.png}
+\caption{Chile: alternative pre-fit thresholds}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_uniform_threshold_sensitivity.png}
+\caption{New Zealand: alternative pre-fit thresholds}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Both panels vary the placebo pre-fit filter (2$\times$, 5$\times$, 10$\times$ the treated pre-RMSPE). The qualitative inference is stable across both countries.
+\end{minipage}
+\end{figure}
+
 
 \printbibliography
 \section*{Data and code availability}
