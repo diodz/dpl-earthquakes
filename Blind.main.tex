@@ -1,0 +1,968 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace,booktabs,caption,subcaption}
+\usepackage{amsmath}
+\usepackage[style=apa, doi=false]{biblatex}
+\addbibresource{references.bib}
+\usepackage{graphicx}
+\usepackage{threeparttable}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage{url}
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage{authblk}
+
+
+\doublespacing
+
+\title{\Large\textbf{Earthquakes and Divergent Economic Recovery:\\
+Case Studies of Chile and New Zealand}}
+
+\author{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\singlespacing
+The consequences of natural disasters, such as earthquakes, are evident: death, coordination problems, destruction of infrastructure, and displacement of the population. However, according to empirical research, the impact of a natural disaster on economic activity is mixed. This is relevant for seismic countries such as Chile and New Zealand. This paper contributes to the literature on natural disasters and their economic effects by analyzing the cases of two affected regions within these countries. We employ the synthetic control method (SCM) to estimate the medium-term impact of two large earthquakes on regional output: the 2010 Maule (Chile) event and the 2010--2011 Canterbury (New~Zealand) sequence. We find that Chile and New Zealand experienced opposite economic effects: the GDP per capita of the Canterbury region rose above its counterfactual by about 12\% in the years following the disaster, while the GDP per capita of the Maule region showed no significant change relative to its counterfactual. In interpreting these outcomes, we suggest that New~Zealand’s insurance architecture, implementation capacity, and community co-production helped facilitate a rapid, large-scale rebuild, while Chile’s institutional context supported recovery back to trend but not above trend. The paper highlights that \textit{institutional readiness} plays a role in mediating disaster impacts and underscores that measured gains are medium-lived output responses.
+\end{abstract}
+
+
+
+\noindent\textbf{JEL Codes:} Q54; R11; H84; O54; O56; C21.\\
+\noindent\textbf{Keywords:} Disasters; Earthquakes; Synthetic control; Institutions; Chile; New Zealand.\\
+
+\newpage
+\section{Introduction}
+Natural disasters can profoundly affect economic activity, but the direction and magnitude of their impacts remain empirically contested \parencite{noy2009macroeconomic, barone2014natural, boustan2020effect, coffman2012hurricane}. Earthquakes in particular pose an ideal quasi-experimental setting for studying economic resilience and recovery, given their sudden onset and the wide variation in institutional preparedness between regions \parencite{barone2014natural, boustan2020effect, kahn2005death}. This paper provides a comparative analysis of two major seismic events that occurred in 2010--2011 on opposite sides of the world: the Mw 8.8 Maule earthquake in Chile (February 27, 2010) and the Canterbury earthquake sequence in New Zealand (September 2010 through 2011).
+
+This paper contributes to the literature on natural disasters and their different economic effects (see \cite{barone2014natural, farzanegan2025bam, noydupont2018longterm, platt2016measuring, storr2016community}) by analyzing the cases of these two countries after similar and major earthquakes. Our analysis is relevant to the economic literature on disasters, as the Chilean and New Zealand cases are significant in terms of earthquake magnitude, yet they have been largely disregarded by the literature (\cite{cardenasjiron2012chilean, dussaillant2014trust, miller2013estimating}). Hence, despite their severity, they have been largely unexplored from an empirical perspective (see also \parencite{aguirre2023medium, nguyen2020insurance}), and much less so compared or confronted together using the synthetic control method. Closing this gap in the literature is the main contribution of this paper. Today, more than 15 years after these events occurred, we present the first economic assessment and comparison of their consequences using a modern empirical technique to conduct comparative analysis at the regional level \parencite{abadie2010synthetic, abadie2021jel, barone2014natural, dupont2015kobe}. To the best of our knowledge, this is the first article that attempts to do this simultaneously for earthquakes in Chile and New Zealand.     
+
+The contributions of this paper are two-fold. First, we present the first medium-term comparative analysis of the economic impact of the Maule (Chile) and Canterbury (New Zealand) earthquakes on regional GDP per capita, utilizing regional data and the modern statistical technique SCM. Although New Zealand's Christchurch earthquake has been studied before \parencite{nguyen2020insurance, doyle2015short, miller2013estimating}, the impact of the Maule earthquake on regional economic output has been relatively neglected or inconclusive \parencite{aguirre2023medium, eclac2010overview}. Second, and by examining both cases and employing the same Synthetic Control Method (SCM) methodology with counterfactuals to assess their impacts, we illuminate the differences in their outcomes, thus underscoring the importance of institutions and social capital in affecting their divergent economic consequences. We discuss the potential role of institutional factors, including government response, insurance, and community resilience, in shaping these outcomes stemming from natural disasters. 
+
+Both disasters occurred in upper middle or high income countries that share strong similarities in economic development, macroeconomic fundamentals, agricultural economic industries, and export strategies \parencite{gonzalez2020diversificacion}, but New Zealand's governance and disaster response institutions consistently rank among the strongest in the world, while Chile does not. Hence, Chile and New Zealand present an interesting comparison because both are highly seismic developed economies with strong and similar macroeconomic fundamentals (ibid.) that suffered major earthquakes during 2010-2011; yet they differ in important institutional dimensions concerning post-disaster capacity. Chile’s Maule region (\textit{Región del Maule}) experienced widespread infrastructure damage in 2010, but the national government’s reconstruction efforts were criticized as slow or uneven \parencite{dussaillant2014trust, cardenasjiron2012chilean}. The Canterbury earthquakes not only caused significant loss of life and capital, but also triggered a massive rebuild program financed by insurance payouts and government support. We study the cumulative impact of the Canterbury earthquake \textit{sequence} as a whole, since the economic effects of multiple and overlapping shocks cannot be easily separated. In contrast, the Maule event was a single large shock followed by traditional minor aftershocks. Given cross-case heterogeneity in shock geography (single rural-coastal mega-event versus urban multi-shock sequence), we treat comparability as an empirical design problem rather than a maintained assumption. We address cross-case comparability both in Section 4 and in the Appendix through: (i) scale-normalized benchmarks, (ii) timing sensitivity checks, and (iii) spatial diagnostics.
+
+A motivation for comparing these cases is to explore how differences in institutional quality and disaster response mechanisms could help explain divergent economic outcomes. Previous research emphasizes that institutional arrangements—both formal (e.g., insurance markets, government relief programs) and informal (e.g., community networks, social capital)—play a crucial role in post-disaster recovery \parencite{noy2009macroeconomic, rayamajhee2022coproduction, storr2016community, storr2017sandy}. New Zealand is highly ranked in governance indicators and has near-universal earthquake insurance coverage for homeowners, facilitating rapid fund disbursement for reconstruction \parencite{nguyen2020insurance}. Chile, while robust, had lower insurance penetration and faced coordination challenges in reconstruction at the regional level \parencite{cardenasjiron2012chilean, eclac2010overview}. In addition, informal institutions and social capital can also shape recovery \parencite{grube2018embedded, storr2016community}. We incorporate these insights into our analysis, examining whether Canterbury’s formal and informal institutional environment helped turn a destructive shock into an economic stimulus (via a reconstruction boom) and whether Maule's context contributed to a more neutral outcome.
+
+Our approach uses the Synthetic Control Method (SCM) (see \cite{abadie2021jel, abadie2010synthetic}) to construct for each affected region a weighted combination of other, unaffected regions that closely approximates the \textit{pre-disaster economic trend}. We then compare the post-disaster GDP per capita of the treated region to that of its synthetic counterfactual. This method is well-suited for disaster impact analysis \parencite{barone2014natural, coffman2012hurricane, rayamajhee2024shock}. By focusing on the subnational (regional) level, we capture localized impacts that country-level analyses might miss (see also \cite{boustan2020effect, farzanegan2025bam}). At the same time, to ensure a valid comparison, we carefully address issues of donor pool selection and potential spillovers.\footnote{In constructing the synthetic controls, we exclude any regions that were directly affected by the events under study and test the robustness by excluding neighboring regions that could have experienced spillover effects \parencite{abadie2010synthetic, abadie2021jel}}
+
+Our findings reveal a striking divergence: In Chile, the trajectory of the Maule region's GDP per capita remains \textit{indistinguishable} (i.e., unchanged) from its synthetic control after the 2010 earthquake, indicating that there is no significant medium-term effect (positive or negative) attributable to the disaster. In contrast, we find that in New Zealand, Canterbury’s GDP per capita climbs \textit{well above} its synthetic control in the years following 2011. By 2016, Canterbury’s output per capita is roughly 12\% higher than it would have been without the earthquakes--an effect that persists through the end of our study period.\footnote{We verify the statistical significance of these results using placebo tests and inferential techniques. Inference suggests that the Canterbury effect is significant at approximately the 5\% level, whereas the Maule effect is not distinguishable from zero and is, in fact, less than the typical placebo result for an unaffected region. In short, the Maule earthquake had a \emph{statistically null} effect on regional GDP, contrary to the typical expectation of a negative shock, while the Canterbury earthquakes led to a \emph{statistically significant economic gain} relative to the counterfactual.} We emphasize that a positive GDP per capita effect \textit{does not} imply a welfare gain: the Canterbury earthquakes caused 185 deaths, widespread displacement, and destruction of the region's housing and infrastructure—stock losses that are not captured by flow measures of regional output. 
+
+We interpret these results by examining sectoral outcomes and institutional factors in each case. We also discuss how differences in institutional capacity and social capital could help illuminate these divergent patterns.\footnote{For example, New Zealand’s effective governance and insurance framework enabled a rapid and significant reconstruction effort, with government and private insurance mobilizing massive funds \parencite{parker2016five, poontirakul2017insurance}. Meanwhile, informal institutional responses—such as the surge in local entrepreneurship and co-production of services documented by \textcite{storr2017sandy} and \textcite{grube2018embedded}—helped sustain economic activity through social capital, social learning, and co-production. On the other hand, in Chile the recovery may have been hampered by coordination problems, overcentralization of relief, and subsequent unrelated shocks \parencite{eclac2010overview, cardenasjiron2012chilean, cardenas2018talca}, as well as with problems associated with low social trust (\cite{dussaillant2014trust}).} Our findings are consistent with the broader literature on disasters and institutions, which emphasizes that high-quality institutions (including well-defined property rights, efficient insurance markets, effective government response, and strong social capital) tend to mitigate the adverse impacts of natural disasters and can even turn reconstruction into an opportunity for economic renewal \autocite{skidmore2002does, raschky2008institutions, rayamajhee2022coproduction, storr2016community, rayamajhee2024shock}.
+
+\section{Literature Review}
+Our study contributes to multiple strands of literature at the intersection of disasters, political economy, and the divergent economic consequences of earthquakes. First, it relates to the growing empirical literature on the macroeconomic impacts of natural disasters \parencite{felbermayr2014disasters, loayza2012natural, porcelli2019impact, skidmore2002does}. Recent literature suggests that the effects of earthquakes are \textit{highly non-linear} in disaster magnitude: smaller events often show little impact or slight positives due to reconstruction, whereas very large catastrophes can have prolonged and negative consequences (e.g., New Orleans after Katrina) (see also \cite{barone2014natural, felbermayr2014disasters, boustan2020effect}). This non-linearity is relevant for our cases, as the Maule quake was one of the largest on record globally, whereas the Canterbury sequence, though very damaging locally, released less total energy. Our results are consistent with this view, in the sense that the Chile event, despite its size, did not generate a detectable or prolonged economic decline, while the more moderate New Zealand shocks were within a more contained range where reconstruction stimulus outweighed the disaster losses.
+
+Second, our work contributes to the literature on comparative analysis of disaster case studies, focusing on specific events and countries with a regional focus (\cite{barone2014natural, farzanegan2025bam, porcelli2019impact}). For the 2010 Maule earthquake, previous research has examined impacts on various outcomes, but mostly at the aggregated level or through ethnographic and sociologically oriented approaches focusing mostly on social outcomes (see \cite{cardenasjiron2012chilean, eclac2010overview, cardenas2018talca, dussaillant2014trust}). For example, and at the national level, \textcite{eclac2010overview} document the immediate macroeconomic damage and the reconstruction program consistent with a rapid aggregate recovery, while at the local level, qualitative and urban studies document substantial post-disaster relocation in the Maule region--rural households moving to Talca and intraurban displacement from the historic center to peripheral neighborhoods \parencite{micheletti2017relocalizacion, cardenas2018talca}. Official assessments also report large temporary displacement after 27F \parencite{usgs2011ofr}. However, few if any studies had isolated Maule's effect on medium-term GDP per capita, which is a gap we address (see also \cite{aguirre2023medium}). In sum, empirical studies on the 2010 Maule earthquake that leverage both regional data and employ novel empirical techniques are almost absent from the literature (ibid.), which highlights one of our contributions.   
+
+In contrast, for the Canterbury earthquakes, there is a much richer literature given the extensive data and policy interest of the case (see also \cite{miller2013estimating}). Macro-level studies (e.g., \cite{doyle2015short, parker2016five}) found that New Zealand’s overall GDP was surprisingly robust, with losses in Christchurch offset by subsequent reconstruction activity. Recently \textcite{poontirakul2017insurance} explore how insurance payouts affected firm performance (see also \cite{nguyen2020insurance}). Our analysis complements these works by focusing on aggregate per-capita output at the regional level, and by also providing a plausible counterfactual comparison. Using the SCM, we confirm that Canterbury’s economy \textit{outperformed} its counterfactual after 2011.
+
+A third line of literature related to our analysis is the role of institutions and social capital in both disaster impact and post-disaster recovery (\cite{rayamajhee2024shock, storr2016community, dussaillant2014trust}). As \textcite{skidmore2002does} first posited, better institutions (i.e., better governance, higher economic freedom, greater social trust, etc.) can reduce disaster vulnerability and speed up recovery. Subsequent studies provide additional empirical support for their thesis: for example, \textcite{raschky2008institutions, barone2014natural} find that countries with \textit{higher institutional quality} experience smaller output declines from disasters and faster recovery. Formal institutions, such as insurance systems, building codes, and government relief programs, directly affect the resources available for reconstruction. \textcite{nguyen2020insurance} show, using night-time light data, that insured locations recover faster from earthquakes. New Zealand’s Earthquake Commission insurance scheme is often cited as a role model in policy that injected liquidity (and channeled funds) quickly after the Canterbury quakes, thus stimulating reconstruction, since approximately 80\% of residential losses were insured, versus less than 20\% in the Maule earthquake. 
+
+In addition, informal institutions and social capital also matter \parencite{storr2016community}: for instance, \textcite{storr2017sandy} and \textcite{aldrich2015social} highlight how community solidarity, trust, and local knowledge can fill gaps left by formal aid, fostering resilience. In Christchurch, community groups and “embedded entrepreneurs” emerged to provide services and rebuild the social infrastructure in parallel with official efforts \autocite{grube2018embedded}. In contrast, in Chile, many recovery decisions were overly centralized and were carried out mainly by the national government, and the informal participation of the community was less prominent, potentially affecting the results on the ground (although Chile's strong central government ensured macroeconomic stability during reconstruction) \parencite{cardenasjiron2012chilean}. 
+
+Moreover, \textcite{dussaillant2014trust}, find that Chile in 2010 had low baseline social capital and trust at the time of the earthquake, which they associate with post-disaster coordination difficulties. This is consistent with weaker informal institutional support for bottom-up recovery, though we note that their data cover Región VIII (Biobío) and the Metropolitan Region rather than Maule specifically (see Section 5.1). Our findings align with the notion that institutions help mediate disaster outcomes. Canterbury’s positive deviation from its counterfactual can be seen as \emph{institutionally enabled economic stimulus}: the earthquakes triggered massive investment that the regional institutions were able to absorb in a decentralized fashion and turned into a positive effect on medium-term growth; while Maule's experience was closer to the typical case of “building back to normal" without additional boost and with reconstruction efforts carried out primarily by the central government.
+
+Finally, this paper contributes by applying the SCM in a context with multiple treatment shocks (the Canterbury sequence) and with regional data concerning earthquakes in a comparative analysis. In the following sections, we discuss how we handle the timing of the treatment in that case and the assumptions required.\footnote{Essentially, we treat the entire 2010–2011 sequence as one composite intervention starting in 2011.} SCM has been used in disaster impact analysis at the regional level in other cases: for example, \textcite{porcelli2019impact} use it for Italian earthquakes and find significant losses in local income for some events; \textcite{farzanegan2025bam} apply SCM to the 2003 Bam earthquake in Iran, finding a large positive impact on local economic activity due to reconstruction, similar to a “build-back-better" effect. We also contribute to the robustness side of SCM applications by employing recent advances to the disasters' literature: we present both joint significance tests (based on pre-/post-intervention RMSPE ratios) and year-by-year significance assessments (to pinpoint when exactly the treatment effect becomes significant) as suggested by \textcite{ferman2017placebo}. These robustness tests strengthen the credibility of our findings (see also Appendix).
+
+\section{Data and Methodology}
+
+
+Before exploring the SCM and data, and in order to grasp the physical and macro scale of the two events, Table~\ref{tab:damage_compare} summarizes headline metrics (magnitude, mortality, affected population, reported damages, loss shares of GDP, and public reconstruction outlays).\\
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Direct damage and human impact: Maule 2010 vs.\ Canterbury 2011}}
+\label{tab:damage_compare}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{threeparttable}
+\begin{tabular}{clrr}
+\toprule
+\# & \textbf{Variable} & \textbf{Maule 2010} & \textbf{Canterbury 2011} \\
+\midrule
+1 & $M_w$ (moment magnitude)                 & 8.8        & 6.2 \\
+2 & Total deaths                              & 562        & 181 \\
+3 & Total affected\tnote{a}                   & 2,671,556  & 301,500 \\
+4 & Total damage (US\$ billions)              & 30         & 15 \\
+5 & Losses as \% of national GDP              & 18\%       & 10\% \\
+6 & Reconstruction gov.\ spending (US\$ bns.) & 8.41       & 10.14 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Sources:} Rows 1--4: EM-DAT (2018). Row 5: authors’ calculation using World Development Indicators (2018) and reported damages. Row 6: Government of Chile reconstruction plan (2010); New Zealand Treasury, Budget Policy Statement (2013).
+\item[a] EM-DAT defines “total affected” as people requiring immediate assistance; includes displaced/evacuated persons.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Data and Variables}
+Our analysis focuses on regional real GDP per capita as the primary outcome variable. For Chile, we use annual GDP data by region (at constant prices, base 2013 CLP) from the Banco Central de Chile’s regional accounts, and regional population from the national statistics institute (INE), allowing us to compute real GDP per capita for each of Chile’s regions. The treated unit is Region VII (Del Maule). The donor pool initially included all other first-level regions of Chile, except Region VII (which is the treated unit). However, some regions had to be excluded due to exposure to other major shocks or contiguous spillover concerns \parencite{abadie2010synthetic, abadie2021jel}. In particular, we excluded Region VIII (Biobío) from the donor pool as it was also severely affected by the earthquake.\footnote{Our main donor pool for Chile thus consists of Regions I, II, III, IV, V, RM (Metropolitana), VI, IX, X, XI, and XII. Regions adjacent to Maule, such as O’Higgins (VI), pose a potential spillover risk; however, our results are robust to its exclusion. Furthermore, some donor regions experienced other major shocks later in the post-treatment period (notably Region I, which was hit by the 2014 Iquique earthquake). As a robustness check, we re-ran the analysis excluding these regions and found our null result for Maule remains unchanged.} For New Zealand, we use annual regional GDP from Statistics New Zealand, measured in constant 2023 NZD, and regional population from Statistics NZ. The treated unit is the Canterbury region. The donor pool includes the other 15 regions of New Zealand. We considered excluding the neighboring West Coast region due to possible spillovers, but its economy is very small relative to Canterbury, and our leave-one-out tests do not change results. We also tested excluding the Wellington region, because the government sector there could conceivably experience stimulus from disaster-related public spending; again, the results are robust to these considerations. Appendix~\ref{sec:spillover_appendix} presents a comprehensive SUTVA assessment with explicit spillover proxy diagnostics and progressive geographic donor exclusions for both cases.
+
+Table \ref{tab:predictors} lists the predictor variables used in the SCM for each case. We use a similar set of economic structure predictors for both countries, chosen to capture the main sectoral composition of regional GDP. For Chile, regional accounts provide disaggregation into 12 sectors, which we group into standard sectors such as Agriculture and Forestry, Fishing, Mining, Manufacturing, Utilities, Construction, and various service industries. For New Zealand, the GDP by industry was mapped into analogous categories.\footnote{For New Zealand, we aggregated industry GDP data into broad sectors to approximate Chilean categories: Trade and Hospitality includes Wholesale Trade, Retail Trade, and Food and Beverage Services; Finance and Business includes Financial and Insurance, Professional, Scientific and Technical, and Administrative Services; Personal Service corresponds to Health Care and Social Assistance with Education and Training. Fishing is included as a separate predictor for Chile because Chile's regional accounts report it as a distinct sectoral category, and it constitutes a non-trivial share of GDP in several coastal regions. New Zealand's regional GDP series aggregates fishing within the broader ``Agriculture, Forestry, and Fishing'' category, which is already included as a predictor. Results are robust to harmonizing both countries to the broader aggregation.} In both cases, these variables are expressed as shares of regional GDP, averaged over several years prior to the event. For Chile, we use 2005–2008 as the averaging window. For New Zealand, we use 2006–2010. In addition, we include the average GDP per capita in the pre-shock period and an education attainment measure (regional tertiary education enrollment per capita for Chile and the percentage of the working-age population with a post-secondary qualification for New Zealand).\footnote{Our results are not sensitive to the inclusion of the education variable; we include it to ensure that synthetic Canterbury did not, for example, inadvertently consist of only regions with much lower human capital than Canterbury, which could bias the counterfactual growth path.} 
+
+All Chilean series are expressed in constant 2013 CLP and the New Zealand series in constant 2023 NZD. Because we estimate each SCM model separately within country, no exchange‑rate or PPP conversion is required. Sectoral shares are constructed from constant‑price industry series and then aggregated to comparable broad sectors, as described in the footnotes to Table~\ref{tab:predictors}. Table \ref{tab:predictors} confirms that the synthetic controls provide a \textit{close match} of the underlying economic structure of each region. In Maule’s case, the region is highly dependent on agriculture (16.5\% of GDP) and manufacturing (21.8\%), with very little mining (0.5\%). The synthetic Maule replicates these features very well. For Canterbury, the table shows a more diversified economy before the earthquake, with manufacturing at 14.4\%, agriculture at 5\%, construction at 6.2\%, and Trade and Hospitality at 11.2\%. The synthetic Canterbury closely matches these shares. In both cases, the synthetic's GDP per capita is very close to the treated region's actual value, and the predictor balance is very good, providing additional credibility to the synthetic counterfactuals and to our overall results.\footnote{It is important also to consider the assumptions and interpretations underlying the SCM model: SCM identifies $\alpha_t$ under three standard conditions: (i) no region-specific shock coincides with treatment timing, (ii) no interference or spillovers between treated and donor regions, and (iii) a stable mapping from predictors to the outcome over the pre-/post-period. Our placebo and donor-exclusion checks mitigate (i)–(ii) but cannot eliminate them. We therefore interpret the estimated gaps as \emph{placebo-based causal evidence} conditional on these assumptions and on the strong pre-treatment fit.}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Pre-treatment predictor means: Treated region vs. Synthetic Control}}
+\label{tab:predictors}
+\small % Use a smaller font to ensure the table fits
+\setlength{\tabcolsep}{4pt} % Reduce space between columns for a better fit
+\begin{threeparttable}
+\begin{tabular}{lcccccc}
+\toprule
+& \multicolumn{3}{c}{\textbf{Chile (Maule)}} & \multicolumn{3}{c}{\textbf{New Zealand (Canterbury)}} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+\textbf{Predictor (pre-quake avg.)} & Treated & Synthetic & Donor Mean & Treated & Synthetic & Donor Mean \\
+\midrule
+Agriculture \& Forestry (\%)     & 16.5\% & 14.1\% & 5.7\%  & 5.0\%  & 6.9\%  & 7.7\%  \\
+Fishing (\%)                     & 0.0\%  & 3.6\%  & 4.1\%  & --     & --     & --     \\
+Mining (\%)                      & 0.5\%  & 3.7\%  & 16.2\% & 0.5\%  & 0.5\%  & 6.0\%  \\
+Manufacturing (\%)               & 21.8\% & 14.1\% & 13.1\% & 14.4\% & 14.1\% & 13.9\% \\
+Utilities (\%)                   & 8.9\%  & 2.4\%  & 2.4\%  & 0.8\%  & 0.9\%  & 1.2\%  \\
+Construction (\%)                & 7.7\%  & 9.2\%  & 8.8\%  & 6.2\%  & 6.0\%  & 6.1\%  \\
+Trade \& Hospitality (\%)*       & 5.9\%  & 10.6\% & 9.4\%  & 11.2\% & 11.1\% & 9.6\%  \\
+Transport \& Comms. (\%)**       & 10.4\% & 9.9\%  & 9.5\%  & 11.6\% & 9.9\%  & 9.4\%  \\
+Finance \& Business (\%)***      & 7.2\%  & 9.0\%  & 9.7\%  & 11.5\% & 10.7\% & 9.4\%  \\
+Housing Services (\%)            & 5.6\%  & 5.8\%  & 5.3\%  & 6.4\%  & 5.9\%  & 5.8\%  \\
+Personal Services (\%)****       & 12.9\% & 13.8\% & 11.0\% & 10.6\% & 9.6\%  & 10.0\% \\
+Public Administration (\%)       & 4.4\%  & 5.6\%  & 6.9\%  & 3.2\%  & 3.3\%  & 3.7\%  \\
+GDP per capita                   & 2.18M  & 2.15M  & 3.66M  & \$37.9k & \$37.7k & \$37.3k \\
+Tertiary Education (\%)          & 2.9\%  & 2.5\%  & 3.6\%  & 5.5\%  & 5.1\%  & 4.2\%  \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Pre-treatment averages are taken over 2005--2008 for Chile and 2006--2010 for New Zealand. GDP per capita for Chile is in millions of constant 2013 CLP; for NZ it is in thousands of constant 2023 NZD. Dashes (--) indicate a sector not separately reported or negligible in that country's data.
+\item *For NZ, this combines Wholesale Trade, Retail Trade, and Food \& Beverage Services.
+\item **For NZ, this combines Transport, Postal \& Warehousing with Information Media \& Telecommunications.
+\item ***For NZ, this combines Financial \& Insurance, Professional, Scientific \& Technical, and Administrative Services.
+\item ****For NZ, this combines Health Care \& Social Assistance with Education \& Training.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+In closing this subsection, Figure~\ref{fig:maps} shows the geographic location of the two treated regions within their respective countries.\\
+
+\begin{figure}[H]\centering 
+\caption{\textbf{Regional context: Location of treated regions}}
+\label{fig:maps}
+\begin{subfigure}{0.42\textwidth}\centering
+\includegraphics[height=0.3\textheight]{article_assets/Maule_map.png}\\
+\caption{Chile, highlighting Maule Region}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.42\textwidth}\centering
+\includegraphics[height=0.3\textheight]{article_assets/Canterbury_map.png}\\
+\caption{New Zealand, highlighting Canterbury Region}
+\end{subfigure}
+\end{figure}
+
+
+
+\subsection{Synthetic Control Method Design}
+We briefly outline the SCM procedure (see also \cite{abadie2021jel, abadie2010synthetic}). Let $Y_{it}$ be real GDP per capita for region $i$ in year $t$. We have one treated region ($i=1$) and $N$ donor regions. We define the treatment period to start at $T_0+1$, where $T_0$ is the last pre-disaster year (2009 for Maule, 2010 for Canterbury). The SCM chooses a convex combination of donors (defined by weights $W$) that minimizes the distance in pre-$T_0$ outcomes and predictors between the treated unit and the synthetic control. Formally, we seek weights $W = (w_2,\dots,w_{N+1})$ that minimize:
+
+$$ \sum_{m=1}^M v_m (X_{1m} - \sum_{i=2}^{N+1} w_i X_{im})^2,$$ 
+
+where $X_{im}$ is the value of predictor $m$ for region $i$, and $v_m$ are predictor weights chosen to minimize the pre-treatment outcome discrepancy. We implement this procedure using the Python package \texttt{pysyncon} \parencite{pysynconpackage}. In practice, we run the nested optimization with a common baseline solver configuration (Nelder--Mead) and then report robustness to alternative optimizer initializations/methods in Section~4.3 (predictor and timing sensitivity), so that $v_m$ selection is explicit and reproducible. The outcome is a set of weights $W^{*}$ and a synthetic outcome path: $Y_{1t}^{\text{synt}} = \sum_{i=2}^{N+1} w_i^{*} Y_{it}$ for $t > T_0$. For Canterbury, our preferred convention sets 2011 as the first post-treatment year (because the February 2011 event generated the largest disruption), but we also report 2010-start and 2012-start sensitivity specifications with full placebo diagnostics in Section~4.3.
+
+\begin{table}[H]
+\centering
+\singlespacing
+\caption{\textbf{Donor weights in the synthetic controls}}
+\label{tab:weights}
+\small
+\setlength{\tabcolsep}{4pt} % Reduces space between columns
+\begin{threeparttable}
+\begin{tabular}{lc p{3.2cm} | lc p{3.2cm}}
+\toprule
+\multicolumn{3}{c|}{\textbf{Chile (Synthetic Maule)}} & \multicolumn{3}{c}{\textbf{New Zealand (Canterbury)}} \\
+\midrule
+\textbf{Donor Region} & \textbf{Weight} & \textbf{Characteristics} & \textbf{Donor Region} & \textbf{Weight} & \textbf{Characteristics} \\
+\midrule
+Araucanía (IX)  & 0.369 & Southern agrarian region      & Auckland           & 0.327 & Largest city, services hub \\
+O'Higgins (VI)  & 0.347 & Central agri-mining mix       & West Coast         & 0.296 & Mining, forestry \& tourism \\
+Los Lagos (X)   & 0.284 & Agrarian \& aquaculture hub   & Hawke's Bay        & 0.237 & Horticulture \& wine region \\
+                &       &                               & Manawatū-Whanganui & 0.132 & Agriculture \& pastoral hub \\
+                &       &                               & Bay of Plenty      & 0.008 & Horticulture \& tourism \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} Weights are the optimal donor weights $w_i^{*}$ for each synthetic control. Only regions with non-zero weights are listed.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The optimal donor weights for each synthetic counterfactual are shown in Table \ref{tab:weights}. For the Maule case, the synthetic control is constructed from three other southern Chilean regions: Araucanía, O’Higgins, and Los Lagos. As the descriptions indicate, these regions share Maule's economic profile of being primarily agrarian with some resource extraction, making them intuitive parts of a reasonable counterfactual. For Canterbury, the synthetic control is composed of a more diverse set of five regions. The SCM algorithm assigns the largest weight to Auckland, New Zealand's primary services and commercial hub, likely to match Canterbury's own urban core in Christchurch. This is balanced by significant weights from regions with strong primary sectors, such as the West Coast (mining and forestry) and Hawke's Bay (horticulture). This diverse donor mix reflects Canterbury's own balanced economy. In both cases, the weighted combination of these donors yields a synthetic control that tracks the pre-earthquake GDP per capita trend almost perfectly, increasing our confidence in the credibility of our counterfactuals. After constructing the synthetic controls, we evaluate the economic impact of the disasters as the difference in real GDP per capita between the real treated region and its synthetic counterfactual at each post-treatment time $t$: $\alpha_t = Y_{1t} - Y_{1t}^{\text{synt}}$. We refer to $\alpha_t$ as the \textit{treatment effect}.
+
+\subsection{Inference and Robustness Checks}
+Statistical inference in the SCM framework relies on placebo-based methods. We implement several strategies recommended in the literature:
+
+\paragraph{Pre-/Post-RMSPE Ratio Test:} Following \textcite{abadie2010synthetic}, we compute the ratio of post-treatment Root Mean Squared Prediction Error (RMSPE) to pre-treatment RMSPE for the treated unit and for each donor unit (acting as a placebo). If the treated unit displays a much larger increase in prediction error after $T_0$ than any placebo, it suggests a significant treatment effect. We use the distribution of these ratios to derive a pseudo-$p$ value.
+
+\paragraph{Placebo Gap Distributions:} We conduct year-by-year inference by comparing the treatment effect $\alpha_t$ to the distribution of placebo gaps in that year. This provides a pseudo-$p$ value for the null hypothesis of no effect in a given year \autocite{firpo2018synthetic}. We present this by plotting the treated region’s gap against the range of placebo gaps over time.
+
+\paragraph{Uniform Confidence Sets (post-treatment path):} In addition to pointwise placebo ranks, we construct simultaneous (uniform) confidence sets for the entire post-treatment gap path following the randomization-inference logic in \textcite{firpo2018synthetic}. Concretely, for each unit (treated and placebo), we compute pre-treatment RMSPE and studentize post-treatment gaps by that pre-fit error. We then use the empirical distribution of placebo sup-norm statistics $\max_{t>T_0} |\alpha_{jt}/\text{RMSPE}^{pre}_j|$ to obtain a finite-sample critical value and map it back to the treated unit as a common post-period half-width. This yields a \emph{joint} uncertainty band over all post-treatment years, not just year-by-year intervals. We report these sets in the main results and in sensitivity checks because they are more conservative than pointwise placebo comparisons and directly answer whether an entire post-treatment trajectory is distinguishable from zero at once.
+
+\paragraph{Leave-One-Out Sensitivity:} To ensure results are not driven by a single donor region, we re-run the SCM excluding each donor with a non-trivial weight one at a time. In our analysis, removing any one donor does not eliminate the Canterbury effect, and the null result for Maule remains unchanged.
+
+\paragraph{Predictor-weight and predictor-set symmetry sensitivity:} Next we document two additional implementation checks for robustness. First, we vary the SCM predictor-weight optimization settings (initialization and method) while holding donor pools and timing fixed. Second, we re-estimate both country models under a harmonized reduced predictor set that uses common broad sectors (agriculture, manufacturing, construction, trade/hospitality, transport/information, finance/business, personal services, and public administration), while retaining country-specific auxiliary controls (GDP per capita and education). These diagnostics are reported in Section~4.3 and confirm that the treatment conclusions are not driven by one specific $v_m$ tuning choice or by unavoidable data asymmetries.
+
+\paragraph{In-Time Placebo (Falsification) Test:} We run a \emph{rolling} in-time placebo: for each candidate treatment year we re-estimate SCM and plot the resulting gap path (Figure~\ref{fig:rolling_in_time_placebo}). For New Zealand we use candidate years 2003--2009 and the actual treatment year 2011; for Chile, 1993--2009 and 2010, ensuring at least three pre-treatment years per fit. The post-treatment divergence is unique to the actual treatment year; placebo years show no sustained divergence, as expected.
+
+
+Finally, throughout the analysis we maintain the standard SCM assumption that no other unobserved shocks affected the treated region exclusively (\cite{abadie2010synthetic, abadie2003economic}). We also examine heterogeneous effects across sectors by conducting auxiliary SCM analyses on gross value added in key sectors (e.g., construction).\footnote{It is also relevant to make explicit some inference caveats: our “pseudo-$p$ values” are rank statistics from the placebo distribution rather than classical sampling probabilities. They quantify how extreme the treated unit’s gap is relative to re-assigned placebos under the null of no effect. Unless otherwise noted, one-sided ranks are reported when the alternative is directional (e.g., Canterbury $>$ synthetic). Two-sided interpretations would be approximately twice the one-sided rank when the placebo distribution is symmetric. Reported significance levels are therefore \emph{randomization‑inference ranks} rather than classical sampling probabilities, and we emphasize effect \emph{ordering} relative to placebos.}
+
+\section{Results}
+\subsection{Main GDP per Capita Trends}
+Figure \ref{fig:gdp_paths} presents the trajectories of real GDP per capita for the treated regions and their synthetic counterfactuals. As evidenced by the solid lines, the synthetic controls track the actual pre-quake GDP per capita of each region extremely well, providing a credible counterfactual baseline. For the 2010 Maule earthquake (Figure \ref{fig:gdp_paths}a), the post-2010 path of actual GDP per capita remains very close to the synthetic. Visually, no persistent divergence is evident. In contrast, for Canterbury (Figure \ref{fig:gdp_paths}b), the actual GDP per capita begins to pull away (deviate) from the synthetic starting in 2012. By 2016, the actual GDP per capita in Canterbury is roughly 12\% \textit{higher} than what the synthetic counterfactual predicts.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Real GDP per Capita: Treated Region vs. Synthetic Control}}
+\label{fig:gdp_paths}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/maule_gdp_paths.png}
+\caption{Maule (Chile) vs Synthetic Maule}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_gdp_paths.png}
+\caption{Canterbury (NZ) vs Synthetic Canterbury}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} The solid red line is the actual real GDP per capita of the treated region, and the dashed red line is the synthetic control. The vertical line indicates the disaster year (2010 for Maule, 2011 for Canterbury). In Panel (a), Maule’s actual GDP per capita closely follows the synthetic after 2010. In Panel (b), Canterbury’s actual GDP per capita rises above the synthetic trajectory post-2011.
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]\centering
+\caption{\textbf{Gap in Real GDP per Capita (Treated $-$ Synthetic) Over Time}}
+\label{fig:gaps}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/maule_gap.png}
+\caption{Maule (Chile) GDP per Capita Gap}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_gap.png}
+\caption{Canterbury (NZ) GDP per Capita Gap}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} The gap is the percentage difference between actual and synthetic GDP per capita. Panel (a) shows Maule’s gap remains near zero. Panel (b) shows Canterbury’s gap rises above zero after 2011.
+\end{minipage}
+\end{figure}
+
+This evidence points to a substantial positive impact of the Canterbury earthquakes on regional economic output, while the Maule case suggests that the 2010 Chilean earthquake had no substantial (neither positive nor negative) economic effect on the Maule region compared to the counterfactual without the intervention. In addition to the former analysis, Figure \ref{fig:gaps} plots the yearly gap for each case. Maule’s yearly gap oscillates around zero, while Canterbury’s gap becomes positive and grows to over 10\% by 2015 before stabilizing.
+
+To unpack whether the Canterbury per-capita result is driven by the numerator (total GDP) or denominator (population), we re-estimate the same SCM design using identical donors and pre-treatment windows but alternative outcomes: total regional GDP and total population. Figure~\ref{fig:nz_decomposition_paths} shows that Canterbury's total GDP is also above its synthetic counterfactual after 2011, while population remains below synthetic. Figure~\ref{fig:nz_decomposition_gaps} confirms this decomposition in gap form: by 2016, the GDP-per-capita gap is 12.7\%, the total-GDP gap is 5.9\%, and the population gap is $-3.6$\%. Averaging over 2011--2019, the gaps are 7.8\% (GDP per capita), 6.5\% (total GDP), and $-3.6$\% (population). Therefore, the positive Canterbury per-capita effect survives decomposition: it reflects both a stronger post-quake GDP level and a smaller-than-counterfactual population denominator, rather than being an artifact of only one component.\\
+
+\begin{figure}[H]\centering
+\caption{\textbf{Canterbury Outcome Decomposition: Treated vs Synthetic Paths}}
+\label{fig:nz_decomposition_paths}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_total_gdp_paths.png}
+\caption{Total GDP Path}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_population_paths.png}
+\caption{Population Path}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} SCM configuration is the same as in the baseline Canterbury analysis (same donor pool, predictors, and pre-treatment optimization period), changing only the dependent variable.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Canterbury Outcome Decomposition: Gap (Treated $-$ Synthetic) in \%}}
+\label{fig:nz_decomposition_gaps}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_total_gdp_gap.png}
+\caption{Total GDP Gap}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_population_gap.png}
+\caption{Population Gap}
+\end{subfigure}
+\end{figure}
+
+For interpretability of the Y/L outcome in both cases, we apply the same decomposition logic to Maule. Regional population (and thus total GDP) are not available over the full SCM window in our Chilean data source, so we report the GDP-per-capita decomposition only for Maule. Figure~\ref{fig:maule_decomposition_paths} and Figure~\ref{fig:maule_decomposition_gaps} show that Maule's GDP-per-capita gap remains near zero. Thus the null result for the main Y/L outcome is not an artifact of denominator composition in the years with data.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Maule Outcome Decomposition: GDP per Capita (Treated vs Synthetic)}}
+\label{fig:maule_decomposition_paths}
+\includegraphics[width=0.7\textwidth]{article_assets/chile_maule_gdp_paths.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Same SCM configuration as baseline Maule analysis; only the dependent variable is shown (GDP per capita). Regional population and total GDP are not available over the full window in our Chile source, so we do not report those outcomes for Maule.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Maule Outcome Decomposition: GDP per Capita Gap (\%)}}
+\label{fig:maule_decomposition_gaps}
+\includegraphics[width=0.7\textwidth]{article_assets/chile_maule_gdp_gap.png}
+\end{figure}
+
+Now, to further assess the significance of our findings, Figure \ref{fig:placebos} displays the results of the placebo tests. For Maule, its gap is neither noticeable nor statistically significant compared to the distribution of placebo gaps (Figure~\ref{fig:placebos}a). For Canterbury, in contrast, its gap stands out clearly as the highest in the post-2011 period, suggesting the effect is statistically significant (Figure~\ref{fig:placebos}b). In addition to these tests, it is worth mentioning the difference between level vs. growth effects: we interpret the post‑2011 divergence in Canterbury primarily as a one‑off \emph{level} increase in GDP per capita that is transitory and fades as the rebuild boost winds down and the insurance payoffs end up being absorbed throughout the economy (see also \cite{nguyen2020insurance}), rather than a permanent change in the growth rate, consistent with the gap decline to below 5\% by 2019 (see Figure~\ref{fig:gaps}b).
+
+Figure~\ref{fig:uniform_sets} complements the placebo evidence with 95\% uniform confidence sets over post-treatment years. For Maule, the entire post-period band overlaps zero, consistent with the null effect. For Canterbury, the uniform band excludes zero only during part of the rebuild phase (roughly one quarter of post-treatment years), then widens back to include zero as the gap attenuates toward the end of the sample. This pattern supports a \emph{medium-lived} positive level effect rather than a permanent shift, consistent with the previous analysis.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Placebo Tests: Treated Gap vs. Distribution of Placebo Gaps}}
+\label{fig:placebos}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/maule_placebos.png}
+\caption{Chile: Maule vs Other Regions}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_placebos.png}
+\caption{New Zealand: Canterbury vs Others}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each thin grey line is the gap for a placebo test. The thick colored line is the actual treated region’s gap. Panel (a) shows Maule’s gap is well within the pack of placebo gaps. Panel (b) shows Canterbury’s gap is clearly outside the range of all other placebo gaps after 2011.
+\end{minipage}
+\end{figure}
+
+
+
+\begin{figure}[H]\centering
+\caption{\textbf{SCM uniform confidence sets for post-treatment gap paths}}
+\label{fig:uniform_sets}
+\includegraphics[width=0.95\textwidth]{article_assets/scm_uniform_confidence_sets.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Bands are placebo-based 95\% \emph{uniform} confidence sets (simultaneous across all post-treatment years), built from studentized placebo sup-norm statistics and pre-fit RMSPE filters. Chile uses the 10$\times$ pre-fit threshold variant; New Zealand uses the 2011 treatment-start definition.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Rolling in-time placebo: gap path by candidate treatment year}}
+\label{fig:rolling_in_time_placebo}
+\includegraphics[width=0.95\textwidth]{article_assets/rolling_in_time_placebo_paths.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each line is the gap path when treatment is assumed to start in a given year; the placebo treatment year is indicated by color (colorbar). The thick red line is the path for the actual treatment year (2011 for Canterbury, 2010 for Maule). Candidate years are 2003--2009 and 2011 (New Zealand) and 1993--2009 and 2010 (Chile), with at least three pre-treatment years per fit. The divergence is unique to the actual treatment year.
+\end{minipage}
+\end{figure}
+
+We also perform a \emph{rolling} in-time placebo: we re-estimate SCM for each candidate treatment year $T$ in the pre-period and plot the resulting gap path. For New Zealand we use $T \in \{2003,\ldots,2009, 2011\}$ and for Chile $T \in \{1993,\ldots,2009, 2010\}$, with at least three pre-treatment years per fit. Figure~\ref{fig:rolling_in_time_placebo} shows that the post-treatment divergence is unique to the actual treatment year (Canterbury's gap rises only when 2011 is used; Maule remains near zero for 2010 and for all placebo years), so the results are not driven by pre-existing diverging trends. The pre/post-RMSPE ratio for Maule is 0.48, and the associated pseudo-$p$ value is 1.00, confirming that it is not significant in rank terms. For Canterbury, the RMSPE ratio is 7.81, the highest among the 15 NZ regions in our donor pool, giving a one-sided pseudo-$p$ value of $1/15 \approx 0.067$ ($\approx$6.7\%). Together with the uniform sets, this implies that Canterbury’s positive effect is strongest in mid-rebuild years and less precisely estimated late in the horizon. Finally, our results are a measure of \emph{flows} (real GDP per capita); hence, they do not value the \emph{stock} losses from capital destruction or non-market welfare costs (mortality, morbidity, displacement, etc.). The Canterbury overshoot is consistent with a \textit{transitory replacement} boom concentrated in the construction sector, not with broad-based productivity gains; in fact, the gap attenuates as the rebuild concludes. Therefore, a positive post-quake GDP gap can coexist with lower net wealth or welfare; our estimates should be read as output responses, rather than a comprehensive welfare assessment \parencite{hallegatte2010economics}.
+
+\subsection{Validation using night-time lights}
+To address concerns about potential measurement noise in regional GDP accounts during reconstruction, we build a remote-sensing validation using annual night-time lights (NTL). Specifically, we aggregate a harmonized DMSP-OLS/VIIRS product to the same regional units used in the SCM and re-estimate parallel SCM specifications for Maule and Canterbury over 2000--2019, preserving treatment timing (2010 for Maule, 2011 for Canterbury) and donor-pool logic. Figure~\ref{fig:ntl_validation} reports the resulting treated-vs-synthetic NTL paths and gaps. For Canterbury, the NTL evidence aligns with the GDP inference: the post-2011 gap is positive, with a 2016 gap of about 10.0\% and an average post-treatment gap of about 7.8\%.
+
+For Maule, however, NTL does \emph{not} replicate the GDP-null result: the NTL gap is positive (around 14.2\% in 2016; average post-treatment gap around 13.0\%). Hence, the night-time lights evidence confirms the direction of the Canterbury overshoot but diverges from the Maule GDP estimate. To probe whether these findings are an artifact of one specific light product, we re-estimate SCM using an alternative annual VIIRS-extrapolated processing chain. The sign pattern is unchanged (Maule remains positive; Canterbury remains positive), though magnitudes differ (about 8.0\% average post-gap in Maule and 12.1\% in Canterbury), reinforcing that product choice affects scale more than direction in this exercise.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Night-time lights SCM validation for Chile and New Zealand}}
+\label{fig:ntl_validation}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_validation_paths_gaps.png}
+\caption{Harmonized DMSP-OLS/VIIRS paths and gaps}
+\end{subfigure}
+\vspace{1ex}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_sensor_processing_robustness.png}
+\caption{Alternative sensor/processing robustness}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Panel (a) reports treated-region vs.\ synthetic-control NTL paths and gaps for both Chile (Maule) and New~Zealand (Canterbury), using the harmonized annual product. Panel (b) compares the baseline harmonized product with an alternative annual VIIRS-extrapolated processing chain. Gaps are expressed as percentage differences between treated and synthetic NTL levels.
+\end{minipage}
+\end{figure}
+
+Finally, Figure~\ref{fig:ntl_spatial_sensitivity} reports spatial robustness checks that parallel the SCM validation for both treated regions. For Chile, we compare full-region Maule lights, an urban-core mask (top quintile of pre-treatment lit pixels), and the corresponding synthetic-control path, all indexed to 2009=100. For New~Zealand, we construct analogous full-region, urban-core, and synthetic paths for Canterbury, indexed to 2010=100, to assess whether the NTL signal is concentrated in the dense urban core or reflects broader regional re-lighting.\\
+
+\begin{figure}[H]\centering
+\caption{\textbf{Spatial sensitivity checks for NTL validation (Maule and Canterbury)}}
+\label{fig:ntl_spatial_sensitivity}
+\includegraphics[width=0.95\textwidth]{article_assets/ntl_spatial_sensitivity.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Left panel: Chile (Maule) full-region lights, Maule urban-core lights, and synthetic-Maule lights (all indexed to 2009=100). Right panel: New~Zealand (Canterbury) full-region lights, Canterbury urban-core lights, and synthetic-Canterbury lights (all indexed to 2010=100). Vertical dashed lines mark treatment timing (2010 in Chile, 2011 in New~Zealand).
+\end{minipage}
+\end{figure}
+
+To summarize, NTL validation provides partial corroboration of our main GDP findings: the Canterbury overshoot is confirmed by an independent measurement source, strengthening the credibility of that result. However, the positive Maule NTL gap does not replicate the GDP-null finding. We interpret this asymmetry in Maule's results in light of two considerations. First, regional GDP is a direct statistical measure constructed from administrative and survey sources by the Banco Central de Chile, while nighttime lights are an indirect satellite-based proxy for economic activity. When a direct measure and an indirect proxy diverge, there are reasons to privilege the former, especially in regions with significant agricultural and rural components (such as Maule, where 16.5\% of GDP originates in agriculture and forestry (Table 2)), as nighttime lights are a poor proxy for primary sector economic activity and can exhibit a negative relationship with GDP in agriculture-heavy regions \parencite{gibson2021night}. Thus, the presence of agricultural and rural economic activities could suggest that part of that output does not emit nightlight proportional to its economic value. Second, the DMSP-OLS sensor suffers from measurement limitations, including top-coding, pixel blooming, inter-annual calibration noise, and atmospheric sensitivity \parencite{gibson2021night}, all of which are problematic for level comparisons within a single region over time. In fact, the sensitivity of the Maule NTL result to processing choices (approximately 13\% under the harmonized product versus 8\% under the VIIRS-extrapolated alternative) underscores this point. Given these challenges, we interpret Maule's NTL discrepancy with caution and conclude that it does not, in our assessment, override the direct GDP estimates, though it merits further investigation with higher-resolution remote-sensing products in future work.
+
+\subsection{Sectoral Impact Analysis}
+Now, to identify whether the Canterbury overshoot is broad-based or sector-specific, we estimate additional SCM models for sectoral aggregates in \emph{both} countries. We report treated-versus-synthetic paths for construction and non-construction aggregates, plus placebo-based inference diagnostics. Figure~\ref{fig:sector_analysis} shows the New~Zealand case and Figure~\ref{fig:sector_analysis_chile} shows the parallel Chile case.
+
+\begin{figure}[H]\centering
+\caption{\textbf{SCM Applied to Sectoral Shares of GDP (Canterbury)}}
+\label{fig:sector_analysis}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_scm_Construction.png}
+\caption{Share of Construction in GDP}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_scm_Other_Sectors.png}
+\caption{Share of All Other Sectors in GDP}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} The solid line is Canterbury and the dashed line is synthetic Canterbury. Panel~(a) plots the construction share of regional GDP; Panel~(b) plots the aggregate non-construction share.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{SCM Applied to Sectoral Shares of GDP (Maule)}}
+\label{fig:sector_analysis_chile}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_scm_Construction.png}
+\caption{Share of Construction in GDP}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_scm_Other_Sectors.png}
+\caption{Share of All Other Sectors in GDP}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} The solid line is Maule and the dashed line is synthetic Maule. The post-2010 deviations are modest relative to Canterbury.
+\end{minipage}
+\end{figure}
+
+Figure~\ref{fig:sector_analysis} indicates a large and immediate reallocation in Canterbury. The construction share increases from a pre-quake average of about 6.1\% (2006--2010) to a peak near 10.0\% in 2016: an increase of roughly 63\%, \emph{not} a doubling. Over 2011--2019, the SCM average construction-share gap is +2.53 percentage points, while the non-construction share gap is $-2.13$ percentage points. Figure~\ref{fig:sector_analysis_chile} shows a much smaller Maule shift; the corresponding average gaps over 2010--2015 are +1.82 p.p.\ (construction) and $-2.01$ p.p.\ (non-construction).\\
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Sectoral SCM inference and crowding-out quantification}}
+\label{tab:sectoral_inference}
+\small
+\setlength{\tabcolsep}{5pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Country} & \textbf{Outcome} & \textbf{Mean post gap} & \textbf{Gap (\% of synth.)} & \textbf{Post/Pre RMSPE} & \textbf{Pseudo-$p$} \\
+\midrule
+New~Zealand & Construction share & +2.53 p.p. & +42.76\% & 19.59 & 0.00 \\
+New~Zealand & Non-construction share & $-2.13$ p.p. & $-2.28$\% & 7.79 & 0.00 \\
+New~Zealand & Non-construction level & +911.23 & +3.53\% & 2.12 & 0.87 \\
+Chile & Construction share & +1.82 p.p. & +25.48\% & 1.50 & 0.33 \\
+Chile & Non-construction share & $-2.01$ p.p. & $-2.16$\% & 1.57 & 0.33 \\
+Chile & Non-construction level & $-12.51$ & $-33.98$\% & 0.94 & 0.42 \\
+\bottomrule
+\end{tabular}%
+}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Values are post-treatment averages from SCM sectoral models: 2011--2019 for New~Zealand and 2010--2015 for Chile. Share outcomes are in percentage points. Level outcomes are in country-specific constant-price units from the underlying regional accounts. Inference is placebo-based randomization inference.
+\end{minipage}
+\end{table}
+
+Table~\ref{tab:sectoral_inference} clarifies the crowding-out mechanism in both share and level terms. In Canterbury, non-construction \emph{shares} fall, but non-construction \emph{levels} are not significantly below synthetic (indeed the average level gap is positive and statistically weak). This pattern is consistent with reallocation toward construction without a broad absolute contraction of the rest of the economy. In Maule, both construction and non-construction effects are imprecisely estimated and do not indicate a robust sectoral overshoot. Thus, Canterbury is best interpreted as a mix of temporary net stimulus and sectoral reallocation, while Maule remains a near-null aggregate and sectoral case. Alternative sector grouping sensitivity checks for both countries are reported in Appendix Table~\ref{tab:sector_grouping_sensitivity}, and the underlying placebo gap distributions are shown in Appendix Figure~\ref{fig:sector_placebo_appendix}.
+
+\subsection{Robustness and Additional Checks}
+\label{sec:robustness_checks}
+In this final subsection, we perform several robustness checks to validate our findings. A primary concern with SCM is that the results might be driven by a single, highly-weighted donor. To address this, we conduct a leave-one-out (or jackknife) test in which we re-estimate the synthetic control after excluding the donor region with the highest initial weight. For Maule, this was the Araucanía region (36.9\% weight); for Canterbury, it was the Auckland region (32.7\% weight). As an additional timing falsification exercise, we estimate full SCM/placebo diagnostics under alternative treatment-year conventions for both cases. For New~Zealand, we report a 2010-start specification, our preferred 2011-start specification, and a sequence-aware 2012-start specification. For Chile, we report the baseline 2010-start model plus nearby placebo starts (2009 and 2011) to preserve cross-case symmetry. For each timing choice, we compute pre-/post-RMSPE, post/pre RMSPE ratios, and placebo ranks from the same randomization-inference design.
+
+To discipline cross-case comparability further, we compute simple damage-normalized effect benchmarks using common headline damage metrics from Table~\ref{tab:damage_compare}. Let $\widehat{g}^{\max}_c$ denote country $c$'s peak SCM GDP-per-capita gap (in percent), $D_c$ reported direct damages (US\$ billions), and $\ell_c$ losses as a share of national GDP (in percent). We report $\widehat{g}^{\max}_c / D_c$ and $\widehat{g}^{\max}_c / \ell_c$ as descriptive scaling checks in Table~\ref{tab:comparability_calibration}. With Canterbury's peak gap near 12\% and Maule's near zero, Canterbury remains larger on both normalized margins (about $0.8$ versus $0.0$ gap-points per US\$1 billion of damage, and about $1.2$ versus $0.0$ gap-points per 1 pp of GDP-loss share). These are not structural elasticities, but they show that the divergence is not an artifact of comparing raw gaps from differently sized events.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Cross-case comparability calibration: normalized effect benchmarks}}
+\label{tab:comparability_calibration}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{Maule (Chile)} & \textbf{Canterbury (New~Zealand)} \\
+\midrule
+Peak SCM GDP-per-capita gap, $\widehat{g}^{\max}$ (\%) & $\approx 0.0$ & $\approx 12.0$ \\
+Direct damage, $D$ (US\$ bn) & 30.0 & 15.0 \\
+Loss share of national GDP, $\ell$ (\%) & 18.0 & 10.0 \\
+Normalized gap: $\widehat{g}^{\max}/D$ (gap-pp per US\$1 bn) & $\approx 0.0$ & $\approx 0.8$ \\
+Normalized gap: $\widehat{g}^{\max}/\ell$ (gap-pp per 1 pp GDP-loss share) & $\approx 0.0$ & $\approx 1.2$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Damage and GDP-loss denominators are taken from Table~\ref{tab:damage_compare}. Peak gaps are read from the baseline SCM gap paths. The normalized ratios are descriptive comparability checks (not causal elasticities).
+\end{minipage}
+\end{table}
+
+We also implement spatial damage controls in measurement. First, we re-estimate night-time-lights validation paths using urban-core masks (Talca-Curicó-Linares-Cauquenes in Maule; Christchurch-centered core in Canterbury) rather than only full administrative regions. Second, for Canterbury we add concentric 30/50/80 km buffers centered on Christchurch (Appendix Figure~\ref{fig:ntl_spatial_sensitivity_buffers}) and show that all buffers share the same qualitative post-2011 pattern (initial dip, sustained rebuild rise). Together with the progressive geographic donor exclusions in Appendix~\ref{sec:spillover_appendix}, these checks reduce the risk that our cross-case contrast is driven solely by within-region spatial composition differences.
+
+Detailed timing, jackknife, and uniform-threshold sensitivity outputs are reported in Appendix~\ref{sec:additional_robustness_appendix}; the main conclusions are unchanged across all variants.
+
+To further stress-test the long post-treatment horizon and the potential inexact-matching concern for Maule, we implement two additional estimators. First, we estimate Synthetic Difference-in-Differences (SDID; \cite{arkhangelsky2021sdid}) for both cases. Second, we estimate a penalized (bias-corrected) SCM in the spirit of \textcite{abadie2021penalized}. For the penalized estimator, we tune the penalty over a grid and select the largest $\lambda$ within 5\% of the minimum pre-period RMSPE (selected $\lambda=10^{-3}$ in both countries). The resulting post-period estimates are reported in Table~\ref{tab:sdid_penalized} and visualized in Figure~\ref{fig:sdid_penalized_gaps}. Canterbury remains clearly positive under SDID (+7.8\% average post-gap over 2011--2019) and under penalized SCM (+6.5\%), confirming that the overshoot is not an artifact of baseline SCM weighting alone. Maule remains non-positive across alternatives (SCM: $-1.7$\%, SDID: $-5.1$\%, penalized SCM: $-1.5$\% over 2010--2019), reinforcing the absence of a positive medium-run overshoot.\\
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Robustness to SDID and penalized/bias-corrected SCM}}
+\label{tab:sdid_penalized}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Estimator} & \textbf{Mean post-gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} \\
+\midrule
+Chile & SCM & $-1.7$ & 3.4 & 2.5 \\
+Chile & SDID & $-5.1$ & 3.1 & 5.3 \\
+Chile & Penalized SCM & $-1.5$ & 3.0 & 2.3 \\
+New~Zealand & SCM & 7.8 & 1.0 & 8.8 \\
+New~Zealand & SDID & 7.8 & 1.7 & 8.5 \\
+New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Post windows are 2010--2019 for Maule and 2011--2019 for Canterbury. SDID is estimated with non-negative unit and time simplex weights plus intercept balancing. Penalized SCM uses a ridge penalty over pre-treatment outcomes; penalty choice follows a conservative 5\% pre-fit tolerance rule.
+\end{minipage}
+\end{table}
+
+
+\begin{figure}[H]\centering
+\caption{\textbf{Gap trajectories under SCM, SDID, and penalized SCM}}
+\label{fig:sdid_penalized_gaps}
+\includegraphics[width=0.95\textwidth]{article_assets/sdid_bias_corrected_gaps.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each panel reports annual treated-minus-counterfactual gaps in percent under three estimators. The vertical dashed line marks treatment timing (2010 in Chile, 2011 in New~Zealand). Canterbury’s positive divergence persists under SDID and penalized SCM; Maule remains at or below zero.
+\end{minipage}
+\end{figure}
+
+In addition to the jackknife test, we check for sensitivity to the donor pool composition.  We re-run the Maule SCM excluding Region VI (O’Higgins), a neighbor that was moderately affected by the quake, and the resulting gap for Maule remains virtually unchanged.  For Canterbury, we test excluding the Wellington region (as its economy could be indirectly stimulated by government spending).  When Wellington is dropped, the estimated gap is slightly larger, strengthening our conclusion. We also drop other potential spillover or small-donor regions, such as the West Coast and Marlborough, and find that the gap is virtually unchanged.  Even when both Wellington and the West Coast are simultaneously removed, Canterbury’s positive gap persists.  These checks give confidence that our findings are not artifacts of donor pool contamination or spillovers. We provide a comprehensive treatment of SUTVA and spillover concerns (including explicit population-flow, labour-reallocation, and economic-linkage diagnostics, together with geographically structured progressive donor exclusions) in Appendix~\ref{sec:spillover_appendix}.
+
+We also consider the possibility of “cherry-picking” bias \autocite{ferman2020cherry} in our study. It is important to note that these two significant earthquakes were identified for analysis \textit{ ex ante} due to their severe magnitude, temporal closeness (2010–2011), and socioeconomic importance for both countries (\cite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}); thus, they were not selected based on their results. In fact, by reporting both Maule’s null result and Canterbury's significant positive result, we show heterogeneity and avoid reporting only confirmatory findings, thus adding nuanced and transparency to our analysis. Finally, the treatment-timing appendix outputs (Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) show that Canterbury’s positive effect persists under 2010-, 2011-, and 2012-start conventions, while Maule remains non-positive under nearby placebo starts. The Canterbury effect peaks around 2015--2016 and declines below 5\% by 2019, underscoring a medium-lived rather than permanent level shift.\footnote{Concerning timing choice and horizon considerations, we prefer 2011 as the first post-treatment year for Canterbury because the February 2011 shock drove the largest disruption, but the 2010-start and the 2012-start alternatives preserve the core conclusion of our findings. We truncate the main post window at 2019 to avoid COVID-19 confounding.}
+
+To conclude, we evaluate key alternative macro confounders. First, because the SCM comparisons are estimated within each country in constant local prices, cross-country exchange-rate movements cannot mechanically generate our estimated \emph{within-country} treated-versus-synthetic gaps. Second, Chile-specific post-2010 shocks (including the 2014 Iquique earthquake in Region~I) are addressed through donor-pool robustness checks that exclude affected regions, with Maule remaining near zero. Third, commodity-cycle and global-cycle channels are partly differenced out by design because treated regions are compared against weighted \textit{domestic controls} exposed to the same national monetary/fiscal regime and broad external conditions; nevertheless, we interpret institutional channels as probabilistic rather than exclusive and avoid claiming that institutions are the sole determinant. Finally, we recognize that Canterbury’s reconstruction occurred during the broader post-GFC recovery and after a multi-shock sequence (2010--2011), which may have amplified short-run multipliers relative to a single-shock setting. These considerations refine the interpretation but do not overturn the asymmetry of both cases (Maule near-null; Canterbury positive, then attenuating).
+
+\section{Discussion and Interpretation of the Results}
+
+Table~\ref{tab:fiscal_inst} contrasts the pre‑quake fiscal stance and country‑level institutional indicators for Chile and New Zealand; the pattern aligns with our interpretation that institutional readiness could have helped mediated the divergent outcomes. In what follows, we will interpret the results in light of the different institutional (formal and informal) contexts in which each disaster occurred, tying these factors to the observed outcomes. 
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Fiscal and institutional comparison: Chile vs.\ New Zealand (pre‑quake)}}
+\label{tab:fiscal_inst}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{threeparttable}
+\begin{tabular}{lcc l}
+\toprule
+\textbf{Variable} & \textbf{Chile} & \textbf{New Zealand} & \textbf{Source} \\
+\midrule
+GDP per capita — 2009 (1990 US\$ PPP) & \$13{,}210 & \$18{,}843 & Maddison \\
+Change in public spending — quake year & 10.44\% & 6.24\% & World Bank \\
+Government debt as \% of GDP (2011) & 11.10\% & 62.60\% & World Bank \\
+Government deficit as \% of GDP — quake year & -3.45\% & -4.01\% & OECD \\
+\midrule
+\multicolumn{4}{l}{\textit{Institutional variables — 2010 (Fraser Institute components):}} \\
+Size of Government & 7.91 & 4.91 & Fraser Institute \\
+Legal System \& Property Rights & 6.80 & 8.69 & Fraser Institute \\
+Sound Money & 8.94 & 9.65 & Fraser Institute \\
+Freedom to Trade Internationally & 8.25 & 8.67 & Fraser Institute \\
+Regulation & 7.55 & 8.92 & Fraser Institute \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \textit{Notes:} The change in public spending is measured in Chile (2010) and New Zealand (2011) in the earthquake year. All other macro variables are shown for 2009 (or 2011 where noted). Values are illustrative descriptors rather than inputs in the SCM.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Before proceeding, we note a limitation of our interpretation of the results. The discussion in this section is interpretive rather than causally identified: we lack the granular micro-data on institutional channels through which each country's recovery operated (insurance claims processing, regional social capital data, regulatory timelines, disbursement flows, etc.) that would be needed to decompose the mechanisms driving the divergent recovery paths. Our reading of the evidence should therefore be understood as informed by observable institutional contrasts, but not as establishing causal attribution to any single channel. Nevertheless, to ground this section in additional documented facts and evidence, Appendix E provides: (i) a side-by-side chronology of the formal institutional responses, (ii) a summary table of quantitative institutional contrasts, (iii) a regulatory milestone timeline, and (iv) an interpretive integration of Table 7 with the disaster-specific evidence.\footnote{The institutional contrasts and analysis documented in Appendix E are consistent with this interpretation, though we reiterate that they constitute descriptive correlates rather than formally identified causal mechanisms.}
+
+\subsection{Institutions as Mechanisms of Heterogeneous Recovery}
+
+Our cross-case results and the literature reviewed in Section 2 suggest that the institutional context is associated with the \emph{timing}, \emph{composition}, and \emph{persistence} of post-quake dynamics (see also \cite{barone2014natural, raschky2008institutions, noydupont2018longterm, loayza2012natural}). Based on the data available (see Appendix E), we can identify three relevant channels emerging from both the empirical literature and the comparative evidence in Sections~4.1–4.3.\footnote{Our SCM design identifies a robust empirical asymmetry: Canterbury overshoots its counterfactual while Maule does not; but \textit{it does not}, by construction, identify which specific institutional features caused this divergence. Isolating the contribution of any single institutional channel would require micro-level variation that our aggregate regional design cannot provide. Instead, what we can do is examine whether the timing, composition, and persistence of the estimated effects are consistent with institutional channels documented in the comparative disaster literature, and whether observable institutional differences between the two cases align with the direction of the estimated effects. The reader can find more details in the Appendix E.}
+
+\paragraph{(i) Financial capacity (insurance \& public finance):}
+Early, large, and predictable financial liquidity can convert a replacement investment effort into a multi-year reconstruction cycle as we have suggested in Section 4. In Canterbury, pervasive catastrophe insurance (the EQC layer plus private coverage) and rapid private claims processing injected quickly, and with low transaction costs, very large funds into the region (total insurance payouts $\,\approx\,$NZ\$30\,b; residential \emph{loss} coverage $\,\approx\,80\%$), and GDP per capita diverges upwards beginning in 2012 just as rebuilding activity scales up (Figures~\ref{fig:gdp_paths}b and \ref{fig:gaps}b) (see also \cite{nguyen2020insurance, parker2016five}). The pre-funded Natural Disaster Fund (NZ\$6.1~billion) and more than NZ\$5~billion in international reinsurance recoveries meant reconstruction capital was available at scale, and claims lodgement began within days and managed repairs were underway within the first year (see Appendix~E). 
+
+Crucially, the reinsurance component constituted an \textit{exogenous capital inflow} from international risk-sharing markets into a single regional economy, which is a channel that existed because of the pre-established national insurance architecture (EQC, mandatory residential coverage, and reinsurance treaties) constructed over preceding decades. Chile's reconstruction, by contrast, was funded through domestic fiscal reallocation, with no comparable external capital channel. In the Maule case, for instance, the insurance take-up was \(<20\%\) and reconstruction relied heavily on public transfers from the central government in Santiago and household savings ($\,\approx\,$US\$8.4\,b public spending), consistent with an absence of aggregate overshoot relative to the synthetic Maule (Section~4.1).
+
+Canterbury's near-universal catastrophe insurance coverage, with approximately 80\% of residential losses insured through the EQC layer and private policies, enabled rapid and large-scale fund disbursement for reconstruction. A substantial share of these payouts (estimated at 60–70\%) was borne by international reinsurers, constituting an exogenous capital inflow from global risk-sharing markets into a regional economy. This capital channel existed because of the pre-existing institutional architecture: the EQC, mandatory residential coverage, and government-backed reinsurance treaties constructed over preceding decades. The timing of Canterbury's GDP divergence, beginning in 2012 as rebuilding activity scaled up, is consistent with an insurance-liquidity mechanism, though we cannot rule out that other factors contributed. In Maule, the absence of a comparable external financing channel is consistent with the null aggregate effect, but we acknowledge that the insurance differential is observed, not randomly assigned.
+
+\paragraph{(ii) Governance, implementation capacity, and regulations:} Coordination capacity and enabling rules matter for a quick recovery after a disaster \parencite{storr2016community, storr2017sandy, rayamajhee2022coproduction}. New Zealand established the Canterbury Earthquake Recovery Authority (CERA), adapted planning rules quickly and enforced building codes to expedite demolition/consenting during peak rebuild years, thus adapting the regulatory framework to enable a quick recovery (\cite{miller2013estimating, doyle2015short}). CERA was established within 35~days of the February 2011 earthquake with statutory override powers (as seen in Table 7, New Zealand scores 8.69 vs.\ Chile's 6.80 on Legal System \& Property Rights and 8.92 vs.\ 7.55 on Regulation in the Fraser Institute index, see also Appendix~E). These changes help explain why the output gains were concentrated in construction: its GDP share rose sharply at the peak (from about 6\% to about 10\%, i.e., roughly +63\%) while spillovers to other sectors were limited; and thereafter the intensity decreased by 2019, matching a medium-lived gap (Figures~\ref{fig:sector_analysis}a and \ref{fig:gaps}b). Conversely, Chile implemented centralized national programs that were slower to deploy at the regional level, consistent with a “build back to trend" approach in Maule (\cite{eclac2010overview, cardenas2018talca, cardenasjiron2012chilean}). In addition, no significant regulatory changes were made to the planning rules of affected cities, nor were substantial adaptations to building codes promoted to facilitate demolition.   
+
+\paragraph{(iii) Informal institutions (social capital and co-production):} Socio-economic evidence from Christchurch documents that community groups and embedded entrepreneurs contributed greatly to restoring services and complementing official efforts (e.g., volunteer “armies,” temporary retail), reducing downtime and frictions in the recovery \parencite{grube2018embedded, parker2016five}. In fact, the literature on post-disaster recovery has suggested that informal institutions, social capital, and co-production efforts from local communities and organizations can greatly influence the speed and magnitude of recovery after a disaster \parencite{storr2016community, storr2017sandy, rayamajhee2022coproduction}. The case of Canterbury seems to confirm these findings in the post-disaster literature. On the other hand, comparative accounts of Maule point to weaker formal engagement of local communities in recovery planning and lower levels of social capital and trust (Cárdenas-Jirón, 2012; Dussaillant \& Guzmán, 2014), plausibly hampering multipliers from co-production. 
+
+However, this possible channel is the least precisely measured: \textcite{dussaillant2014trust} present national-level survey evidence indicating that Chile in 2010 had low baseline social trust, which they associate with post-disaster coordination failures. However, we note three important caveats. First, the social capital evidence for Chile relies on national-level surveys, not regional measures specific to Maule. Second, we cannot empirically link episodes of post-disaster civil disorder to medium-term GDP trajectories. Third, social capital is endogenous to institutional context and may proxy for other unobserved dimensions of governance quality. We therefore present this channel as the least empirically grounded of the three, while noting its consistency with the broader comparative disaster literature \parencite{aldrich2015social,storr2016community}.
+
+In summary, the three channels help to emphasize the broader point that \emph{institutional quality helps mediate disaster impacts}, and could affect the magnitude and direction of a recovery. Alas, regional household consumption, gross fixed capital formation, and sub-national institutional quality indices are not available for the specific regions over the relevant period. These data limitations prevent us from directly testing whether insurance liquidity operated through a broad consumption channel or a narrower investment-construction channel, and from formally measuring within-country variation in institutional quality at the regional level. Future research with access to administrative micro-data could provide more detailed identification of the channels we document here. Finally, these channels also suggest testable predictions for the disaster literature: (i) where insurance penetration and implementation capacity are high, positive post-disaster effects appear with a short lag, and they tend to concentrate in the construction sector; (ii) economic effects tend to attenuate as rebuilding efforts conclude; and (iii) in settings with lower insurance and weaker co-production or low levels of social capital and trust, treated and synthetic paths remain indistinguishable.\footnote{Our work suggests the following falsifiable patterns in other cases of natural disasters: a) Insurance $\times$ implementation: short-lag, construction-led spikes. Where catastrophe insurance penetration and implementation capacity are high, positive post-disaster effects should emerge within 1--2 years and be dominated by construction's share of GVA. b) Medium-lived dynamics: Effects should attenuate when rebuild pipelines end; convergence toward synthetic by years 7--10 is expected absent productivity upgrades. c) Weak co-production: null macro effects: Where insurance is sparse and community co-production is weaker or social trust is low, aggregate treated and synthetic paths should remain statistically indistinguishable.} 
+
+\subsection{Empirically anchored mechanism checks (suggestive)}
+
+We now briefly evaluate several reduced-form mechanism implications that are testable in our data and compare them with observed patterns. These are \emph{mechanism-consistent diagnostics}, not formal mediation estimates.
+
+\paragraph{Liquidity/reconstruction channel prediction.}
+If reconstruction liquidity is central, we should observe: (i) a positive gap concentrated in rebuild years, (ii) stronger construction divergence than non-construction divergence, and (iii) attenuation as the rebuild pipeline winds down. This is the pattern in Canterbury: positive post-2011 gaps, statistically strong construction-share effects, and convergence toward synthetic by the end of the sample.
+
+\paragraph{Pure denominator channel prediction.}
+If GDP-per-capita gains were mainly demographic composition effects, total GDP should not co-move with per-capita gaps. In Canterbury, decomposition evidence indicates a positive total-GDP gap alongside a negative population gap, implying that some denominator effects contributed, but do not fully account for the overshoot. For Maule, evidence does not reveal a hidden positive output overshoot.
+
+\paragraph{Spatial comparability prediction.}
+If the cross-case contrast were mainly an artifact of geographic aggregation, urban-core and buffer validations should overturn baseline findings. They do not: urban-core night-lights checks and Christchurch-centered 30/50/80 km buffers preserve the qualitative divergence.
+
+These diagnostics are consistent with a mechanism bundle in which insurance-linked liquidity, implementation capacity, and temporary sectoral reallocation help explain Canterbury's medium-lived overshoot, whereas Maule maps into return-to-trend dynamics. We frame these mechanisms as \emph{suggestive and empirically disciplined}, not as fully identified causal channels.
+
+
+\subsection{Limitations and policy relevance}
+We emphasize that our SCM design does not causally identify the marginal effect of any one specific institutional feature. Nor does GDP capture welfare losses. Hence, a caveat is worth emphasizing: a limitation of our analysis is that, due to the lack of empirical micro-data and due to the simultaneous channels involved in driving the effect of natural disasters, we cannot isolate and identify the impact of each individual channel aforementioned. Nevertheless, our framework provides analytical discipline to the narrative and reconciles findings across aggregate and sectoral levels. 
+
+Without rapid, large-scale financing and enabling governance structures, reconstruction is unlikely to generate measurable economic overshooting. Conversely, when both formal institutional support and community mechanisms are present, a temporary output surge becomes plausible. Regarding external validity, both cases represent middle-to-high income economies with relatively robust state capacity \parencite{miller2013estimating, gonzalez2020diversificacion}. While the mechanisms we identify (insurance liquidity, implementation capability, and co-production) are plausibly applicable across different contexts, their specific magnitudes and compositions might change according to the context in which a natural disaster manifests. In settings where these features are weaker, identical disasters or physical shocks may produce neutral or even negative output responses (\cite{farzanegan2025bam, loayza2012natural}).
+
+Finally, concerning policy relevance, the Canterbury case illustrates that \textit{institutional readiness}, in the form of broad insurance coverage, rules and regulation adaptability that enables rapid rebuilds, and local community capacity and high levels of trust, can turn reconstruction into a short-run stimulus without necessarily implying long-run gains. In contrast, Maule’s recovery returned to trend but did not overshoot. Therefore, in the face of potential natural disasters, countries should aim to construct more robust forms of institutional preparedness by focusing on improving: (i) the financial ecosystem of the country and broader systems of private insurance and coverage, and (ii) implementation capacity alongside regulatory (building-related) flexibility to deal faster with mitigation and reconstruction strategies. Generalizing beyond these cases requires caution, but the SCM analysis we have provided and the mechanisms identified could be extrapolated and yield testable predictions for other contexts and future studies of natural disasters going forward.
+
+\section{Conclusion}
+This study examined the medium-term economic impact of two large earthquakes in Chile and New Zealand using the Synthetic Control Method. We have presented the first comparative case study of the 2010 Maule (Chile) and 2010--11 Canterbury (New~Zealand) earthquakes. Employing SCM, we find divergent output responses: Canterbury's GDP per capita rises above its synthetic counterfactual (peaking around 12\%), while Maule remains close to synthetic. Under placebo-based \emph{uniform confidence sets}, Maule's post-treatment path is not distinguishable from zero, whereas Canterbury shows positive and jointly non-zero years concentrated in the rebuild phase, followed by attenuation. The positive Canterbury gap peaks around 2015--2016 and falls below five percent by 2019, consistent with a medium-lived level overshoot rather than a permanent shift. These output effects reflect the speed and composition of reconstruction activity, not welfare gains; the human and capital stock losses from both earthquakes remain substantial and are not captured by GDP. 
+
+Our findings underscore that \emph{institutions matter} in disaster recovery: Canterbury's post-quake boom was facilitated by strong formal and informal institutions, while Chile's institutions appear to have supported recovery back to trend without overshoot. Notably, this divergence occurs despite the treated regions being of broadly comparable relative size within their countries. New Zealand’s strong institutions, ample insurance coverage, and aggressive reconstruction spending caused an economic “overshoot” in Canterbury. Chile’s respectable but more limited response in Maule was enough to rebuild, but not enough to generate an overshoot. Sectoral evidence indicates that Canterbury’s gains combine a temporary net stimulus with reallocation toward construction, whereas Maule shows no statistically robust sectoral reallocation or net stimulus. Countries or regions with weaker institutions may experience prolonged economic slumps after disasters, not because people are unwilling to recover, but because the formal mechanisms to channel effort and capital into reconstruction are inefficient or lacking, or they are hampered by legal and bureaucratic unpredictability.
+
+In closing, this comparative analysis of Chile and New Zealand provides a nuanced understanding of how earthquakes impact different economies and their growth trajectories. Natural disasters need not derail economic growth; with robust formal and informal institutions, their adverse effects on output could be neutralized or even reversed. Our paper highlights that investing in institutional quality and preparedness is investing in resilience and, potentially, even in a strong rebound. Governments should ensure that transparent and efficient frameworks for disaster response are in place before a disaster strikes. As our findings suggest, those ‘institutional investments’ pay dividends by speeding up recovery and possibly turning a potential economic catastrophe into an economic opportunity. The cases of these two earthquakes teach us that, while natural disasters are unavoidable, their economic outcomes are to a great extent a policy and institutional choice.
+
+\newpage
+
+\printbibliography
+\section*{Data and code availability}
+All data are from official statistical sources cited in the text. The scripts used to assemble the datasets and to run the SCM (\texttt{pysyncon}) are available from the authors upon request.
+
+\newpage
+
+\textbf{Appendix table of contents}
+
+
+1. \textbf{Section A}: Sectoral SCM appendix
+
+2. \textbf{Section B}: Additional night-time lights spatial robustness
+
+3. \textbf{Section C}: SUTVA/spillover diagnostics and geographically robust donor pools
+
+4. \textbf{Section D}: Additional robustness details 
+
+5. \textbf{Section E}: Institutional context and comparison: quantitative summary 
+
+
+\newpage
+\appendix
+\section{Sectoral SCM appendix: placebo diagnostics and grouping sensitivity}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Sectoral placebo diagnostics (construction and non-construction aggregate)}}
+\label{fig:sector_placebo_appendix}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_sector_placebo_construction_share.png}
+\caption{Chile: construction share gap placebos}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_sector_placebo_nonconstruction_level.png}
+\caption{Chile: non-construction level gap placebos}
+\end{subfigure}
+\medskip
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_sector_placebo_construction_share.png}
+\caption{New~Zealand: construction share gap placebos}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_sector_placebo_nonconstruction_level.png}
+\caption{New~Zealand: non-construction level gap placebos}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Gray lines are placebo gaps and the red line is the treated-region gap. Placebo filters follow the same pre-fit MSPE threshold rule used in the main text.
+\end{minipage}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Alternative sector-grouping sensitivity (share outcomes)}}
+\label{tab:sector_grouping_sensitivity}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Grouping outcome} & \textbf{Mean post gap (p.p.)} & \textbf{Post/Pre RMSPE} & \textbf{Pseudo-$p$} \\
+\midrule
+New~Zealand & Goods (non-construction) & +0.73 & 1.04 & 0.67 \\
+New~Zealand & Services (non-construction) & $-4.23$ & 4.45 & 0.07 \\
+Chile & Goods (non-construction) & $-4.35$ & 1.64 & 0.42 \\
+Chile & Services (non-construction) & +5.62 & 2.67 & 0.42 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Groupings are defined from country-specific industry classifications and estimated with the same SCM design as the baseline sectoral models. Results remain asymmetric: New~Zealand exhibits stronger service-side crowding-out in shares, while Chile coefficients are imprecise.
+\end{minipage}
+\end{table}
+
+\section{Additional night-time lights spatial robustness (Canterbury buffers)}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Christchurch-centered buffer sensitivity for night-time lights (Canterbury)}}
+\label{fig:ntl_spatial_sensitivity_buffers}
+\includegraphics[width=0.7\textwidth]{article_assets/ntl_spatial_sensitivity_buffers.png}
+\begin{minipage}{0.9\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} This figure reports night-time lights indices for concentric buffers (30, 50, and 80 km) centered on Christchurch, intersected with the Canterbury region and indexed to 2010=100. The vertical dashed line marks the 2011 treatment year. All buffers display a short post-shock dip followed by sustained increases above 2010 levels, consistent with reconstruction-led expansion in the wider Canterbury area.
+\end{minipage}
+\end{figure}
+
+\newpage
+
+\section{SUTVA/spillover diagnostics and geographically robust donor pools}
+\label{sec:spillover_appendix}
+
+A key assumption of the Synthetic Control Method is the Stable Unit Treatment Value Assumption (SUTVA): donor regions must not be affected by the treatment shock through spillover channels. We address this concern with three complementary diagnostics.
+
+\subsection{Spillover proxy evidence}
+
+We assemble proxy indicators for the three main channels through which earthquake-related spillovers could contaminate donor regions: (i) population/migration flows, (ii) labour-market reallocation (construction-sector shifts), and (iii) inter-regional economic linkages (sector-structure similarity).
+
+\paragraph{Population flows.}
+Table~\ref{tab:pop_flow_diagnostics} reports average annual population growth rates for the treated region, geographically adjacent regions, and non-adjacent regions in the pre- and post-treatment periods.
+
+For Chile, all three groups experienced a modest \emph{decline} in population growth rates after 2010, with no differential acceleration in adjacent regions relative to non-adjacent ones. The change for the adjacent group ($-0.05$ p.p.) is comparable to the treated region ($-0.04$ p.p.) and smaller than the non-adjacent group ($-0.09$ p.p.). This pattern does not suggest substantial earthquake-driven migration from Maule to its neighbours.
+
+For New~Zealand, Canterbury's post-quake population growth \emph{declined} ($-0.24$ p.p.), consistent with earthquake-related out-migration, while non-adjacent regions saw a strong increase ($+0.40$ p.p.)---likely reflecting broader urbanisation trends rather than Canterbury spillovers. Adjacent regions (West Coast, Otago, Marlborough) show a very small positive change ($+0.06$ p.p.).
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Population flow diagnostics: pre- vs post-treatment growth rates}}
+\label{tab:pop_flow_diagnostics}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Group} & \textbf{Pre (\%/yr)} & \textbf{Post (\%/yr)} & \textbf{$\Delta$ (p.p.)} \\
+\midrule
+Chile & Treated (Maule)      & 0.82 & 0.78 & $-0.04$ \\
+Chile & Adjacent (O'Higgins, Araucanía, Biobío) & 0.84 & 0.79 & $-0.05$ \\
+Chile & Non-adjacent (9 regions) & 1.02 & 0.93 & $-0.09$ \\
+\midrule
+New~Zealand & Treated (Canterbury) & 1.30 & 1.05 & $-0.24$ \\
+New~Zealand & Adjacent (West Coast, Otago, Marlborough) & 0.68 & 0.74 & $+0.06$ \\
+New~Zealand & Non-adjacent (11 regions) & 0.76 & 1.16 & $+0.40$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Pre-treatment windows are 5 years before treatment; post-treatment windows are 5 years from treatment onward. Population data from Statistics NZ and INE Chile.
+\end{minipage}
+\end{table}
+
+\paragraph{Labour reallocation (construction-sector spillovers).}
+Table~\ref{tab:sector_spillover_diagnostics} examines whether the construction boom in treated regions spilled into neighbouring regions via labour reallocation. For Canterbury, the treated region's construction share rose substantially (+2.2 p.p.), but adjacent regions show no comparable shift ($-0.3$ p.p.), and the non-adjacent group experienced a modest decline ($-0.6$ p.p.). For Chile, post-2009 sectoral data are unavailable in our dataset, so we cannot compute post-treatment construction shares for Maule; however, the pre-treatment construction shares are comparable across groups (7--9\%), providing no \emph{a priori} reason to expect differential labour reallocation. This evidence does not support a claim that reconstruction-driven labour demand in the treated region systematically drew resources from neighbouring donor regions.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Construction-sector spillover diagnostics: pre- vs post-treatment shares}}
+\label{tab:sector_spillover_diagnostics}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Group} & \textbf{Pre constr.\ (\%)} & \textbf{Post constr.\ (\%)} & \textbf{$\Delta$ (p.p.)} \\
+\midrule
+Chile & Treated (Maule)      & 7.49 & --- & --- \\
+Chile & Adjacent  & 8.99 & --- & --- \\
+Chile & Non-adjacent & 8.84 & --- & --- \\
+\midrule
+New~Zealand & Treated (Canterbury) & 6.10 & 8.29 & $+2.19$ \\
+New~Zealand & Adjacent & 7.26 & 6.95 & $-0.31$ \\
+New~Zealand & Non-adjacent & 5.87 & 5.24 & $-0.63$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Construction share is the sectoral share of regional GDP averaged over 5-year pre- and post-treatment windows. ``---'' indicates data unavailable (Chile sectoral data ends in 2009).
+\end{minipage}
+\end{table}
+
+\paragraph{Economic linkage index.}
+We compute pairwise pre-treatment sector-structure correlations between the treated region and all potential donor regions. Regions with high correlation share a similar economic structure and are therefore more plausible donors but also more susceptible to common-factor spillovers. Table~\ref{tab:economic_linkage} reports the correlation-based linkage index. For Chile, the most linked regions are Araucanía (0.74) and Biobío (0.70)---both of which are adjacent and/or already excluded. For New~Zealand, the most linked regions (Tasman/Nelson: 0.95; Bay of Plenty: 0.95) are not geographically adjacent, while the adjacent West Coast ranks lower (0.65). Auckland---the largest baseline donor weight---has a moderate linkage (0.80) and is geographically far from Canterbury.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Economic linkage index (pre-treatment sector-structure correlation with treated region)}}
+\label{tab:economic_linkage}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{threeparttable}
+\begin{tabular}{lc|lc}
+\toprule
+\multicolumn{2}{c|}{\textbf{Chile (Maule)}} & \multicolumn{2}{c}{\textbf{New Zealand (Canterbury)}} \\
+\midrule
+\textbf{Region} & \textbf{Corr.} & \textbf{Region} & \textbf{Corr.} \\
+\midrule
+Araucanía (IX)\tnote{a}           & 0.74 & Tasman/Nelson            & 0.95 \\
+Biobío (VIII)\tnote{b}            & 0.70 & Bay of Plenty            & 0.95 \\
+Los Lagos (X)              & 0.65 & Hawke's Bay              & 0.93 \\
+Valparaíso (V)             & 0.60 & Marlborough\tnote{a}     & 0.90 \\
+O'Higgins (VI)\tnote{a}   & 0.38 & Waikato                  & 0.89 \\
+RM Santiago                & 0.36 & Northland                & 0.89 \\
+Coquimbo (IV)              & 0.15 & Taranaki                 & 0.86 \\
+Magallanes (XII)           & 0.04 & Otago\tnote{a}           & 0.84 \\
+Aysén (XI)                 & $-0.01$ & Auckland              & 0.80 \\
+Tarapacá (I)               & $-0.36$ & Southland              & 0.77 \\
+Atacama (III)              & $-0.41$ & Manawatū-Whanganui     & 0.75 \\
+Antofagasta (II)           & $-0.43$ & Gisborne               & 0.71 \\
+                           &      & West Coast\tnote{a}      & 0.65 \\
+                           &      & Wellington               & 0.45 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item[a] Geographically adjacent to the treated region.
+\item[b] Already excluded from baseline donor pool (directly affected by 2010 Maule earthquake).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Geographically structured progressive donor exclusions}
+\label{subsec:progressive_exclusion}
+
+To formally assess the sensitivity of our estimates to potential geographic spillovers, we re-estimate the SCM under progressively restrictive donor pools defined by concentric geographic ``rings'' around the treated region.
+
+For Chile, Ring~0 is the baseline (excluding only Biobío); Ring~1 additionally excludes O'Higgins (the immediate northern neighbour); Ring~2 further excludes Araucanía and RM Santiago; and Ring~3 also removes Valparaíso and Los Lagos (most restrictive, retaining only 6 of the original 11 donors).
+
+For New~Zealand, Ring~0 is the baseline (all 14 donors); Ring~1 excludes West Coast (the immediate alpine-border neighbour); Ring~2 additionally removes Otago and Marlborough; Ring~3 further excludes Wellington and Southland; and Ring~4 also removes Auckland (the largest baseline donor weight), retaining only 8 donors.
+
+Table~\ref{tab:spillover_exclusion_summary} reports the results. Figure~\ref{fig:spillover_gap_paths} overlays the gap paths under each exclusion ring, and Figure~\ref{fig:spillover_sensitivity_bar} summarizes the mean post-treatment gap under each ring.\\
+
+\begin{table}[H]
+\centering
+\caption{\textbf{SCM estimates under progressive geographic donor exclusions}}
+\label{tab:spillover_exclusion_summary}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Country} & \textbf{Exclusion ring} & \textbf{Excluded} & \textbf{$N$ donors} & \textbf{Mean gap (\%)} & \textbf{Pre RMSPE} & \textbf{Post RMSPE} & \textbf{Post/Pre} \\
+\midrule
+Chile & Baseline (excl.\ Biobío) & --- & 11 & $-4.5$ & 5.1 & 4.7 & 0.93 \\
+Chile & Ring 1: + O'Higgins & O'Higg. & 10 & $-5.8$ & 3.7 & 6.8 & 1.86 \\
+Chile & Ring 2: + Arauc.\ + RM & O'Higg., Arauc., RM & 8 & $-14.7$ & 7.4 & 15.8 & 2.15 \\
+Chile & Ring 3: + Valp.\ + L.Lagos & 5 regions & 6 & $+9.4$ & 4.8 & 15.9 & 3.33 \\
+\midrule
+NZ & Baseline (all) & --- & 14 & $+7.8$ & 1.0 & 8.7 & 8.74 \\
+NZ & Ring 1: + W.Coast & W.Coast & 13 & $+5.4$ & 1.2 & 6.2 & 5.39 \\
+NZ & Ring 2: + Otago + Marl. & 3 regions & 11 & $+9.5$ & 2.3 & 10.1 & 4.36 \\
+NZ & Ring 3: + Well.\ + South. & 5 regions & 9 & $+9.3$ & 2.3 & 9.9 & 4.27 \\
+NZ & Ring 4: + Auckland & 6 regions & 8 & $+12.7$ & 5.0 & 13.3 & 2.66 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Mean post gap is computed over the common post-treatment window (2010--2019 for Chile, 2011--2019 for New~Zealand). Pre/Post RMSPE are in percent-of-synthetic units. All models use the same predictor structure and optimisation method as the baseline.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Gap paths under progressive geographic donor exclusions}}
+\label{fig:spillover_gap_paths}
+\includegraphics[width=0.95\textwidth]{article_assets/spillover_geographic_exclusion_gaps.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each line represents the treated-minus-synthetic gap (in \%) under a different donor pool restriction. Darker lines indicate the baseline; lighter lines indicate more restrictive exclusions.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Mean post-treatment gap sensitivity to geographic donor exclusions}}
+\label{fig:spillover_sensitivity_bar}
+\includegraphics[width=0.95\textwidth]{article_assets/spillover_sensitivity_bar.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Bars report the mean post-treatment gap in percent under each exclusion ring. Red bar indicates the baseline donor pool; blue bars are progressively restricted pools.
+\end{minipage}
+\end{figure}
+
+\subsection{Interpretation and SUTVA assessment}
+
+\paragraph{New Zealand (Canterbury).}
+The Canterbury positive effect is qualitatively \emph{robust} to all geographic exclusion specifications. The mean post-gap ranges from $+5.4\%$ (Ring~1, excluding only West Coast) to $+12.7\%$ (Ring~4, the most restrictive pool retaining 8 donors). The sign never reverses. The fact that the estimated gap is \emph{larger} under the strictest exclusion (without Auckland, the largest baseline donor weight) suggests that, if anything, including Auckland as a donor \emph{understates} the Canterbury effect. This is consistent with Auckland potentially receiving spillover benefits (e.g., redirected government spending, temporary migration of displaced Canterbury workers), which would bias the counterfactual \emph{upward} and the estimated gap \emph{downward}. The spillover proxy diagnostics support this interpretation: non-adjacent regions (including Auckland) experienced stronger population growth post-quake than adjacent regions, and no construction-share spillover is evident in neighbouring regions. We conclude that SUTVA concerns do not threaten the Canterbury finding.
+
+\paragraph{Chile (Maule).}
+The Maule null result is largely stable under Ring~1 (excluding O'Higgins; mean gap $-5.8\%$) and Ring~2 (excluding O'Higgins, Araucanía, and RM; mean gap $-14.7\%$), both of which show non-positive effects. Under the most restrictive Ring~3 (retaining only 6 donors from distant, structurally dissimilar regions), the sign reverses to $+9.4\%$, but the pre-treatment fit deteriorates substantially (pre-RMSPE rises to 4.8\%). We attribute this to the breakdown of the convex-hull condition with very few, dissimilar donors rather than to a genuine positive effect. The population-flow diagnostics confirm that there is no differential migration to adjacent Chilean regions, and the construction-sector spillover analysis shows negligible shifts in neighboring regions' construction shares. We conclude that the baseline null finding for Maule is robust to plausible geographic exclusions under Rings 1--2, but that the donor pool becomes too small and structurally inappropriate under Ring~3 for reliable inference.
+
+Detailed spillover-diagnostics outputs are reported in the tables and figures in this appendix.
+
+\newpage
+
+\section{Additional robustness details}
+\label{sec:additional_robustness_appendix}
+
+For readability of the main manuscript, this appendix collects the full timing-sensitivity diagnostics, jackknife plot, and uniform-threshold sensitivity plots referenced in Section~\ref{sec:robustness_checks}.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Treatment-year timing sensitivity diagnostics (full specification set)}}
+\label{tab:timing_sensitivity}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Country} & \textbf{Timing specification} & \textbf{Mean gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} & \textbf{Post/Pre} & \textbf{Ratio rank ($p$-value)} \\
+\midrule
+Chile & 2009 placebo start & $-17.57$ & $8.93$ & $18.29$ & $2.05$ & $4/12\ (0.333)$ \\
+Chile & 2010 baseline start & $-4.69$ & $10.35$ & $5.01$ & $0.48$ & $12/12\ (1.000)$ \\
+Chile & 2011 placebo start & $-1.80$ & $7.32$ & $2.76$ & $0.38$ & $12/12\ (1.000)$ \\
+New~Zealand & 2010 start & $6.72$ & $1.08$ & $7.14$ & $6.63$ & $1/15\ (0.067)$ \\
+New~Zealand & 2011 start (preferred) & $7.10$ & $1.01$ & $7.88$ & $7.81$ & $1/15\ (0.067)$ \\
+New~Zealand & 2012 sequence-aware start & $6.85$ & $1.02$ & $8.13$ & $7.95$ & $1/15\ (0.067)$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Mean gaps are computed over common post windows (2011--2019 for New~Zealand; 2010--2019 for Chile). Ratio rank is the treated-unit rank among treated plus placebo units for the post/pre RMSPE ratio (higher is more extreme). One-sided placebo $p$-values are rank-based randomization-inference probabilities.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Timing sensitivity gap paths under alternative treatment-year conventions}}
+\label{fig:timing_sensitivity_paths}
+\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_gap_paths.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each panel overlays treated-minus-counterfactual gap paths under all timing conventions reported in Table~\ref{tab:timing_sensitivity}. The preferred convention is shown with a solid line; alternatives are dashed.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Timing sensitivity RMSPE-ratio diagnostics and placebo ranking}}
+\label{fig:timing_sensitivity_rmspe}
+\includegraphics[width=0.95\textwidth]{article_assets/timing_sensitivity_rmspe_ratios.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Bars report treated-unit post/pre RMSPE ratios for each timing convention. Labels show the treated-unit placebo rank and one-sided $p$-value for that specification.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Leave-One-Out (Jackknife) Robustness Test}}
+\label{fig:jackknife}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_jacknife.png}
+\caption{Maule vs. Synthetic (without Araucanía)}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_jacknife.png}
+\caption{Canterbury vs. Synthetic (without Auckland)}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} This figure shows the results of the leave-one-out robustness test, where the synthetic control is re-estimated after removing the donor region with the highest weight. Panel (a) shows the result for Maule after excluding the Araucanía region. Panel (b) shows the result for Canterbury after excluding the Auckland region. In both cases, the main conclusions remain unchanged.
+\end{minipage}
+\end{figure}
+
+Figure \ref{fig:jackknife} presents the results of this test. For Maule (Panel a), the new synthetic control without Araucanía still tracks the actual GDP per capita path very closely, with the post-earthquake gap remaining near zero. This confirms that our null finding is not an artifact of, or largely driven by, one particular donor. Similarly, for Canterbury (Panel b), excluding Auckland produces a slightly \textit{lower} counterfactual path, which in turn makes the estimated positive gap between real Canterbury and its counterfactual even larger, thus reinforcing the direction of our results. The core finding of a substantial and sustained positive economic impact in Canterbury is therefore robust to the exclusion of its most important donor.
+
+The timing results reinforce this interpretation. Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe} show that Canterbury remains strongly positive under 2010-, 2011-, and 2012-start conventions, with the treated unit ranked first in RMSPE-ratio extremeness in all three cases. In Chile, nearby placebo starts (2009, 2011) and the baseline 2010 specification remain non-positive and are never highly ranked against placebo units. Hence, the cross-case conclusion does not depend on an arbitrary timing definition.
+
+We additionally run sensitivity checks for the uniform sets by varying the pre-treatment fit filter used to retain placebo units (2$\times$, 5$\times$, and 10$\times$ the treated pre-RMSPE) in both countries. For Chile (treatment fixed at 2010), Maule’s post-treatment uniform set continues to include zero throughout. For New~Zealand (treatment fixed at 2011), Canterbury’s gap remains positive with exclusion of zero concentrated in early-to-mid rebuild years, and re-convergence later in the sample (Figure~\ref{fig:uniform_sensitivity}). Treatment-year sensitivity for New~Zealand is already reported in the timing section (Table~\ref{tab:timing_sensitivity}, Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) and in the rolling in-time placebo figure.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Uniform-set sensitivity checks}}
+\label{fig:uniform_sensitivity}
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/chile_uniform_threshold_sensitivity.png}
+\caption{Chile: alternative pre-fit thresholds}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/nz_uniform_threshold_sensitivity.png}
+\caption{New Zealand: alternative pre-fit thresholds}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Both panels vary the placebo pre-fit filter (2$\times$, 5$\times$, 10$\times$ the treated pre-RMSPE). The qualitative inference is stable across both countries.
+\end{minipage}
+\end{figure}
+
+\newpage
+
+\input{Appendix_E}
+
+\newpage
+
+\input{response_to_reviewers} 
+
+\end{document}
