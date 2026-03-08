@@ -24,7 +24,7 @@ country_col = "admin"   # country name in Natural Earth
 region_col = "name"      # region/state name in Natural Earth
 
 # Global look
-LABEL_FONTSIZE = 10           # <- same for both figures
+LABEL_FONTSIZE = 16           # increased for better readability in PDF embeds
 EDGE_LW_COUNTRY = 0.6
 EDGE_LW_HILITE  = 0.8
 GREY = "#d0d0d0"
@@ -102,7 +102,7 @@ def plot_country_highlight(world, country_col, region_col,
     ax.text(
         pt.x, pt.y, label,
         fontsize=label_fontsize, ha="center", va="center", color="#222222",
-        path_effects=[pe.withStroke(linewidth=2, foreground="white")]
+        path_effects=[pe.withStroke(linewidth=2.6, foreground="white")]
     )
 
     ax.set_xlim(minx - pad_x, maxx + pad_x)
