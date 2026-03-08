@@ -168,7 +168,7 @@ We briefly outline the SCM procedure (see also \cite{abadie2021jel, abadie2010sy
 
 $$ \sum_{m=1}^M v_m (X_{1m} - \sum_{i=2}^{N+1} w_i X_{im})^2,$$ 
 
-where $X_{im}$ is the value of predictor $m$ for region $i$, and $v_m$ are predictor weights chosen to minimize the pre-treatment outcome discrepancy. We implement this procedure using the Python package \texttt{pysyncon} \parencite{pysynconpackage}. In practice, we run the nested optimization with a common baseline solver configuration (Nelder--Mead) and then report robustness to alternative optimizer initializations/methods in Section~4.3 (predictor and timing sensitivity), so that $v_m$ selection is explicit and reproducible. The outcome is a set of weights $W^{*}$ and a synthetic outcome path: $Y_{1t}^{\text{synt}} = \sum_{i=2}^{N+1} w_i^{*} Y_{it}$ for $t > T_0$. For Canterbury, our preferred convention sets 2011 as the first post-treatment year (because the February 2011 event generated the largest disruption), but we also report 2010-start and 2012-start sensitivity specifications with full placebo diagnostics in Section~4.3.
+where $X_{im}$ is the value of predictor $m$ for region $i$, and $v_m$ are predictor weights chosen to minimize the pre-treatment outcome discrepancy. We implement this procedure using the Python package \texttt{pysyncon} \parencite{pysynconpackage}. In practice, we run the nested optimization with a common baseline solver configuration (Nelder--Mead) and then report robustness to alternative optimizer initializations/methods in Section~\ref{sec:robustness_checks} (predictor and timing sensitivity), so that $v_m$ selection is explicit and reproducible. The outcome is a set of weights $W^{*}$ and a synthetic outcome path: $Y_{1t}^{\text{synt}} = \sum_{i=2}^{N+1} w_i^{*} Y_{it}$ for $t > T_0$. For Canterbury, our preferred convention sets 2011 as the first post-treatment year (because the February 2011 event generated the largest disruption), but we also report 2010-start and 2012-start sensitivity specifications with full placebo diagnostics in Section~\ref{sec:robustness_checks}.
 
 \begin{table}[H]
 \centering
@@ -210,7 +210,7 @@ Statistical inference in the SCM framework relies on placebo-based methods. We i
 
 \paragraph{Leave-One-Out Sensitivity:} To ensure results are not driven by a single donor region, we re-run the SCM excluding each donor with a non-trivial weight one at a time. In our analysis, removing any one donor does not eliminate the Canterbury effect, and the null result for Maule remains unchanged.
 
-\paragraph{Predictor-weight and predictor-set symmetry sensitivity:} Next we document two additional implementation checks for robustness. First, we vary the SCM predictor-weight optimization settings (initialization and method) while holding donor pools and timing fixed. Second, we re-estimate both country models under a harmonized reduced predictor set that uses common broad sectors (agriculture, manufacturing, construction, trade/hospitality, transport/information, finance/business, personal services, and public administration), while retaining country-specific auxiliary controls (GDP per capita and education). These diagnostics are reported in Section~4.3 and confirm that the treatment conclusions are not driven by one specific $v_m$ tuning choice or by unavoidable data asymmetries.
+\paragraph{Predictor-weight and predictor-set symmetry sensitivity:} Next we document two additional implementation checks for robustness. First, we vary the SCM predictor-weight optimization settings (initialization and method) while holding donor pools and timing fixed. Second, we re-estimate both country models under a harmonized reduced predictor set that uses common broad sectors (agriculture, manufacturing, construction, trade/hospitality, transport/information, finance/business, personal services, and public administration), while retaining country-specific auxiliary controls (GDP per capita and education). These diagnostics are reported in Section~\ref{sec:robustness_checks} and confirm that the treatment conclusions are not driven by one specific $v_m$ tuning choice or by unavoidable data asymmetries.
 
 \paragraph{In-Time Placebo (Falsification) Test:} We run a \emph{rolling} in-time placebo: for each candidate treatment year we re-estimate SCM and plot the resulting gap path (Figure~\ref{fig:rolling_in_time_placebo}). For New Zealand we use candidate years 2003--2009 and the actual treatment year 2011; for Chile, 1993--2009 and 2010, ensuring at least three pre-treatment years per fit. The post-treatment divergence is unique to the actual treatment year; placebo years show no sustained divergence, as expected.
 
@@ -219,6 +219,7 @@ Finally, throughout the analysis we maintain the standard SCM assumption that no
 
 \section{Results}
 \subsection{Main GDP per Capita Trends}
+\label{sec:main_gdp_results}
 Figure \ref{fig:gdp_paths} presents the trajectories of real GDP per capita for the treated regions and their synthetic counterfactuals. As evidenced by the solid lines, the synthetic controls track the actual pre-quake GDP per capita of each region extremely well, providing a credible counterfactual baseline. For the 2010 Maule earthquake (Figure \ref{fig:gdp_paths}a), the post-2010 path of actual GDP per capita remains very close to the synthetic. Visually, no persistent divergence is evident. In contrast, for Canterbury (Figure \ref{fig:gdp_paths}b), the actual GDP per capita begins to pull away (deviate) from the synthetic starting in 2012. By 2016, the actual GDP per capita in Canterbury is roughly 12\% \textit{higher} than what the synthetic counterfactual predicts.
 
 \begin{figure}[H]\centering
@@ -351,42 +352,10 @@ Figure~\ref{fig:uniform_sets} complements the placebo evidence with 95\% uniform
 
 We also perform a \emph{rolling} in-time placebo: we re-estimate SCM for each candidate treatment year $T$ in the pre-period and plot the resulting gap path. For New Zealand we use $T \in \{2003,\ldots,2009, 2011\}$ and for Chile $T \in \{1993,\ldots,2009, 2010\}$, with at least three pre-treatment years per fit. Figure~\ref{fig:rolling_in_time_placebo} shows that the post-treatment divergence is unique to the actual treatment year (Canterbury's gap rises only when 2011 is used; Maule remains near zero for 2010 and for all placebo years), so the results are not driven by pre-existing diverging trends. The pre/post-RMSPE ratio for Maule is 0.48, and the associated pseudo-$p$ value is 1.00, confirming that it is not significant in rank terms. For Canterbury, the RMSPE ratio is 7.81, the highest among the 15 NZ regions in our donor pool, giving a one-sided pseudo-$p$ value of $1/15 \approx 0.067$ ($\approx$6.7\%). Together with the uniform sets, this implies that Canterbury’s positive effect is strongest in mid-rebuild years and less precisely estimated late in the horizon. Finally, our results are a measure of \emph{flows} (real GDP per capita); hence, they do not value the \emph{stock} losses from capital destruction or non-market welfare costs (mortality, morbidity, displacement, etc.). The Canterbury overshoot is consistent with a \textit{transitory replacement} boom concentrated in the construction sector, not with broad-based productivity gains; in fact, the gap attenuates as the rebuild concludes. Therefore, a positive post-quake GDP gap can coexist with lower net wealth or welfare; our estimates should be read as output responses, rather than a comprehensive welfare assessment \parencite{hallegatte2010economics}.
 
-\subsection{Validation using night-time lights}
-To address concerns about potential measurement noise in regional GDP accounts during reconstruction, we build a remote-sensing validation using annual night-time lights (NTL). Specifically, we aggregate a harmonized DMSP-OLS/VIIRS product to the same regional units used in the SCM and re-estimate parallel SCM specifications for Maule and Canterbury over 2000--2019, preserving treatment timing (2010 for Maule, 2011 for Canterbury) and donor-pool logic. Figure~\ref{fig:ntl_validation} reports the resulting treated-vs-synthetic NTL paths and gaps. For Canterbury, the NTL evidence aligns with the GDP inference: the post-2011 gap is positive, with a 2016 gap of about 10.0\% and an average post-treatment gap of about 7.8\%.
-
-For Maule, however, NTL does \emph{not} replicate the GDP-null result: the NTL gap is positive (around 14.2\% in 2016; average post-treatment gap around 13.0\%). Hence, the night-time lights evidence confirms the direction of the Canterbury overshoot but diverges from the Maule GDP estimate. To probe whether these findings are an artifact of one specific light product, we re-estimate SCM using an alternative annual VIIRS-extrapolated processing chain. The sign pattern is unchanged (Maule remains positive; Canterbury remains positive), though magnitudes differ (about 8.0\% average post-gap in Maule and 12.1\% in Canterbury), reinforcing that product choice affects scale more than direction in this exercise.
-
-\begin{figure}[H]\centering
-\caption{\textbf{Night-time lights SCM validation for Chile and New Zealand}}
-\label{fig:ntl_validation}
-\begin{subfigure}{0.95\textwidth}\centering
-\includegraphics[width=\textwidth]{article_assets/ntl_validation_paths_gaps.png}
-\caption{Harmonized DMSP-OLS/VIIRS paths and gaps}
-\end{subfigure}
-\vspace{1ex}
-\begin{subfigure}{0.95\textwidth}\centering
-\includegraphics[width=\textwidth]{article_assets/ntl_sensor_processing_robustness.png}
-\caption{Alternative sensor/processing robustness}
-\end{subfigure}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Panel (a) reports treated-region vs.\ synthetic-control NTL paths and gaps for both Chile (Maule) and New~Zealand (Canterbury), using the harmonized annual product. Panel (b) compares the baseline harmonized product with an alternative annual VIIRS-extrapolated processing chain. Gaps are expressed as percentage differences between treated and synthetic NTL levels.
-\end{minipage}
-\end{figure}
-
-Finally, Figure~\ref{fig:ntl_spatial_sensitivity} reports spatial robustness checks that parallel the SCM validation for both treated regions. For Chile, we compare full-region Maule lights, an urban-core mask (top quintile of pre-treatment lit pixels), and the corresponding synthetic-control path, all indexed to 2009=100. For New~Zealand, we construct analogous full-region, urban-core, and synthetic paths for Canterbury, indexed to 2010=100, to assess whether the NTL signal is concentrated in the dense urban core or reflects broader regional re-lighting.\\
-
-\begin{figure}[H]\centering
-\caption{\textbf{Spatial sensitivity checks for NTL validation (Maule and Canterbury)}}
-\label{fig:ntl_spatial_sensitivity}
-\includegraphics[width=0.95\textwidth]{article_assets/ntl_spatial_sensitivity.png}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Left panel: Chile (Maule) full-region lights, Maule urban-core lights, and synthetic-Maule lights (all indexed to 2009=100). Right panel: New~Zealand (Canterbury) full-region lights, Canterbury urban-core lights, and synthetic-Canterbury lights (all indexed to 2010=100). Vertical dashed lines mark treatment timing (2010 in Chile, 2011 in New~Zealand).
-\end{minipage}
-\end{figure}
-
-To summarize, NTL validation provides partial corroboration of our main GDP findings: the Canterbury overshoot is confirmed by an independent measurement source, strengthening the credibility of that result. However, the positive Maule NTL gap does not replicate the GDP-null finding. We interpret this asymmetry in Maule's results in light of two considerations. First, regional GDP is a direct statistical measure constructed from administrative and survey sources by the Banco Central de Chile, while nighttime lights are an indirect satellite-based proxy for economic activity. When a direct measure and an indirect proxy diverge, there are reasons to privilege the former, especially in regions with significant agricultural and rural components (such as Maule, where 16.5\% of GDP originates in agriculture and forestry (Table 2)), as nighttime lights are a poor proxy for primary sector economic activity and can exhibit a negative relationship with GDP in agriculture-heavy regions \parencite{gibson2021night}. Thus, the presence of agricultural and rural economic activities could suggest that part of that output does not emit nightlight proportional to its economic value. Second, the DMSP-OLS sensor suffers from measurement limitations, including top-coding, pixel blooming, inter-annual calibration noise, and atmospheric sensitivity \parencite{gibson2021night}, all of which are problematic for level comparisons within a single region over time. In fact, the sensitivity of the Maule NTL result to processing choices (approximately 13\% under the harmonized product versus 8\% under the VIIRS-extrapolated alternative) underscores this point. Given these challenges, we interpret Maule's NTL discrepancy with caution and conclude that it does not, in our assessment, override the direct GDP estimates, though it merits further investigation with higher-resolution remote-sensing products in future work.
+Appendix~\ref{sec:ntl_appendix} reports an independent night-time lights (NTL) validation of the GDP results, together with product-choice and spatial-sensitivity checks. We move that material to the appendix to keep the main analytical arc focused on GDP results, sectoral decomposition, and robustness. In brief, the NTL evidence corroborates the Canterbury overshoot but is more mixed for Maule, so we report it transparently while treating the regional GDP accounts as our primary outcome measure.
 
 \subsection{Sectoral Impact Analysis}
+\label{sec:sectoral_impact_analysis}
 Now, to identify whether the Canterbury overshoot is broad-based or sector-specific, we estimate additional SCM models for sectoral aggregates in \emph{both} countries. We report treated-versus-synthetic paths for construction and non-construction aggregates, plus placebo-based inference diagnostics. Figure~\ref{fig:sector_analysis} shows the New~Zealand case and Figure~\ref{fig:sector_analysis_chile} shows the parallel Chile case.
 
 \begin{figure}[H]\centering
@@ -480,50 +449,22 @@ Normalized gap: $\widehat{g}^{\max}/\ell$ (gap-pp per 1 pp GDP-loss share) & $\a
 \end{minipage}
 \end{table}
 
-We also implement spatial damage controls in measurement. First, we re-estimate night-time-lights validation paths using urban-core masks (Talca-Curicó-Linares-Cauquenes in Maule; Christchurch-centered core in Canterbury) rather than only full administrative regions. Second, for Canterbury we add concentric 30/50/80 km buffers centered on Christchurch (Appendix Figure~\ref{fig:ntl_spatial_sensitivity_buffers}) and show that all buffers share the same qualitative post-2011 pattern (initial dip, sustained rebuild rise). Together with the progressive geographic donor exclusions in Appendix~\ref{sec:spillover_appendix}, these checks reduce the risk that our cross-case contrast is driven solely by within-region spatial composition differences.
+Appendix~\ref{sec:ntl_appendix} also reports spatial damage controls in measurement. There we re-estimate night-time-lights validation paths using urban-core masks (Talca-Curicó-Linares-Cauquenes in Maule; Christchurch-centered core in Canterbury) and Canterbury-centered 30/50/80 km buffers. Together with the progressive geographic donor exclusions in Appendix~\ref{sec:spillover_appendix}, these checks reduce the risk that our cross-case contrast is driven solely by within-region spatial composition differences.
 
 Detailed timing, jackknife, and uniform-threshold sensitivity outputs are reported in Appendix~\ref{sec:additional_robustness_appendix}; the main conclusions are unchanged across all variants.
 
-To further stress-test the long post-treatment horizon and the potential inexact-matching concern for Maule, we implement two additional estimators. First, we estimate Synthetic Difference-in-Differences (SDID; \cite{arkhangelsky2021sdid}) for both cases. Second, we estimate a penalized (bias-corrected) SCM in the spirit of \textcite{abadie2021penalized}. For the penalized estimator, we tune the penalty over a grid and select the largest $\lambda$ within 5\% of the minimum pre-period RMSPE (selected $\lambda=10^{-3}$ in both countries). The resulting post-period estimates are reported in Table~\ref{tab:sdid_penalized} and visualized in Figure~\ref{fig:sdid_penalized_gaps}. Canterbury remains clearly positive under SDID (+7.8\% average post-gap over 2011--2019) and under penalized SCM (+6.5\%), confirming that the overshoot is not an artifact of baseline SCM weighting alone. Maule remains non-positive across alternatives (SCM: $-1.7$\%, SDID: $-5.1$\%, penalized SCM: $-1.5$\% over 2010--2019), reinforcing the absence of a positive medium-run overshoot.\\
+Finally, Appendix~\ref{sec:additional_robustness_appendix} reports alternative-estimator robustness using Synthetic Difference-in-Differences (SDID; \cite{arkhangelsky2021sdid}) and penalized SCM in the spirit of \textcite{abadie2021penalized}. The qualitative pattern is unchanged: Canterbury remains clearly positive across estimators (about 6.5--7.8\% average post-gap), while Maule remains non-positive, so the cross-case asymmetry is not an artifact of baseline SCM weighting alone.
 
-\begin{table}[H]
-\centering
-\caption{\textbf{Robustness to SDID and penalized/bias-corrected SCM}}
-\label{tab:sdid_penalized}
-\small
-\setlength{\tabcolsep}{6pt}
-\begin{tabular}{llccc}
-\toprule
-\textbf{Country} & \textbf{Estimator} & \textbf{Mean post-gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} \\
-\midrule
-Chile & SCM & $-1.7$ & 3.4 & 2.5 \\
-Chile & SDID & $-5.1$ & 3.1 & 5.3 \\
-Chile & Penalized SCM & $-1.5$ & 3.0 & 2.3 \\
-New~Zealand & SCM & 7.8 & 1.0 & 8.8 \\
-New~Zealand & SDID & 7.8 & 1.7 & 8.5 \\
-New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
-\bottomrule
-\end{tabular}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Post windows are 2010--2019 for Maule and 2011--2019 for Canterbury. SDID is estimated with non-negative unit and time simplex weights plus intercept balancing. Penalized SCM uses a ridge penalty over pre-treatment outcomes; penalty choice follows a conservative 5\% pre-fit tolerance rule.
-\end{minipage}
-\end{table}
-
-
-\begin{figure}[H]\centering
-\caption{\textbf{Gap trajectories under SCM, SDID, and penalized SCM}}
-\label{fig:sdid_penalized_gaps}
-\includegraphics[width=0.95\textwidth]{article_assets/sdid_bias_corrected_gaps.png}
-\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
-\textit{Notes:} Each panel reports annual treated-minus-counterfactual gaps in percent under three estimators. The vertical dashed line marks treatment timing (2010 in Chile, 2011 in New~Zealand). Canterbury’s positive divergence persists under SDID and penalized SCM; Maule remains at or below zero.
-\end{minipage}
-\end{figure}
-
+\iffalse
 In addition to the jackknife test, we check for sensitivity to the donor pool composition.  We re-run the Maule SCM excluding Region VI (O’Higgins), a neighbor that was moderately affected by the quake, and the resulting gap for Maule remains virtually unchanged.  For Canterbury, we test excluding the Wellington region (as its economy could be indirectly stimulated by government spending).  When Wellington is dropped, the estimated gap is slightly larger, strengthening our conclusion. We also drop other potential spillover or small-donor regions, such as the West Coast and Marlborough, and find that the gap is virtually unchanged.  Even when both Wellington and the West Coast are simultaneously removed, Canterbury’s positive gap persists.  These checks give confidence that our findings are not artifacts of donor pool contamination or spillovers. We provide a comprehensive treatment of SUTVA and spillover concerns (including explicit population-flow, labour-reallocation, and economic-linkage diagnostics, together with geographically structured progressive donor exclusions) in Appendix~\ref{sec:spillover_appendix}.
 
 We also consider the possibility of “cherry-picking” bias \autocite{ferman2020cherry} in our study. It is important to note that these two significant earthquakes were identified for analysis \textit{ ex ante} due to their severe magnitude, temporal closeness (2010–2011), and socioeconomic importance for both countries (\cite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}); thus, they were not selected based on their results. In fact, by reporting both Maule’s null result and Canterbury's significant positive result, we show heterogeneity and avoid reporting only confirmatory findings, thus adding nuanced and transparency to our analysis. Finally, the treatment-timing appendix outputs (Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe}) show that Canterbury’s positive effect persists under 2010-, 2011-, and 2012-start conventions, while Maule remains non-positive under nearby placebo starts. The Canterbury effect peaks around 2015--2016 and declines below 5\% by 2019, underscoring a medium-lived rather than permanent level shift.\footnote{Concerning timing choice and horizon considerations, we prefer 2011 as the first post-treatment year for Canterbury because the February 2011 shock drove the largest disruption, but the 2010-start and the 2012-start alternatives preserve the core conclusion of our findings. We truncate the main post window at 2019 to avoid COVID-19 confounding.}
 
 To conclude, we evaluate key alternative macro confounders. First, because the SCM comparisons are estimated within each country in constant local prices, cross-country exchange-rate movements cannot mechanically generate our estimated \emph{within-country} treated-versus-synthetic gaps. Second, Chile-specific post-2010 shocks (including the 2014 Iquique earthquake in Region~I) are addressed through donor-pool robustness checks that exclude affected regions, with Maule remaining near zero. Third, commodity-cycle and global-cycle channels are partly differenced out by design because treated regions are compared against weighted \textit{domestic controls} exposed to the same national monetary/fiscal regime and broad external conditions; nevertheless, we interpret institutional channels as probabilistic rather than exclusive and avoid claiming that institutions are the sole determinant. Finally, we recognize that Canterbury’s reconstruction occurred during the broader post-GFC recovery and after a multi-shock sequence (2010--2011), which may have amplified short-run multipliers relative to a single-shock setting. These considerations refine the interpretation but do not overturn the asymmetry of both cases (Maule near-null; Canterbury positive, then attenuating).
+
+\fi
+
+To conclude, we evaluate key alternative macro confounders. First, because the SCM comparisons are estimated within each country in constant local prices, cross-country exchange-rate movements cannot mechanically generate our estimated \emph{within-country} treated-versus-synthetic gaps. Second, Chile-specific post-2010 shocks (including the 2014 Iquique earthquake in Region~I) are addressed through donor-pool robustness checks that exclude affected regions, with Maule remaining near zero. Third, commodity-cycle and global-cycle channels are partly differenced out by design because treated regions are compared against weighted \textit{domestic controls} exposed to the same national monetary/fiscal regime and broad external conditions; nevertheless, we interpret institutional channels as probabilistic rather than exclusive and avoid claiming that institutions are the sole determinant. Finally, we recognize that Canterbury's reconstruction occurred during the broader post-GFC recovery and after a multi-shock sequence (2010--2011), which may have amplified short-run multipliers relative to a single-shock setting. These considerations refine the interpretation but do not overturn the asymmetry of the two cases (Maule near-null; Canterbury positive, then attenuating).
 
 \section{Discussion and Interpretation of the Results}
 
@@ -566,7 +507,7 @@ Before proceeding, we note a limitation of our interpretation of the results. Th
 Our cross-case results and the literature reviewed in Section 2 suggest that the institutional context is associated with the \emph{timing}, \emph{composition}, and \emph{persistence} of post-quake dynamics (see also \cite{barone2014natural, raschky2008institutions, noydupont2018longterm, loayza2012natural}). Based on the data available (see Appendix E), we can identify three relevant channels emerging from both the empirical literature and the comparative evidence in Sections~4.1–4.3.\footnote{Our SCM design identifies a robust empirical asymmetry: Canterbury overshoots its counterfactual while Maule does not; but \textit{it does not}, by construction, identify which specific institutional features caused this divergence. Isolating the contribution of any single institutional channel would require micro-level variation that our aggregate regional design cannot provide. Instead, what we can do is examine whether the timing, composition, and persistence of the estimated effects are consistent with institutional channels documented in the comparative disaster literature, and whether observable institutional differences between the two cases align with the direction of the estimated effects. The reader can find more details in the Appendix E.}
 
 \paragraph{(i) Financial capacity (insurance \& public finance):}
-Early, large, and predictable financial liquidity can convert a replacement investment effort into a multi-year reconstruction cycle as we have suggested in Section 4. In Canterbury, pervasive catastrophe insurance (the EQC layer plus private coverage) and rapid private claims processing injected quickly, and with low transaction costs, very large funds into the region (total insurance payouts $\,\approx\,$NZ\$30\,b; residential \emph{loss} coverage $\,\approx\,80\%$), and GDP per capita diverges upwards beginning in 2012 just as rebuilding activity scales up (Figures~\ref{fig:gdp_paths}b and \ref{fig:gaps}b) (see also \cite{nguyen2020insurance, parker2016five}). The pre-funded Natural Disaster Fund (NZ\$6.1~billion) and more than NZ\$5~billion in international reinsurance recoveries meant reconstruction capital was available at scale, and claims lodgement began within days and managed repairs were underway within the first year (see Appendix~E). 
+Early, large, and predictable financial liquidity can convert a replacement investment effort into a multi-year reconstruction cycle, as suggested by the results section. In Canterbury, pervasive catastrophe insurance (the EQC layer plus private coverage) and rapid private claims processing injected quickly, and with low transaction costs, very large funds into the region (total insurance payouts $\,\approx\,$NZ\$30\,b; residential \emph{loss} coverage $\,\approx\,80\%$), and GDP per capita diverges upwards beginning in 2012 just as rebuilding activity scales up (Figures~\ref{fig:gdp_paths}b and \ref{fig:gaps}b) (see also \cite{nguyen2020insurance, parker2016five}). The pre-funded Natural Hazard Fund (NZ\$6.1~billion) and more than NZ\$5~billion in international reinsurance recoveries meant reconstruction capital was available at scale, and claims lodgement began within days and managed repairs were underway within the first year (see Appendix~E).
 
 Crucially, the reinsurance component constituted an \textit{exogenous capital inflow} from international risk-sharing markets into a single regional economy, which is a channel that existed because of the pre-established national insurance architecture (EQC, mandatory residential coverage, and reinsurance treaties) constructed over preceding decades. Chile's reconstruction, by contrast, was funded through domestic fiscal reallocation, with no comparable external capital channel. In the Maule case, for instance, the insurance take-up was \(<20\%\) and reconstruction relied heavily on public transfers from the central government in Santiago and household savings ($\,\approx\,$US\$8.4\,b public spending), consistent with an absence of aggregate overshoot relative to the synthetic Maule (Section~4.1).
 
@@ -623,7 +564,7 @@ All data are from official statistical sources cited in the text. The scripts us
 
 1. \textbf{Section A}: Sectoral SCM appendix
 
-2. \textbf{Section B}: Additional night-time lights spatial robustness
+2. \textbf{Section B}: Night-time lights validation and spatial robustness
 
 3. \textbf{Section C}: SUTVA/spillover diagnostics and geographically robust donor pools
 
@@ -684,7 +625,42 @@ Chile & Services (non-construction) & +5.62 & 2.67 & 0.42 \\
 \end{minipage}
 \end{table}
 
-\section{Additional night-time lights spatial robustness (Canterbury buffers)}
+\section{Night-time lights validation and spatial robustness}
+\label{sec:ntl_appendix}
+
+To address concerns about potential measurement noise in regional GDP accounts during reconstruction, we build a remote-sensing validation using annual night-time lights (NTL). Specifically, we aggregate a harmonized DMSP-OLS/VIIRS product to the same regional units used in the SCM and re-estimate parallel SCM specifications for Maule and Canterbury over 2000--2019, preserving treatment timing (2010 for Maule, 2011 for Canterbury) and donor-pool logic. Figure~\ref{fig:ntl_validation} reports the resulting treated-vs-synthetic NTL paths and gaps. For Canterbury, the NTL evidence aligns with the GDP inference: the post-2011 gap is positive, with a 2016 gap of about 10.0\% and an average post-treatment gap of about 7.8\%.
+
+For Maule, however, NTL does \emph{not} replicate the GDP-null result: the NTL gap is positive (around 14.2\% in 2016; average post-treatment gap around 13.0\%). Hence, the night-time lights evidence confirms the direction of the Canterbury overshoot but diverges from the Maule GDP estimate. To probe whether these findings are an artifact of one specific light product, we re-estimate SCM using an alternative annual VIIRS-extrapolated processing chain. The sign pattern is unchanged (Maule remains positive; Canterbury remains positive), though magnitudes differ (about 8.0\% average post-gap in Maule and 12.1\% in Canterbury), reinforcing that product choice affects scale more than direction in this exercise.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Night-time lights SCM validation for Chile and New Zealand}}
+\label{fig:ntl_validation}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_validation_paths_gaps.png}
+\caption{Harmonized DMSP-OLS/VIIRS paths and gaps}
+\end{subfigure}
+\vspace{1ex}
+\begin{subfigure}{0.95\textwidth}\centering
+\includegraphics[width=\textwidth]{article_assets/ntl_sensor_processing_robustness.png}
+\caption{Alternative sensor/processing robustness}
+\end{subfigure}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Panel (a) reports treated-region vs.\ synthetic-control NTL paths and gaps for both Chile (Maule) and New~Zealand (Canterbury), using the harmonized annual product. Panel (b) compares the baseline harmonized product with an alternative annual VIIRS-extrapolated processing chain. Gaps are expressed as percentage differences between treated and synthetic NTL levels.
+\end{minipage}
+\end{figure}
+
+Figure~\ref{fig:ntl_spatial_sensitivity} reports spatial robustness checks that parallel the SCM validation for both treated regions. For Chile, we compare full-region Maule lights, an urban-core mask (top quintile of pre-treatment lit pixels), and the corresponding synthetic-control path, all indexed to 2009=100. For New~Zealand, we construct analogous full-region, urban-core, and synthetic paths for Canterbury, indexed to 2010=100, to assess whether the NTL signal is concentrated in the dense urban core or reflects broader regional re-lighting.
+
+\begin{figure}[H]\centering
+\caption{\textbf{Spatial sensitivity checks for NTL validation (Maule and Canterbury)}}
+\label{fig:ntl_spatial_sensitivity}
+\includegraphics[width=0.95\textwidth]{article_assets/ntl_spatial_sensitivity.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Left panel: Chile (Maule) full-region lights, Maule urban-core lights, and synthetic-Maule lights (all indexed to 2009=100). Right panel: New~Zealand (Canterbury) full-region lights, Canterbury urban-core lights, and synthetic-Canterbury lights (all indexed to 2010=100). Vertical dashed lines mark treatment timing (2010 in Chile, 2011 in New~Zealand).
+\end{minipage}
+\end{figure}
+
+To summarize, NTL validation provides partial corroboration of our main GDP findings: the Canterbury overshoot is confirmed by an independent measurement source, strengthening the credibility of that result. However, the positive Maule NTL gap does not replicate the GDP-null finding. We interpret this asymmetry in Maule's results in light of two considerations. First, regional GDP is a direct statistical measure constructed from administrative and survey sources by the Banco Central de Chile, while nighttime lights are an indirect satellite-based proxy for economic activity. When a direct measure and an indirect proxy diverge, there are reasons to privilege the former, especially in regions with significant agricultural and rural components (such as Maule, where 16.5\% of GDP originates in agriculture and forestry (Table 2)), as nighttime lights are a poor proxy for primary sector economic activity and can exhibit a negative relationship with GDP in agriculture-heavy regions \parencite{gibson2021night}. Thus, the presence of agricultural and rural economic activities could suggest that part of that output does not emit nightlight proportional to its economic value. Second, the DMSP-OLS sensor suffers from measurement limitations, including top-coding, pixel blooming, inter-annual calibration noise, and atmospheric sensitivity \parencite{gibson2021night}, all of which are problematic for level comparisons within a single region over time. In fact, the sensitivity of the Maule NTL result to processing choices (approximately 13\% under the harmonized product versus 8\% under the VIIRS-extrapolated alternative) underscores this point. Given these challenges, we interpret Maule's NTL discrepancy with caution and conclude that it does not, in our assessment, override the direct GDP estimates, though it merits further investigation with higher-resolution remote-sensing products in future work.
 
 \begin{figure}[H]\centering
 \caption{\textbf{Christchurch-centered buffer sensitivity for night-time lights (Canterbury)}}
@@ -874,7 +850,41 @@ Detailed spillover-diagnostics outputs are reported in the tables and figures in
 \section{Additional robustness details}
 \label{sec:additional_robustness_appendix}
 
-For readability of the main manuscript, this appendix collects the full timing-sensitivity diagnostics, jackknife plot, and uniform-threshold sensitivity plots referenced in Section~\ref{sec:robustness_checks}.
+For readability of the main manuscript, this appendix collects the alternative-estimator robustness, full timing-sensitivity diagnostics, jackknife plot, and uniform-threshold sensitivity plots referenced in Section~\ref{sec:robustness_checks}.
+
+To further stress-test the long post-treatment horizon and the potential inexact-matching concern for Maule, we implement two additional estimators. First, we estimate Synthetic Difference-in-Differences (SDID; \cite{arkhangelsky2021sdid}) for both cases. Second, we estimate a penalized (bias-corrected) SCM in the spirit of \textcite{abadie2021penalized}. For the penalized estimator, we tune the penalty over a grid and select the largest $\lambda$ within 5\% of the minimum pre-period RMSPE (selected $\lambda=10^{-3}$ in both countries). The resulting post-period estimates are reported in Table~\ref{tab:sdid_penalized} and visualized in Figure~\ref{fig:sdid_penalized_gaps}. Canterbury remains clearly positive under SDID (+7.8\% average post-gap over 2011--2019) and under penalized SCM (+6.5\%), confirming that the overshoot is not an artifact of baseline SCM weighting alone. Maule remains non-positive across alternatives (SCM: $-1.7$\%, SDID: $-5.1$\%, penalized SCM: $-1.5$\% over 2010--2019), reinforcing the absence of a positive medium-run overshoot.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Robustness to SDID and penalized/bias-corrected SCM}}
+\label{tab:sdid_penalized}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Country} & \textbf{Estimator} & \textbf{Mean post-gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} \\
+\midrule
+Chile & SCM & $-1.7$ & 3.4 & 2.5 \\
+Chile & SDID & $-5.1$ & 3.1 & 5.3 \\
+Chile & Penalized SCM & $-1.5$ & 3.0 & 2.3 \\
+New~Zealand & SCM & 7.8 & 1.0 & 8.8 \\
+New~Zealand & SDID & 7.8 & 1.7 & 8.5 \\
+New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Post windows are 2010--2019 for Maule and 2011--2019 for Canterbury. SDID is estimated with non-negative unit and time simplex weights plus intercept balancing. Penalized SCM uses a ridge penalty over pre-treatment outcomes; penalty choice follows a conservative 5\% pre-fit tolerance rule.
+\end{minipage}
+\end{table}
+
+\begin{figure}[H]\centering
+\caption{\textbf{Gap trajectories under SCM, SDID, and penalized SCM}}
+\label{fig:sdid_penalized_gaps}
+\includegraphics[width=0.95\textwidth]{article_assets/sdid_bias_corrected_gaps.png}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Each panel reports annual treated-minus-counterfactual gaps in percent under three estimators. The vertical dashed line marks treatment timing (2010 in Chile, 2011 in New~Zealand). Canterbury’s positive divergence persists under SDID and penalized SCM; Maule remains at or below zero.
+\end{minipage}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -956,6 +966,8 @@ We additionally run sensitivity checks for the uniform sets by varying the pre-t
 \textit{Notes:} Both panels vary the placebo pre-fit filter (2$\times$, 5$\times$, 10$\times$ the treated pre-RMSPE). The qualitative inference is stable across both countries.
 \end{minipage}
 \end{figure}
+
+We also note a potential ``cherry-picking'' concern \autocite{ferman2020cherry}. These two earthquakes were selected \textit{ex ante} because of their severe magnitude, temporal proximity (2010--2011), and socioeconomic importance in both countries \parencite{dussaillant2014trust, cardenasjiron2012chilean, eqc2017annual, miller2013estimating}, not because of their estimated effects. Reporting both Maule's null result and Canterbury's significant positive result therefore increases transparency rather than selectively emphasizing confirmatory evidence. The timing-sensitivity diagnostics in Table~\ref{tab:timing_sensitivity} and Figures~\ref{fig:timing_sensitivity_paths}--\ref{fig:timing_sensitivity_rmspe} further show that Canterbury's positive effect persists under 2010-, 2011-, and 2012-start conventions, while Maule remains non-positive under nearby placebo starts. The Canterbury effect peaks around 2015--2016 and falls below 5\% by 2019, underscoring a medium-lived rather than permanent level shift.\footnote{Concerning timing choice and horizon considerations, we prefer 2011 as the first post-treatment year for Canterbury because the February 2011 shock drove the largest disruption, but the 2010-start and the 2012-start alternatives preserve the core conclusion. We truncate the main post window at 2019 to avoid COVID-19 confounding.}
 
 \newpage
 
