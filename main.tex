@@ -292,7 +292,7 @@ To unpack whether the Canterbury per-capita result is driven by the numerator (t
 \end{subfigure}
 \end{figure}
 
-For interpretability of the Y/L outcome in both cases, we apply the same decomposition logic to Maule. Regional population (and thus total GDP) are not available over the full SCM window in our Chilean data source, so we report the GDP-per-capita decomposition only for Maule. Figure~\ref{fig:maule_decomposition_paths} and Figure~\ref{fig:maule_decomposition_gaps} show that Maule's GDP-per-capita gap remains near zero. However, given the Chile data-coverage constraint, we cannot fully adjudicate denominator effects over the full analysis window.
+For interpretability of the Y/L outcome in both cases, we apply the same decomposition logic to Maule. Regional population (and thus total GDP) are not available over the full SCM window in our Chilean data source, so we report GDP-per-capita decomposition for the full window and provide a denominator decomposition only over the observed sub-window (2008--2014, with post-treatment years 2010--2014). Figure~\ref{fig:maule_decomposition_paths} and Figure~\ref{fig:maule_decomposition_gaps} show that Maule's GDP-per-capita gap remains near zero. Over the 2010--2014 sub-window, the mean gaps are small and non-positive for all three outcomes (GDP per capita: $-0.54\%$, total GDP: $-1.23\%$, population: $-0.43\%$; Table~\ref{tab:maule_subwindow_decomposition}). However, given the Chile data-coverage constraint, we cannot fully adjudicate denominator effects over the full 1990--2019 analysis window.
 
 \begin{figure}[H]\centering
 \caption{\textbf{Maule Outcome Decomposition: GDP per Capita (Treated vs Synthetic)}}
@@ -308,6 +308,26 @@ For interpretability of the Y/L outcome in both cases, we apply the same decompo
 \label{fig:maule_decomposition_gaps}
 \includegraphics[width=0.7\textwidth]{article_assets/chile_maule_gdp_gap.png}
 \end{figure}
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Maule denominator decomposition over observed sub-window (2008--2014)}}
+\label{tab:maule_subwindow_decomposition}
+\small
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Outcome} & \textbf{Sub-window years available} & \textbf{Mean post-gap (2010--2014, \%)} \\
+\midrule
+GDP per capita & 2008--2014 & $-0.54$ \\
+Total GDP (level) & 2008--2014 & $-1.23$ \\
+Population (level) & 2008--2014 & $-0.43$ \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Sub-window decomposition uses years with observed Chile regional population (2008--2014). Synthetic Maule for each outcome is built with the baseline GDP-per-capita donor weights from Table~\ref{tab:weights} (Araucanía 0.369, O'Higgins 0.347, Los Lagos 0.284). Total GDP is computed as GDP per capita $\times$ population. Mean post-gap is the average treated-minus-synthetic percentage gap over 2010--2014.
+\end{minipage}
+\end{table}
 
 Now, to further assess the significance of our findings, Figure \ref{fig:placebos} displays the results of the placebo tests. For Maule, its gap is neither noticeable nor statistically significant compared to the distribution of placebo gaps (Figure~\ref{fig:placebos}a). For Canterbury, in contrast, its gap stands out clearly as the highest in the post-2011 period, suggesting the effect is statistically significant (Figure~\ref{fig:placebos}b). In addition to these tests, it is worth mentioning the difference between level vs. growth effects: we interpret the post‑2011 divergence in Canterbury primarily as a one‑off \emph{level} increase in GDP per capita that is transitory and fades as the rebuild boost winds down and the insurance payoffs end up being absorbed throughout the economy (see also \cite{nguyen2020insurance}), rather than a permanent change in the growth rate, consistent with the gap decline to below 5\% by 2019 (see Figure~\ref{fig:gaps}b).
 
