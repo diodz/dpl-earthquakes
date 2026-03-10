@@ -113,7 +113,7 @@ A measurement limitation is that region-specific price dynamics in Canterbury ca
 \label{tab:predictors}
 \small % Use a smaller font to ensure the table fits
 \setlength{\tabcolsep}{4pt} % Reduce space between columns for a better fit
-\begin{threeparttable}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lcccccc}
 \toprule
 & \multicolumn{3}{c}{\textbf{Chile (Maule)}} & \multicolumn{3}{c}{\textbf{New Zealand (Canterbury)}} \\
@@ -135,15 +135,11 @@ Public Administration (\%)       & 4.4\%  & 5.6\%  & 6.9\%  & 3.2\%  & 3.3\%  & 
 GDP per capita                   & 2.18M  & 2.15M  & 3.66M  & \$37.9k & \$37.7k & \$37.3k \\
 Tertiary Education (\%)          & 2.9\%  & 2.5\%  & 3.6\%  & 5.5\%  & 5.1\%  & 4.2\%  \\
 \bottomrule
-\end{tabular}
-\begin{tablenotes}[flushleft]\footnotesize
-\item \textit{Notes:} Pre-treatment averages are taken over 2005--2008 for Chile and 2006--2010 for New Zealand. GDP per capita for Chile is in millions of constant 2013 CLP; for NZ it is in thousands of current-price NZD from Statistics NZ's regional GDP release. Dashes (--) indicate a sector not separately reported or negligible in that country's data.
-\item *For NZ, this combines Wholesale Trade, Retail Trade, and Food \& Beverage Services.
-\item **For NZ, this combines Transport, Postal \& Warehousing with Information Media \& Telecommunications.
-\item ***For NZ, this combines Financial \& Insurance, Professional, Scientific \& Technical, and Administrative Services.
-\item ****For NZ, this combines Health Care \& Social Assistance with Education \& Training.
-\end{tablenotes}
-\end{threeparttable}
+\end{tabular}%
+}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Pre-treatment averages are taken over 2005--2008 for Chile and 2006--2010 for New Zealand. GDP per capita for Chile is in millions of constant 2013 CLP; for NZ it is in thousands of current-price NZD from Statistics NZ's regional GDP release. Dashes (--) indicate a sector not separately reported or negligible in that country's data. For NZ, * combines Wholesale Trade, Retail Trade, and Food \& Beverage Services; ** combines Transport, Postal \& Warehousing with Information Media \& Telecommunications; *** combines Financial \& Insurance, Professional, Scientific \& Technical, and Administrative Services; **** combines Health Care \& Social Assistance with Education \& Training.
+\end{minipage}
 \end{table}
 
 In closing this subsection, Figure~\ref{fig:maps} shows the geographic location of the two treated regions within their respective countries.\\
@@ -178,7 +174,7 @@ where $X_{im}$ is the value of predictor $m$ for region $i$, and $v_m$ are predi
 \label{tab:weights}
 \small
 \setlength{\tabcolsep}{4pt} % Reduces space between columns
-\begin{threeparttable}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lc p{3.2cm} | lc p{3.2cm}}
 \toprule
 \multicolumn{3}{c|}{\textbf{Chile (Synthetic Maule)}} & \multicolumn{3}{c}{\textbf{New Zealand (Canterbury)}} \\
@@ -191,11 +187,11 @@ Los Lagos (X)   & 0.284 & Agrarian \& aquaculture hub   & Hawke's Bay        & 0
                 &       &                               & Manawatū-Whanganui & 0.132 & Agriculture \& pastoral hub \\
                 &       &                               & Bay of Plenty      & 0.008 & Horticulture \& tourism \\
 \bottomrule
-\end{tabular}
-\begin{tablenotes}[flushleft]\footnotesize
-\item \textit{Notes:} Weights are the optimal donor weights $w_i^{*}$ for each synthetic control. Only regions with non-zero weights are listed.
-\end{tablenotes}
-\end{threeparttable}
+\end{tabular}%
+}
+\begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
+\textit{Notes:} Weights are the optimal donor weights $w_i^{*}$ for each synthetic control. Only regions with non-zero weights are listed.
+\end{minipage}
 \end{table}
 
 The optimal donor weights for each synthetic counterfactual are shown in Table \ref{tab:weights}. For the Maule case, the synthetic control is constructed from three other southern Chilean regions: Araucanía, O’Higgins, and Los Lagos. As the descriptions indicate, these regions share Maule's economic profile of being primarily agrarian with some resource extraction, making them intuitive parts of a reasonable counterfactual. For Canterbury, the synthetic control is composed of a more diverse set of five regions. The SCM algorithm assigns the largest weight to Auckland, New Zealand's primary services and commercial hub, likely to match Canterbury's own urban core in Christchurch. This is balanced by significant weights from regions with strong primary sectors, such as the West Coast (mining and forestry) and Hawke's Bay (horticulture). This diverse donor mix reflects Canterbury's own balanced economy. In both cases, the weighted combination of these donors yields a synthetic control that tracks the pre-earthquake GDP per capita trend almost perfectly, increasing our confidence in the credibility of our counterfactuals. After constructing the synthetic controls, we evaluate the economic impact of the disasters as the difference in GDP per capita between the treated region and its synthetic counterfactual at each post-treatment time $t$: $\alpha_t = Y_{1t} - Y_{1t}^{\text{synt}}$. We refer to $\alpha_t$ as the \textit{treatment effect}.
@@ -627,7 +623,8 @@ All data are from official statistical sources cited in the text. The scripts us
 \caption{\textbf{Alternative sector-grouping sensitivity (share outcomes)}}
 \label{tab:sector_grouping_sensitivity}
 \small
-\setlength{\tabcolsep}{6pt}
+\setlength{\tabcolsep}{5pt}
+\resizebox{0.95\textwidth}{!}{%
 \begin{tabular}{llccc}
 \toprule
 \textbf{Country} & \textbf{Grouping outcome} & \textbf{Mean post gap (p.p.)} & \textbf{Post/Pre RMSPE} & \textbf{Pseudo-$p$} \\
@@ -637,7 +634,8 @@ New~Zealand & Services (non-construction) & $-4.23$ & 4.45 & 0.07 \\
 Chile & Goods (non-construction) & $-4.35$ & 1.64 & 0.42 \\
 Chile & Services (non-construction) & +5.62 & 2.67 & 0.42 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
 \textit{Notes:} Groupings are defined from country-specific industry classifications and estimated with the same SCM design as the baseline sectoral models. Results remain asymmetric: New~Zealand exhibits stronger service-side crowding-out in shares, while Chile coefficients are imprecise.
 \end{minipage}
@@ -712,7 +710,8 @@ For New~Zealand, Canterbury's post-quake population growth \emph{declined} ($-0.
 \caption{\textbf{Population flow diagnostics: pre- vs post-treatment growth rates}}
 \label{tab:pop_flow_diagnostics}
 \small
-\setlength{\tabcolsep}{5pt}
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llccc}
 \toprule
 \textbf{Country} & \textbf{Group} & \textbf{Pre (\%/yr)} & \textbf{Post (\%/yr)} & \textbf{$\Delta$ (p.p.)} \\
@@ -725,7 +724,8 @@ New~Zealand & Treated (Canterbury) & 1.30 & 1.05 & $-0.24$ \\
 New~Zealand & Adjacent (West Coast, Otago, Marlborough) & 0.68 & 0.74 & $+0.06$ \\
 New~Zealand & Non-adjacent (11 regions) & 0.76 & 1.16 & $+0.40$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
 \textit{Notes:} Pre-treatment windows are 5 years before treatment; post-treatment windows are 5 years from treatment onward. Population data from Statistics NZ and INE Chile.
 \end{minipage}
@@ -813,7 +813,8 @@ Table~\ref{tab:spillover_exclusion_summary} reports the results. Figure~\ref{fig
 \caption{\textbf{SCM estimates under progressive geographic donor exclusions}}
 \label{tab:spillover_exclusion_summary}
 \scriptsize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llcccccc}
 \toprule
 \textbf{Country} & \textbf{Exclusion ring} & \textbf{Excluded} & \textbf{$N$ donors} & \textbf{Mean gap (\%)} & \textbf{Pre RMSPE} & \textbf{Post RMSPE} & \textbf{Post/Pre} \\
@@ -829,7 +830,8 @@ NZ & Ring 2: + Otago + Marl. & 3 regions & 11 & $+9.5$ & 2.3 & 10.1 & 4.36 \\
 NZ & Ring 3: + Well.\ + South. & 5 regions & 9 & $+9.3$ & 2.3 & 9.9 & 4.27 \\
 NZ & Ring 4: + Auckland & 6 regions & 8 & $+12.7$ & 5.0 & 13.3 & 2.66 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
 \textit{Notes:} Mean post gap is computed over the common post-treatment window (2010--2019 for Chile, 2011--2019 for New~Zealand). Pre/Post RMSPE are in percent-of-synthetic units. All models use the same predictor structure and optimisation method as the baseline.
 \end{minipage}
@@ -875,7 +877,8 @@ To further stress-test the long post-treatment horizon and the potential inexact
 \caption{\textbf{Robustness to SDID and penalized/bias-corrected SCM}}
 \label{tab:sdid_penalized}
 \small
-\setlength{\tabcolsep}{6pt}
+\setlength{\tabcolsep}{5pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llccc}
 \toprule
 \textbf{Country} & \textbf{Estimator} & \textbf{Mean post-gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} \\
@@ -887,7 +890,8 @@ New~Zealand & SCM & 7.8 & 1.0 & 8.8 \\
 New~Zealand & SDID & 7.8 & 1.7 & 8.5 \\
 New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
 \textit{Notes:} Post windows are 2010--2019 for Maule and 2011--2019 for Canterbury. SDID is estimated with non-negative unit and time simplex weights plus intercept balancing. Penalized SCM uses a ridge penalty over pre-treatment outcomes; penalty choice follows a conservative 5\% pre-fit tolerance rule.
 \end{minipage}
@@ -907,7 +911,8 @@ New~Zealand & Penalized SCM & 6.5 & 0.7 & 7.5 \\
 \caption{\textbf{Treatment-year timing sensitivity diagnostics (full specification set)}}
 \label{tab:timing_sensitivity}
 \scriptsize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llccccc}
 \toprule
 \textbf{Country} & \textbf{Timing specification} & \textbf{Mean gap (\%)} & \textbf{Pre RMSPE (\%)} & \textbf{Post RMSPE (\%)} & \textbf{Post/Pre} & \textbf{Ratio rank ($p$-value)} \\
@@ -919,7 +924,8 @@ New~Zealand & 2010 start & $6.72$ & $1.08$ & $7.14$ & $6.63$ & $1/15\ (0.067)$ \
 New~Zealand & 2011 start (preferred) & $7.10$ & $1.01$ & $7.88$ & $7.81$ & $1/15\ (0.067)$ \\
 New~Zealand & 2012 sequence-aware start & $6.85$ & $1.02$ & $8.13$ & $7.95$ & $1/15\ (0.067)$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \begin{minipage}{0.95\textwidth}\footnotesize\vspace{1ex}
 \textit{Notes:} Mean gaps are computed over common post windows (2011--2019 for New~Zealand; 2010--2019 for Chile). Ratio rank is the treated-unit rank among treated plus placebo units for the post/pre RMSPE ratio (higher is more extreme). One-sided placebo $p$-values are rank-based randomization-inference probabilities.
 \end{minipage}
