@@ -36,20 +36,6 @@ data/ntl/rasters/
 data/ntl/*.geojson
 Paper*
 
-# LaTeX / MiKTeX build artifacts
-*.aux
-*.bbl
-*.bcf
-*.blg
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.run.xml
-*.synctex.gz
-*.toc
-*.nav
-*.snm
-*.vrb
-response_to_reviewers_standalone.pdf
-main.pdf
+# LaTeX / MiKTeX build output (use build script → build/)
+build/
+*.ps1
