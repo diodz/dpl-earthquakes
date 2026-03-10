@@ -196,6 +196,8 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         )
 
     os.makedirs(output_dir, exist_ok=True)
+    nz_paths.to_csv(os.path.join(output_dir, "rolling_in_time_placebo_nz_paths.csv"), index_label="Year")
+    chile_paths.to_csv(os.path.join(output_dir, "rolling_in_time_placebo_chile_paths.csv"), index_label="Year")
     nz_summary.to_csv(os.path.join(output_dir, "rolling_in_time_placebo_nz_summary.csv"), index=False)
     chile_summary.to_csv(os.path.join(output_dir, "rolling_in_time_placebo_chile_summary.csv"), index=False)
     combined = pd.concat([nz_summary, chile_summary], ignore_index=True)
@@ -224,6 +226,12 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
     ]:
         placebo_years = sorted(c for c in paths_df.columns if c != actual_year)
         n_placebo = len(placebo_years)
+        # Count distinct trajectories to make overlap explicit in the figure.
+        rounded_paths = {
+            tuple(np.round(paths_df[col].to_numpy(dtype=float), 6))
+            for col in placebo_years
+        }
+        n_unique_paths = len(rounded_paths)
         x_vals = np.asarray(paths_df.index, dtype=float)
 
         # Draw every placebo path in a distinct color (colormap by placebo year).
@@ -269,7 +277,7 @@ def run_rolling_in_time_placebo(output_dir: str = FIGURES_DIR) -> tuple[pd.DataF
         ax.text(
             0.02,
             0.98,
-            f"Placebo lines in fit: {n_placebo}",
+            f"Placebo lines in fit: {n_placebo}\nDistinct paths (rounded): {n_unique_paths}",
             transform=ax.transAxes,
             va="top",
             ha="left",
